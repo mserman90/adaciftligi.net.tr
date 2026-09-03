@@ -148,14 +148,13 @@ export const ContactSection: React.FC = () => {
               <div className="mt-4 pt-4 border-t border-stone-100 flex items-center gap-3">
                 <div className="w-16 h-12 rounded-xl overflow-hidden bg-stone-100 border border-stone-200 shrink-0">
                   <img
-                    src="https://images.unsplash.com/photo-1516253593875-bd7ba052fbc5?q=80&w=300&auto=format&fit=crop"
+                    src="/images/facility_small.jpg"
                     alt="Ada Çiftliği Adasarhanlı Köyü Tesisleri"
                     className="w-full h-full object-cover"
                     referrerPolicy="no-referrer"
                     loading="lazy"
                     onError={(e) => {
-                      (e.target as HTMLImageElement).src =
-                        'https://images.unsplash.com/photo-1500595046743-cd271d694d30?q=80&w=300&auto=format&fit=crop';
+                      (e.target as HTMLImageElement).src = '/images/hero_cows.jpg';
                     }}
                   />
                 </div>

@@ -54,8 +54,7 @@ export const Testimonials: React.FC = () => {
                   referrerPolicy="no-referrer"
                   loading="lazy"
                   onError={(e) => {
-                    (e.target as HTMLImageElement).src =
-                      'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=200&auto=format&fit=crop';
+                    (e.target as HTMLImageElement).src = '/images/avatar_2.jpg';
                   }}
                 />
                 <div className="min-w-0">

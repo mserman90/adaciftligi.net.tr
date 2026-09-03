@@ -54,8 +54,7 @@ export const ProcessSection: React.FC = () => {
                       referrerPolicy="no-referrer"
                       loading="lazy"
                       onError={(e) => {
-                        (e.target as HTMLImageElement).src =
-                          'https://images.unsplash.com/photo-1500595046743-cd271d694d30?q=80&w=800&auto=format&fit=crop';
+                        (e.target as HTMLImageElement).src = '/images/hero_cows.jpg';
                       }}
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-stone-950/70 via-stone-950/20 to-transparent" />

@@ -60,11 +60,14 @@ export const AboutSection: React.FC = () => {
           <div className="lg:col-span-6 space-y-4">
             <div className="relative rounded-3xl overflow-hidden shadow-lg border border-stone-200/80 aspect-[16/10]">
               <img
-                src="https://images.unsplash.com/photo-1516253593875-bd7ba052fbc5?q=80&w=1200&auto=format&fit=crop"
+                src="/images/hero_barn.jpg"
                 alt="Meriç Edirne Adasarhanlı Çiftlik Manzarası"
                 className="w-full h-full object-cover hover:scale-103 transition-transform duration-700"
                 referrerPolicy="no-referrer"
                 loading="lazy"
+                onError={(e) => {
+                  (e.target as HTMLImageElement).src = '/images/farm_landscape.jpg';
+                }}
               />
               <div className="absolute inset-0 bg-gradient-to-t from-stone-950/60 via-transparent to-transparent" />
               <div className="absolute bottom-4 left-4 right-4 text-white">
@@ -81,14 +84,13 @@ export const AboutSection: React.FC = () => {
             <div className="grid grid-cols-2 gap-4">
               <div className="group relative rounded-2xl overflow-hidden border border-stone-200 aspect-[4/3] bg-stone-100">
                 <img
-                  src="https://images.unsplash.com/photo-1595273670150-bd0c3c392e46?q=80&w=600&auto=format&fit=crop"
+                  src="/images/tank.jpg"
                   alt="Hijyenik süt sağım ve soğutma tankı ünitesi"
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   referrerPolicy="no-referrer"
                   loading="lazy"
                   onError={(e) => {
-                    (e.target as HTMLImageElement).src =
-                      'https://images.unsplash.com/photo-1550583724-b2692b85b150?q=80&w=600&auto=format&fit=crop';
+                    (e.target as HTMLImageElement).src = '/images/sut.jpg';
                   }}
                 />
                 <div className="absolute inset-0 bg-stone-950/20 group-hover:bg-transparent transition-colors" />
@@ -98,14 +100,13 @@ export const AboutSection: React.FC = () => {
               </div>
               <div className="group relative rounded-2xl overflow-hidden border border-stone-200 aspect-[4/3] bg-stone-100">
                 <img
-                  src="https://images.unsplash.com/photo-1484557052118-f32bd25b45b5?q=80&w=600&auto=format&fit=crop"
+                  src="/images/koyun.jpg"
                   alt="Kıvırcık koyun ve serbest mera sürüsü"
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   referrerPolicy="no-referrer"
                   loading="lazy"
                   onError={(e) => {
-                    (e.target as HTMLImageElement).src =
-                      'https://images.unsplash.com/photo-1535083783855-76ae62b2914e?q=80&w=600&auto=format&fit=crop';
+                    (e.target as HTMLImageElement).src = '/images/kuzu.jpg';
                   }}
                 />
                 <div className="absolute inset-0 bg-stone-950/20 group-hover:bg-transparent transition-colors" />
@@ -214,8 +215,7 @@ export const AboutSection: React.FC = () => {
                   referrerPolicy="no-referrer"
                   loading="lazy"
                   onError={(e) => {
-                    (e.target as HTMLImageElement).src =
-                      'https://images.unsplash.com/photo-1500595046743-cd271d694d30?q=80&w=1000&auto=format&fit=crop';
+                    (e.target as HTMLImageElement).src = '/images/hero_cows.jpg';
                   }}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-stone-950/80 via-stone-950/25 to-transparent opacity-80 group-hover:opacity-90 transition-opacity" />

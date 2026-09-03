@@ -59,7 +59,7 @@ export const FARM_PRODUCTS: FarmProduct[] = [
     title: 'Damızlık & Kesimlik Koyun',
     category: 'kucukbas',
     categoryLabel: 'Küçükbaş',
-    image: 'https://images.unsplash.com/photo-1484557052118-f32bd25b45b5?q=80&w=1000&auto=format&fit=crop',
+    image: '/images/koyun.jpg',
     tag: 'Trakya Kıvırcık & Merinos',
     breed: 'Saf Kıvırcık & Anadolu Merinosu',
     feeding: 'Meriç doğal mera otlatması + yonca',
@@ -78,7 +78,7 @@ export const FARM_PRODUCTS: FarmProduct[] = [
     title: 'Süt Kuzusu & Besi Kuzusu',
     category: 'kucukbas',
     categoryLabel: 'Küçükbaş',
-    image: 'https://images.unsplash.com/photo-1535083783855-76ae62b2914e?q=80&w=1000&auto=format&fit=crop',
+    image: '/images/kuzu.jpg',
     tag: 'Doğal Anne Sütü & Bahar Otu',
     breed: 'Kıvırcık Melezi Süt Kuzuları',
     feeding: 'Anne sütü + taze yonca ve arpa ezmesi',
@@ -97,7 +97,7 @@ export const FARM_PRODUCTS: FarmProduct[] = [
     title: 'Yüksek Verimli Süt İneği',
     category: 'buyukbas',
     categoryLabel: 'Büyükbaş',
-    image: 'https://images.unsplash.com/photo-1570042225831-d98fa7577f1e?q=80&w=1000&auto=format&fit=crop',
+    image: '/images/inek.jpg',
     tag: 'Simental & Siyah Alaca (Holstein)',
     breed: 'Simental Kombine & Holstein Süt Irkı',
     feeding: 'Mısır silajı, fiğ, yonca ve doğal kaba yem',
@@ -116,7 +116,7 @@ export const FARM_PRODUCTS: FarmProduct[] = [
     title: 'Besi Danası & Canlı Kurbanlık',
     category: 'buyukbas',
     categoryLabel: 'Büyükbaş',
-    image: 'https://images.unsplash.com/photo-1546445317-29f4545e9d53?q=80&w=1000&auto=format&fit=crop',
+    image: '/images/dana.jpg',
     tag: 'Etçi Irklar (Şarole / Angus / Simental)',
     breed: 'Simental & Şarole Melezi Erkek Besi Danaları',
     feeding: 'Çiftlik harmanlaması arpa kırması, kepek & kaba ot',
@@ -135,7 +135,7 @@ export const FARM_PRODUCTS: FarmProduct[] = [
     title: 'Günlük Taze Çiğ Çiftlik Sütü',
     category: 'sut',
     categoryLabel: 'Süt Üretimi',
-    image: 'https://images.unsplash.com/photo-1550583724-b2692b85b150?q=80&w=1000&auto=format&fit=crop',
+    image: '/images/sut.jpg',
     tag: 'Yağ Oranı %3.9+ | Katkısız & Soğuk Zincir',
     breed: 'Çiftlik Süt İneklerinden Taze Sağım',
     feeding: 'Doğal kaba yem ve mera besisi aroması',
@@ -158,7 +158,7 @@ export const PRODUCTION_STEPS: ProductionStep[] = [
     subtitle: 'Doğal Habitat & Hayvan Refahı',
     description: 'Hayvanlarımız gün ışığında, Meriç nehrinin alüvyon zengin topraklarında yetişen kekik, yonca ve yabani meralarda serbestçe gezinir. Fabrika artıklarından uzak, kendi arazilerimizde ürettiğimiz kaba yemle beslenir.',
     iconName: 'Sprout',
-    image: 'https://images.unsplash.com/photo-1500595046743-cd271d694d30?q=80&w=800&auto=format&fit=crop',
+    image: '/images/step_pasture.jpg',
     imageAlt: 'Meriç Nehri havzasında serbest otlayan sürüler ve doğal meralar',
     details: [
       '140 dönüm doğal mera ve gölgelikli gezinme alanları',
@@ -172,7 +172,7 @@ export const PRODUCTION_STEPS: ProductionStep[] = [
     subtitle: 'Kusursuz Hijyen & Biyogüvenlik',
     description: 'Süt sağımı el değmeden paslanmaz çelik hatlarla gerçekleştirilir. Sürümüz anlaşmalı veteriner hekimimiz tarafından haftalık aşı, kan analizi ve genel sağlık taramasından geçirilir.',
     iconName: 'ShieldCheck',
-    image: 'https://images.unsplash.com/photo-1596733430284-f7437764b1a9?q=80&w=800&auto=format&fit=crop',
+    image: '/images/step_vet.jpg',
     imageAlt: 'Veteriner sağlık kontrolü, küpeleme ve modern padok bakımı',
     details: [
       'Hassas meme temizliği ve daldırma dezenfeksiyonu',
@@ -186,7 +186,7 @@ export const PRODUCTION_STEPS: ProductionStep[] = [
     subtitle: 'Hızlı Soğuk Zincir & Şeffaf Tartım',
     description: 'Sağılan süt 7 dakika içinde +3.8°C sıcaklığa düşürülerek bakteri üremesi engellenir. Canlı hayvan sevkiyatlarında dijital kalibreli kantar ve resmi ilçe tarım sevk raporları ile teslim yapılır.',
     iconName: 'Truck',
-    image: 'https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?q=80&w=800&auto=format&fit=crop',
+    image: '/images/step_transport.jpg',
     imageAlt: 'Soğutmalı tanker ve canlı hayvan nakliyat aracı',
     details: [
       'Termoking soğutuculu paslanmaz çelik taşıma tankeri',
@@ -209,42 +209,42 @@ export const FARM_GALLERY: FarmGalleryItem[] = [
     id: 'g1',
     title: 'Meriç Deltası Doğal Mera Yayılımı',
     category: 'Mera & Otlak',
-    image: 'https://images.unsplash.com/photo-1500595046743-cd271d694d30?q=80&w=1000&auto=format&fit=crop',
+    image: '/images/hero_cows.jpg',
     description: 'Adasarhanlı Köyü Meriç Nehri havzasında taze kekik ve kır otları ile serbest beslenme.'
   },
   {
     id: 'g2',
     title: 'Kıvırcık Koyun ve Koç Damızlıkları',
     category: 'Küçükbaş',
-    image: 'https://images.unsplash.com/photo-1484557052118-f32bd25b45b5?q=80&w=1000&auto=format&fit=crop',
+    image: '/images/koyun.jpg',
     description: 'Trakya iklimine adapte, hastalıklara dirençli ve yüksek et randımanlı damızlık sürüler.'
   },
   {
     id: 'g3',
     title: 'Bahar Dönemi Süt Kuzusu Padokları',
     category: 'Kuzu',
-    image: 'https://images.unsplash.com/photo-1535083783855-76ae62b2914e?q=80&w=1000&auto=format&fit=crop',
+    image: '/images/kuzu.jpg',
     description: 'Anne sütü ve taze yonca ile büyütülen yumuşak etli sağlıklı kuzularımız.'
   },
   {
     id: 'g4',
     title: 'Simental Süt İnekleri & Havadar Barınak',
     category: 'Büyükbaş',
-    image: 'https://images.unsplash.com/photo-1570042225831-d98fa7577f1e?q=80&w=1000&auto=format&fit=crop',
+    image: '/images/inek.jpg',
     description: 'Günde 28-36 litre süt verimine sahip, düzenli tırnak ve meme bakımı yapılan damızlıklar.'
   },
   {
     id: 'g5',
     title: 'AISI 304 Krom Süt Soğutma Tankı (+3.8°C)',
     category: 'Süt & Hijyen',
-    image: 'https://images.unsplash.com/photo-1595273670150-bd0c3c392e46?q=80&w=1000&auto=format&fit=crop',
+    image: '/images/tank.jpg',
     description: 'El değmeden vakumlu sağılan sütün anında soğutulduğu izole paslanmaz çelik depolama ünitesi.'
   },
   {
     id: 'g6',
     title: 'Besi Danaları & Açık Gezinti Padokları',
     category: 'Besi & Kurbanlık',
-    image: 'https://images.unsplash.com/photo-1546445317-29f4545e9d53?q=80&w=1000&auto=format&fit=crop',
+    image: '/images/dana.jpg',
     description: 'Kendi yetiştirdiğimiz arpa ve yulafla dengeli beslenen, yüksek karkas verimli erkek danalar.'
   }
 ];
@@ -257,7 +257,7 @@ export const TESTIMONIALS: Testimonial[] = [
     location: 'Edirne Merkez',
     comment: 'Ada Çiftliği ile 5 yıldır aralıksız çalışıyoruz. Kıvırcık kuzularının et randımanı ve lezzeti Edirne esnafı olarak bizi hiç yanıltmadı. Hayvanların hepsi sağlıklı ve aşılı, kantar tartımları her zaman dürüst.',
     rating: 5,
-    avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200&auto=format&fit=crop',
+    avatar: '/images/avatar_1.jpg',
     badge: '5 Yıldır Düzenli Alıcı'
   },
   {
@@ -267,7 +267,7 @@ export const TESTIMONIALS: Testimonial[] = [
     location: 'Uzunköprü / Edirne',
     comment: 'Günlük aldığımız çiğ sütün kuru madde ve yağ oranı harika. Yaptığımız ezine tipi peynir ve yoğurtlarda tutarlılığı doğrudan hissediyoruz. Soğuk tank teslimatına gösterdikleri özen için teşekkür ederiz.',
     rating: 5,
-    avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=200&auto=format&fit=crop',
+    avatar: '/images/avatar_2.jpg',
     badge: 'Günlük Taze Süt Tedariği'
   },
   {
@@ -277,7 +277,7 @@ export const TESTIMONIALS: Testimonial[] = [
     location: 'Havsa / Edirne',
     comment: 'Geçen yıl aldığımız 45 baş Simental besi danası çok iyi randıman verdi. Hayvanlar Adasarhanlı köyünün merasında iyi altyapı görmüş, barınak koşulları son derece ferah ve temiz.',
     rating: 5,
-    avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=200&auto=format&fit=crop',
+    avatar: '/images/avatar_3.jpg',
     badge: 'Büyükbaş Damızlık Müşterisi'
   },
   {
@@ -287,7 +287,7 @@ export const TESTIMONIALS: Testimonial[] = [
     location: 'İstanbul (Bakırköy Grubu)',
     comment: 'İstanbul’dan her bayram Meriç Adasarhanlı’ya geliyoruz. İki senedir hisse danalarımızı Ada Çiftliği’nden ayırtıyoruz. Çiftliği gezebilmek, hayvanın ne yediğini kendi gözünle görmek güven veriyor.',
     rating: 5,
-    avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=200&auto=format&fit=crop',
+    avatar: '/images/avatar_4.jpg',
     badge: 'Bireysel & Aile Müşterisi'
   }
 ];

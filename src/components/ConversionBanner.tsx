@@ -17,7 +17,7 @@ export const ConversionBanner: React.FC<ConversionBannerProps> = ({ onOpenInquir
         <div className="relative bg-[#174730] border border-emerald-700/50 rounded-3xl p-8 sm:p-12 lg:p-14 shadow-2xl overflow-hidden">
           {/* Subtle farm landscape background overlay */}
           <img
-            src="https://images.unsplash.com/photo-1500076656116-558758c991c1?q=80&w=1200&auto=format&fit=crop"
+            src="/images/farm_landscape.jpg"
             alt="Ada Çiftliği mera manzarası"
             className="absolute inset-0 w-full h-full object-cover opacity-15 mix-blend-luminosity pointer-events-none"
             referrerPolicy="no-referrer"
