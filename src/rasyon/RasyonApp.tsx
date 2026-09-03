@@ -630,7 +630,7 @@ export const RasyonApp: React.FC<RasyonAppProps> = ({
               }
               onClearRecords={() => {
                 setIofcRecords([]);
-                showToast('IOFC defteri temizlendi.');
+                showToast('SYGM defteri temizlendi.');
               }}
               onToast={showToast}
             />

@@ -166,7 +166,7 @@ export const Header: React.FC<HeaderProps> = ({
                   : 'text-[rgba(243,241,228,0.7)] hover:text-[#F3F1E4]'
               }`}
             >
-              <TrendingUp className="w-3 h-3" /> IOFC
+              <TrendingUp className="w-3 h-3" /> SYGM
             </button>
             <button
               onClick={() => onSelectModule('damizlik')}

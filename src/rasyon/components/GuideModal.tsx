@@ -203,7 +203,7 @@ export const GuideModal: React.FC<GuideModalProps> = ({ isOpen, onClose }) => {
                       type="text"
                       value={glossarySearch}
                       onChange={(e) => setGlossarySearch(e.target.value)}
-                      placeholder="Terim ara (örn: KM, NDF, Asidoz, NEL, IOFC, Mastitis, Kolostrum)..."
+                      placeholder="Terim ara (örn: KM, NDF, Asidoz, NEL, SYGM, Mastitis, Kolostrum)..."
                       className="w-full pl-9 pr-3 py-2 bg-[#FCFBF6] border border-[#DCD7C4] rounded-lg text-xs focus:outline-hidden focus:border-[#2E5B39]"
                     />
                   </div>

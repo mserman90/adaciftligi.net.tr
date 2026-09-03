@@ -3,6 +3,7 @@ import { Download, Plus, Trash2 } from 'lucide-react';
 import { IofcInputs, IofcRecord } from '../../types';
 import { iofcHesapla } from '../../utils/economics';
 import { fmt, toInput, bugun0 } from '../../utils/formatters';
+import { GlossaryText } from '../GlossaryText';
 
 interface IofcPanelProps {
   inputs: IofcInputs;
@@ -57,7 +58,7 @@ export const IofcPanel: React.FC<IofcPanelProps> = ({
       iofc,
       yemPayi,
     });
-    onToast(`IOFC kaydı eklendi: ${fmt(iofc, 1)} ₺/gün.`);
+    onToast(`SYGM kaydı eklendi: ${fmt(iofc, 1)} ₺/gün.`);
   };
 
   return (
@@ -206,7 +207,7 @@ export const IofcPanel: React.FC<IofcPanelProps> = ({
         {/* Mini Form: Add Record */}
         <div className="border border-[#DCD7C4] rounded-lg bg-white p-4 mb-4 shadow-2xs">
           <h4 className="font-heading text-sm font-bold text-[#20261A] mb-3">
-            Günlük IOFC kaydı ekle
+            Günlük SYGM kaydı ekle
           </h4>
           <div className="mb-3">
             <label className="block font-mono-code text-[10px] uppercase text-[#6B7160] mb-1">
@@ -279,7 +280,7 @@ export const IofcPanel: React.FC<IofcPanelProps> = ({
         </div>
 
         <p className="text-xs text-[#6B7160] leading-relaxed">
-          <GlossaryText text="IOFC" /> = (verim × fiyat) − yem maliyeti. Yem maliyetini Süt İneği modülündeki optimum rasyondan <strong>“Son rasyondan aktar”</strong> ile alabilirsiniz.
+          <GlossaryText text="SYGM" /> = (verim × fiyat) − yem maliyeti. Yem maliyetini Süt İneği modülündeki optimum rasyondan <strong>“Son rasyondan aktar”</strong> ile alabilirsiniz.
         </p>
       </div>
 
@@ -289,7 +290,7 @@ export const IofcPanel: React.FC<IofcPanelProps> = ({
           <thead>
             <tr>
               <th className="font-mono-code text-[10.5px] tracking-wider uppercase text-[#6B7160] text-left pb-2.5 border-b border-[#DCD7C4] font-medium">
-                IOFC özeti
+                SYGM özeti
               </th>
               <th className="font-mono-code text-[10.5px] tracking-wider uppercase text-[#6B7160] text-right pb-2.5 border-b border-[#DCD7C4] font-medium">
                 Değer
@@ -309,14 +310,14 @@ export const IofcPanel: React.FC<IofcPanelProps> = ({
               <td className="py-2.5 font-mono-code text-xs text-[#6B7160] text-right">₺/gün</td>
             </tr>
             <tr className="border-b border-[#ECE8D8]">
-              <td className="py-2.5 font-bold text-[#2E5B39]"><GlossaryText text="IOFC" /></td>
+              <td className="py-2.5 font-bold text-[#2E5B39]"><GlossaryText text="SYGM" /></td>
               <td className={`py-2.5 font-mono-code font-bold text-right ${d.iofc < 0 ? 'text-[#8A3B2E]' : 'text-[#2E5B39]'}`}>
                 {fmt(d.iofc, 1)}
               </td>
               <td className="py-2.5 font-mono-code text-xs text-[#6B7160] text-right">₺/gün</td>
             </tr>
             <tr className="border-b border-[#ECE8D8]">
-              <td className="py-2.5"><GlossaryText text="IOFC" /> / kg süt</td>
+              <td className="py-2.5"><GlossaryText text="SYGM" /> / kg süt</td>
               <td className="py-2.5 font-mono-code font-semibold text-right">{fmt(d.iofcKg, 2)}</td>
               <td className="py-2.5 font-mono-code text-xs text-[#6B7160] text-right">₺/kg</td>
             </tr>
@@ -326,19 +327,19 @@ export const IofcPanel: React.FC<IofcPanelProps> = ({
               <td className="py-2.5 font-mono-code text-xs text-[#6B7160] text-right"></td>
             </tr>
             <tr className="border-b border-[#ECE8D8]">
-              <td className="py-2.5">IOFC (aylık)</td>
+              <td className="py-2.5">SYGM (aylık)</td>
               <td className="py-2.5 font-mono-code font-semibold text-right">{fmt(d.iofcAy, 0)}</td>
               <td className="py-2.5 font-mono-code text-xs text-[#6B7160] text-right">₺/ay</td>
             </tr>
             <tr>
-              <td className="py-2.5">Sürü <GlossaryText text="IOFC" /> (günlük)</td>
+              <td className="py-2.5">Sürü <GlossaryText text="SYGM" /> (günlük)</td>
               <td className="py-2.5 font-mono-code font-bold text-[#2E5B39] text-right">{fmt(d.suruGun, 0)}</td>
               <td className="py-2.5 font-mono-code text-xs text-[#6B7160] text-right">₺/gün</td>
             </tr>
           </tbody>
         </table>
         <p className="text-xs text-[#6B7160] leading-relaxed mt-4">
-          <GlossaryText text="IOFC" /> sabit giderleri içermez; işçilik, amortizasyon ve diğer giderler IOFC'den karşılanmalıdır. Tam kâr analizi için Süt Kârlılığı modülüne bakın.
+          <GlossaryText text="SYGM" /> sabit giderleri içermez; işçilik, amortizasyon ve diğer giderler SYGM'den karşılanmalıdır. Tam kâr analizi için Süt Kârlılığı modülüne bakın.
         </p>
       </div>
     </div>

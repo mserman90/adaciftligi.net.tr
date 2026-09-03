@@ -39,10 +39,10 @@ export const MODULES: Record<ModuleKey, ModuleConfig> = {
     btnLabel: 'Rasyonu Hesapla',
     baslik: 'Süt İneği Rasyonu',
     aciklama:
-      'Canlı ağırlık, günlük süt verimi ve süt yağ oranına göre laktasyon ihtiyaçlarını hesaplar; seçtiğiniz hammaddeler ve güncel fiyatlarla 4% FCM bazlı <strong>en düşük maliyetli rasyonu</strong> oluşturur.',
+      'Canlı ağırlık, günlük süt verimi ve süt yağ oranına göre laktasyon ihtiyaçlarını hesaplar; seçtiğiniz hammaddeler ve güncel fiyatlarla 4% YGDS bazlı <strong>en düşük maliyetli rasyonu</strong> oluşturur.',
     meta: [
       'NRC (2001) laktasyon standartları',
-      '4% FCM bazlı enerji dengesi',
+      '4% YGDS bazlı enerji dengesi',
       'NDF ve kaba yem kısıtları',
       'Fiyatlar ve kısıtlar düzenlenebilir',
     ],
@@ -161,12 +161,12 @@ export const MODULES: Record<ModuleKey, ModuleConfig> = {
     adim01: 'Süt ve Yem Verileri',
     baslik: 'IOFC — Süt Yem Marjı',
     aciklama:
-      'IOFC (Income Over Feed Cost), günlük süt gelirinden yem masrafını düşer; besleme ve pazarlama kararlarının sabit gider gölgesinden arınmış göstergesidir. Verim, fiyat ve yem maliyetini girin; <strong>IOFC’nizi, başabaş üçgenini ve fiyat × yem duyarlılık matrisini</strong> anında görün.',
+      'IOFC (Income Over Feed Cost), günlük süt gelirinden yem masrafını düşer; besleme ve pazarlama kararlarının sabit gider gölgesinden arınmış göstergesidir. Verim, fiyat ve yem maliyetini girin; <strong>SYGM’nizi, başabaş üçgenini ve fiyat × yem duyarlılık matrisini</strong> anında görün.',
     meta: [
-      'IOFC = süt geliri − yem maliyeti',
+      'SYGM = süt geliri − yem maliyeti',
       'Başabaş üçgeni: yem · fiyat · verim',
       'Fiyat × yem duyarlılık matrisi',
-      'Günlük IOFC kayıt defteri',
+      'Günlük SYGM kayıt defteri',
     ],
     secim: null,
   },

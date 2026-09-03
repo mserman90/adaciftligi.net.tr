@@ -186,7 +186,7 @@ export const Hero: React.FC<HeroProps> = ({
               : 'text-[#6B7160] hover:text-[#20261A] hover:bg-[#F2EFE2]'
           }`}
         >
-          <TrendingUp className="w-4 h-4" /> IOFC
+          <TrendingUp className="w-4 h-4" /> SYGM
         </button>
 
         <button

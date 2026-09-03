@@ -16,7 +16,7 @@ export const GEB_TUR: Record<
     irkli: true,
     gun: null,
     ipucu:
-      'Kuru döneme giren ineği laktasyon listesinden çıkarıp ayrı takip edin; doğum penceresi ±5 gündür. Kolay doğum geçmişi olan ineklerde bile close-up (negatif DCAD) rasyonu atlanmamalıdır.',
+      'Kuru döneme giren ineği laktasyon listesinden çıkarıp ayrı takip edin; doğum penceresi ±5 gündür. Kolay doğum geçmişi olan ineklerde bile close-up (negatif AKD) rasyonu atlanmamalıdır.',
   },
   koyun: {
     ad: 'Koyun',
@@ -65,7 +65,7 @@ export function gebKilometre(tur: ReproTur, L: number): GebMilestone[] {
       { day: 45, ad: 'El palpasyonu ile doğrulama', aciklama: '40–50. gün rektal palpasyon; ilk taramayı doğrular, erken embriyonik kayıpları yakalar.' },
       { day: 100, ad: 'İkinci gebelik kontrolü', aciklama: '90–120. gün kontrolü, geç dönem fetal kayıpları süzer; kayıp varsa sürü ve tohumlama planı revize edilir.' },
       { day: L - 60, ad: 'Kuru döneme geçiş', aciklama: 'Sütten kesim; 50–60 günlük kuru dönem, meme involusyonu ve sonraki laktasyon için zorunludur.' },
-      { day: L - 21, ad: 'Yakın doğum (close-up) grubu', aciklama: '21 gün kala enerji yoğun, anionik (negatif DCAD) rasyona geçiş; doğum felci ve ketozis riskini düşürür.' },
+      { day: L - 21, ad: 'Yakın doğum (close-up) grubu', aciklama: '21 gün kala enerji yoğun, anionik (negatif AKD) rasyona geçiş; doğum felci ve ketozis riskini düşürür.' },
       { day: L, ad: 'Tahmini doğum', aciklama: 'Doğum bölmesi temiz ve yumuşak zeminli olsun; kolostrum yedeği ve doğum seti hazırda beklesin.' },
     ];
   }

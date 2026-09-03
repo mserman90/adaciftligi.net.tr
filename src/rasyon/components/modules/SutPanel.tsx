@@ -173,7 +173,7 @@ export const SutPanel: React.FC<SutPanelProps> = ({ inputs, onChange }) => {
             </tr>
             <tr className="border-b border-[#ECE8D8]">
               <td className="py-2.5">
-                <GlossaryText text="Süt (4% yağlı eşdeğer, FCM)" />
+                <GlossaryText text="Süt (4% yağlı eşdeğer, YGDS)" />
               </td>
               <td className="py-2.5 font-mono-code font-semibold text-right">{fmt(iht.fcm, 1)}</td>
               <td className="py-2.5 font-mono-code text-xs text-[#6B7160] text-right">kg/gün</td>
@@ -209,7 +209,7 @@ export const SutPanel: React.FC<SutPanelProps> = ({ inputs, onChange }) => {
           </tbody>
         </table>
         <p className="text-xs text-[#6B7160] leading-relaxed mt-4">
-          <GlossaryText text="KM tüketimi NRC (2001) eşitliğiyle laktasyon gününe göre düzeltilir. NEL ihtiyacı = bakım (0,08 × KA⁰·⁷⁵) + süt enerjisi (0,749 Mcal / kg 4% FCM). Ham protein = bakım (5,75 × KA⁰·⁷⁵) + süt üretimi (85 g / kg süt)." />
+          <GlossaryText text="KM tüketimi NRC (2001) eşitliğiyle laktasyon gününe göre düzeltilir. NEL ihtiyacı = bakım (0,08 × KA⁰·⁷⁵) + süt enerjisi (0,749 Mcal / kg 4% YGDS). Ham protein = bakım (5,75 × KA⁰·⁷⁵) + süt üretimi (85 g / kg süt)." />
         </p>
       </div>
     </div>

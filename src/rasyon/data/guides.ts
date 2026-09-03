@@ -128,8 +128,8 @@ export const GUIDES: Record<ModuleKey, GuideData> = {
     articles: [
       {
         no: '01',
-        title: 'IOFC\'yi her ay izleyin',
-        text: 'IOFC (Income Over Feed Cost) = günlük süt geliri − günlük yem masrafı. Süt fiyatı dalgalanırken yem fiyatı da dalgalanır; IOFC ikisinin arasındaki gerçek nefes payını gösterir. Her ay sonunda inek başına IOFC\'yi hesaplayın; düşüş varsa nedeni fiyat mı, verim mi, yem maliyeti mi — bu üçlü ayrım, hangi vidayı çevireceğinizi söyler.',
+        title: 'SYGM\'yi her ay izleyin',
+        text: 'SYGM (Süt Yem Geliri Marjı) = günlük süt geliri − günlük yem masrafı. Süt fiyatı dalgalanırken yem fiyatı da dalgalanır; SYGM ikisinin arasındaki gerçek nefes payını gösterir. Her ay sonunda inek başına SYGM\'yi hesaplayın; düşüş varsa nedeni fiyat mı, verim mi, yem maliyeti mi — bu üçlü ayrım, hangi vidayı çevireceğinizi söyler.',
       },
       {
         no: '02',
@@ -227,28 +227,28 @@ export const GUIDES: Record<ModuleKey, GuideData> = {
     ],
   },
   iofc: {
-    title: 'IOFC sürüye nasıl işler?',
-    intro: 'IOFC, işletmenin günlük nabzıdır: sabit gider gölgesi olmadan, besleme ve pazarlama kararlarının saf etkisini gösterir. Aşağıdaki dört ilke, tek bir sayıyı sürünün yönetim aracına çevirir.',
+    title: 'SYGM sürüye nasıl işler?',
+    intro: 'SYGM, işletmenin günlük nabzıdır: sabit gider gölgesi olmadan, besleme ve pazarlama kararlarının saf etkisini gösterir. Aşağıdaki dört ilke, tek bir sayıyı sürünün yönetim aracına çevirir.',
     articles: [
       {
         no: '01',
-        title: 'IOFC\'yi günlük ölçün, aylık okuyun',
-        text: 'Günlük IOFC mevsim, ısı stresi ve tekil inek oynamalarıyla dalgalanır; karar, gündeki değil trenddeki hareketten alınır. Bu modülün kayıt defterine her gün (ya da haftada en az üç gün) verim–fiyat–yem üçlüsünü girin; ay sonunda ortalama, en iyi ve en kötü günleri karşılaştırın. “Neyi değiştirdim, IOFC ne dedi?” sorusunun cevabı ancak kayıtta saklıdır.',
+        title: 'SYGM\'yi günlük ölçün, aylık okuyun',
+        text: 'Günlük SYGM mevsim, ısı stresi ve tekil inek oynamalarıyla dalgalanır; karar, gündeki değil trenddeki hareketten alınır. Bu modülün kayıt defterine her gün (ya da haftada en az üç gün) verim–fiyat–yem üçlüsünü girin; ay sonunda ortalama, en iyi ve en kötü günleri karşılaştırın. “Neyi değiştirdim, SYGM ne dedi?” sorusunun cevabı ancak kayıtta saklıdır.',
       },
       {
         no: '02',
         title: 'Üç vida — hangisi sizin elinizde?',
-        text: 'IOFC üç değişkenin toplamıdır: verim, süt fiyatı, yem maliyeti. Yem maliyeti en hızlı kaldıraçtır (rasyon optimizasyonu, israf kontrolü, hammadde değişimi haftalar içinde etki eder); fiyat müzakere ve sözleşme meselesidir; verim ise sağlık, genetik ve geçiş rasyonlarının uzun vadeli işidir. Duyarlılık matrisi, hangi vidanın %10 oynamasının IOFC\'yi en çok hareket ettirdiğini gösterir.',
+        text: 'SYGM üç değişkenin toplamıdır: verim, süt fiyatı, yem maliyeti. Yem maliyeti en hızlı kaldıraçtır (rasyon optimizasyonu, israf kontrolü, hammadde değişimi haftalar içinde etki eder); fiyat müzakere ve sözleşme meselesidir; verim ise sağlık, genetik ve geçiş rasyonlarının uzun vadeli işidir. Duyarlılık matrisi, hangi vidanın %10 oynamasının SYGM\'yi en çok hareket ettirdiğini gösterir.',
       },
       {
         no: '03',
         title: 'Yem payı %60\'ı aşarsa alarm',
-        text: 'Süt gelirinin yeme giden payı için %45–60 sağlıklı banttır. Payın üzerine çıkmak, IOFC pozitif olsa bile kırılganlıktır: süt fiyatı %10 düşse ne olacağını matriste simüle edin; zarar bölgesine kayıyorsanız rasyon optimizasyonu ve israf kontrolü beklemeyi kaldırmaz. Pay çok düşükse ise verimin gerçekten rasyonla mı, yoksa aşırı kesifle mi satın alındığını kontrol edin.',
+        text: 'Süt gelirinin yeme giden payı için %45–60 sağlıklı banttır. Payın üzerine çıkmak, SYGM pozitif olsa bile kırılganlıktır: süt fiyatı %10 düşse ne olacağını matriste simüle edin; zarar bölgesine kayıyorsanız rasyon optimizasyonu ve israf kontrolü beklemeyi kaldırmaz. Pay çok düşükse ise verimin gerçekten rasyonla mı, yoksa aşırı kesifle mi satın alındığını kontrol edin.',
       },
       {
         no: '04',
         title: 'Başabaş üçgenini müzakere masasına götürün',
-        text: 'Başabaş yem maliyeti, yem pazarlığında ödeyebileceğiniz tavandır; başabaş süt fiyatı, süt sözleşmesinde imzalayabileceğiniz tabandır; başabaş verim, sürü yönetiminin asgari hedefidir. Bu üç sayı IOFC=0 noktasından türetilir ve raporda hazır verilir: müzakerelerde rakamla konuşun, hisle değil.',
+        text: 'Başabaş yem maliyeti, yem pazarlığında ödeyebileceğiniz tavandır; başabaş süt fiyatı, süt sözleşmesinde imzalayabileceğiniz tabandır; başabaş verim, sürü yönetiminin asgari hedefidir. Bu üç sayı SYGM=0 noktasından türetilir ve raporda hazır verilir: müzakerelerde rakamla konuşun, hisle değil.',
       },
     ],
   },
@@ -302,7 +302,7 @@ export const FAQS: Record<ModuleKey, FaqItem[]> = {
   sut: [
     {
       q: 'Süt ineği hesaplamaları hangi standarta göre yapılıyor?',
-      a: 'NRC (2001) türevi bağıntılar kullanılır: 4% FCM = süt × (0,4 + 0,15 × yağ%); NEL ihtiyacı = 0,08 × KA⁰·⁷⁵ + FCM × 0,749; KM tüketimi = (0,372 × FCM + 0,0968 × KA⁰·⁷⁵) × laktasyon günü düzeltmesi. Ham protein, Ca ve P saha pratiğiyle uyumlu yaklaşık değerlerdir.',
+      a: 'NRC (2001) türevi bağıntılar kullanılır: 4% YGDS = süt × (0,4 + 0,15 × yağ%); NEL ihtiyacı = 0,08 × KA⁰·⁷⁵ + YGDS × 0,749; KM tüketimi = (0,372 × YGDS + 0,0968 × KA⁰·⁷⁵) × laktasyon günü düzeltmesi. Ham protein, Ca ve P saha pratiğiyle uyumlu yaklaşık değerlerdir.',
     },
     {
       q: 'NDF kısıtı ne işe yarar?',
@@ -355,7 +355,7 @@ export const FAQS: Record<ModuleKey, FaqItem[]> = {
   ],
   sutEko: [
     {
-      q: 'IOFC tam olarak nedir?',
+      q: 'SYGM tam olarak nedir?',
       a: 'Income Over Feed Cost: günlük süt geliri eksi günlük yem masrafı. Sabit giderleri içermediği için besleme ve pazarlama kararlarının etkisini sahte etkilerden arındırılmış biçimde gösterir.',
     },
     {
@@ -427,12 +427,12 @@ export const FAQS: Record<ModuleKey, FaqItem[]> = {
   ],
   iofc: [
     {
-      q: 'IOFC nedir ve neden ayrı bir gösterge olarak izlenir?',
-      a: 'IOFC (Income Over Feed Cost) = günlük süt geliri − günlük yem maliyeti. Sabit giderleri bilinçli olarak dışarıda bırakır; böylece rasyon değişikliği veya fiyat pazarlığının saf etkisi net biçimde görünür.',
+      q: 'SYGM nedir ve neden ayrı bir gösterge olarak izlenir?',
+      a: 'SYGM (Süt Yem Geliri Marjı) = günlük süt geliri − günlük yem maliyeti. Sabit giderleri bilinçli olarak dışarıda bırakır; böylece rasyon değişikliği veya fiyat pazarlığının saf etkisi net biçimde görünür.',
     },
     {
-      q: 'IOFC ne kadar olmalı?',
-      a: 'IOFC, işçilik + sabit giderler + kârın toplamını karşılayacak kadar büyük olmalıdır. Pratik kural: yem maliyeti süt gelirinin %45–60 aralığını aşmamalıdır.',
+      q: 'SYGM ne kadar olmalı?',
+      a: 'SYGM, işçilik + sabit giderler + kârın toplamını karşılayacak kadar büyük olmalıdır. Pratik kural: yem maliyeti süt gelirinin %45–60 aralığını aşmamalıdır.',
     },
     {
       q: 'Başabaş yem maliyeti pratikte ne işe yarar?',
@@ -440,7 +440,7 @@ export const FAQS: Record<ModuleKey, FaqItem[]> = {
     },
     {
       q: 'Süt Kârlılığı modülüyle farkı ne, hangisini ne zaman kullanmalıyım?',
-      a: 'IOFC günlük operasyonel nabzı ölçer: sabah sağımında bile anında hesaplanır. Süt Kârlılığı modülü ise yıllık tam kârı (kuru dönem, buzağı geliri, işçilik, amortizasyon dahil) hesaplar.',
+      a: 'SYGM günlük operasyonel nabzı ölçer: sabah sağımında bile anında hesaplanır. Süt Kârlılığı modülü ise yıllık tam kârı (kuru dönem, buzağı geliri, işçilik, amortizasyon dahil) hesaplar.',
     },
   ],
   damizlik: [

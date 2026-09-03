@@ -170,15 +170,15 @@ export const GLOSSARY_TERMS: GlossaryTerm[] = [
   },
   {
     id: 'fcm',
-    matchTerms: ['FCM', '4% FCM', 'yağa göre düzeltilmiş süt'],
-    title: '4% FCM (Yağa Göre Düzeltilmiş Süt)',
+    matchTerms: ['YGDS', '4% YGDS', 'yağa göre düzeltilmiş süt'],
+    title: '4% YGDS (Yağa Göre Düzeltilmiş Süt)',
     category: 'Rasyon & Besleme',
     badge: 'Adil Verim Ölçüsü',
     shortMeaning: 'Farklı yağ oranına sahip sütleri standart %4 yağ kabul ederek eşitleyen formül.',
     farmerExplanation:
-      'Jersey ineği 22 litre süt verir ama yağı %5\'tir. Holstein 30 litre verir ama yağı %3,4\'tür. Hangisi daha çok besin üretti? FCM formülü ikisini de eşit teraziye koyar. Süt yağı yükseldikçe ineğin ürettiği gerçek enerji artar.',
+      'Jersey ineği 22 litre süt verir ama yağı %5\'tir. Holstein 30 litre verir ama yağı %3,4\'tür. Hangisi daha çok besin üretti? YGDS formülü ikisini de eşit teraziye koyar. Süt yağı yükseldikçe ineğin ürettiği gerçek enerji artar.',
     practicalTip:
-      'Formül: FCM = Süt × (0,4 + 0,15 × Yağ%). Yem ihtiyacı litreye göre değil, yağlı süte göre belirlenir.',
+      'Formül: YGDS = Süt × (0,4 + 0,15 × Yağ%). Yem ihtiyacı litreye göre değil, yağlı süte göre belirlenir.',
   },
   {
     id: 'acab',
@@ -242,8 +242,8 @@ export const GLOSSARY_TERMS: GlossaryTerm[] = [
   },
   {
     id: 'iofc',
-    matchTerms: ['IOFC', 'Income Over Feed Cost', 'yemden kalan gelir'],
-    title: 'IOFC (Süt Yem Geliri Marjı)',
+    matchTerms: ['SYGM', 'Income Over Feed Cost', 'yemden kalan gelir'],
+    title: 'SYGM (Süt Yem Geliri Marjı)',
     category: 'Ekonomi & Maliyet',
     badge: 'Günlük Çiftlik Kârı',
     shortMeaning: 'Günlük süt parasından günlük yem faturasını çıkardıktan sonra cepte kalan net para.',
@@ -588,12 +588,12 @@ export const GLOSSARY_TERMS: GlossaryTerm[] = [
   },
   {
     id: 'dcad',
-    matchTerms: ['DCAD', 'DCA', 'negatif DCAD', 'anyonik', 'anyon katyon dengesi', 'katyon'],
-    title: 'Anyon-Katyon Dengesi (DCAD)',
+    matchTerms: ['AKD', 'negatif AKD', 'anyonik', 'anyon katyon dengesi', 'katyon'],
+    title: 'Anyon-Katyon Dengesi (AKD)',
     category: 'Rasyon & Besleme',
     badge: 'Doğum Felci Kalkanı',
     shortMeaning: 'Rasyondaki anyon (Klor, Sülfür) ve katyon (Sodyum, Potasyum) mineralleri arasındaki matematiksel farktır.',
-    farmerExplanation: 'Doğuma yaklaşan (kuru dönemdeki) bir ineğe "negatif DCAD" yani anyon ağırlıklı özel bir rasyon yedirilir. Bu besleme ineğin kanını hafif asidik yaparak kemiklerindeki kalsiyumu hazır hale getirir. İnek doğum yapıp sütle kalsiyum kaybedince hemen kemikten çeker ve felç geçirmez (hipokalsemi olmaz).',
+    farmerExplanation: 'Doğuma yaklaşan (kuru dönemdeki) bir ineğe "negatif AKD" yani anyon ağırlıklı özel bir rasyon yedirilir. Bu besleme ineğin kanını hafif asidik yaparak kemiklerindeki kalsiyumu hazır hale getirir. İnek doğum yapıp sütle kalsiyum kaybedince hemen kemikten çeker ve felç geçirmez (hipokalsemi olmaz).',
     practicalTip: 'Doğuma 21 gün kala potasyumu çok yüksek (örneğin yonca) kaba yemleri mutlaka kesin. Yerine saman ve mısır sılajı ağırlıklı "close-up (yakın doğum)" rasyonu uygulayın.',
   },
   {

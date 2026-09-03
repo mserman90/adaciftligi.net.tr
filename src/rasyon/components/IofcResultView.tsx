@@ -21,7 +21,7 @@ export const IofcResultView: React.FC<IofcResultViewProps> = ({
   const d = iofcHesapla(inputs);
 
   const handleDownloadCsv = () => {
-    let csv = `Tarih,Verim (kg),Sut Fiyati (TL),Yem Maliyeti (TL),IOFC (TL/gun),Yem Payi (%)\n`;
+    let csv = `Tarih,Verim (kg),Sut Fiyati (TL),Yem Maliyeti (TL),SYGM (TL/gun),Yem Payi (%)\n`;
     if (records.length > 0) {
       records.forEach((r) => {
         csv += `"${r.tarih}",${fmt(r.verim, 1)},${fmt(r.fiyat, 2)},${fmt(r.yem, 2)},${fmt(r.iofc, 2)},${fmt(r.yemPayi, 1)}\n`;
@@ -34,11 +34,11 @@ export const IofcResultView: React.FC<IofcResultViewProps> = ({
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.href = url;
-    link.setAttribute('download', `adaciftligi_iofc_${Date.now()}.csv`);
+    link.setAttribute('download', `adaciftligi_sygm_${Date.now()}.csv`);
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
-    onToast('IOFC verileri CSV olarak indirildi.');
+    onToast('SYGM verileri CSV olarak indirildi.');
   };
 
   return (
@@ -47,7 +47,7 @@ export const IofcResultView: React.FC<IofcResultViewProps> = ({
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         <div className="bg-[#FCFBF6] border border-[#DCD7C4] rounded-xl p-4.5 shadow-2xs">
           <span className="block font-mono-code text-[10.5px] uppercase tracking-wider text-[#6B7160] mb-1">
-            <FarmerTerm termId="iofc">IOFC</FarmerTerm> (inek / gün)
+            <FarmerTerm termId="iofc">SYGM</FarmerTerm> (inek / gün)
           </span>
           <div
             className={`font-mono-code text-2xl font-bold ${
@@ -62,7 +62,7 @@ export const IofcResultView: React.FC<IofcResultViewProps> = ({
 
         <div className="bg-[#FCFBF6] border border-[#DCD7C4] rounded-xl p-4.5 shadow-2xs">
           <span className="block font-mono-code text-[10.5px] uppercase tracking-wider text-[#6B7160] mb-1">
-            <FarmerTerm termId="iofc">IOFC</FarmerTerm> / kg süt
+            <FarmerTerm termId="iofc">SYGM</FarmerTerm> / kg süt
           </span>
           <div className="font-mono-code text-2xl font-bold text-[#20261A]">
             {fmt(d.iofcKg, 2)}{' '}
@@ -83,7 +83,7 @@ export const IofcResultView: React.FC<IofcResultViewProps> = ({
 
         <div className="bg-[#FCFBF6] border border-[#DCD7C4] rounded-xl p-4.5 shadow-2xs">
           <span className="block font-mono-code text-[10.5px] uppercase tracking-wider text-[#6B7160] mb-1">
-            Sürü <FarmerTerm termId="iofc">IOFC</FarmerTerm> (aylık)
+            Sürü <FarmerTerm termId="iofc">SYGM</FarmerTerm> (aylık)
           </span>
           <div className="font-mono-code text-2xl font-bold text-[#2E5B39]">
             {fmt(d.suruGun * 30, 0)}{' '}
@@ -98,7 +98,7 @@ export const IofcResultView: React.FC<IofcResultViewProps> = ({
         <div className="bg-[#FCFBF6] border border-[#DCD7C4] rounded-xl overflow-hidden shadow-xs">
           <div className="px-5 py-3.5 border-b border-[#DCD7C4] bg-[#FAF8F0] flex items-center justify-between">
             <h3 className="font-heading font-bold text-sm text-[#20261A]">
-              Kayıtlı Günlük IOFC Takip Defteri
+              Kayıtlı Günlük SYGM Takip Defteri
             </h3>
             <span className="font-mono-code text-xs text-[#6B7160]">
               {records.length} kayıt
@@ -121,7 +121,7 @@ export const IofcResultView: React.FC<IofcResultViewProps> = ({
                     Yem (₺/gün)
                   </th>
                   <th className="px-4 py-2.5 font-mono-code text-[10.5px] uppercase text-[#6B7160] text-right font-medium">
-                    IOFC (₺/gün)
+                    SYGM (₺/gün)
                   </th>
                   <th className="px-3 py-2.5 font-mono-code text-[10.5px] uppercase text-[#6B7160] text-right font-medium">
                     Yem Payı
