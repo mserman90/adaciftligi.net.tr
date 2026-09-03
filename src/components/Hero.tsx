@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { ArrowRight, ChevronDown, CheckCircle2, Shield, PhoneCall, Sparkles, Camera, Upload, RotateCcw, Check } from 'lucide-react';
 import { FARM_STATS, FARM_CONTACT } from '../data/farmData';
+import { useFarmImages } from '../context/ImageContext';
 import { gsap } from 'gsap';
 
 interface HeroProps {
@@ -16,32 +17,10 @@ export const Hero: React.FC<HeroProps> = ({ onOpenInquiry }) => {
   const imageCardRef = useRef<HTMLDivElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const [heroImage, setHeroImage] = useState<string>(() => {
-    if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem('adaciftligi_hero_image');
-      if (saved) return saved;
-    }
-    return '/images/hero_cows.jpg';
-  });
-  const [hasCustomImage, setHasCustomImage] = useState<boolean>(() => {
-    if (typeof window !== 'undefined') {
-      return Boolean(localStorage.getItem('adaciftligi_hero_image'));
-    }
-    return false;
-  });
+  const { getImage, setImage, resetImage, isCustomImage } = useFarmImages();
+  const heroImage = getImage('hero', '/images/drive/Gemini_Generated_Image_byt5yibyt5yibyt5.jfif');
+  const hasCustomImage = isCustomImage('hero');
   const [isDragging, setIsDragging] = useState(false);
-  const [showSuccessToast, setShowSuccessToast] = useState(false);
-
-  // Check if user has placed the jfif file directly in public/images/
-  useEffect(() => {
-    if (!localStorage.getItem('adaciftligi_hero_image')) {
-      const testImg = new Image();
-      testImg.src = '/images/Gemini_Generated_Image_byt5yibyt5yibyt5.jfif';
-      testImg.onload = () => {
-        setHeroImage('/images/Gemini_Generated_Image_byt5yibyt5yibyt5.jfif');
-      };
-    }
-  }, []);
 
   const handleImageFile = (file: File) => {
     if (!file.type.startsWith('image/') && !file.name.endsWith('.jfif')) return;
@@ -49,15 +28,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenInquiry }) => {
     reader.onload = (e) => {
       const result = e.target?.result as string;
       if (result) {
-        setHeroImage(result);
-        setHasCustomImage(true);
-        try {
-          localStorage.setItem('adaciftligi_hero_image', result);
-        } catch (err) {
-          console.warn('LocalStorage limit reached, displaying in-memory only', err);
-        }
-        setShowSuccessToast(true);
-        setTimeout(() => setShowSuccessToast(false), 4500);
+        setImage('hero', result, 'Hero Ana Sürü Görseli');
       }
     };
     reader.readAsDataURL(file);
@@ -65,9 +36,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenInquiry }) => {
 
   const handleResetDefault = (e: React.MouseEvent) => {
     e.stopPropagation();
-    localStorage.removeItem('adaciftligi_hero_image');
-    setHeroImage('/images/hero_cows.jpg');
-    setHasCustomImage(false);
+    resetImage('hero', 'Hero Ana Sürü Görseli');
   };
 
   useEffect(() => {
@@ -317,14 +286,6 @@ export const Hero: React.FC<HeroProps> = ({ onOpenInquiry }) => {
                     Doğal nehir taşkın ovasının zengin florasında beslenen sağlıklı sürülerimiz.
                   </p>
                 </div>
-
-                {/* Success Notification Toast */}
-                {showSuccessToast && (
-                  <div className="absolute top-12 left-4 right-4 bg-emerald-900/95 text-emerald-100 border border-emerald-500/50 p-2.5 rounded-xl text-xs font-medium backdrop-blur-md shadow-xl z-20 flex items-center gap-2 animate-fade-in">
-                    <Check className="w-4 h-4 text-emerald-400 shrink-0" />
-                    <span>Yeni sürü fotoğrafınız başarıyla uygulandı ve kaydedildi!</span>
-                  </div>
-                )}
               </div>
 
               {/* Floating Certification Badge */}

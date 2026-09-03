@@ -1,114 +1,73 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import { HeartHandshake, ShieldCheck, Waves, Sun, Sparkles, MapPin, Camera, ZoomIn, X, Upload, RotateCcw, Check } from 'lucide-react';
 import { FARM_CONTACT, FARM_GALLERY, FarmGalleryItem } from '../data/farmData';
+import { useFarmImages } from '../context/ImageContext';
 
 export const AboutSection: React.FC = () => {
   const [selectedGalleryItem, setSelectedGalleryItem] = useState<FarmGalleryItem | null>(null);
   const [galleryFilter, setGalleryFilter] = useState<string>('Tümü');
-
-  const [customTankImage, setCustomTankImage] = useState<string | null>(() => {
-    if (typeof window !== 'undefined') {
-      try {
-        return localStorage.getItem('adaciftligi_tank_image') || null;
-      } catch (e) {
-        return null;
-      }
-    }
-    return null;
-  });
-
-  const [customVillageImage, setCustomVillageImage] = useState<string | null>(() => {
-    if (typeof window !== 'undefined') {
-      try {
-        return localStorage.getItem('adaciftligi_village_image') || null;
-      } catch (e) {
-        return null;
-      }
-    }
-    return null;
-  });
+  const { getImage, setImage, resetImage, isCustomImage } = useFarmImages();
 
   const [dragOverTank, setDragOverTank] = useState(false);
   const [dragOverVillage, setDragOverVillage] = useState(false);
-  const [toastMessage, setToastMessage] = useState<string | null>(null);
+  const [dragOverSheep, setDragOverSheep] = useState(false);
+  const [dragOverGalleryId, setDragOverGalleryId] = useState<string | null>(null);
 
   const tankFileInputRef = useRef<HTMLInputElement>(null);
   const villageFileInputRef = useRef<HTMLInputElement>(null);
+  const sheepFileInputRef = useRef<HTMLInputElement>(null);
+  const galleryFileInputRef = useRef<HTMLInputElement>(null);
+  const activeGalleryTargetRef = useRef<string | null>(null);
 
-  // Auto-detect if user put the specific generated images in public/images
-  useEffect(() => {
-    if (!customTankImage) {
-      const testImg = new Image();
-      testImg.src = '/images/Gemini_Generated_Image_ln24chln24chln24.jfif';
-      testImg.onload = () => {
-        setCustomTankImage('/images/Gemini_Generated_Image_ln24chln24chln24.jfif');
-      };
-    }
-    if (!customVillageImage) {
-      const testVillageImg = new Image();
-      testVillageImg.src = '/images/23911dbc-b407-46d5-95fb-656107f0c494.jfif';
-      testVillageImg.onload = () => {
-        setCustomVillageImage('/images/23911dbc-b407-46d5-95fb-656107f0c494.jfif');
-      };
-    }
-  }, [customTankImage, customVillageImage]);
-
-  const handleApplyVillageImage = (file: File) => {
+  const handleApplyVillageFile = (file: File) => {
     if (!file.type.startsWith('image/') && !file.name.endsWith('.jfif')) return;
     const reader = new FileReader();
     reader.onload = (e) => {
       const result = e.target?.result as string;
       if (result) {
-        setCustomVillageImage(result);
-        try {
-          localStorage.setItem('adaciftligi_village_image', result);
-        } catch (err) {
-          console.warn('LocalStorage error', err);
-        }
-        setToastMessage('Adasarhanlı Köyü / Meriç fotoğrafı güncellendi!');
-        setTimeout(() => setToastMessage(null), 4000);
+        setImage('about_village', result, 'Adasarhanlı Köyü Manzarası');
       }
     };
     reader.readAsDataURL(file);
   };
 
-  const handleResetVillageImage = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    setCustomVillageImage(null);
-    try {
-      localStorage.removeItem('adaciftligi_village_image');
-    } catch (err) {
-      console.warn('LocalStorage error', err);
-    }
-  };
-
-  const handleApplyTankImage = (file: File) => {
+  const handleApplyTankFile = (file: File) => {
     if (!file.type.startsWith('image/') && !file.name.endsWith('.jfif')) return;
     const reader = new FileReader();
     reader.onload = (e) => {
       const result = e.target?.result as string;
       if (result) {
-        setCustomTankImage(result);
-        try {
-          localStorage.setItem('adaciftligi_tank_image', result);
-        } catch (err) {
-          console.warn('LocalStorage error', err);
-        }
-        setToastMessage('+4°C Süt Tankı fotoğrafı güncellendi!');
-        setTimeout(() => setToastMessage(null), 4000);
+        setImage('about_tank', result, '+4°C Süt Soğutma Tankı');
       }
     };
     reader.readAsDataURL(file);
   };
 
-  const handleResetTankImage = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    setCustomTankImage(null);
-    try {
-      localStorage.removeItem('adaciftligi_tank_image');
-    } catch (err) {
-      console.warn('LocalStorage error', err);
-    }
+  const handleApplySheepFile = (file: File) => {
+    if (!file.type.startsWith('image/') && !file.name.endsWith('.jfif')) return;
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const result = e.target?.result as string;
+      if (result) {
+        setImage('about_sheep', result, 'Mera Kıvırcık Sürüsü');
+      }
+    };
+    reader.readAsDataURL(file);
+  };
+
+  const handleApplyGalleryFile = (galleryId: string, title: string, file: File) => {
+    if (!file.type.startsWith('image/') && !file.name.endsWith('.jfif')) return;
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const result = e.target?.result as string;
+      if (result) {
+        setImage(`gallery_${galleryId}`, result, title);
+        if (selectedGalleryItem && selectedGalleryItem.id === galleryId) {
+          setSelectedGalleryItem({ ...selectedGalleryItem, image: result });
+        }
+      }
+    };
+    reader.readAsDataURL(file);
   };
 
   const categories = ['Tümü', 'Mera & Otlak', 'Küçükbaş', 'Kuzu', 'Büyükbaş', 'Süt & Hijyen'];
@@ -142,14 +101,6 @@ export const AboutSection: React.FC = () => {
 
   return (
     <section id="ciftlik-hakkinda" className="py-20 sm:py-28 bg-white overflow-hidden relative">
-      {/* Floating Toast Notification */}
-      {toastMessage && (
-        <div className="fixed bottom-6 right-6 z-50 bg-[#123c28] text-white px-5 py-3 rounded-2xl shadow-2xl border border-emerald-500/30 flex items-center gap-2.5 text-sm font-medium animate-fade-in">
-          <Check className="w-5 h-5 text-emerald-400 shrink-0" />
-          <span>{toastMessage}</span>
-        </div>
-      )}
-
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Intro Tag & Title */}
         <div className="max-w-3xl mb-16">
@@ -179,88 +130,97 @@ export const AboutSection: React.FC = () => {
               className="hidden"
               onChange={(e) => {
                 if (e.target.files && e.target.files[0]) {
-                  handleApplyVillageImage(e.target.files[0]);
+                  handleApplyVillageFile(e.target.files[0]);
+                  e.target.value = '';
                 }
               }}
             />
 
             {/* Main Adasarhanlı Köyü / Meriç / Edirne Landscape Showcase Card */}
-            <div
-              onDragOver={(e) => {
-                e.preventDefault();
-                setDragOverVillage(true);
-              }}
-              onDragLeave={(e) => {
-                e.preventDefault();
-                setDragOverVillage(false);
-              }}
-              onDrop={(e) => {
-                e.preventDefault();
-                setDragOverVillage(false);
-                if (e.dataTransfer.files && e.dataTransfer.files[0]) {
-                  handleApplyVillageImage(e.dataTransfer.files[0]);
-                }
-              }}
-              className={`group relative rounded-3xl overflow-hidden shadow-lg border border-stone-200/80 aspect-[16/10] bg-stone-100 transition-all duration-300 ${
-                dragOverVillage ? 'ring-4 ring-emerald-500 ring-inset' : ''
-              }`}
-            >
-              <img
-                src={customVillageImage || '/images/hero_barn.jpg'}
-                alt="Meriç Edirne Adasarhanlı Çiftlik Manzarası"
-                className="w-full h-full object-cover group-hover:scale-103 transition-transform duration-700"
-                referrerPolicy="no-referrer"
-                loading="lazy"
-                onError={(e) => {
-                  (e.target as HTMLImageElement).src = '/images/farm_landscape.jpg';
-                }}
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-stone-950/70 via-transparent to-transparent pointer-events-none" />
+            {(() => {
+              const villageImg = getImage('about_village', '/images/drive/23911dbc-b407-46d5-95fb-656107f0c494.jfif');
+              const isCustomVillage = isCustomImage('about_village');
 
-              {/* Drag drop overlay */}
-              {dragOverVillage && (
-                <div className="absolute inset-0 bg-emerald-950/85 flex flex-col items-center justify-center text-white z-20 p-4 text-center">
-                  <Upload className="w-8 h-8 text-emerald-300 mb-1 animate-bounce" />
-                  <p className="font-bold text-sm">Adasarhanlı Köyü Fotoğrafını Buraya Bırakın</p>
-                </div>
-              )}
-
-              {/* Upload / Reset Controls Top Right */}
-              <div className="absolute top-3.5 right-3.5 flex items-center gap-1.5 z-10 opacity-90 group-hover:opacity-100 transition-opacity">
-                <button
-                  type="button"
-                  onClick={() => villageFileInputRef.current?.click()}
-                  title="Adasarhanlı Köyü fotoğrafını değiştir (veya resmi buraya sürükleyin)"
-                  className="p-2 rounded-full bg-stone-900/80 hover:bg-stone-900 text-white text-xs backdrop-blur-md border border-white/20 shadow-md transition-all active:scale-95 cursor-pointer flex items-center gap-1"
+              return (
+                <div
+                  onDragOver={(e) => {
+                    e.preventDefault();
+                    setDragOverVillage(true);
+                  }}
+                  onDragLeave={(e) => {
+                    e.preventDefault();
+                    setDragOverVillage(false);
+                  }}
+                  onDrop={(e) => {
+                    e.preventDefault();
+                    setDragOverVillage(false);
+                    if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+                      handleApplyVillageFile(e.dataTransfer.files[0]);
+                    }
+                  }}
+                  className={`group relative rounded-3xl overflow-hidden shadow-lg border border-stone-200/80 aspect-[16/10] bg-stone-100 transition-all duration-300 ${
+                    dragOverVillage ? 'ring-4 ring-emerald-500 ring-inset' : ''
+                  }`}
                 >
-                  <Camera className="w-3.5 h-3.5 text-emerald-300" />
-                  <span className="hidden sm:inline text-[11px] font-medium pr-1">Fotoğraf Değiştir</span>
-                </button>
+                  <img
+                    src={villageImg}
+                    alt="Meriç Edirne Adasarhanlı Çiftlik Manzarası"
+                    className="w-full h-full object-cover group-hover:scale-103 transition-transform duration-700"
+                    referrerPolicy="no-referrer"
+                    loading="lazy"
+                    onError={(e) => {
+                      (e.target as HTMLImageElement).src = '/images/farm_landscape.jpg';
+                    }}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-stone-950/70 via-transparent to-transparent pointer-events-none" />
 
-                {customVillageImage && (
-                  <button
-                    type="button"
-                    onClick={handleResetVillageImage}
-                    title="Varsayılan fotoğrafa dön"
-                    className="p-2 rounded-full bg-stone-900/80 hover:bg-stone-900 text-stone-300 text-xs backdrop-blur-md border border-white/20 shadow-md transition-all active:scale-95 cursor-pointer"
-                  >
-                    <RotateCcw className="w-3.5 h-3.5 text-stone-300" />
-                  </button>
-                )}
-              </div>
+                  {/* Drag drop overlay */}
+                  {dragOverVillage && (
+                    <div className="absolute inset-0 bg-emerald-950/85 flex flex-col items-center justify-center text-white z-20 p-4 text-center">
+                      <Upload className="w-8 h-8 text-emerald-300 mb-1 animate-bounce" />
+                      <p className="font-bold text-sm">Adasarhanlı Köyü Fotoğrafını Buraya Bırakın</p>
+                    </div>
+                  )}
 
-              <div className="absolute bottom-4 left-4 right-4 text-white pointer-events-none">
-                <div className="flex items-center gap-1.5 text-xs font-semibold text-emerald-300 mb-0.5">
-                  <MapPin className="w-3.5 h-3.5" />
-                  <span>Adasarhanlı Köyü / Meriç / Edirne</span>
+                  {/* Upload / Reset Controls Top Right */}
+                  <div className="absolute top-3.5 right-3.5 flex items-center gap-1.5 z-10 opacity-90 group-hover:opacity-100 transition-opacity">
+                    <button
+                      type="button"
+                      onClick={() => villageFileInputRef.current?.click()}
+                      title="Adasarhanlı Köyü fotoğrafını değiştir (veya resmi buraya sürükleyin)"
+                      className="flex items-center gap-1 px-3 py-1.5 rounded-full bg-stone-900/85 hover:bg-stone-900 text-white text-xs font-medium backdrop-blur-md border border-white/20 shadow-md transition-all active:scale-95 cursor-pointer hover:border-emerald-400"
+                    >
+                      <Camera className="w-3.5 h-3.5 text-emerald-400" />
+                      <span>Fotoğraf Değiştir</span>
+                    </button>
+
+                    {isCustomVillage && (
+                      <button
+                        type="button"
+                        onClick={() => resetImage('about_village', 'Adasarhanlı Köyü Manzarası')}
+                        title="Varsayılan fotoğrafa dön"
+                        className="flex items-center gap-1 px-2.5 py-1.5 rounded-full bg-stone-900/85 hover:bg-stone-900 text-stone-200 text-xs font-medium backdrop-blur-md border border-white/20 shadow-md transition-all active:scale-95 cursor-pointer"
+                      >
+                        <RotateCcw className="w-3 h-3 text-stone-300" />
+                        <span className="hidden sm:inline text-[11px]">Sıfırla</span>
+                      </button>
+                    )}
+                  </div>
+
+                  <div className="absolute bottom-4 left-4 right-4 text-white pointer-events-none">
+                    <div className="flex items-center gap-1.5 text-xs font-semibold text-emerald-300 mb-0.5">
+                      <MapPin className="w-3.5 h-3.5" />
+                      <span>Adasarhanlı Köyü / Meriç / Edirne</span>
+                    </div>
+                    <div className="text-sm sm:text-base font-medium text-stone-100">
+                      Meriç nehri sulama kanallarıyla çevrili 140+ dönüm organik otlak
+                    </div>
+                  </div>
                 </div>
-                <div className="text-sm sm:text-base font-medium text-stone-100">
-                  Meriç nehri sulama kanallarıyla çevrili 140+ dönüm organik otlak
-                </div>
-              </div>
-            </div>
+              );
+            })()}
 
-            {/* Hidden Tank File Input */}
+            {/* Hidden Inputs for Tank and Sheep */}
             <input
               type="file"
               ref={tankFileInputRef}
@@ -268,97 +228,179 @@ export const AboutSection: React.FC = () => {
               className="hidden"
               onChange={(e) => {
                 if (e.target.files && e.target.files[0]) {
-                  handleApplyTankImage(e.target.files[0]);
+                  handleApplyTankFile(e.target.files[0]);
+                  e.target.value = '';
+                }
+              }}
+            />
+
+            <input
+              type="file"
+              ref={sheepFileInputRef}
+              accept="image/*,.jfif"
+              className="hidden"
+              onChange={(e) => {
+                if (e.target.files && e.target.files[0]) {
+                  handleApplySheepFile(e.target.files[0]);
+                  e.target.value = '';
                 }
               }}
             />
 
             <div className="grid grid-cols-2 gap-4">
               {/* Milk Tank Photo Card with Drag & Drop & Upload */}
-              <div
-                onDragOver={(e) => {
-                  e.preventDefault();
-                  setDragOverTank(true);
-                }}
-                onDragLeave={(e) => {
-                  e.preventDefault();
-                  setDragOverTank(false);
-                }}
-                onDrop={(e) => {
-                  e.preventDefault();
-                  setDragOverTank(false);
-                  if (e.dataTransfer.files && e.dataTransfer.files[0]) {
-                    handleApplyTankImage(e.dataTransfer.files[0]);
-                  }
-                }}
-                className={`group relative rounded-2xl overflow-hidden border border-stone-200 aspect-[4/3] bg-stone-100 transition-all duration-300 ${
-                  dragOverTank ? 'ring-4 ring-emerald-500 ring-inset' : ''
-                }`}
-              >
-                <img
-                  src={customTankImage || '/images/tank.jpg'}
-                  alt="Hijyenik süt sağım ve soğutma tankı ünitesi - Ada Çiftliği Meriç"
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  referrerPolicy="no-referrer"
-                  loading="lazy"
-                  onError={(e) => {
-                    (e.target as HTMLImageElement).src = '/images/sut.jpg';
-                  }}
-                />
-                <div className="absolute inset-0 bg-stone-950/20 group-hover:bg-transparent transition-colors pointer-events-none" />
+              {(() => {
+                const tankImg = getImage('about_tank', '/images/drive/Gemini_Generated_Image_ln24chln24chln24.jfif');
+                const isCustomTank = isCustomImage('about_tank');
 
-                {/* Drag drop overlay */}
-                {dragOverTank && (
-                  <div className="absolute inset-0 bg-emerald-950/85 flex flex-col items-center justify-center text-white z-20 p-2 text-center">
-                    <Upload className="w-6 h-6 text-emerald-300 mb-1 animate-bounce" />
-                    <p className="font-bold text-[10px]">Süt Tankı Fotoğrafını Bırakın</p>
-                  </div>
-                )}
-
-                {/* Upload / Reset Controls */}
-                <div className="absolute top-2 right-2 flex items-center gap-1 z-10 opacity-90 group-hover:opacity-100 transition-opacity">
-                  <button
-                    type="button"
-                    onClick={() => tankFileInputRef.current?.click()}
-                    title="Süt tankı fotoğrafını değiştir (veya resmi buraya sürükleyin)"
-                    className="p-1.5 rounded-full bg-stone-900/80 hover:bg-stone-900 text-white text-xs backdrop-blur-md border border-white/20 shadow-md transition-all active:scale-95 cursor-pointer"
+                return (
+                  <div
+                    onDragOver={(e) => {
+                      e.preventDefault();
+                      setDragOverTank(true);
+                    }}
+                    onDragLeave={(e) => {
+                      e.preventDefault();
+                      setDragOverTank(false);
+                    }}
+                    onDrop={(e) => {
+                      e.preventDefault();
+                      setDragOverTank(false);
+                      if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+                        handleApplyTankFile(e.dataTransfer.files[0]);
+                      }
+                    }}
+                    className={`group relative rounded-2xl overflow-hidden border border-stone-200 aspect-[4/3] bg-stone-100 transition-all duration-300 ${
+                      dragOverTank ? 'ring-4 ring-emerald-500 ring-inset' : ''
+                    }`}
                   >
-                    <Camera className="w-3 h-3 text-emerald-300" />
-                  </button>
+                    <img
+                      src={tankImg}
+                      alt="Hijyenik süt sağım ve soğutma tankı ünitesi - Ada Çiftliği Meriç"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      referrerPolicy="no-referrer"
+                      loading="lazy"
+                      onError={(e) => {
+                        (e.target as HTMLImageElement).src = '/images/sut.jpg';
+                      }}
+                    />
+                    <div className="absolute inset-0 bg-stone-950/25 group-hover:bg-transparent transition-colors pointer-events-none" />
 
-                  {customTankImage && (
-                    <button
-                      type="button"
-                      onClick={handleResetTankImage}
-                      title="Varsayılan fotoğrafa dön"
-                      className="p-1.5 rounded-full bg-stone-900/80 hover:bg-stone-900 text-stone-300 text-xs backdrop-blur-md border border-white/20 shadow-md transition-all active:scale-95 cursor-pointer"
-                    >
-                      <RotateCcw className="w-3 h-3 text-stone-300" />
-                    </button>
-                  )}
-                </div>
+                    {/* Drag drop overlay */}
+                    {dragOverTank && (
+                      <div className="absolute inset-0 bg-emerald-950/85 flex flex-col items-center justify-center text-white z-20 p-2 text-center">
+                        <Upload className="w-6 h-6 text-emerald-300 mb-1 animate-bounce" />
+                        <p className="font-bold text-[10px]">Süt Tankı Fotoğrafını Bırakın</p>
+                      </div>
+                    )}
 
-                <div className="absolute bottom-2 left-2 right-2 text-white text-[11px] font-semibold bg-stone-900/70 backdrop-blur-xs px-2 py-1 rounded-lg truncate pointer-events-none">
-                  +4°C Hijyenik Süt Tankı
-                </div>
-              </div>
+                    {/* Upload / Reset Controls */}
+                    <div className="absolute top-2 right-2 flex items-center gap-1 z-10 opacity-90 group-hover:opacity-100 transition-opacity">
+                      <button
+                        type="button"
+                        onClick={() => tankFileInputRef.current?.click()}
+                        title="Süt tankı fotoğrafını değiştir"
+                        className="flex items-center gap-1 px-2 py-1 rounded-full bg-stone-900/85 hover:bg-stone-900 text-white text-[11px] font-medium backdrop-blur-md border border-white/20 shadow-md transition-all active:scale-95 cursor-pointer hover:border-emerald-400"
+                      >
+                        <Camera className="w-3 h-3 text-emerald-400" />
+                        <span className="hidden sm:inline">Değiştir</span>
+                      </button>
 
-              <div className="group relative rounded-2xl overflow-hidden border border-stone-200 aspect-[4/3] bg-stone-100">
-                <img
-                  src="/images/koyun.jpg"
-                  alt="Kıvırcık koyun ve serbest mera sürüsü"
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  referrerPolicy="no-referrer"
-                  loading="lazy"
-                  onError={(e) => {
-                    (e.target as HTMLImageElement).src = '/images/kuzu.jpg';
-                  }}
-                />
-                <div className="absolute inset-0 bg-stone-950/20 group-hover:bg-transparent transition-colors" />
-                <div className="absolute bottom-2 left-2 right-2 text-white text-[11px] font-semibold bg-stone-900/70 backdrop-blur-xs px-2 py-1 rounded-lg truncate">
-                  Mera Kıvırcık Sürüsü
-                </div>
-              </div>
+                      {isCustomTank && (
+                        <button
+                          type="button"
+                          onClick={() => resetImage('about_tank', '+4°C Süt Tankı')}
+                          title="Varsayılan fotoğrafa dön"
+                          className="p-1.5 rounded-full bg-stone-900/85 hover:bg-stone-900 text-stone-200 text-xs backdrop-blur-md border border-white/20 shadow-md transition-all active:scale-95 cursor-pointer"
+                        >
+                          <RotateCcw className="w-3 h-3 text-stone-300" />
+                        </button>
+                      )}
+                    </div>
+
+                    <div className="absolute bottom-2 left-2 right-2 text-white text-[11px] font-semibold bg-stone-900/70 backdrop-blur-xs px-2 py-1 rounded-lg truncate pointer-events-none">
+                      +4°C Hijyenik Süt Tankı
+                    </div>
+                  </div>
+                );
+              })()}
+
+              {/* Mera Kıvırcık Sürüsü Card with Drag & Drop & Upload */}
+              {(() => {
+                const sheepImg = getImage('about_sheep', '/images/drive/Gemini_Generated_Image_p665hcp665hcp665.jfif');
+                const isCustomSheep = isCustomImage('about_sheep');
+
+                return (
+                  <div
+                    onDragOver={(e) => {
+                      e.preventDefault();
+                      setDragOverSheep(true);
+                    }}
+                    onDragLeave={(e) => {
+                      e.preventDefault();
+                      setDragOverSheep(false);
+                    }}
+                    onDrop={(e) => {
+                      e.preventDefault();
+                      setDragOverSheep(false);
+                      if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+                        handleApplySheepFile(e.dataTransfer.files[0]);
+                      }
+                    }}
+                    className={`group relative rounded-2xl overflow-hidden border border-stone-200 aspect-[4/3] bg-stone-100 transition-all duration-300 ${
+                      dragOverSheep ? 'ring-4 ring-emerald-500 ring-inset' : ''
+                    }`}
+                  >
+                    <img
+                      src={sheepImg}
+                      alt="Kıvırcık koyun ve serbest mera sürüsü"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      referrerPolicy="no-referrer"
+                      loading="lazy"
+                      onError={(e) => {
+                        (e.target as HTMLImageElement).src = '/images/kuzu.jpg';
+                      }}
+                    />
+                    <div className="absolute inset-0 bg-stone-950/25 group-hover:bg-transparent transition-colors pointer-events-none" />
+
+                    {/* Drag drop overlay */}
+                    {dragOverSheep && (
+                      <div className="absolute inset-0 bg-emerald-950/85 flex flex-col items-center justify-center text-white z-20 p-2 text-center">
+                        <Upload className="w-6 h-6 text-emerald-300 mb-1 animate-bounce" />
+                        <p className="font-bold text-[10px]">Sürü Fotoğrafını Bırakın</p>
+                      </div>
+                    )}
+
+                    {/* Upload / Reset Controls */}
+                    <div className="absolute top-2 right-2 flex items-center gap-1 z-10 opacity-90 group-hover:opacity-100 transition-opacity">
+                      <button
+                        type="button"
+                        onClick={() => sheepFileInputRef.current?.click()}
+                        title="Mera sürüsü fotoğrafını değiştir"
+                        className="flex items-center gap-1 px-2 py-1 rounded-full bg-stone-900/85 hover:bg-stone-900 text-white text-[11px] font-medium backdrop-blur-md border border-white/20 shadow-md transition-all active:scale-95 cursor-pointer hover:border-emerald-400"
+                      >
+                        <Camera className="w-3 h-3 text-emerald-400" />
+                        <span className="hidden sm:inline">Değiştir</span>
+                      </button>
+
+                      {isCustomSheep && (
+                        <button
+                          type="button"
+                          onClick={() => resetImage('about_sheep', 'Mera Kıvırcık Sürüsü')}
+                          title="Varsayılan fotoğrafa dön"
+                          className="p-1.5 rounded-full bg-stone-900/85 hover:bg-stone-900 text-stone-200 text-xs backdrop-blur-md border border-white/20 shadow-md transition-all active:scale-95 cursor-pointer"
+                        >
+                          <RotateCcw className="w-3 h-3 text-stone-300" />
+                        </button>
+                      )}
+                    </div>
+
+                    <div className="absolute bottom-2 left-2 right-2 text-white text-[11px] font-semibold bg-stone-900/70 backdrop-blur-xs px-2 py-1 rounded-lg truncate pointer-events-none">
+                      Mera Kıvırcık Sürüsü
+                    </div>
+                  </div>
+                );
+              })()}
             </div>
           </div>
 
@@ -412,6 +454,21 @@ export const AboutSection: React.FC = () => {
 
         {/* Çiftliğimizden Gerçek Kareler / Photo Gallery Section */}
         <div className="pt-12 border-t border-stone-200/80">
+          {/* Hidden Gallery File Input */}
+          <input
+            type="file"
+            ref={galleryFileInputRef}
+            accept="image/*,.jfif"
+            className="hidden"
+            onChange={(e) => {
+              if (e.target.files && e.target.files[0] && activeGalleryTargetRef.current) {
+                const item = FARM_GALLERY.find((g) => g.id === activeGalleryTargetRef.current);
+                handleApplyGalleryFile(activeGalleryTargetRef.current, item?.title || 'Galeri Fotoğrafı', e.target.files[0]);
+                e.target.value = '';
+              }
+            }}
+          />
+
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
             <div>
               <div className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#123c28] mb-1.5">
@@ -433,7 +490,7 @@ export const AboutSection: React.FC = () => {
                   key={cat}
                   type="button"
                   onClick={() => setGalleryFilter(cat)}
-                  className={`px-3.5 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition-all ${
+                  className={`px-3.5 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition-all cursor-pointer ${
                     galleryFilter === cat
                       ? 'bg-[#123c28] text-white shadow-xs'
                       : 'bg-stone-100 text-stone-700 hover:bg-stone-200'
@@ -448,18 +505,40 @@ export const AboutSection: React.FC = () => {
           {/* Gallery 6-Grid with Topic Images */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredGallery.map((item) => {
-              const displayImage =
-                (item.id === 'g1' && customVillageImage)
-                  ? customVillageImage
-                  : (item.id === 'g5' && customTankImage)
-                  ? customTankImage
-                  : item.image;
+              const imgKey = `gallery_${item.id}`;
+              const fallback = item.id === 'g1'
+                ? getImage('about_village', item.image)
+                : item.id === 'g5'
+                ? getImage('about_tank', item.image)
+                : item.image;
+              const displayImage = getImage(imgKey, fallback);
+              const isCustom = isCustomImage(imgKey);
+              const isDraggedOver = dragOverGalleryId === item.id;
 
               return (
                 <div
                   key={item.id}
+                  id={`gallery-item-${item.id}`}
+                  onDragOver={(e) => {
+                    e.preventDefault();
+                    setDragOverGalleryId(item.id);
+                  }}
+                  onDragLeave={(e) => {
+                    e.preventDefault();
+                    setDragOverGalleryId(null);
+                  }}
+                  onDrop={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    setDragOverGalleryId(null);
+                    if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+                      handleApplyGalleryFile(item.id, item.title, e.dataTransfer.files[0]);
+                    }
+                  }}
                   onClick={() => setSelectedGalleryItem({ ...item, image: displayImage })}
-                  className="group relative rounded-2xl overflow-hidden border border-stone-200 bg-stone-100 aspect-[16/11] cursor-pointer shadow-xs card-hover-lift"
+                  className={`group relative rounded-2xl overflow-hidden border border-stone-200 bg-stone-100 aspect-[16/11] cursor-pointer shadow-xs card-hover-lift transition-all duration-300 ${
+                    isDraggedOver ? 'ring-4 ring-emerald-500 ring-inset' : ''
+                  }`}
                 >
                   <img
                     src={displayImage}
@@ -471,17 +550,57 @@ export const AboutSection: React.FC = () => {
                       (e.target as HTMLImageElement).src = '/images/hero_cows.jpg';
                     }}
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-stone-950/80 via-stone-950/25 to-transparent opacity-80 group-hover:opacity-90 transition-opacity" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-stone-950/80 via-stone-950/25 to-transparent opacity-80 group-hover:opacity-90 transition-opacity pointer-events-none" />
 
-                  <div className="absolute top-3 left-3 bg-white/95 backdrop-blur-xs px-2.5 py-1 rounded-full text-[11px] font-bold text-stone-900 border border-stone-200/80 shadow-xs">
+                  {/* Drag drop overlay */}
+                  {isDraggedOver && (
+                    <div className="absolute inset-0 bg-emerald-950/85 flex flex-col items-center justify-center text-white z-20 p-2 text-center pointer-events-none">
+                      <Upload className="w-7 h-7 text-emerald-300 mb-1 animate-bounce" />
+                      <p className="font-bold text-xs">Fotoğrafı Buraya Bırakın</p>
+                    </div>
+                  )}
+
+                  {/* Category Tag */}
+                  <div className="absolute top-3 left-3 bg-white/95 backdrop-blur-xs px-2.5 py-1 rounded-full text-[11px] font-bold text-stone-900 border border-stone-200/80 shadow-xs pointer-events-none">
                     {item.category}
                   </div>
 
-                  <div className="absolute top-3 right-3 w-8 h-8 rounded-full bg-stone-900/60 backdrop-blur-xs text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                    <ZoomIn className="w-4 h-4" />
+                  {/* Action Controls on Top Right: Değiştir + Reset + Zoom */}
+                  <div className="absolute top-2.5 right-2.5 flex items-center gap-1.5 z-10 opacity-90 group-hover:opacity-100 transition-opacity">
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        activeGalleryTargetRef.current = item.id;
+                        galleryFileInputRef.current?.click();
+                      }}
+                      title={`${item.title} fotoğrafını değiştir`}
+                      className="flex items-center gap-1 px-2.5 py-1 rounded-full bg-stone-900/85 hover:bg-stone-900 text-white text-[11px] font-medium backdrop-blur-md border border-white/20 shadow-md transition-all active:scale-95 cursor-pointer hover:border-emerald-400"
+                    >
+                      <Camera className="w-3 h-3 text-emerald-400" />
+                      <span className="hidden sm:inline">Değiştir</span>
+                    </button>
+
+                    {isCustom && (
+                      <button
+                        type="button"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          resetImage(imgKey, item.title);
+                        }}
+                        title="Varsayılan fotoğrafa dön"
+                        className="p-1.5 rounded-full bg-stone-900/85 hover:bg-stone-900 text-stone-200 text-xs backdrop-blur-md border border-white/20 shadow-md transition-all active:scale-95 cursor-pointer"
+                      >
+                        <RotateCcw className="w-3 h-3 text-stone-300" />
+                      </button>
+                    )}
+
+                    <div className="w-7 h-7 rounded-full bg-stone-900/60 backdrop-blur-xs text-white flex items-center justify-center">
+                      <ZoomIn className="w-3.5 h-3.5" />
+                    </div>
                   </div>
 
-                  <div className="absolute bottom-3 left-3 right-3 text-white">
+                  <div className="absolute bottom-3 left-3 right-3 text-white pointer-events-none">
                     <h4 className="font-bold text-sm leading-tight text-white mb-1 drop-shadow-xs">
                       {item.title}
                     </h4>
@@ -496,53 +615,84 @@ export const AboutSection: React.FC = () => {
         </div>
 
         {/* Full Image Zoom Lightbox Modal */}
-        {selectedGalleryItem && (
-          <div
-            className="fixed inset-0 z-50 flex items-center justify-center bg-stone-950/80 backdrop-blur-md p-4 animate-in fade-in duration-200"
-            onClick={() => setSelectedGalleryItem(null)}
-          >
+        {selectedGalleryItem && (() => {
+          const modalImgKey = `gallery_${selectedGalleryItem.id}`;
+          const currentModalImg = getImage(modalImgKey, selectedGalleryItem.image);
+          const isCustomModalImg = isCustomImage(modalImgKey);
+
+          return (
             <div
-              className="relative max-w-4xl w-full bg-stone-900 rounded-3xl overflow-hidden border border-stone-800 shadow-2xl"
-              onClick={(e) => e.stopPropagation()}
+              className="fixed inset-0 z-50 flex items-center justify-center bg-stone-950/80 backdrop-blur-md p-4 animate-in fade-in duration-200"
+              onClick={() => setSelectedGalleryItem(null)}
             >
-              <div className="relative aspect-[16/10] bg-stone-950">
-                <img
-                  src={selectedGalleryItem.image}
-                  alt={selectedGalleryItem.title}
-                  className="w-full h-full object-contain"
-                  referrerPolicy="no-referrer"
-                />
-                <button
-                  type="button"
-                  onClick={() => setSelectedGalleryItem(null)}
-                  className="absolute top-4 right-4 w-10 h-10 rounded-full bg-black/60 hover:bg-black text-white flex items-center justify-center transition-colors shadow-lg"
-                  aria-label="Kapat"
-                >
-                  <X className="w-5 h-5" />
-                </button>
-              </div>
-              <div className="p-6 bg-stone-900 border-t border-stone-800 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                <div>
-                  <span className="text-xs font-semibold text-emerald-400 uppercase tracking-wider">
-                    {selectedGalleryItem.category}
-                  </span>
-                  <h4 className="text-lg font-bold text-white mt-0.5">
-                    {selectedGalleryItem.title}
-                  </h4>
-                  <p className="text-xs sm:text-sm text-stone-400 mt-1">
-                    {selectedGalleryItem.description}
-                  </p>
+              <div
+                className="relative max-w-4xl w-full bg-stone-900 rounded-3xl overflow-hidden border border-stone-800 shadow-2xl"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <div className="relative aspect-[16/10] bg-stone-950">
+                  <img
+                    src={currentModalImg}
+                    alt={selectedGalleryItem.title}
+                    className="w-full h-full object-contain"
+                    referrerPolicy="no-referrer"
+                  />
+                  <div className="absolute top-4 right-4 flex items-center gap-2">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        activeGalleryTargetRef.current = selectedGalleryItem.id;
+                        galleryFileInputRef.current?.click();
+                      }}
+                      className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-stone-900/80 hover:bg-stone-900 text-white text-xs font-medium backdrop-blur-md border border-white/20 shadow-lg cursor-pointer"
+                    >
+                      <Camera className="w-3.5 h-3.5 text-emerald-400" />
+                      <span>Fotoğrafı Değiştir</span>
+                    </button>
+
+                    {isCustomModalImg && (
+                      <button
+                        type="button"
+                        onClick={() => resetImage(modalImgKey, selectedGalleryItem.title)}
+                        className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-stone-900/80 hover:bg-stone-900 text-stone-200 text-xs font-medium backdrop-blur-md border border-white/20 shadow-lg cursor-pointer"
+                      >
+                        <RotateCcw className="w-3 h-3 text-stone-300" />
+                        <span>Sıfırla</span>
+                      </button>
+                    )}
+
+                    <button
+                      type="button"
+                      onClick={() => setSelectedGalleryItem(null)}
+                      className="w-9 h-9 rounded-full bg-black/60 hover:bg-black text-white flex items-center justify-center transition-colors shadow-lg cursor-pointer"
+                      aria-label="Kapat"
+                    >
+                      <X className="w-5 h-5" />
+                    </button>
+                  </div>
                 </div>
-                <a
-                  href={`tel:${FARM_CONTACT.phoneRaw}`}
-                  className="px-5 py-2.5 rounded-full bg-[#123c28] hover:bg-[#1a5338] text-white text-xs font-semibold whitespace-nowrap text-center transition-colors"
-                >
-                  Tesis Ziyareti Planla
-                </a>
+                <div className="p-6 bg-stone-900 border-t border-stone-800 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                  <div>
+                    <span className="text-xs font-semibold text-emerald-400 uppercase tracking-wider">
+                      {selectedGalleryItem.category}
+                    </span>
+                    <h4 className="text-lg font-bold text-white mt-0.5">
+                      {selectedGalleryItem.title}
+                    </h4>
+                    <p className="text-xs sm:text-sm text-stone-400 mt-1">
+                      {selectedGalleryItem.description}
+                    </p>
+                  </div>
+                  <a
+                    href={`tel:${FARM_CONTACT.phoneRaw}`}
+                    className="px-5 py-2.5 rounded-full bg-[#123c28] hover:bg-[#1a5338] text-white text-xs font-semibold whitespace-nowrap text-center transition-colors"
+                  >
+                    Tesis Ziyareti Planla
+                  </a>
+                </div>
               </div>
             </div>
-          </div>
-        )}
+          );
+        })()}
       </div>
     </section>
   );

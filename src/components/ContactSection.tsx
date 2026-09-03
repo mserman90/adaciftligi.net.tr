@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import { MapPin, Phone, MessageCircle, Mail, Clock, Send, Sparkles, Check, ExternalLink } from 'lucide-react';
+import React, { useState, useRef } from 'react';
+import { MapPin, Phone, MessageCircle, Mail, Clock, Send, Sparkles, Check, ExternalLink, Camera, RotateCcw, Upload } from 'lucide-react';
 import { FARM_CONTACT } from '../data/farmData';
+import { useFarmImages } from '../context/ImageContext';
 
 export const ContactSection: React.FC = () => {
+  const { getImage, updateImage, resetImage, isCustomImage } = useFarmImages();
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
@@ -11,24 +13,28 @@ export const ContactSection: React.FC = () => {
     note: ''
   });
   const [submitted, setSubmitted] = useState(false);
-  const [customVillageImg, setCustomVillageImg] = useState<string | null>(null);
+  const [dragOverFacility, setDragOverFacility] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      try {
-        const saved = localStorage.getItem('adaciftligi_village_image');
-        if (saved) {
-          setCustomVillageImg(saved);
-        } else {
-          const testImg = new Image();
-          testImg.src = '/images/23911dbc-b407-46d5-95fb-656107f0c494.jfif';
-          testImg.onload = () => setCustomVillageImg('/images/23911dbc-b407-46d5-95fb-656107f0c494.jfif');
-        }
-      } catch (e) {
-        // ignore
-      }
+  // Facility image defaults to village image if set, or facility default
+  const defaultVillage = getImage('about_village', '/images/hero_barn.jpg');
+  const facilityImg = getImage('contact_facility', defaultVillage);
+  const isCustom = isCustomImage('contact_facility');
+
+  const handleApplyFile = (file: File) => {
+    if (!file.type.startsWith('image/')) {
+      alert('Lütfen geçerli bir resim dosyası seçin (JPG, PNG, WebP).');
+      return;
     }
-  }, []);
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      const base64 = event.target?.result as string;
+      if (base64) {
+        updateImage('contact_facility', base64, 'İletişim Tesis Fotoğrafı');
+      }
+    };
+    reader.readAsDataURL(file);
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -162,23 +168,99 @@ export const ContactSection: React.FC = () => {
                 />
               </div>
 
+              {/* Hidden facility file input */}
+              <input
+                type="file"
+                ref={fileInputRef}
+                accept="image/*,.jfif"
+                className="hidden"
+                onChange={(e) => {
+                  if (e.target.files && e.target.files[0]) {
+                    handleApplyFile(e.target.files[0]);
+                    e.target.value = '';
+                  }
+                }}
+              />
+
               {/* Farm Facility Thumbnail & Directions Note */}
-              <div className="mt-4 pt-4 border-t border-stone-100 flex items-center gap-3">
-                <div className="w-16 h-12 rounded-xl overflow-hidden bg-stone-100 border border-stone-200 shrink-0">
-                  <img
-                    src={customVillageImg || '/images/facility_small.jpg'}
-                    alt="Ada Çiftliği Adasarhanlı Köyü Tesisleri"
-                    className="w-full h-full object-cover"
-                    referrerPolicy="no-referrer"
-                    loading="lazy"
-                    onError={(e) => {
-                      (e.target as HTMLImageElement).src = '/images/hero_cows.jpg';
+              <div className="mt-4 pt-4 border-t border-stone-100 flex items-center justify-between gap-3">
+                <div className="flex items-center gap-3">
+                  <div
+                    onDragOver={(e) => {
+                      e.preventDefault();
+                      setDragOverFacility(true);
                     }}
-                  />
+                    onDragLeave={(e) => {
+                      e.preventDefault();
+                      setDragOverFacility(false);
+                    }}
+                    onDrop={(e) => {
+                      e.preventDefault();
+                      setDragOverFacility(false);
+                      if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+                        handleApplyFile(e.dataTransfer.files[0]);
+                      }
+                    }}
+                    className={`group relative w-20 h-14 rounded-xl overflow-hidden bg-stone-100 border border-stone-200 shrink-0 transition-all ${
+                      dragOverFacility ? 'ring-2 ring-emerald-500' : ''
+                    }`}
+                  >
+                    <img
+                      src={facilityImg}
+                      alt="Ada Çiftliği Adasarhanlı Köyü Tesisleri"
+                      className="w-full h-full object-cover"
+                      referrerPolicy="no-referrer"
+                      loading="lazy"
+                      onError={(e) => {
+                        (e.target as HTMLImageElement).src = '/images/hero_cows.jpg';
+                      }}
+                    />
+
+                    {/* Drag overlay */}
+                    {dragOverFacility && (
+                      <div className="absolute inset-0 bg-emerald-950/85 flex items-center justify-center text-white z-10">
+                        <Upload className="w-4 h-4 text-emerald-300 animate-bounce" />
+                      </div>
+                    )}
+
+                    {/* Quick hover change button */}
+                    <button
+                      type="button"
+                      onClick={() => fileInputRef.current?.click()}
+                      title="Tesis fotoğrafını değiştir"
+                      className="absolute inset-0 bg-stone-900/60 flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer"
+                    >
+                      <Camera className="w-4 h-4 text-white" />
+                    </button>
+                  </div>
+
+                  <div className="text-xs">
+                    <span className="font-semibold text-stone-900 block">Kolay Ulaşım Güzergahı:</span>
+                    <span className="text-stone-500">Meriç ilçe merkezine 12 km mesafede, Adasarhanlı Köyü asfalt yolu üzerinde.</span>
+                  </div>
                 </div>
-                <div className="text-xs">
-                  <span className="font-semibold text-stone-900 block">Kolay Ulaşım Güzergahı:</span>
-                  <span className="text-stone-500">Meriç ilçe merkezine 12 km mesafede, Adasarhanlı Köyü asfalt yolu üzerinde.</span>
+
+                <div className="flex items-center gap-1.5 shrink-0">
+                  <button
+                    type="button"
+                    onClick={() => fileInputRef.current?.click()}
+                    title="Tesis fotoğrafını değiştir"
+                    className="flex items-center gap-1 px-2.5 py-1.5 rounded-full bg-stone-100 hover:bg-stone-200 text-stone-700 text-[11px] font-medium transition-colors cursor-pointer border border-stone-200"
+                  >
+                    <Camera className="w-3 h-3 text-[#123c28]" />
+                    <span className="hidden sm:inline">Fotoğraf</span>
+                  </button>
+
+                  {isCustom && (
+                    <button
+                      type="button"
+                      onClick={() => resetImage('contact_facility', 'Tesis Fotoğrafı')}
+                      title="Varsayılan fotoğrafa dön"
+                      className="p-1.5 rounded-full bg-stone-100 hover:bg-stone-200 text-stone-600 text-xs transition-colors cursor-pointer border border-stone-200"
+                    >
+                      <RotateCcw className="w-3 h-3" />
+                    </button>
+                  )}
                 </div>
               </div>
             </div>

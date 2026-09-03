@@ -1,6 +1,7 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import { ArrowUpRight, Check, Sparkles, Camera, Upload, RotateCcw } from 'lucide-react';
 import { FARM_PRODUCTS } from '../data/farmData';
+import { useFarmImages } from '../context/ImageContext';
 
 interface ProductGridProps {
   onSelectProduct: (productName: string) => void;
@@ -8,81 +9,27 @@ interface ProductGridProps {
 
 export const ProductGrid: React.FC<ProductGridProps> = ({ onSelectProduct }) => {
   const [activeTab, setActiveTab] = useState<'all' | 'kucukbas' | 'buyukbas' | 'sut'>('all');
-  const [customImages, setCustomImages] = useState<Record<string, string>>(() => {
-    if (typeof window !== 'undefined') {
-      try {
-        const saved = localStorage.getItem('adaciftligi_product_images');
-        return saved ? JSON.parse(saved) : {};
-      } catch (e) {
-        return {};
-      }
-    }
-    return {};
-  });
+  const { getImage, setImage, resetImage, isCustomImage } = useFarmImages();
   const [draggedCardId, setDraggedCardId] = useState<string | null>(null);
-  const [toastMessage, setToastMessage] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const activeProductTargetRef = useRef<string | null>(null);
 
-  // Check if user placed the specific generated images in public/images
-  useEffect(() => {
-    if (!customImages['koyun']) {
-      const testImg = new Image();
-      testImg.src = '/images/Gemini_Generated_Image_p665hcp665hcp665.jfif';
-      testImg.onload = () => {
-        setCustomImages((prev) => ({
-          ...prev,
-          koyun: '/images/Gemini_Generated_Image_p665hcp665hcp665.jfif',
-        }));
-      };
-    }
-    if (!customImages['sut']) {
-      const testTankImg = new Image();
-      testTankImg.src = '/images/Gemini_Generated_Image_ln24chln24chln24.jfif';
-      testTankImg.onload = () => {
-        setCustomImages((prev) => ({
-          ...prev,
-          sut: '/images/Gemini_Generated_Image_ln24chln24chln24.jfif',
-        }));
-      };
-    }
-  }, [customImages]);
-
-  const handleApplyImage = (productId: string, dataUrlOrPath: string) => {
-    setCustomImages((prev) => {
-      const updated = { ...prev, [productId]: dataUrlOrPath };
-      try {
-        localStorage.setItem('adaciftligi_product_images', JSON.stringify(updated));
-      } catch (err) {
-        console.warn('LocalStorage limit reached', err);
-      }
-      return updated;
-    });
-    setToastMessage(`"${productId === 'koyun' ? 'Damızlık & Kesimlik Koyun' : productId}" fotoğrafı güncellendi!`);
-    setTimeout(() => setToastMessage(null), 4000);
+  const handleApplyImage = (productId: string, dataUrlOrPath: string, productTitle: string) => {
+    setImage(`product_${productId}`, dataUrlOrPath, productTitle);
   };
 
-  const handleResetImage = (productId: string, e: React.MouseEvent) => {
+  const handleResetImage = (productId: string, productTitle: string, e: React.MouseEvent) => {
     e.stopPropagation();
-    setCustomImages((prev) => {
-      const updated = { ...prev };
-      delete updated[productId];
-      try {
-        localStorage.setItem('adaciftligi_product_images', JSON.stringify(updated));
-      } catch (err) {
-        console.warn('LocalStorage error', err);
-      }
-      return updated;
-    });
+    resetImage(`product_${productId}`, productTitle);
   };
 
-  const handleFileChange = (productId: string, file: File) => {
+  const handleFileChange = (productId: string, productTitle: string, file: File) => {
     if (!file.type.startsWith('image/') && !file.name.endsWith('.jfif')) return;
     const reader = new FileReader();
     reader.onload = (e) => {
       const result = e.target?.result as string;
       if (result) {
-        handleApplyImage(productId, result);
+        handleApplyImage(productId, result, productTitle);
       }
     };
     reader.readAsDataURL(file);
@@ -109,18 +56,12 @@ export const ProductGrid: React.FC<ProductGridProps> = ({ onSelectProduct }) => 
         className="hidden"
         onChange={(e) => {
           if (e.target.files && e.target.files[0] && activeProductTargetRef.current) {
-            handleFileChange(activeProductTargetRef.current, e.target.files[0]);
+            const prod = FARM_PRODUCTS.find((p) => p.id === activeProductTargetRef.current);
+            handleFileChange(activeProductTargetRef.current, prod?.title || 'Ürün', e.target.files[0]);
+            e.target.value = '';
           }
         }}
       />
-
-      {/* Floating Toast Notification */}
-      {toastMessage && (
-        <div className="fixed bottom-6 right-6 z-50 bg-[#123c28] text-white px-5 py-3 rounded-2xl shadow-2xl border border-emerald-500/30 flex items-center gap-2.5 text-sm font-medium animate-fade-in">
-          <Check className="w-5 h-5 text-emerald-400 shrink-0" />
-          <span>{toastMessage}</span>
-        </div>
-      )}
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
@@ -146,7 +87,7 @@ export const ProductGrid: React.FC<ProductGridProps> = ({ onSelectProduct }) => 
                 key={tab.id}
                 type="button"
                 onClick={() => setActiveTab(tab.id as any)}
-                className={`px-4 py-2 rounded-full text-xs sm:text-sm font-semibold transition-all duration-200 whitespace-nowrap ${
+                className={`px-4 py-2 rounded-full text-xs sm:text-sm font-semibold transition-all duration-200 whitespace-nowrap cursor-pointer ${
                   activeTab === tab.id
                     ? 'bg-[#123c28] text-white shadow-xs'
                     : 'text-stone-700 hover:text-stone-900 hover:bg-white/60'
@@ -161,8 +102,9 @@ export const ProductGrid: React.FC<ProductGridProps> = ({ onSelectProduct }) => 
         {/* Products Card Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {filteredProducts.map((product) => {
-            const currentImg = customImages[product.id] || product.image;
-            const isCustom = Boolean(customImages[product.id]);
+            const imgKey = `product_${product.id}`;
+            const currentImg = getImage(imgKey, product.image);
+            const isCustom = isCustomImage(imgKey);
             const isDraggedOver = draggedCardId === product.id;
 
             return (
@@ -185,7 +127,7 @@ export const ProductGrid: React.FC<ProductGridProps> = ({ onSelectProduct }) => 
                     e.preventDefault();
                     setDraggedCardId(null);
                     if (e.dataTransfer.files && e.dataTransfer.files[0]) {
-                      handleFileChange(product.id, e.dataTransfer.files[0]);
+                      handleFileChange(product.id, product.title, e.dataTransfer.files[0]);
                     }
                   }}
                   className={`relative aspect-[16/10] overflow-hidden bg-stone-100 transition-all duration-300 ${
@@ -226,19 +168,21 @@ export const ProductGrid: React.FC<ProductGridProps> = ({ onSelectProduct }) => 
                         fileInputRef.current?.click();
                       }}
                       title={`${product.title} fotoğrafını değiştir (veya resmi üzerine sürükleyip bırakın)`}
-                      className="p-1.5 rounded-full bg-stone-900/80 hover:bg-stone-900 text-white text-xs font-medium backdrop-blur-md border border-white/20 shadow-md transition-all active:scale-95 cursor-pointer"
+                      className="flex items-center gap-1 px-2.5 py-1.5 rounded-full bg-stone-900/85 hover:bg-stone-900 text-white text-xs font-medium backdrop-blur-md border border-white/20 shadow-md transition-all active:scale-95 cursor-pointer hover:border-emerald-400"
                     >
-                      <Camera className="w-3.5 h-3.5 text-emerald-300" />
+                      <Camera className="w-3.5 h-3.5 text-emerald-400" />
+                      <span className="text-[11px] font-medium pr-0.5">Değiştir</span>
                     </button>
 
                     {isCustom && (
                       <button
                         type="button"
-                        onClick={(e) => handleResetImage(product.id, e)}
+                        onClick={(e) => handleResetImage(product.id, product.title, e)}
                         title="Varsayılan fotoğrafa dön"
-                        className="p-1.5 rounded-full bg-stone-900/80 hover:bg-stone-900 text-stone-200 text-xs font-medium backdrop-blur-md border border-white/20 shadow-md transition-all active:scale-95 cursor-pointer"
+                        className="flex items-center gap-1 px-2 py-1.5 rounded-full bg-stone-900/85 hover:bg-stone-900 text-stone-200 text-xs font-medium backdrop-blur-md border border-white/20 shadow-md transition-all active:scale-95 cursor-pointer"
                       >
-                        <RotateCcw className="w-3.5 h-3.5 text-stone-300" />
+                        <RotateCcw className="w-3 h-3 text-stone-300" />
+                        <span className="hidden sm:inline text-[11px]">Sıfırla</span>
                       </button>
                     )}
                   </div>

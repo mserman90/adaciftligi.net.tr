@@ -4,6 +4,7 @@
  */
 
 import React, { useState, useEffect } from 'react';
+import { ImageProvider } from './context/ImageContext';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { ProductGrid } from './components/ProductGrid';
@@ -64,48 +65,50 @@ export default function App() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-white text-stone-900 flex flex-col font-sans selection:bg-[#123c28] selection:text-white">
-      {/* Sticky Navigation */}
-      <Navbar onOpenInquiry={handleOpenInquiry} />
+    <ImageProvider>
+      <div className="min-h-screen bg-white text-stone-900 flex flex-col font-sans selection:bg-[#123c28] selection:text-white">
+        {/* Sticky Navigation */}
+        <Navbar onOpenInquiry={handleOpenInquiry} />
 
-      <main className="flex-1">
-        {/* 1. Hero Section */}
-        <Hero onOpenInquiry={() => handleOpenInquiry()} />
+        <main className="flex-1">
+          {/* 1. Hero Section */}
+          <Hero onOpenInquiry={() => handleOpenInquiry()} />
 
-        {/* 2. Products / Services Grid */}
-        <ProductGrid onSelectProduct={handleOpenInquiry} />
+          {/* 2. Products / Services Grid */}
+          <ProductGrid onSelectProduct={handleOpenInquiry} />
 
-        {/* 3. About Farm & Meriç Edirne Section */}
-        <AboutSection />
+          {/* 3. About Farm & Meriç Edirne Section */}
+          <AboutSection />
 
-        {/* 4. Full-width Dark Green Conversion Banner */}
-        <ConversionBanner onOpenInquiry={() => handleOpenInquiry()} />
+          {/* 4. Full-width Dark Green Conversion Banner */}
+          <ConversionBanner onOpenInquiry={() => handleOpenInquiry()} />
 
-        {/* 5. Production Process 3 Steps */}
-        <ProcessSection />
+          {/* 5. Production Process 3 Steps */}
+          <ProcessSection />
 
-        {/* 6. Customer & Partner Reviews */}
-        <Testimonials />
+          {/* 6. Customer & Partner Reviews */}
+          <Testimonials />
 
-        {/* 7. FAQ Accordion */}
-        <FaqAccordion />
+          {/* 7. FAQ Accordion */}
+          <FaqAccordion />
 
-        {/* 8. Contact & Map Location Section */}
-        <ContactSection />
-      </main>
+          {/* 8. Contact & Map Location Section */}
+          <ContactSection />
+        </main>
 
-      {/* 9. Multi-column Footer with Legal Row */}
-      <Footer />
+        {/* 9. Multi-column Footer with Legal Row */}
+        <Footer />
 
-      {/* Direct WhatsApp / Phone Inquiry Modal */}
-      <InquiryModal
-        isOpen={modalOpen}
-        onClose={() => setModalOpen(false)}
-        initialProduct={selectedProduct}
-      />
+        {/* Direct WhatsApp / Phone Inquiry Modal */}
+        <InquiryModal
+          isOpen={modalOpen}
+          onClose={() => setModalOpen(false)}
+          initialProduct={selectedProduct}
+        />
 
-      {/* Quick Floating WhatsApp & Call Buttons */}
-      <QuickCallFloat />
-    </div>
+        {/* Quick Floating WhatsApp & Call Buttons */}
+        <QuickCallFloat />
+      </div>
+    </ImageProvider>
   );
 }

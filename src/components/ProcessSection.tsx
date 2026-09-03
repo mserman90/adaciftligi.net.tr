@@ -1,8 +1,14 @@
-import React from 'react';
-import { Sprout, ShieldCheck, Truck, Sparkles, Check } from 'lucide-react';
+import React, { useRef, useState } from 'react';
+import { Sprout, ShieldCheck, Truck, Sparkles, Check, Camera, RotateCcw, Upload } from 'lucide-react';
 import { PRODUCTION_STEPS } from '../data/farmData';
+import { useFarmImages } from '../context/ImageContext';
 
 export const ProcessSection: React.FC = () => {
+  const { getImage, updateImage, resetImage, isCustomImage } = useFarmImages();
+  const [dragOverStep, setDragOverStep] = useState<string | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const activeStepTargetRef = useRef<{ stepNum: string; title: string } | null>(null);
+
   const getIcon = (name: string) => {
     switch (name) {
       case 'Sprout':
@@ -16,8 +22,41 @@ export const ProcessSection: React.FC = () => {
     }
   };
 
+  const handleApplyFile = (stepNum: string, stepTitle: string, file: File) => {
+    if (!file.type.startsWith('image/') && !file.name.endsWith('.jfif')) {
+      alert('Lütfen geçerli bir resim dosyası seçin (JPG, PNG, WebP, JFIF).');
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      const base64 = event.target?.result as string;
+      if (base64) {
+        updateImage(`process_step_${stepNum}`, base64, `Adım ${stepNum}: ${stepTitle}`);
+      }
+    };
+    reader.readAsDataURL(file);
+  };
+
   return (
     <section id="uretim-sureci" className="py-20 sm:py-28 bg-white border-t border-stone-200/80">
+      {/* Hidden step file input */}
+      <input
+        type="file"
+        ref={fileInputRef}
+        accept="image/*,.jfif"
+        className="hidden"
+        onChange={(e) => {
+          if (e.target.files && e.target.files[0] && activeStepTargetRef.current) {
+            handleApplyFile(
+              activeStepTargetRef.current.stepNum,
+              activeStepTargetRef.current.title,
+              e.target.files[0]
+            );
+            e.target.value = '';
+          }
+        }}
+      />
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
@@ -38,58 +77,104 @@ export const ProcessSection: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
           {PRODUCTION_STEPS.map((step, index) => {
             const IconComponent = getIcon(step.iconName);
+            const imageKey = `process_step_${step.stepNumber}`;
+            const displayImage = getImage(imageKey, step.image || '/images/hero_cows.jpg');
+            const isCustom = isCustomImage(imageKey);
+            const isDragging = dragOverStep === step.stepNumber;
+
             return (
               <div
                 key={step.stepNumber}
                 id={`process-step-${index + 1}`}
                 className="group relative bg-stone-50 rounded-3xl overflow-hidden border border-stone-200/80 shadow-[0_4px_24px_-4px_rgba(0,0,0,0.03)] flex flex-col justify-between card-hover-lift"
               >
-                {/* Step Image with Overlay & Badge */}
-                {step.image && (
-                  <div className="relative aspect-[16/10] overflow-hidden bg-stone-200">
-                    <img
-                      src={step.image}
-                      alt={step.imageAlt || step.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                      referrerPolicy="no-referrer"
-                      loading="lazy"
-                      onError={(e) => {
-                        (e.target as HTMLImageElement).src = '/images/hero_cows.jpg';
-                      }}
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-stone-950/70 via-stone-950/20 to-transparent" />
+                {/* Step Image with Drag & Drop, Controls & Badges */}
+                <div
+                  onDragOver={(e) => {
+                    e.preventDefault();
+                    setDragOverStep(step.stepNumber);
+                  }}
+                  onDragLeave={(e) => {
+                    e.preventDefault();
+                    setDragOverStep(null);
+                  }}
+                  onDrop={(e) => {
+                    e.preventDefault();
+                    setDragOverStep(null);
+                    if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+                      handleApplyFile(step.stepNumber, step.title, e.dataTransfer.files[0]);
+                    }
+                  }}
+                  className={`relative aspect-[16/10] overflow-hidden bg-stone-200 transition-all duration-300 ${
+                    isDragging ? 'ring-4 ring-emerald-500 ring-inset' : ''
+                  }`}
+                >
+                  <img
+                    src={displayImage}
+                    alt={step.imageAlt || step.title}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    referrerPolicy="no-referrer"
+                    loading="lazy"
+                    onError={(e) => {
+                      (e.target as HTMLImageElement).src = '/images/hero_cows.jpg';
+                    }}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-stone-950/70 via-stone-950/20 to-transparent pointer-events-none" />
 
-                    {/* Step number on top left */}
-                    <div className="absolute top-4 left-4 bg-white/95 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-black text-[#123c28] shadow-xs border border-stone-200/60">
-                      Adım {step.stepNumber}
+                  {/* Drag drop overlay */}
+                  {isDragging && (
+                    <div className="absolute inset-0 bg-emerald-950/85 flex flex-col items-center justify-center text-white z-20 p-2 text-center pointer-events-none">
+                      <Upload className="w-7 h-7 text-emerald-300 mb-1 animate-bounce" />
+                      <p className="font-bold text-xs">Adım {step.stepNumber} Fotoğrafını Bırakın</p>
                     </div>
+                  )}
 
-                    {/* Floating Icon on bottom right of image */}
-                    <div className="absolute bottom-3.5 right-4 w-11 h-11 rounded-xl bg-white/95 backdrop-blur-sm border border-stone-200 shadow-md flex items-center justify-center text-[#123c28]">
-                      <IconComponent className="w-5 h-5" />
-                    </div>
-
-                    {/* Subtitle tag on bottom left */}
-                    <div className="absolute bottom-3.5 left-4 text-xs font-semibold text-emerald-300 drop-shadow-xs max-w-[200px] truncate">
-                      {step.subtitle}
-                    </div>
+                  {/* Step number on top left */}
+                  <div className="absolute top-3.5 left-3.5 bg-white/95 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-black text-[#123c28] shadow-xs border border-stone-200/60 pointer-events-none">
+                    Adım {step.stepNumber}
                   </div>
-                )}
+
+                  {/* Photo change & reset button on top right */}
+                  <div className="absolute top-3.5 right-3.5 flex items-center gap-1.5 z-10 opacity-90 group-hover:opacity-100 transition-opacity">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        activeStepTargetRef.current = { stepNum: step.stepNumber, title: step.title };
+                        fileInputRef.current?.click();
+                      }}
+                      title={`Adım ${step.stepNumber} fotoğrafını değiştir`}
+                      className="flex items-center gap-1 px-2.5 py-1 rounded-full bg-stone-900/85 hover:bg-stone-900 text-white text-[11px] font-medium backdrop-blur-md border border-white/20 shadow-md transition-all active:scale-95 cursor-pointer hover:border-emerald-400"
+                    >
+                      <Camera className="w-3 h-3 text-emerald-400" />
+                      <span>Fotoğraf Değiştir</span>
+                    </button>
+
+                    {isCustom && (
+                      <button
+                        type="button"
+                        onClick={() => resetImage(imageKey, `Adım ${step.stepNumber}`)}
+                        title="Varsayılan fotoğrafa dön"
+                        className="p-1.5 rounded-full bg-stone-900/85 hover:bg-stone-900 text-stone-200 text-xs backdrop-blur-md border border-white/20 shadow-md transition-all active:scale-95 cursor-pointer"
+                      >
+                        <RotateCcw className="w-3 h-3 text-stone-300" />
+                      </button>
+                    )}
+                  </div>
+
+                  {/* Floating Icon on bottom right of image */}
+                  <div className="absolute bottom-3.5 right-4 w-11 h-11 rounded-xl bg-white/95 backdrop-blur-sm border border-stone-200 shadow-md flex items-center justify-center text-[#123c28] pointer-events-none">
+                    <IconComponent className="w-5 h-5" />
+                  </div>
+
+                  {/* Subtitle tag on bottom left */}
+                  <div className="absolute bottom-3.5 left-4 text-xs font-semibold text-emerald-300 drop-shadow-xs max-w-[180px] truncate pointer-events-none">
+                    {step.subtitle}
+                  </div>
+                </div>
 
                 {/* Card Content Body */}
                 <div className="p-7 flex-1 flex flex-col justify-between">
                   <div>
-                    {!step.image && (
-                      <div className="flex items-center justify-between mb-4">
-                        <div className="w-12 h-12 rounded-xl bg-white border border-stone-200 shadow-xs flex items-center justify-center text-[#123c28]">
-                          <IconComponent className="w-6 h-6" />
-                        </div>
-                        <span className="text-2xl font-black text-stone-300">
-                          {step.stepNumber}
-                        </span>
-                      </div>
-                    )}
-
                     <h3 className="text-xl font-bold text-stone-900 mb-3 leading-snug group-hover:text-[#123c28] transition-colors">
                       {step.title}
                     </h3>
