@@ -6,7 +6,7 @@ interface FooterProps {
   onOpenAdmin?: () => void;
 }
 
-export const Footer: React.FC<FooterProps> = ({ onOpenAdmin }) => {
+export const Footer: React.FC<FooterProps & { lang?: 'tr' | 'en' }> = ({ onOpenAdmin, lang = 'tr' }) => {
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -33,7 +33,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenAdmin }) => {
             </div>
 
             <p className="text-sm text-stone-400 leading-relaxed max-w-sm">
-              Meriç nehrinin verimli alüvyon havzası Adasarhanlı Köyü’nde; doğal meralarda
+              {lang === 'en' ? 'In Adasarhanli Village, the fertile alluvial basin of the Meric river; in natural pastures' : 'Meriç nehrinin verimli alüvyon havzası Adasarhanlı Köyü’nde; doğal meralarda'}
               sağlıklı koyun, kuzu, inek, dana yetiştiriciliği ve günlük soğuk zincir taze çiftlik sütü üretimi.
             </p>
 
@@ -95,7 +95,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenAdmin }) => {
               </li>
               <li>
                 <a href="#yorumlar" className="hover:text-white transition-colors">
-                  Müşteri Yorumları
+                  Müşteri {lang === 'en' ? 'Reviews' : 'Yorumlar'}ı
                 </a>
               </li>
               <li>
@@ -119,7 +119,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenAdmin }) => {
             <div className="space-y-2.5 text-xs sm:text-sm text-stone-400">
               <div className="flex items-start gap-2.5">
                 <MapPin className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
-                <span>Adasarhanlı Köyü, Meriç / Edirne</span>
+                <span>{lang === 'en' ? 'Adasarhanli Village, Meric / Edirne' : 'Adasarhanlı Köyü, Meriç / Edirne'}</span>
               </div>
               <div className="flex items-center gap-2.5">
                 <Phone className="w-4 h-4 text-emerald-400 shrink-0" />
@@ -146,7 +146,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenAdmin }) => {
         {/* Bottom Legal Row */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-stone-400">
           <div>
-            © {new Date().getFullYear()} Ada Çiftliği (adaciftligi.net.tr) — Tüm Hakları Saklıdır. Meriç / Edirne.
+            © {new Date().getFullYear()} Ada Farm — {lang === 'en' ? 'All Rights Reserved. Meric / Edirne.' : 'Tüm Hakları Saklıdır. Meriç / Edirne.'}
           </div>
 
           <div className="flex items-center gap-6">

@@ -4,10 +4,12 @@ import { FARM_CONTACT } from '../data/farmData';
 import { FarmWeatherBanner } from './FarmWeatherBanner';
 
 interface NavbarProps {
+  lang?: 'tr' | 'en';
+  setLang?: (l: 'tr' | 'en') => void;
   onOpenInquiry: (productName?: string) => void;
 }
 
-export const Navbar: React.FC<NavbarProps> = ({ onOpenInquiry }) => {
+export const Navbar: React.FC<NavbarProps> = ({ onOpenInquiry, lang = 'tr', setLang }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -19,7 +21,15 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenInquiry }) => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const navLinks = [
+  
+  const navLinks = lang === 'en' ? [
+    { label: 'Products', href: '#urunler' },
+    { label: 'Our Farm', href: '#ciftlik-hakkinda' },
+    { label: 'Process', href: '#uretim-sureci' },
+    { label: 'Reviews', href: '#yorumlar' },
+    { label: 'FAQ', href: '#sss' },
+    { label: 'Contact', href: '#iletisim' },
+  ] : [
     { label: 'Ürünlerimiz', href: '#urunler' },
     { label: 'Çiftliğimiz', href: '#ciftlik-hakkinda' },
     { label: 'Üretim Süreci', href: '#uretim-sureci' },
@@ -28,6 +38,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenInquiry }) => {
     { label: 'İletişim', href: '#iletisim' },
   ];
 
+
   return (
     <>
       <header
@@ -35,7 +46,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenInquiry }) => {
         className="fixed top-0 left-0 right-0 z-40 transition-all duration-300"
       >
         {/* Automated Live Weather & Pasture Status Banner */}
-        <FarmWeatherBanner onOpenInquiry={onOpenInquiry} compact={isScrolled} />
+        <FarmWeatherBanner onOpenInquiry={onOpenInquiry} compact={isScrolled} lang={lang} />
 
         {/* Main Navbar Bar */}
         <div
@@ -78,6 +89,20 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenInquiry }) => {
             ))}
           </nav>
 
+          
+          {/* Language Toggle */}
+          <div className="hidden sm:flex items-center">
+          {setLang && (
+            <button
+              onClick={() => setLang(lang === 'tr' ? 'en' : 'tr')}
+              className="flex items-center justify-center w-9 h-9 rounded-full border border-stone-200 hover:bg-stone-100 text-xs font-bold text-stone-600 transition-all cursor-pointer mr-2"
+              title="Dili Değiştir / Change Language"
+            >
+              {lang === 'tr' ? 'TR' : 'EN'}
+            </button>
+          )}
+          </div>
+
           {/* Desktop CTA buttons */}
           <div className="hidden sm:flex items-center gap-3">
             <a
@@ -88,7 +113,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenInquiry }) => {
             >
               <Phone className="w-4 h-4 text-[#123c28]" />
               <span className="hidden xl:inline">{FARM_CONTACT.phone}</span>
-              <span className="xl:hidden">Ara</span>
+              <span className="xl:hidden">{lang === 'en' ? 'Call' : 'Ara'}</span>
             </a>
 
             <button
@@ -97,7 +122,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenInquiry }) => {
               onClick={() => onOpenInquiry()}
               className="inline-flex items-center gap-2 bg-[#123c28] hover:bg-[#0c291c] text-white text-sm font-semibold px-5 py-2.5 rounded-full shadow-sm hover:shadow transition-all duration-200 active:scale-98"
             >
-              <span>Sipariş & Bilgi</span>
+              <span>{lang === 'en' ? 'Order & Info' : 'Sipariş & Bilgi'}</span>
               <ArrowRight className="w-4 h-4" />
             </button>
           </div>

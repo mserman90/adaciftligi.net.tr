@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
+import { t } from '../translations';
 import { ChevronDown, HelpCircle, Sparkles } from 'lucide-react';
-import { FAQ_ITEMS } from '../data/farmData';
+import { FAQ_ITEMS, FAQ_ITEMS_EN } from '../data/farmData';
 
-export const FaqAccordion: React.FC = () => {
+export const FaqAccordion = ({ lang = 'tr' }: { lang?: 'tr' | 'en' }) => {
+  const l = t[lang].faq;
   const [openId, setOpenId] = useState<string | null>(FAQ_ITEMS[0].id);
 
   const toggleItem = (id: string) => {
@@ -11,16 +13,11 @@ export const FaqAccordion: React.FC = () => {
 
   const getCategoryBadge = (cat: string) => {
     switch (cat) {
-      case 'teslimat':
-        return 'Teslimat & Lojistik';
-      case 'siparis':
-        return 'Sipariş & Fiyatlandırma';
-      case 'saglik':
-        return 'Aşı & Veteriner';
-      case 'ciftlik':
-        return 'Beslenme & Ziyaret';
-      default:
-        return 'Genel';
+      case 'teslimat': return lang === 'en' ? 'Delivery & Logistics' : 'Teslimat & Lojistik';
+      case 'siparis': return lang === 'en' ? 'Orders & Pricing' : 'Sipariş & Fiyatlandırma';
+      case 'saglik': return lang === 'en' ? 'Health & Vet' : 'Aşı & Veteriner';
+      case 'ciftlik': return lang === 'en' ? 'Farm & Visit' : 'Beslenme & Ziyaret';
+      default: return lang === 'en' ? 'General' : 'Genel';
     }
   };
 
@@ -31,19 +28,19 @@ export const FaqAccordion: React.FC = () => {
         <div className="text-center mb-16">
           <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-emerald-50 border border-emerald-200/60 text-[#123c28] text-xs font-semibold uppercase tracking-wider mb-3">
             <Sparkles className="w-3.5 h-3.5" />
-            <span>Sıkça Sorulan Sorular</span>
+            <span>{l.pill}</span>
           </div>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-stone-900 tracking-tight">
-            Aklınıza Takılan Soruların Yanıtları
+            {l.title}
           </h2>
           <p className="mt-4 text-stone-600 text-base sm:text-lg leading-relaxed">
-            Teslimat koşulları, canlı kantar tartımı, süt muhafaza standartları ve çiftlik ziyareti hakkında tüm detaylar.
+            {l.desc}
           </p>
         </div>
 
         {/* Accordion Container */}
         <div className="space-y-4">
-          {FAQ_ITEMS.map((item) => {
+          {(lang === 'en' ? FAQ_ITEMS_EN : FAQ_ITEMS).map((item) => {
             const isOpen = openId === item.id;
             return (
               <div
@@ -93,14 +90,12 @@ export const FaqAccordion: React.FC = () => {
         <div className="mt-10 p-6 rounded-3xl bg-stone-100/70 border border-stone-200 text-center flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-3 text-stone-800 text-sm font-medium">
             <HelpCircle className="w-5 h-5 text-[#123c28] shrink-0" />
-            <span>Farklı bir sorunuz veya özel toptan alım talebiniz mi var?</span>
+            <span>{l.helpTitle}</span>
           </div>
           <a
             href="#iletisim"
             className="px-5 py-2.5 rounded-full bg-white hover:bg-stone-50 border border-stone-300 text-stone-900 text-xs sm:text-sm font-semibold shadow-xs transition-colors whitespace-nowrap"
-          >
-            Bizimle İletişime Geçin
-          </a>
+          >{l.helpBtn}</a>
         </div>
       </div>
     </section>

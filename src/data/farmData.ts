@@ -330,3 +330,198 @@ export const FAQ_ITEMS: FaqItem[] = [
     answer: 'Çiftliğimiz haftanın 7 günü 07:00 – 19:30 saatleri arasında açıktır. Ancak sağım saatlerini izlemek, sürü yöneticimizle detaylı görüşmek veya hayvan seçimi yapmak istiyorsanız gelmeden önce telefon veya WhatsApp ile haber vermenizi rica ederiz.'
   }
 ];
+
+
+export const FARM_PRODUCTS_EN: FarmProduct[] = [
+  {
+    id: 'koyun-kuzu',
+    category: 'kucukbas',
+    categoryLabel: 'Sheep & Lamb',
+    title: 'Curly Sheep & Lamb Breeding',
+    description: 'Our curly sheep, raised grazing freely on natural pastures, are resistant to diseases and offer high meat yield.',
+    image: '/images/koyun.jpg',
+    tag: 'Daily Grazing',
+    highlights: [
+      'Resistant to the Thracian climate',
+      'High meat yield and quality',
+      'Ideal for breeding'
+    ],
+    breed: 'Thracian Curly',
+    feeding: 'Pasture + Natural Forage',
+    deliveryType: 'On-farm Pick up & Delivery',
+    pricingNote: 'Prices vary by live weight.'
+  },
+  {
+    id: 'inek-dana',
+    category: 'buyukbas',
+    categoryLabel: 'Cattle',
+    title: 'Simental Cattle & Fattening Calves',
+    description: 'We raise Simental breed cattle for both dairy and meat, offering high carcass yield calves.',
+    image: '/images/inek.jpg',
+    tag: 'Veterinarian Inspected',
+    highlights: [
+      'High meat and milk yield',
+      'Regular health checks',
+      'Suitable for sacrifice'
+    ],
+    breed: 'Simental',
+    feeding: 'Barley, Oat & Alfalfa',
+    deliveryType: 'With Vet Report',
+    pricingNote: 'Wholesale & Retail'
+  },
+  {
+    id: 'cig-sut',
+    category: 'sut',
+    categoryLabel: 'Daily Fresh Milk',
+    title: 'Untouched Raw Farm Milk',
+    description: 'High dry matter milk, cooled immediately after milking in our modern facility.',
+    image: '/images/tank.jpg',
+    tag: '+4°C Cold Chain',
+    highlights: [
+      'High fat and protein ratio',
+      'Milked with closed-circuit systems',
+      'Daily fresh delivery'
+    ],
+    breed: 'Simental & Holstein',
+    feeding: 'Natural Pasture & Alfalfa',
+    deliveryType: 'Cold Tank Delivery',
+    pricingNote: 'Min. 100 Liters for Wholesale'
+  }
+];
+
+export const PRODUCTION_STEPS_EN: ProductionStep[] = [
+  {
+    stepNumber: '01',
+    title: 'Natural Grazing & Feed Production',
+    subtitle: 'Healthy Herd & Rich Flora',
+    description: 'Our animals graze freely on the natural pastures of the Meric basin and are fed with natural roughage we produce ourselves.',
+    iconName: 'Sprout',
+    image: '/images/hero_cows.jpg',
+    imageAlt: 'Herds grazing on Meric river basin',
+    details: [
+      '140 acres of natural pasture',
+      'No GMOs or chemical growth hormones',
+      '24/7 clean artesian well water'
+    ]
+  },
+  {
+    stepNumber: '02',
+    title: 'Closed-Circuit Milking & Vet Care',
+    subtitle: 'Flawless Hygiene & Biosecurity',
+    description: 'Milking is done untouched via stainless steel lines. Our herd is checked weekly by our vet.',
+    iconName: 'ShieldCheck',
+    image: '/images/step_vet.jpg',
+    imageAlt: 'Veterinary health control',
+    details: [
+      'Precise udder cleaning and disinfection',
+      'Stainless food-grade AISI 304 pipes',
+      'TÜRKVET ear tag and digital pedigree'
+    ]
+  },
+  {
+    stepNumber: '03',
+    title: '+4°C Cold Tank Storage & Delivery',
+    subtitle: 'Fast Cold Chain & Transparent Weighing',
+    description: 'Milked milk is cooled to +3.8°C in 7 minutes. Live animal shipments are made with digital scales and vet reports.',
+    iconName: 'Truck',
+    image: '/images/step_transport.jpg',
+    imageAlt: 'Refrigerated tanker transport',
+    details: [
+      'Thermoking cooled stainless transport',
+      'On-site live weight and transparent billing',
+      'Fast logistics to Edirne and Thrace'
+    ]
+  }
+];
+
+export const TESTIMONIALS_EN: Testimonial[] = [
+  {
+    id: 't1',
+    name: 'Mustafa Kilic',
+    role: 'Kilicoglu Meat & Deli',
+    location: 'Edirne Center',
+    comment: 'We have been working with Ada Farm for 5 years. Their lamb meat yield and taste never disappoint. Honest weighing.',
+    rating: 5,
+    avatar: '/images/avatar_1.jpg',
+    badge: '5-Year Regular Buyer'
+  },
+  {
+    id: 't2',
+    name: 'Ayse & Selim Guler',
+    role: 'Natural Dairy Workshop',
+    location: 'Uzunkopru / Edirne',
+    comment: 'The dry matter and fat ratio of the raw milk we buy daily is great. We feel the consistency in our cheese.',
+    rating: 5,
+    avatar: '/images/avatar_2.jpg',
+    badge: 'Daily Fresh Milk Buyer'
+  },
+  {
+    id: 't3',
+    name: 'Bulent Ozturk',
+    role: 'Fattening & Livestock Business',
+    location: 'Havsa / Edirne',
+    comment: 'The 45 Simental calves we bought last year gave great yield. The animals saw good infrastructure in the pasture.',
+    rating: 5,
+    avatar: '/images/avatar_3.jpg',
+    badge: 'Cattle Breeding Customer'
+  },
+  {
+    id: 't4',
+    name: 'Cemil Demirtas',
+    role: 'Sacrifice Group Coordinator',
+    location: 'Istanbul',
+    comment: 'We come from Istanbul every Eid. We reserve our animals from Ada Farm. Being able to tour the farm gives confidence.',
+    rating: 5,
+    avatar: '/images/avatar_4.jpg',
+    badge: 'Family Customer'
+  }
+];
+
+export const FAQ_ITEMS_EN: FaqItem[] = [
+  {
+    id: 'faq-1',
+    category: 'teslimat',
+    question: 'Where do you deliver, can we buy directly from the farm?',
+    answer: 'Ada Farm is in Adasarhanlı, Meric. You can buy directly 7 days a week. For bulk milk, we deliver to Edirne, Uzunkopru, Kesan. For live animals, we ship to all of Thrace.'
+  },
+  {
+    id: 'faq-2',
+    category: 'siparis',
+    question: 'What is the minimum order for daily raw milk?',
+    answer: 'For local wholesale buyers, we provide regular supply starting from 100 liters daily. Individual customers can come to the farm and buy as much as they want in their sterile containers.'
+  },
+  {
+    id: 'faq-3',
+    category: 'saglik',
+    question: 'How are animal vaccinations and health checks done?',
+    answer: 'All our animals are registered with TÜRKVET and periodically examined by our contracted vets. Vaccines are applied completely. Official health reports are issued for shipments.'
+  },
+  {
+    id: 'faq-4',
+    category: 'ciftlik',
+    question: 'Are factory feeds or hormones used?',
+    answer: 'Absolutely no chemical growth hormones or harmful additives are used. Our animals are fed with pasture grass, fresh alfalfa, corn silage, and barley.'
+  },
+  {
+    id: 'faq-5',
+    category: 'siparis',
+    question: 'How to reserve a sacrifice animal?',
+    answer: 'Animals are weighed and numbered before the sacrifice period. You can reserve by live kg price or fixed share price. Free care is provided until Eid.'
+  },
+  {
+    id: 'faq-6',
+    category: 'ciftlik',
+    question: 'Do we need an appointment to visit?',
+    answer: 'Our farm is open 7 days a week from 07:00 to 19:30. However, if you want to watch the milking or speak with the manager, please notify us beforehand.'
+  }
+];
+
+export const FARM_CONTACT_EN = {
+  phone: '0532 123 45 67',
+  phoneRaw: '+905321234567',
+  email: 'info@adaciftligi.com',
+  address: 'Adasarhanlı Village, Meric District\nEdirne, Turkey 22700',
+  googleMapsUrl: 'https://maps.app.goo.gl/xxx',
+  whatsappUrl: 'https://wa.me/905321234567',
+  workingHours: '7 Days a Week: 07:00 – 19:30'
+};

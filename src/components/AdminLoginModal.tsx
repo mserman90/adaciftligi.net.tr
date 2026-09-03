@@ -3,12 +3,14 @@ import { Lock, User, KeyRound, Eye, EyeOff, ShieldCheck, X, ArrowRight, AlertCir
 import { checkAdminCredentials, saveAdminSession } from '../utils/adminAuth';
 
 interface AdminLoginModalProps {
+  lang?: 'tr' | 'en';
   isOpen: boolean;
   onClose: () => void;
   onLoginSuccess: (username: string) => void;
 }
 
 export const AdminLoginModal: React.FC<AdminLoginModalProps> = ({
+  lang = 'tr',
   isOpen,
   onClose,
   onLoginSuccess,
@@ -92,7 +94,7 @@ export const AdminLoginModal: React.FC<AdminLoginModalProps> = ({
 
           <div>
             <label className="block text-xs font-bold text-stone-700 uppercase tracking-wider mb-1.5">
-              Yönetici Kullanıcı Adı
+              {lang === 'en' ? 'Admin Username' : 'Yönetici Kullanıcı Adı'}
             </label>
             <div className="relative">
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-stone-400">

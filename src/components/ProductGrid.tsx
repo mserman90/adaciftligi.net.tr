@@ -1,26 +1,32 @@
 import React, { useState } from 'react';
 import { ArrowUpRight, Check, Sparkles } from 'lucide-react';
-import { FARM_PRODUCTS } from '../data/farmData';
+import { t } from '../translations';
+import { FARM_PRODUCTS, FARM_PRODUCTS_EN } from '../data/farmData';
 import { useFarmImages } from '../context/ImageContext';
 
 interface ProductGridProps {
+  lang?: 'tr' | 'en';
   onSelectProduct: (productName: string) => void;
 }
 
-export const ProductGrid: React.FC<ProductGridProps> = ({ onSelectProduct }) => {
+export const ProductGrid: React.FC<ProductGridProps> = ({ onSelectProduct, lang = 'tr' }) => {
+  const l = t[lang].products;
   const [activeTab, setActiveTab] = useState<'all' | 'kucukbas' | 'buyukbas' | 'sut'>('all');
   const { getImage } = useFarmImages();
 
+  const productsToUse = lang === 'en' ? FARM_PRODUCTS_EN : FARM_PRODUCTS;
   const filteredProducts = activeTab === 'all'
-    ? FARM_PRODUCTS
-    : FARM_PRODUCTS.filter((p) => p.category === activeTab);
+    ? productsToUse
+    : productsToUse.filter((p) => p.category === activeTab);
 
+  
   const tabs = [
-    { id: 'all', label: 'Tüm Ürünlerimiz' },
-    { id: 'kucukbas', label: 'Koyun & Kuzu' },
-    { id: 'buyukbas', label: 'İnek & Dana' },
-    { id: 'sut', label: 'Günlük Taze Süt' },
+    { id: 'all', label: l.tabs.all },
+    { id: 'kucukbas', label: l.tabs.kucukbas },
+    { id: 'buyukbas', label: l.tabs.buyukbas },
+    { id: 'sut', label: l.tabs.sut },
   ];
+
 
   return (
     <section id="urunler" className="py-20 sm:py-28 bg-stone-50/60 border-t border-stone-200/80 relative">
@@ -30,14 +36,13 @@ export const ProductGrid: React.FC<ProductGridProps> = ({ onSelectProduct }) => 
           <div className="max-w-2xl">
             <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200/60 text-[#123c28] text-xs font-semibold uppercase tracking-wider mb-3">
               <Sparkles className="w-3.5 h-3.5" />
-              <span>Ürün ve Hizmetlerimiz</span>
+              <span>{l.pill}</span>
             </div>
             <h2 className="text-3xl sm:text-4xl font-extrabold text-stone-900 tracking-tight">
-              Sağlıklı Yetiştiricilik, Katkısız ve Doğal Üretim
+              {l.title}
             </h2>
             <p className="mt-3 text-stone-600 text-base sm:text-lg leading-relaxed">
-              Koyun, kuzu, inek ve dana varlığımızla hem toptan hem perakende ihtiyaçlarınıza
-              doğrudan çiftlikten çözüm sunuyoruz.
+              {l.desc}
             </p>
           </div>
 
@@ -110,15 +115,15 @@ export const ProductGrid: React.FC<ProductGridProps> = ({ onSelectProduct }) => 
                     {/* Metadata Row */}
                     <div className="bg-stone-50 rounded-2xl p-3.5 mb-5 border border-stone-200/70 space-y-2 text-xs">
                       <div className="flex items-center justify-between">
-                        <span className="text-stone-500 font-medium">Irk / Köken:</span>
+                        <span className="text-stone-500 font-medium">{l.breed}</span>
                         <span className="text-stone-900 font-semibold text-right">{product.breed}</span>
                       </div>
                       <div className="flex items-center justify-between">
-                        <span className="text-stone-500 font-medium">Beslenme:</span>
+                        <span className="text-stone-500 font-medium">{l.feeding}</span>
                         <span className="text-stone-900 font-semibold text-right">{product.feeding}</span>
                       </div>
                       <div className="flex items-center justify-between">
-                        <span className="text-stone-500 font-medium">Teslimat:</span>
+                        <span className="text-stone-500 font-medium">{l.delivery}</span>
                         <span className="text-stone-900 font-semibold text-right">{product.deliveryType}</span>
                       </div>
                     </div>
@@ -145,7 +150,7 @@ export const ProductGrid: React.FC<ProductGridProps> = ({ onSelectProduct }) => 
                       onClick={() => onSelectProduct(product.title)}
                       className="inline-flex items-center gap-1.5 bg-stone-900 hover:bg-[#123c28] text-white text-xs sm:text-sm font-semibold px-4 py-2.5 rounded-full transition-colors shrink-0 active:scale-95 cursor-pointer"
                     >
-                      <span>Bilgi / Teklif</span>
+                      <span>{l.btn}</span>
                       <ArrowUpRight className="w-3.5 h-3.5" />
                     </button>
                   </div>

@@ -1,9 +1,11 @@
+import { t } from '../translations';
 import React from 'react';
 import { MessageCircle, Phone, ArrowRight, CheckCircle2, Shield } from 'lucide-react';
 import { FARM_CONTACT } from '../data/farmData';
 import { useFarmImages } from '../context/ImageContext';
 
 interface ConversionBannerProps {
+  lang?: 'tr' | 'en';
   onOpenInquiry: () => void;
 }
 

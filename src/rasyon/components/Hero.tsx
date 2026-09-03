@@ -59,12 +59,7 @@ export const Hero: React.FC<HeroProps> = ({
     }
   };
 
-  const t = lang === 'en' ? translations.tr : null;
-  const dispAd = lang === 'en' ? t.modules[currentModule].ad : config.ad;
-  const dispBaslik = lang === 'en' ? t.modules[currentModule].baslik : config.baslik;
-  const dispAciklama = lang === 'en' ? t.modules[currentModule].aciklama : dispAciklama;
-  const dispMeta = lang === 'en' ? t.modules[currentModule].meta : config.meta;
-
+  
 
   return (
     <section className="pt-8 pb-4">
@@ -73,21 +68,21 @@ export const Hero: React.FC<HeroProps> = ({
         <a href="#top" className="hover:text-[#2E5B39] transition-colors">
           Anasayfa
         </a>{' '}
-        &nbsp;/&nbsp; {lang === 'en' ? t.rasyon : 'Rasyon & Çiftlik Modülleri'} &nbsp;/&nbsp;{' '}
-        <span className="text-[#20261A] font-semibold">{dispAd}</span>
+        &nbsp;/&nbsp; Rasyon & Çiftlik Modülleri &nbsp;/&nbsp;{' '}
+        <span className="text-[#20261A] font-semibold">{config.ad}</span>
       </div>
 
       {/* Hero Badge */}
       <div className="inline-flex items-center gap-2.5 font-mono-code text-[11px] tracking-widest text-[#2E5B39] uppercase">
         <span className="w-6 h-[1px] bg-[#B98A2B] inline-block"></span>
         <span>
-          {lang === 'en' ? (config.tur === 'ciftlik' ? t.ciftlik_mod : t.rasyon_mod) : (config.tur === 'ciftlik' ? 'Çiftlik Modülü' : 'Rasyon Modülü')} · {config.kod}
+          {config.tur === 'ciftlik' ? 'Çiftlik Modülü' : 'Rasyon Modülü'} · {config.kod}
         </span>
       </div>
 
       {/* Hero Heading */}
       <h1 className="font-heading font-extrabold text-3xl sm:text-4xl md:text-5xl tracking-tight leading-[1.08] text-[#20261A] my-3 max-w-3xl">
-        {dispBaslik}
+        {config.baslik}
       </h1>
 
       {/* Hero Description */}
@@ -106,7 +101,7 @@ export const Hero: React.FC<HeroProps> = ({
               : 'text-[#6B7160] hover:text-[#20261A] hover:bg-[#F2EFE2]'
           }`}
         >
-          <Beef className="w-4 h-4" /> {lang === 'en' ? t.btn_besi : 'Besi Sığırı'}
+          <Beef className="w-4 h-4" /> Besi Sığırı
         </button>
 
         <button
@@ -117,7 +112,7 @@ export const Hero: React.FC<HeroProps> = ({
               : 'text-[#6B7160] hover:text-[#20261A] hover:bg-[#F2EFE2]'
           }`}
         >
-          <Milk className="w-4 h-4" /> {lang === 'en' ? t.btn_sut : 'Süt İneği'}
+          <Milk className="w-4 h-4" /> Süt İneği
         </button>
 
         <button
@@ -144,7 +139,7 @@ export const Hero: React.FC<HeroProps> = ({
             <circle cx="10.5" cy="10.4" r=".75" fill="currentColor" stroke="none" />
             <circle cx="13.5" cy="10.4" r=".75" fill="currentColor" stroke="none" />
           </svg>
-          {lang === 'en' ? t.btn_koyun : 'Koyun & Kuzu'}
+          Koyun & Kuzu
         </button>
 
         <button
@@ -172,7 +167,7 @@ export const Hero: React.FC<HeroProps> = ({
             <circle cx="10.5" cy="10.4" r=".75" fill="currentColor" stroke="none" />
             <circle cx="13.5" cy="10.4" r=".75" fill="currentColor" stroke="none" />
           </svg>
-          {lang === 'en' ? t.btn_keci : 'Keçi & Oğlak'}
+          Keçi & Oğlak
         </button>
 
         <button
@@ -183,7 +178,7 @@ export const Hero: React.FC<HeroProps> = ({
               : 'text-[#6B7160] hover:text-[#20261A] hover:bg-[#F2EFE2]'
           }`}
         >
-          <Coins className="w-4 h-4" /> {lang === 'en' ? t.btn_sutEko : 'Süt Kârlılığı'}
+          <Coins className="w-4 h-4" /> Süt Kârlılığı
         </button>
 
         <button
@@ -194,7 +189,7 @@ export const Hero: React.FC<HeroProps> = ({
               : 'text-[#6B7160] hover:text-[#20261A] hover:bg-[#F2EFE2]'
           }`}
         >
-          <Banknote className="w-4 h-4" /> {lang === 'en' ? t.btn_besiEko : 'Besi Kârlılığı'}
+          <Banknote className="w-4 h-4" /> Besi Kârlılığı
         </button>
 
         <button
@@ -205,7 +200,7 @@ export const Hero: React.FC<HeroProps> = ({
               : 'text-[#6B7160] hover:text-[#20261A] hover:bg-[#F2EFE2]'
           }`}
         >
-          <CalendarDays className="w-4 h-4" /> {lang === 'en' ? t.btn_geb : 'Gebelik Takvimi'}
+          <CalendarDays className="w-4 h-4" /> Gebelik Takvimi
         </button>
 
         <button
@@ -216,7 +211,7 @@ export const Hero: React.FC<HeroProps> = ({
               : 'text-[#6B7160] hover:text-[#20261A] hover:bg-[#F2EFE2]'
           }`}
         >
-          <HeartPulse className="w-4 h-4" /> {lang === 'en' ? t.btn_kiz : 'Kızgınlık Takvimi'}
+          <HeartPulse className="w-4 h-4" /> Kızgınlık Takvimi
         </button>
 
         <button
@@ -227,7 +222,7 @@ export const Hero: React.FC<HeroProps> = ({
               : 'text-[#6B7160] hover:text-[#20261A] hover:bg-[#F2EFE2]'
           }`}
         >
-          <TrendingUp className="w-4 h-4" /> {lang === 'en' ? t.btn_iofc : 'SYGM'}
+          <TrendingUp className="w-4 h-4" /> SYGM
         </button>
 
         <button
@@ -238,13 +233,13 @@ export const Hero: React.FC<HeroProps> = ({
               : 'text-[#6B7160] hover:text-[#20261A] hover:bg-[#F2EFE2]'
           }`}
         >
-          <ClipboardCheck className="w-4 h-4" /> {lang === 'en' ? t.btn_damizlik : 'Damızlık Skor'}
+          <ClipboardCheck className="w-4 h-4" /> Damızlık Skor
         </button>
       </div>
 
       {/* Meta Features Strip */}
       <div className="flex flex-wrap gap-x-6 gap-y-2 py-3 border-y border-[#DCD7C4] font-mono-code text-[11.5px] text-[#6B7160]">
-        {dispMeta.map((item, idx) => (
+        {config.meta.map((item, idx) => (
           <span key={idx} className="flex items-center gap-1.5">
             <span className="w-1.5 h-1.5 rounded-full bg-[#B98A2B]"></span>
             {item}

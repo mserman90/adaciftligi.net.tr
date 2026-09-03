@@ -86,6 +86,7 @@ export const RasyonApp: React.FC<RasyonAppProps> = ({
   });
   const [isGuideOpen, setIsGuideOpen] = useState(false);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
+  const [lang, setLang] = useState<'tr' | 'en'>('tr');
 
   // Toast helper
   const showToast = (msg: string) => {

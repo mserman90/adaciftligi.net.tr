@@ -1,9 +1,11 @@
+import { t } from '../translations';
 import React, { useState } from 'react';
 import { HeartHandshake, ShieldCheck, Waves, Sun, Sparkles, MapPin, ZoomIn, X, Camera } from 'lucide-react';
 import { FARM_CONTACT, FARM_GALLERY, FarmGalleryItem } from '../data/farmData';
 import { useFarmImages } from '../context/ImageContext';
 
-export const AboutSection: React.FC = () => {
+export const AboutSection: React.FC<{ lang?: 'tr' | 'en' }> = ({ lang = 'tr' }) => {
+  const l = t[lang].about;
   const [selectedGalleryItem, setSelectedGalleryItem] = useState<FarmGalleryItem | null>(null);
   const [galleryFilter, setGalleryFilter] = useState<string>('Tümü');
   const { getImage } = useFarmImages();
@@ -17,8 +19,8 @@ export const AboutSection: React.FC = () => {
   const values = [
     {
       icon: Waves,
-      title: 'Meriç Alüvyon Havzası',
-      description: 'Edirne Meriç nehri kıyısındaki Adasarhanlı Köyü’nün mineralce zengin toprağında yetişen doğal yabani otlar, kekik ve taze yonca ile besleme sağlanır.'
+      title: lang === 'en' ? 'Meric Alluvial Basin' : 'Meriç Alüvyon Havzası',
+      description: lang === 'en' ? 'Feeding is provided with natural weeds, thyme and fresh alfalfa grown in the mineral-rich soil of Adasarhanli Village on the banks of the Edirne Meric river.' : 'Edirne Meriç nehri kıyısındaki Adasarhanlı Köyü’nün mineralce zengin toprağında yetişen doğal yabani otlar, kekik ve taze yonca ile besleme sağlanır.'
     },
     {
       icon: HeartHandshake,
@@ -50,7 +52,7 @@ export const AboutSection: React.FC = () => {
             Trakya’nın Kalbinde, Doğaya ve Hayvana Saygılı Üretim
           </h2>
           <p className="mt-4 text-stone-600 text-base sm:text-lg leading-relaxed">
-            2012 yılında Edirne’nin Meriç ilçesine bağlı Adasarhanlı Köyü’nde kurulan Ada Çiftliği;
+            {lang === 'en' ? 'Founded in 2012 in Adasarhanli Village, Meric district of Edirne, Ada Farm;' : '2012 yılında Edirne’nin Meriç ilçesine bağlı Adasarhanlı Köyü’nde kurulan Ada Çiftliği;'}
             geleneksel mera hayvancılığı kültürünü, modern hijyen ve biyogüvenlik prensipleriyle
             harmanlayarak bölgenin öncü süt ve besi işletmelerinden biri haline gelmiştir.
           </p>
@@ -60,7 +62,7 @@ export const AboutSection: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center mb-16">
           {/* Photos Showcase */}
           <div className="lg:col-span-6 space-y-4">
-            {/* Main Adasarhanlı Köyü / Meriç / Edirne Landscape Showcase Card */}
+            {/* Main {lang === 'en' ? 'Adasarhanli Village / Meric / Edirne' : 'Adasarhanlı Köyü / Meriç / Edirne'} Landscape Showcase Card */}
             {(() => {
               const villageImg = getImage('about_village', '/images/drive/23911dbc-b407-46d5-95fb-656107f0c494.jfif');
 
@@ -86,7 +88,7 @@ export const AboutSection: React.FC = () => {
                       <span>Adasarhanlı Köyü / Meriç / Edirne</span>
                     </div>
                     <div className="text-sm sm:text-base font-medium text-stone-100">
-                      Meriç nehri sulama kanallarıyla çevrili 140+ dönüm organik otlak
+                      {lang === 'en' ? '140+ acres of organic pasture surrounded by Meric river irrigation canals' : 'Meriç nehri sulama kanallarıyla çevrili 140+ dönüm organik otlak'}
                     </div>
                   </div>
                 </div>

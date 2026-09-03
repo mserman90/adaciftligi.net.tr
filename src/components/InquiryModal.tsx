@@ -3,12 +3,14 @@ import { X, Send, Phone, MessageCircle, Sparkles, CheckCircle } from 'lucide-rea
 import { FARM_CONTACT } from '../data/farmData';
 
 interface InquiryModalProps {
+  lang?: 'tr' | 'en';
   isOpen: boolean;
   onClose: () => void;
   initialProduct?: string;
 }
 
 export const InquiryModal: React.FC<InquiryModalProps> = ({
+  lang = 'tr',
   isOpen,
   onClose,
   initialProduct = 'Günlük Taze Çiğ Süt',
@@ -30,7 +32,7 @@ export const InquiryModal: React.FC<InquiryModalProps> = ({
 
   const handleWhatsAppSend = (e: React.FormEvent) => {
     e.preventDefault();
-    const text = `Merhaba Ada Çiftliği,\n*Fiyat & Bilgi Talebi*\n- İsim: ${name || 'Belirtilmedi'}\n- Telefon: ${phone || 'Belirtilmedi'}\n- Ürün: ${selectedProduct}\n- Alım Türü: ${orderType}\n- Miktar/Adet: ${quantity || 'Görüşülecek'}\n- Not: ${note || 'Yok'}\n\nDetaylı bilgi ve güncel fiyat teklifi alabilir miyim?`;
+    const text = `Merhaba Ada Çiftliği,\n*Fiyat & Bilgi Talebi*\n- İsim: ${name || 'Belirtilmedi'}\n- Telefon: ${phone || 'Belirtilmedi'}\n- Ürün: ${selectedProduct}\n- {lang === 'en' ? 'Order Type' : 'Alım Türü'}: ${orderType}\n- Miktar/Adet: ${quantity || 'Görüşülecek'}\n- Not: ${note || 'Yok'}\n\nDetaylı bilgi ve güncel fiyat teklifi alabilir miyim?`;
     window.open(`https://wa.me/905324122288?text=${encodeURIComponent(text)}`, '_blank');
     onClose();
   };
@@ -59,13 +61,13 @@ export const InquiryModal: React.FC<InquiryModalProps> = ({
         <div className="mb-6">
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 text-[#123c28] text-xs font-semibold uppercase tracking-wider mb-2">
             <Sparkles className="w-3.5 h-3.5" />
-            <span>Hızlı Sipariş & Bilgi Talebi</span>
+            <span>{lang === 'en' ? 'Quick Order & Info Request' : 'Hızlı Sipariş & Bilgi Talebi'}</span>
           </div>
           <h3 className="text-2xl font-bold text-stone-900">
-            Ada Çiftliği ile İletişime Geçin
+            {lang === 'en' ? 'Contact Ada Farm' : 'Ada Çiftliği ile İletişime Geçin'}
           </h3>
           <p className="text-xs sm:text-sm text-stone-500 mt-1">
-            Meriç Adasarhanlı Köyü çiftliğimizden doğrudan güncel fiyat ve temin bilgisi alın.
+            {lang === 'en' ? 'Get direct current price and supply information from our Meric Adasarhanli Village farm.' : 'Meriç Adasarhanlı Köyü çiftliğimizden doğrudan güncel fiyat ve temin bilgisi alın.'}
           </p>
         </div>
 
@@ -88,7 +90,7 @@ export const InquiryModal: React.FC<InquiryModalProps> = ({
                       : 'bg-stone-100 text-stone-700 hover:bg-stone-200'
                   }`}
                 >
-                  {type}
+                  {lang === 'en' ? (type === 'Toptan' ? 'Wholesale' : type === 'Perakende' ? 'Retail' : 'Sacrifice') : type}
                 </button>
               ))}
             </div>
@@ -97,31 +99,31 @@ export const InquiryModal: React.FC<InquiryModalProps> = ({
           {/* Product Select */}
           <div>
             <label className="block text-xs font-bold uppercase tracking-wider text-stone-600 mb-1.5">
-              Ürün Seçimi
+              {lang === 'en' ? 'Product Selection' : 'Ürün Seçimi'}
             </label>
             <select
               value={selectedProduct}
               onChange={(e) => setSelectedProduct(e.target.value)}
               className="w-full px-4 py-2.5 rounded-xl bg-stone-50 border border-stone-200 text-stone-900 text-sm focus:outline-none focus:border-[#123c28]"
             >
-              <option value="Günlük Taze Çiğ Süt">Günlük Taze Çiğ Süt (+4°C Soğuk Tank)</option>
-              <option value="Damızlık & Kesimlik Koyun">Damızlık & Kesimlik Koyun (Kıvırcık)</option>
-              <option value="Süt Kuzusu & Besi Kuzusu">Süt Kuzusu & Besi Kuzusu</option>
-              <option value="Yüksek Verimli Süt İneği">Yüksek Verimli Süt İneği (Simental / Holstein)</option>
-              <option value="Besi Danası & Canlı Kurbanlık">Besi Danası & Canlı Kurbanlık</option>
-              <option value="Çiftlik Ziyareti / Genel Bilgi">Çiftlik Ziyareti / Genel Bilgi</option>
+              <option value="Günlük Taze Çiğ Süt">{lang === 'en' ? 'Fresh Raw Milk (+4°C Cold Tank)' : 'Günlük Taze Çiğ Süt (+4°C Soğuk Tank)'}</option>
+              <option value="Damızlık & Kesimlik Koyun">{lang === 'en' ? 'Breeding & Slaughter Sheep (Curly)' : 'Damızlık & Kesimlik Koyun (Kıvırcık)'}</option>
+              <option value="Süt Kuzusu & Besi Kuzusu">{lang === 'en' ? 'Suckling Lamb & Fattening Lamb' : 'Süt Kuzusu & Besi Kuzusu'}</option>
+              <option value="Yüksek Verimli Süt İneği">{lang === 'en' ? 'High Yield Dairy Cow (Simmental / Holstein)' : 'Yüksek Verimli Süt İneği (Simental / Holstein)'}</option>
+              <option value="Besi Danası & Canlı Kurbanlık">{lang === 'en' ? 'Fattening Calf & Live Sacrifice' : 'Besi Danası & Canlı Kurbanlık'}</option>
+              <option value="Çiftlik Ziyareti / Genel Bilgi">{lang === 'en' ? 'Farm Visit / General Info' : 'Çiftlik Ziyareti / Genel Bilgi'}</option>
             </select>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
               <label className="block text-xs font-bold uppercase tracking-wider text-stone-600 mb-1.5">
-                Adınız Soyadınız
+                {lang === 'en' ? 'Full Name' : 'Adınız Soyadınız'}
               </label>
               <input
                 type="text"
                 required
-                placeholder="Örn: Mehmet Bey"
+                placeholder={lang === 'en' ? 'e.g. John Doe' : 'Örn: Mehmet Bey'}
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 className="w-full px-3.5 py-2.5 rounded-xl bg-stone-50 border border-stone-200 text-stone-900 text-sm focus:outline-none focus:border-[#123c28]"
@@ -129,7 +131,7 @@ export const InquiryModal: React.FC<InquiryModalProps> = ({
             </div>
             <div>
               <label className="block text-xs font-bold uppercase tracking-wider text-stone-600 mb-1.5">
-                Telefon Numaranız
+                {lang === 'en' ? 'Phone Number' : 'Telefon Numaranız'}
               </label>
               <input
                 type="tel"
@@ -144,11 +146,11 @@ export const InquiryModal: React.FC<InquiryModalProps> = ({
 
           <div>
             <label className="block text-xs font-bold uppercase tracking-wider text-stone-600 mb-1.5">
-              İstenen Miktar / Baş Sayısı (Opsiyonel)
+              {lang === 'en' ? 'Desired Quantity / Head Count (Optional)' : 'İstenen Miktar / Baş Sayısı (Opsiyonel)'}
             </label>
             <input
               type="text"
-              placeholder="Örn: 200 Litre süt veya 5 kuzu"
+              placeholder={lang === 'en' ? 'e.g. 200 Liters of milk or 5 lambs' : 'Örn: 200 Litre süt veya 5 kuzu'}
               value={quantity}
               onChange={(e) => setQuantity(e.target.value)}
               className="w-full px-3.5 py-2.5 rounded-xl bg-stone-50 border border-stone-200 text-stone-900 text-sm focus:outline-none focus:border-[#123c28]"
@@ -157,11 +159,11 @@ export const InquiryModal: React.FC<InquiryModalProps> = ({
 
           <div>
             <label className="block text-xs font-bold uppercase tracking-wider text-stone-600 mb-1.5">
-              Ek Not / Soru (Opsiyonel)
+              {lang === 'en' ? 'Additional Note / Question (Optional)' : 'Ek Not / Soru (Opsiyonel)'}
             </label>
             <textarea
               rows={2}
-              placeholder="Teslimat bölgenizi veya sormak istediğiniz ayrıntıyı yazabilirsiniz..."
+              placeholder={lang === 'en' ? 'You can write your delivery region or the detail you want to ask...' : 'Teslimat bölgenizi veya sormak istediğiniz ayrıntıyı yazabilirsiniz...'}
               value={note}
               onChange={(e) => setNote(e.target.value)}
               className="w-full px-3.5 py-2 rounded-xl bg-stone-50 border border-stone-200 text-stone-900 text-sm focus:outline-none focus:border-[#123c28] resize-none"
@@ -175,7 +177,7 @@ export const InquiryModal: React.FC<InquiryModalProps> = ({
               className="w-full bg-[#123c28] hover:bg-[#0c291c] text-white font-bold py-3.5 px-5 rounded-full flex items-center justify-center gap-2 shadow-md transition-all active:scale-98 text-sm"
             >
               <MessageCircle className="w-4 h-4 fill-current" />
-              <span>WhatsApp ile Anında Teklif İste</span>
+              <span>{lang === 'en' ? 'Request Instant Quote via WhatsApp' : 'WhatsApp ile Anında Teklif İste'}</span>
             </button>
 
             <a
@@ -183,7 +185,7 @@ export const InquiryModal: React.FC<InquiryModalProps> = ({
               className="w-full py-2.5 text-center text-xs font-semibold text-stone-600 hover:text-stone-900 transition-colors flex items-center justify-center gap-1.5"
             >
               <Phone className="w-3.5 h-3.5 text-[#123c28]" />
-              <span>veya {FARM_CONTACT.phone} numarasını doğrudan arayın</span>
+              <span>{lang === 'en' ? 'or call ' + FARM_CONTACT.phone + ' directly' : 'veya ' + FARM_CONTACT.phone + ' numarasını doğrudan arayın'}</span>
             </a>
           </div>
         </form>

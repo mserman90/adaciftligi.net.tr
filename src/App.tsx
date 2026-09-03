@@ -27,6 +27,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 export default function App() {
   const [currentView, setCurrentView] = useState<'website' | 'rasyon'>('website');
+  const [mainLang, setMainLang] = useState<'tr' | 'en'>('tr');
   const [adminAuth, setAdminAuth] = useState(() => getAdminSession());
   const [adminLoginModalOpen, setAdminLoginModalOpen] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
@@ -138,23 +139,23 @@ export default function App() {
     <ImageProvider>
       <div className="min-h-screen bg-white text-stone-900 flex flex-col font-sans selection:bg-[#123c28] selection:text-white">
         {/* Sticky Navigation */}
-        <Navbar onOpenInquiry={handleOpenInquiry} />
+        <Navbar onOpenInquiry={handleOpenInquiry} lang={mainLang} setLang={setMainLang} />
 
         <main className="flex-1">
           {/* 1. Hero Section */}
-          <Hero onOpenInquiry={() => handleOpenInquiry()} />
+          <Hero onOpenInquiry={() => handleOpenInquiry()} lang={mainLang} />
 
           {/* 2. Products / Services Grid */}
-          <ProductGrid onSelectProduct={handleOpenInquiry} />
+          <ProductGrid onSelectProduct={handleOpenInquiry} lang={mainLang} />
 
           {/* 3. About Farm & Meriç Edirne Section */}
-          <AboutSection />
+          <AboutSection lang={mainLang} />
 
           {/* 4. Full-width Dark Green Conversion Banner */}
-          <ConversionBanner onOpenInquiry={() => handleOpenInquiry()} />
+          <ConversionBanner onOpenInquiry={() => handleOpenInquiry()} lang={mainLang} />
 
           {/* 5. Production Process 3 Steps */}
-          <ProcessSection />
+          <ProcessSection lang={mainLang} />
 
           {/* 6. Customer & Partner Reviews */}
           <Testimonials />
@@ -163,17 +164,18 @@ export default function App() {
           <FaqAccordion />
 
           {/* 8. Contact & Map Location Section */}
-          <ContactSection />
+          <ContactSection lang={mainLang} />
         </main>
 
         {/* 9. Multi-column Footer with Legal Row */}
-        <Footer onOpenAdmin={handleOpenAdmin} />
+        <Footer onOpenAdmin={handleOpenAdmin} lang={mainLang} />
 
         {/* Direct WhatsApp / Phone Inquiry Modal */}
         <InquiryModal
           isOpen={modalOpen}
           onClose={() => setModalOpen(false)}
           initialProduct={selectedProduct}
+          lang={mainLang}
         />
 
         {/* Admin Login Modal */}
@@ -181,6 +183,7 @@ export default function App() {
           isOpen={adminLoginModalOpen}
           onClose={() => setAdminLoginModalOpen(false)}
           onLoginSuccess={handleLoginSuccess}
+          lang={mainLang}
         />
 
         {/* Quick Floating WhatsApp & Call Buttons */}

@@ -2,7 +2,7 @@ export interface GlossaryTerm {
   id: string;
   matchTerms: string[];
   title: string;
-  category: 'Rasyon & Besleme' | 'Sağlık & Klinik' | 'Üreme & Doğum' | 'Ekonomi & Maliyet' | 'Damızlık & Anatomi';
+  category: 'Rasyon & Besleme' | 'Sağlık & Klinik' | 'Üreme & Doğum' | 'Ekonomi & Maliyet' | 'Damızlık & Anatomi' | 'Performans & Verim';
   badge: string;
   shortMeaning: string;
   farmerExplanation: string;

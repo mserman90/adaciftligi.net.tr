@@ -1,3 +1,4 @@
+import { t } from '../translations';
 import React, { useEffect, useRef } from 'react';
 import { ArrowRight, ChevronDown, CheckCircle2, Shield, PhoneCall, Sparkles } from 'lucide-react';
 import { FARM_STATS, FARM_CONTACT } from '../data/farmData';
@@ -5,10 +6,12 @@ import { useFarmImages } from '../context/ImageContext';
 import { gsap } from 'gsap';
 
 interface HeroProps {
+  lang?: 'tr' | 'en';
   onOpenInquiry: () => void;
 }
 
-export const Hero: React.FC<HeroProps> = ({ onOpenInquiry }) => {
+export const Hero: React.FC<HeroProps> = ({ onOpenInquiry, lang = 'tr' }) => {
+  const l = t[lang].hero;
   const heroRef = useRef<HTMLDivElement>(null);
   const headlineRef = useRef<HTMLHeadingElement>(null);
   const sublineRef = useRef<HTMLParagraphElement>(null);
@@ -75,7 +78,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenInquiry }) => {
             <div className="flex flex-wrap items-center gap-2.5 mb-6">
               <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-stone-100 border border-stone-200/80 text-stone-800 text-xs sm:text-sm font-medium shadow-xs">
                 <span className="w-2 h-2 rounded-full bg-[#123c28] animate-pulse" />
-                <span>Adasarhanlı Köyü, Meriç / Edirne</span>
+                <span>{l.location}</span>
                 <span className="text-stone-300">|</span>
                 <span className="text-stone-600">Doğal Hayvancılık & Süt</span>
               </div>
@@ -84,7 +87,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenInquiry }) => {
                 className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-emerald-50 border border-emerald-200/80 text-emerald-800 text-xs font-semibold hover:bg-emerald-100/80 transition-colors shadow-2xs group"
               >
                 <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                <span>Canlı Durum: Meriç Otlakları Açık</span>
+                <span>{l.liveStatus}</span>
               </a>
             </div>
 
@@ -94,11 +97,9 @@ export const Hero: React.FC<HeroProps> = ({ onOpenInquiry }) => {
               id="hero-headline"
               className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-stone-900 leading-[1.12] mb-6"
             >
-              Meriç’in Bereketli Otlaklarında{' '}
-              <span className="text-[#123c28] underline decoration-[#123c28]/20 decoration-wavy decoration-2 underline-offset-8">
-                Doğal Hayvancılık
-              </span>{' '}
-              ve Günlük Taze Süt.
+              {l.title1}{' '}
+              <span className="text-[#123c28] underline decoration-[#123c28]/20 decoration-wavy decoration-2 underline-offset-8">{l.titleHighlight}</span>{' '}
+              {l.title2}
             </h1>
 
             {/* 2-line clean, high-impact description */}
@@ -107,8 +108,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenInquiry }) => {
               id="hero-subline"
               className="text-base sm:text-lg lg:text-xl text-stone-600 leading-relaxed max-w-2xl mb-8"
             >
-              Edirne Meriç Adasarhanlı Köyü meralarında serbest otlayan koyun, kuzu, inek ve danalarımızla;
-              hijyenik kapalı devre sağılan yüksek kaliteli katkısız çiftlik sütünü güvenle sunuyoruz.
+              {l.description}
             </p>
 
             {/* CTAs */}
@@ -123,7 +123,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenInquiry }) => {
                 onClick={onOpenInquiry}
                 className="inline-flex items-center gap-2.5 bg-[#123c28] hover:bg-[#0c291c] text-white text-base font-semibold px-7 py-3.5 rounded-full shadow-sm hover:shadow-md transition-all duration-200 active:scale-98"
               >
-                <span>Fiyat & Sipariş Talebi</span>
+                <span>{l.btnPrimary}</span>
                 <ArrowRight className="w-5 h-5" />
               </button>
 
@@ -132,7 +132,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenInquiry }) => {
                 id="hero-secondary-cta"
                 className="inline-flex items-center gap-2 bg-white hover:bg-stone-50 text-stone-800 text-base font-medium px-6 py-3.5 rounded-full border border-stone-300 hover:border-stone-400 transition-colors shadow-xs"
               >
-                <span>Ürünleri İnceleyin</span>
+                <span>{l.btnSecondary}</span>
                 <ChevronDown className="w-4 h-4 text-stone-500" />
               </a>
 
@@ -141,7 +141,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenInquiry }) => {
                 className="inline-flex items-center gap-1.5 text-stone-600 hover:text-[#123c28] text-sm font-medium px-3 py-2 transition-colors ml-1"
               >
                 <PhoneCall className="w-4 h-4 text-[#123c28]" />
-                <span>Doğrudan Çiftliği Arayın</span>
+                <span>{l.btnCall}</span>
               </a>
             </div>
 
@@ -149,15 +149,15 @@ export const Hero: React.FC<HeroProps> = ({ onOpenInquiry }) => {
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-4 border-t border-stone-200/70 text-xs sm:text-sm text-stone-700">
               <div className="flex items-center gap-2">
                 <CheckCircle2 className="w-4 h-4 text-[#123c28] shrink-0" />
-                <span>Veteriner Denetimli Sürü</span>
+                <span>{l.check1}</span>
               </div>
               <div className="flex items-center gap-2">
                 <CheckCircle2 className="w-4 h-4 text-[#123c28] shrink-0" />
-                <span>+4°C Soğuk Tank Süt</span>
+                <span>{l.check2}</span>
               </div>
               <div className="flex items-center gap-2">
                 <CheckCircle2 className="w-4 h-4 text-[#123c28] shrink-0" />
-                <span>Toptan & Perakende Temin</span>
+                <span>{l.check3}</span>
               </div>
             </div>
           </div>
@@ -193,10 +193,10 @@ export const Hero: React.FC<HeroProps> = ({ onOpenInquiry }) => {
                 <div className="absolute bottom-5 left-5 right-5 text-white pointer-events-none">
                   <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-emerald-300 mb-1.5">
                     <Sparkles className="w-3.5 h-3.5" />
-                    <span>Edirne / Meriç Havzası</span>
+                    <span>{lang === 'en' ? 'Edirne / Meric Basin' : 'Edirne / Meriç Havzası'}</span>
                   </div>
                   <p className="text-sm sm:text-base font-medium text-stone-100 leading-snug drop-shadow-sm">
-                    Doğal nehir taşkın ovasının zengin florasında beslenen sağlıklı sürülerimiz.
+                    {lang === 'en' ? 'Our healthy herds fed on the rich flora of the natural river floodplain.' : 'Doğal nehir taşkın ovasının zengin florasında beslenen sağlıklı sürülerimiz.'}
                   </p>
                 </div>
               </div>
@@ -204,7 +204,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenInquiry }) => {
               {/* Floating Badge on top right */}
               <div className="absolute -top-4 -right-4 sm:-right-6 bg-white/95 backdrop-blur-md rounded-2xl py-2 px-3.5 shadow-md border border-stone-200/80 flex items-center gap-2 z-10">
                 <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-ping" />
-                <span className="text-xs font-semibold text-stone-800">Günlük Taze Sağım</span>
+                <span className="text-xs font-semibold text-stone-800">{l.badge}</span>
               </div>
             </div>
           </div>
@@ -217,22 +217,24 @@ export const Hero: React.FC<HeroProps> = ({ onOpenInquiry }) => {
           className="mt-14 sm:mt-18 pt-8 pb-8 px-6 sm:px-10 rounded-3xl bg-stone-50 border border-stone-200/90 shadow-[0_4px_24px_-4px_rgba(0,0,0,0.03)]"
         >
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 divide-y sm:divide-y-0 sm:divide-x divide-stone-200">
+            
             {FARM_STATS.map((stat, idx) => (
               <div
                 key={stat.id}
                 className={`flex flex-col ${idx !== 0 ? 'pt-4 sm:pt-0 sm:pl-8' : ''}`}
               >
                 <div className="text-2xl sm:text-3xl lg:text-4xl font-black text-[#123c28] tracking-tight mb-1">
-                  {stat.value}
+                  {l.stats[idx]?.val || stat.value}
                 </div>
                 <div className="text-sm font-bold text-stone-900 leading-tight">
-                  {stat.label}
+                  {l.stats[idx]?.label || stat.label}
                 </div>
                 <div className="text-xs text-stone-500 mt-0.5 leading-snug">
-                  {stat.sublabel}
+                  {l.stats[idx]?.sub || stat.sublabel}
                 </div>
               </div>
             ))}
+
           </div>
         </div>
       </div>

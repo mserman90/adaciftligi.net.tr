@@ -1,9 +1,10 @@
+import { t } from '../translations';
 import React from 'react';
 import { Sprout, ShieldCheck, Truck, Sparkles, Check } from 'lucide-react';
-import { PRODUCTION_STEPS } from '../data/farmData';
+import { PRODUCTION_STEPS, PRODUCTION_STEPS_EN } from '../data/farmData';
 import { useFarmImages } from '../context/ImageContext';
 
-export const ProcessSection: React.FC = () => {
+export const ProcessSection = ({ lang = 'tr' }: { lang?: 'tr' | 'en' }) => {
   const { getImage } = useFarmImages();
 
   const getIcon = (name: string) => {
@@ -39,7 +40,7 @@ export const ProcessSection: React.FC = () => {
 
         {/* 3 Step Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
-          {PRODUCTION_STEPS.map((step, index) => {
+          {(lang === 'en' ? PRODUCTION_STEPS_EN : PRODUCTION_STEPS).map((step, index) => {
             const IconComponent = getIcon(step.iconName);
             const imageKey = `process_step_${step.stepNumber}`;
             const displayImage = getImage(imageKey, step.image || '/images/hero_cows.jpg');
@@ -68,7 +69,7 @@ export const ProcessSection: React.FC = () => {
 
                   {/* Step number on top left */}
                   <div className="absolute top-3.5 left-3.5 bg-white/95 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-black text-[#123c28] shadow-xs border border-stone-200/60 pointer-events-none">
-                    Adım {step.stepNumber}
+                    {lang === 'en' ? 'Step' : 'Adım'} {step.stepNumber}
                   </div>
 
                   {/* Floating Icon on bottom right of image */}

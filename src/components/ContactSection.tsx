@@ -1,9 +1,11 @@
+import { t } from '../translations';
 import React, { useState } from 'react';
 import { MapPin, Phone, MessageCircle, Mail, Clock, Send, Sparkles, Check, ExternalLink } from 'lucide-react';
-import { FARM_CONTACT } from '../data/farmData';
+import { FARM_CONTACT, FARM_CONTACT_EN } from '../data/farmData';
 import { useFarmImages } from '../context/ImageContext';
 
-export const ContactSection: React.FC = () => {
+export const ContactSection = ({ lang = 'tr' }: { lang?: 'tr' | 'en' }) => {
+  const contactData = lang === 'en' ? FARM_CONTACT_EN : FARM_CONTACT;
   const { getImage } = useFarmImages();
   const [formData, setFormData] = useState({
     name: '',
@@ -77,10 +79,10 @@ export const ContactSection: React.FC = () => {
                 <div>
                   <div className="text-xs font-bold uppercase tracking-wider text-stone-400">Telefon Hattı</div>
                   <a
-                    href={`tel:${FARM_CONTACT.phoneRaw}`}
+                    href={`tel:${contactData.phoneRaw}`}
                     className="text-base font-bold text-[#123c28] hover:underline mt-0.5 block"
                   >
-                    {FARM_CONTACT.phone}
+                    {contactData.phone}
                   </a>
                   <div className="text-xs text-stone-500">Doğrudan çiftlik yetkilisi ile görüşün</div>
                 </div>
@@ -114,7 +116,7 @@ export const ContactSection: React.FC = () => {
                 <div>
                   <div className="text-xs font-bold uppercase tracking-wider text-stone-400">Çalışma ve Sağım Saatleri</div>
                   <div className="text-base font-semibold text-stone-900 mt-0.5">
-                    {FARM_CONTACT.workingHours}
+                    {contactData.workingHours}
                   </div>
                   <div className="text-xs text-stone-500">Hafta sonu dahil ziyarete ve alıma açık</div>
                 </div>
@@ -125,8 +127,8 @@ export const ContactSection: React.FC = () => {
             <div className="bg-white rounded-3xl p-6 border border-stone-200/90 shadow-[0_4px_24px_-4px_rgba(0,0,0,0.03)] overflow-hidden">
               <div className="flex items-center justify-between mb-4">
                 <div>
-                  <h4 className="font-bold text-stone-900 text-sm">Harita Konumu</h4>
-                  <p className="text-xs text-stone-500">Meriç Adasarhanlı Köyü güzergahı</p>
+                  <h4 className="font-bold text-stone-900 text-sm">{lang === 'en' ? 'Map Location' : 'Harita Konumu'}</h4>
+                  <p className="text-xs text-stone-500">{lang === 'en' ? 'Meric Adasarhanli Village Route' : 'Meriç Adasarhanlı Köyü güzergahı'}</p>
                 </div>
                 <a
                   href="https://maps.google.com/?q=Adasarhanli+Koyu+Meric+Edirne"
@@ -142,7 +144,7 @@ export const ContactSection: React.FC = () => {
               {/* Embedded interactive map iframe (No API key needed) */}
               <div className="w-full h-64 rounded-2xl overflow-hidden border border-stone-200 relative bg-stone-100">
                 <iframe
-                  title="Ada Çiftliği Adasarhanlı Köyü Meriç Edirne Harita Konumu"
+                  title="Ada Çiftliği Adasarhanlı Köyü Meriç Edirne {lang === 'en' ? 'Map Location' : 'Harita Konumu'}"
                   src="https://maps.google.com/maps?q=Adasarhanl%C4%B1+K%C3%B6y%C3%BC,+Meri%C3%A7,+Edirne&t=&z=13&ie=UTF8&iwloc=&output=embed"
                   className="w-full h-full border-0"
                   loading="lazy"
@@ -169,8 +171,8 @@ export const ContactSection: React.FC = () => {
                   </div>
 
                   <div className="text-xs">
-                    <span className="font-semibold text-stone-900 block">Kolay Ulaşım Güzergahı:</span>
-                    <span className="text-stone-500">Meriç ilçe merkezine 12 km mesafede, Adasarhanlı Köyü asfalt yolu üzerinde.</span>
+                    <span className="font-semibold text-stone-900 block">{lang === 'en' ? 'Easy Access Route:' : 'Kolay Ulaşım Güzergahı:'}</span>
+                    <span className="text-stone-500">{lang === 'en' ? '12 km from Meric district center, on the Adasarhanli Village asphalt road.' : 'Meriç ilçe merkezine 12 km mesafede, Adasarhanlı Köyü asfalt yolu üzerinde.'}</span>
                   </div>
                 </div>
               </div>
@@ -180,21 +182,21 @@ export const ContactSection: React.FC = () => {
           {/* Quick Direct Message / Order Form */}
           <div className="lg:col-span-6 bg-white rounded-3xl p-8 sm:p-10 border border-stone-200/90 shadow-[0_4px_24px_-4px_rgba(0,0,0,0.03)]">
             <h3 className="text-2xl font-bold text-stone-900 mb-2">
-              Hızlı Bilgi & Fiyat Talebi Formu
+              {lang === 'en' ? 'Quick Info & Price Request Form' : 'Hızlı Bilgi & Fiyat Talebi Formu'}
             </h3>
             <p className="text-sm text-stone-600 mb-6">
-              İlgilendiğiniz ürün veya talebinizi belirtin, form anında WhatsApp üzerinden çiftlik yetkilimize iletilsin.
+              {lang === 'en' ? 'Specify the product or request you are interested in, and the form will be instantly forwarded to our farm authorized person via WhatsApp.' : 'İlgilendiğiniz ürün veya talebinizi belirtin, form anında WhatsApp üzerinden çiftlik yetkilimize iletilsin.'}
             </p>
 
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
                 <label className="block text-xs font-bold uppercase tracking-wider text-stone-700 mb-1.5">
-                  Adınız ve Soyadınız
+                  {lang === 'en' ? 'Your Name and Surname' : 'Adınız ve Soyadınız'}
                 </label>
                 <input
                   type="text"
                   required
-                  placeholder="Örn: Ahmet Yılmaz"
+                  placeholder={lang === 'en' ? 'e.g. John Doe' : 'Örn: Ahmet Yılmaz'}
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                   className="w-full px-4 py-3 rounded-2xl bg-stone-50 border border-stone-200 text-stone-900 text-sm focus:outline-none focus:border-[#123c28] focus:bg-white transition-colors"
@@ -203,12 +205,12 @@ export const ContactSection: React.FC = () => {
 
               <div>
                 <label className="block text-xs font-bold uppercase tracking-wider text-stone-700 mb-1.5">
-                  Telefon Numaranız
+                  {lang === 'en' ? 'Your Phone Number' : 'Telefon Numaranız'}
                 </label>
                 <input
                   type="tel"
                   required
-                  placeholder="Örn: 0532 000 00 00"
+                  placeholder={lang === 'en' ? 'e.g. 0532 000 00 00' : 'Örn: 0532 000 00 00'}
                   value={formData.phone}
                   onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                   className="w-full px-4 py-3 rounded-2xl bg-stone-50 border border-stone-200 text-stone-900 text-sm focus:outline-none focus:border-[#123c28] focus:bg-white transition-colors"
@@ -217,29 +219,29 @@ export const ContactSection: React.FC = () => {
 
               <div>
                 <label className="block text-xs font-bold uppercase tracking-wider text-stone-700 mb-1.5">
-                  İlgilendiğiniz Ürün / Hizmet
+                  {lang === 'en' ? 'Product / Service of Interest' : 'İlgilendiğiniz Ürün / Hizmet'}
                 </label>
                 <select
                   value={formData.product}
                   onChange={(e) => setFormData({ ...formData, product: e.target.value })}
                   className="w-full px-4 py-3 rounded-2xl bg-stone-50 border border-stone-200 text-stone-900 text-sm focus:outline-none focus:border-[#123c28] focus:bg-white transition-colors"
                 >
-                  <option value="Günlük Taze Çiğ Süt">Günlük Taze Çiğ Süt (Toptan / Perakende)</option>
-                  <option value="Damızlık & Kesimlik Koyun">Damızlık & Kesimlik Koyun (Kıvırcık)</option>
-                  <option value="Süt Kuzusu & Besi Kuzusu">Süt Kuzusu & Besi Kuzusu</option>
-                  <option value="Besi Danası & Canlı Kurbanlık">Besi Danası & Canlı Kurbanlık Tartım</option>
-                  <option value="Yüksek Verimli Süt İneği">Yüksek Verimli Süt İneği (Simental / Holstein)</option>
-                  <option value="Çiftlik Ziyareti / Diğer">Çiftlik Ziyareti & Diğer Konular</option>
+                  <option value="Günlük Taze Çiğ Süt">{lang === 'en' ? 'Fresh Daily Raw Milk (Wholesale / Retail)' : 'Günlük Taze Çiğ Süt (Toptan / Perakende)'}</option>
+                  <option value="Damızlık & Kesimlik Koyun">{lang === 'en' ? 'Breeding & Slaughter Sheep (Curly)' : 'Damızlık & Kesimlik Koyun (Kıvırcık)'}</option>
+                  <option value="Süt Kuzusu & Besi Kuzusu">{lang === 'en' ? 'Suckling Lamb & Fattening Lamb' : 'Süt Kuzusu & Besi Kuzusu'}</option>
+                  <option value="Besi Danası & Canlı Kurbanlık">{lang === 'en' ? 'Fattening Calf & Live Sacrifice Weighing' : 'Besi Danası & Canlı Kurbanlık Tartım'}</option>
+                  <option value="Yüksek Verimli Süt İneği">{lang === 'en' ? 'High Yield Dairy Cow (Simmental / Holstein)' : 'Yüksek Verimli Süt İneği (Simental / Holstein)'}</option>
+                  <option value="Çiftlik Ziyareti / Diğer">{lang === 'en' ? 'Farm Visit & Other Matters' : 'Çiftlik Ziyareti & Diğer Konular'}</option>
                 </select>
               </div>
 
               <div>
                 <label className="block text-xs font-bold uppercase tracking-wider text-stone-700 mb-1.5">
-                  Tahmini Miktar veya Adet
+                  {lang === 'en' ? 'Estimated Quantity or Amount' : 'Tahmini Miktar veya Adet'}
                 </label>
                 <input
                   type="text"
-                  placeholder="Örn: Günlük 150 litre süt veya 10 baş kuzu"
+                  placeholder={lang === 'en' ? 'e.g. 150 liters of milk daily or 10 lambs' : 'Örn: Günlük 150 litre süt veya 10 baş kuzu'}
                   value={formData.quantity}
                   onChange={(e) => setFormData({ ...formData, quantity: e.target.value })}
                   className="w-full px-4 py-3 rounded-2xl bg-stone-50 border border-stone-200 text-stone-900 text-sm focus:outline-none focus:border-[#123c28] focus:bg-white transition-colors"
@@ -248,11 +250,11 @@ export const ContactSection: React.FC = () => {
 
               <div>
                 <label className="block text-xs font-bold uppercase tracking-wider text-stone-700 mb-1.5">
-                  Mesajınız veya Sorularınız
+                  {lang === 'en' ? 'Your Message or Questions' : 'Mesajınız veya Sorularınız'}
                 </label>
                 <textarea
                   rows={3}
-                  placeholder="Teslimat adresi veya sormak istediğiniz ayrıntıları yazabilirsiniz..."
+                  placeholder={lang === 'en' ? 'You can write the delivery address or the details you want to ask...' : 'Teslimat adresi veya sormak istediğiniz ayrıntıları yazabilirsiniz...'}
                   value={formData.note}
                   onChange={(e) => setFormData({ ...formData, note: e.target.value })}
                   className="w-full px-4 py-3 rounded-2xl bg-stone-50 border border-stone-200 text-stone-900 text-sm focus:outline-none focus:border-[#123c28] focus:bg-white transition-colors resize-none"
@@ -264,11 +266,11 @@ export const ContactSection: React.FC = () => {
                 className="w-full bg-[#123c28] hover:bg-[#0c291c] text-white font-bold text-sm sm:text-base py-4 px-6 rounded-full shadow-md hover:shadow-lg transition-all duration-200 flex items-center justify-center gap-2.5 active:scale-98"
               >
                 <Send className="w-4 h-4" />
-                <span>WhatsApp ile Talebi Gönder</span>
+                <span>{lang === 'en' ? 'Send Request via WhatsApp' : 'WhatsApp ile Talebi Gönder'}</span>
               </button>
 
               <p className="text-center text-xs text-stone-400 mt-2">
-                Bilgileriniz doğrudan Ada Çiftliği WhatsApp hattına aktarılır; sunucuya kaydedilmez.
+                {lang === 'en' ? 'Your information is directly transferred to the Ada Farm WhatsApp line; it is not saved on the server.' : 'Bilgileriniz doğrudan Ada Çiftliği WhatsApp hattına aktarılır; sunucuya kaydedilmez.'}
               </p>
             </form>
           </div>
