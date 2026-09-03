@@ -2,6 +2,7 @@ import React from 'react';
 import { FeedIngredient, ModuleKey } from '../types';
 import { fmt } from '../utils/formatters';
 import { FarmerTerm } from './GlossaryText';
+import { Edit2 } from 'lucide-react';
 
 interface IngredientsTableProps {
   ingredients: FeedIngredient[];
@@ -13,6 +14,8 @@ interface IngredientsTableProps {
   onClearAll: () => void;
   onResetDefaults: () => void;
   onUpdateIngredient: (id: string, field: 'fiyat' | 'min' | 'max', val: number) => void;
+  onAddIngredient?: () => void;
+  onEditIngredient?: (ingredient: FeedIngredient) => void;
 }
 
 export const IngredientsTable: React.FC<IngredientsTableProps> = ({
@@ -25,6 +28,8 @@ export const IngredientsTable: React.FC<IngredientsTableProps> = ({
   onClearAll,
   onResetDefaults,
   onUpdateIngredient,
+  onAddIngredient,
+  onEditIngredient,
 }) => {
   const isBesiCol =
     currentModule === 'besi' ||
@@ -111,17 +116,29 @@ export const IngredientsTable: React.FC<IngredientsTableProps> = ({
                     />
                   </td>
                   <td className="px-3 py-2.5">
-                    <strong className="font-semibold text-[#20261A]">{f.ad}</strong>
-                    {f.kaba && (
-                      <span className="inline-block ml-2 align-middle">
-                        <FarmerTerm
-                          termId="kaba_yem"
-                          className="font-mono-code text-[9.5px] tracking-wider uppercase text-[#2E5B39] border border-[#B9C8B0] rounded-full px-2 py-0.5"
+                    <div className="flex items-center gap-2">
+                      <strong className="font-semibold text-[#20261A]">{f.ad}</strong>
+                      {f.kaba && (
+                        <span className="inline-block align-middle">
+                          <FarmerTerm
+                            termId="kaba_yem"
+                            className="font-mono-code text-[9.5px] tracking-wider uppercase text-[#2E5B39] border border-[#B9C8B0] rounded-full px-2 py-0.5"
+                          >
+                            Kaba yem
+                          </FarmerTerm>
+                        </span>
+                      )}
+                      {onEditIngredient && (
+                        <button
+                          type="button"
+                          onClick={() => onEditIngredient(f)}
+                          className="p-1 rounded text-[#6B7160] hover:text-[#2E5B39] hover:bg-[#E2DDCB] transition-colors"
+                          title="Hammaddeyi Düzenle"
                         >
-                          Kaba yem
-                        </FarmerTerm>
-                      </span>
-                    )}
+                          <Edit2 className="w-3.5 h-3.5" />
+                        </button>
+                      )}
+                    </div>
                   </td>
                   <td className="px-3 py-2.5 font-mono-code text-right text-[#20261A]">
                     {fmt(f.dm * 100, 0)}
@@ -214,6 +231,15 @@ export const IngredientsTable: React.FC<IngredientsTableProps> = ({
           {selectedIds.size} / {ingredients.length} hammadde seçili
         </span>
         <div className="flex gap-2">
+          {onAddIngredient && (
+            <button
+              type="button"
+              onClick={onAddIngredient}
+              className="px-3 py-1.5 border border-[#2E5B39] bg-[#2E5B39] text-white rounded-md text-xs font-medium hover:bg-[#254A2E] cursor-pointer transition-colors"
+            >
+              + Yeni Ekle
+            </button>
+          )}
           <button
             type="button"
             onClick={onSelectAll}

@@ -289,6 +289,85 @@ export const RasyonApp: React.FC<RasyonAppProps> = ({
     showToast('Varsayılan hammadde değerleri ve sınırları yüklendi.');
   };
 
+  const [isIngredientModalOpen, setIsIngredientModalOpen] = useState(false);
+  const [editingIngredientId, setEditingIngredientId] = useState<string | null>(null);
+  const [modalIngredient, setModalIngredient] = useState<Partial<FeedIngredient>>({
+    ad: '',
+    fiyat: 0,
+    dm: 0.88,
+    nem: 1.5,
+    neg: 1.0,
+    nel: 1.4,
+    hp: 10,
+    ca: 0.5,
+    p: 0.3,
+    ndf: 40,
+    min: 0,
+    max: 100,
+    kaba: false,
+  });
+
+  const handleOpenAddModal = () => {
+    setEditingIngredientId(null);
+    setModalIngredient({
+      ad: '',
+      fiyat: 0,
+      dm: 0.88,
+      nem: 1.5,
+      neg: 1.0,
+      nel: 1.4,
+      hp: 10,
+      ca: 0.5,
+      p: 0.3,
+      ndf: 40,
+      min: 0,
+      max: 100,
+      kaba: false,
+    });
+    setIsIngredientModalOpen(true);
+  };
+
+  const handleOpenEditModal = (ingredient: FeedIngredient) => {
+    setEditingIngredientId(ingredient.id);
+    setModalIngredient({ ...ingredient });
+    setIsIngredientModalOpen(true);
+  };
+
+  const handleSaveIngredient = () => {
+    if (!modalIngredient.ad?.trim()) {
+      showToast('Lütfen hammadde adı giriniz.');
+      return;
+    }
+    const id = editingIngredientId || (modalIngredient.ad.toLowerCase().replace(/[^a-z0-9]/g, '_') + '_' + Date.now());
+    const completeIngredient: FeedIngredient = {
+      id,
+      ad: modalIngredient.ad.trim(),
+      fiyat: modalIngredient.fiyat || 0,
+      dm: modalIngredient.dm || 0,
+      nem: modalIngredient.nem || 0,
+      neg: modalIngredient.neg || 0,
+      nel: modalIngredient.nel || 0,
+      hp: modalIngredient.hp || 0,
+      ca: modalIngredient.ca || 0,
+      p: modalIngredient.p || 0,
+      ndf: modalIngredient.ndf || 0,
+      min: modalIngredient.min || 0,
+      max: modalIngredient.max || 100,
+      kaba: modalIngredient.kaba || false,
+    };
+
+    if (editingIngredientId) {
+      setIngredients(prev => prev.map(i => i.id === editingIngredientId ? completeIngredient : i));
+      showToast(`${completeIngredient.ad} güncellendi.`);
+    } else {
+      setIngredients(prev => [...prev, completeIngredient]);
+      setSelectedIngredientIds(prev => new Set([...prev, id]));
+      showToast(`${completeIngredient.ad} listeye eklendi.`);
+    }
+    
+    setIsIngredientModalOpen(false);
+  };
+
   const handleUpdateIngredient = (
     id: string,
     field: 'fiyat' | 'min' | 'max',
@@ -597,6 +676,8 @@ export const RasyonApp: React.FC<RasyonAppProps> = ({
               onClearAll={handleClearAll}
               onResetDefaults={handleResetDefaults}
               onUpdateIngredient={handleUpdateIngredient}
+              onAddIngredient={handleOpenAddModal}
+              onEditIngredient={handleOpenEditModal}
             />
 
             {/* Solver Action Trigger Bar */}
@@ -746,6 +827,163 @@ export const RasyonApp: React.FC<RasyonAppProps> = ({
         isOpen={isGuideOpen}
         onClose={() => setIsGuideOpen(false)}
       />
+
+      {/* Add/Edit Ingredient Modal */}
+      {isIngredientModalOpen && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-[#20261A]/80 backdrop-blur-sm p-4">
+          <div className="bg-[#FAF8F0] w-full max-w-2xl rounded-2xl shadow-xl border border-[#DCD7C4] overflow-hidden flex flex-col max-h-[90vh]">
+            <div className="px-6 py-4 bg-white border-b border-[#DCD7C4] flex items-center justify-between sticky top-0 z-10">
+              <h3 className="text-lg font-bold text-[#20261A] font-heading">{editingIngredientId ? 'Hammadde Düzenle' : 'Yeni Hammadde Ekle'}</h3>
+              <button
+                type="button"
+                onClick={() => setIsIngredientModalOpen(false)}
+                className="text-[#6B7160] hover:text-[#20261A] transition-colors p-1"
+                aria-label="Kapat"
+              >
+                ✕
+              </button>
+            </div>
+            
+            <div className="p-6 overflow-y-auto custom-scrollbar">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="sm:col-span-2">
+                  <label className="block text-xs font-semibold text-[#20261A] mb-1">
+                    Hammadde Adı <span className="text-red-500">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    value={modalIngredient.ad}
+                    onChange={(e) => setModalIngredient(p => ({ ...p, ad: e.target.value }))}
+                    className="w-full bg-white border border-[#DCD7C4] rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-[#2E5B39]"
+                    placeholder="Örn: Yonca Kuru Otu"
+                  />
+                </div>
+                
+                <div>
+                  <label className="block text-xs font-semibold text-[#20261A] mb-1">Fiyat (₺/kg)</label>
+                  <input
+                    type="number" min="0" step="0.1"
+                    value={modalIngredient.fiyat}
+                    onChange={(e) => setModalIngredient(p => ({ ...p, fiyat: parseFloat(e.target.value) || 0 }))}
+                    className="w-full bg-white border border-[#DCD7C4] rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-[#2E5B39]"
+                  />
+                </div>
+
+                <div className="flex items-center mt-6">
+                  <label className="flex items-center gap-2 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={modalIngredient.kaba}
+                      onChange={(e) => setModalIngredient(p => ({ ...p, kaba: e.target.checked }))}
+                      className="w-4 h-4 accent-[#2E5B39]"
+                    />
+                    <span className="text-sm font-semibold text-[#20261A]">Kaba Yem mi?</span>
+                  </label>
+                </div>
+
+                <div>
+                  <label className="block text-xs font-semibold text-[#20261A] mb-1">Kuru Madde (KM) Oranı</label>
+                  <input
+                    type="number" min="0" max="1" step="0.01"
+                    value={modalIngredient.dm}
+                    onChange={(e) => setModalIngredient(p => ({ ...p, dm: parseFloat(e.target.value) || 0 }))}
+                    className="w-full bg-white border border-[#DCD7C4] rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-[#2E5B39]"
+                    title="0 ile 1 arasında giriniz (Örn: %88 için 0.88)"
+                  />
+                  <p className="text-[10px] text-[#6B7160] mt-1">0 ile 1 arası (Örn: %88 için 0.88)</p>
+                </div>
+
+                <div>
+                  <label className="block text-xs font-semibold text-[#20261A] mb-1">Ham Protein (HP) %</label>
+                  <input
+                    type="number" min="0" step="0.1"
+                    value={modalIngredient.hp}
+                    onChange={(e) => setModalIngredient(p => ({ ...p, hp: parseFloat(e.target.value) || 0 }))}
+                    className="w-full bg-white border border-[#DCD7C4] rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-[#2E5B39]"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-semibold text-[#20261A] mb-1">NEm (Mcal/kg KM)</label>
+                  <input
+                    type="number" min="0" step="0.01"
+                    value={modalIngredient.nem}
+                    onChange={(e) => setModalIngredient(p => ({ ...p, nem: parseFloat(e.target.value) || 0 }))}
+                    className="w-full bg-white border border-[#DCD7C4] rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-[#2E5B39]"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-semibold text-[#20261A] mb-1">NEg (Mcal/kg KM)</label>
+                  <input
+                    type="number" min="0" step="0.01"
+                    value={modalIngredient.neg}
+                    onChange={(e) => setModalIngredient(p => ({ ...p, neg: parseFloat(e.target.value) || 0 }))}
+                    className="w-full bg-white border border-[#DCD7C4] rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-[#2E5B39]"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-semibold text-[#20261A] mb-1">NEL (Mcal/kg KM)</label>
+                  <input
+                    type="number" min="0" step="0.01"
+                    value={modalIngredient.nel}
+                    onChange={(e) => setModalIngredient(p => ({ ...p, nel: parseFloat(e.target.value) || 0 }))}
+                    className="w-full bg-white border border-[#DCD7C4] rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-[#2E5B39]"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-semibold text-[#20261A] mb-1">NDF %</label>
+                  <input
+                    type="number" min="0" step="0.1"
+                    value={modalIngredient.ndf}
+                    onChange={(e) => setModalIngredient(p => ({ ...p, ndf: parseFloat(e.target.value) || 0 }))}
+                    className="w-full bg-white border border-[#DCD7C4] rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-[#2E5B39]"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-semibold text-[#20261A] mb-1">Kalsiyum (Ca) %</label>
+                  <input
+                    type="number" min="0" step="0.01"
+                    value={modalIngredient.ca}
+                    onChange={(e) => setModalIngredient(p => ({ ...p, ca: parseFloat(e.target.value) || 0 }))}
+                    className="w-full bg-white border border-[#DCD7C4] rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-[#2E5B39]"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-semibold text-[#20261A] mb-1">Fosfor (P) %</label>
+                  <input
+                    type="number" min="0" step="0.01"
+                    value={modalIngredient.p}
+                    onChange={(e) => setModalIngredient(p => ({ ...p, p: parseFloat(e.target.value) || 0 }))}
+                    className="w-full bg-white border border-[#DCD7C4] rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-[#2E5B39]"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div className="px-6 py-4 bg-white border-t border-[#DCD7C4] flex items-center justify-end gap-3 sticky bottom-0">
+              <button
+                type="button"
+                onClick={() => setIsIngredientModalOpen(false)}
+                className="px-4 py-2 border border-[#DCD7C4] rounded-lg text-sm font-semibold text-[#6B7160] hover:bg-[#F2EFE2] hover:text-[#20261A] transition-colors"
+              >
+                İptal
+              </button>
+              <button
+                type="button"
+                onClick={handleSaveIngredient}
+                className="px-4 py-2 bg-[#2E5B39] text-white rounded-lg text-sm font-semibold hover:bg-[#254A2E] shadow-sm transition-all"
+              >
+                {editingIngredientId ? 'Güncelle' : 'Ekle ve Seç'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
     </GlossaryProvider>
   );
