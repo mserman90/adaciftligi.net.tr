@@ -166,20 +166,22 @@ export const Footer: React.FC<FooterProps> = ({ onOpenAdmin }) => {
 
         {/* Sitenin En Dibi: Yönetici Girişi & Rasyon Portalı */}
         {onOpenAdmin && (
-          <div className="mt-8 pt-4 border-t border-stone-800/80 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-stone-500">
-            <div className="flex items-center gap-2">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500/70"></span>
-              <span>Ada Çiftliği Veterinerlik ve Zootekni Karar Destek Platformu</span>
+          <div className="mt-8 pt-6 border-t border-stone-800/80 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-stone-500 pb-24 md:pb-4 pr-0 md:pr-32">
+            <div className="flex flex-col md:flex-row items-center gap-4">
+              <button
+                type="button"
+                id="footer-bottom-admin-btn"
+                onClick={onOpenAdmin}
+                className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-stone-900 hover:bg-stone-800 text-stone-400 hover:text-emerald-400 border border-stone-700 hover:border-emerald-700/60 transition-all cursor-pointer font-medium shadow-sm"
+              >
+                <ShieldCheck className="w-4 h-4 text-emerald-400" />
+                <span>Yönetici Girişi</span>
+              </button>
+              <div className="flex items-center gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500/70"></span>
+                <span className="text-center md:text-left">Ada Çiftliği Veterinerlik ve Zootekni Karar Destek Platformu</span>
+              </div>
             </div>
-            <button
-              type="button"
-              id="footer-bottom-admin-btn"
-              onClick={onOpenAdmin}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-stone-900 hover:bg-stone-800 text-stone-400 hover:text-emerald-400 border border-stone-800 hover:border-emerald-800/60 transition-all cursor-pointer font-medium"
-            >
-              <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
-              <span>Yönetici Girişi</span>
-            </button>
           </div>
         )}
       </div>
