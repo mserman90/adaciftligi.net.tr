@@ -338,7 +338,7 @@ export const IofcPanel: React.FC<IofcPanelProps> = ({
           </tbody>
         </table>
         <p className="text-xs text-[#6B7160] leading-relaxed mt-4">
-          IOFC sabit giderleri içermez; işçilik, amortizasyon ve diğer giderler IOFC'den karşılanmalıdır. Tam kâr analizi için Süt Ekonomisi modülüne bakın.
+          IOFC sabit giderleri içermez; işçilik, amortizasyon ve diğer giderler IOFC'den karşılanmalıdır. Tam kâr analizi için Süt Kârlılığı modülüne bakın.
         </p>
       </div>
     </div>

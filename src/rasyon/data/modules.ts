@@ -84,11 +84,11 @@ export const MODULES: Record<ModuleKey, ModuleConfig> = {
   },
   sutEko: {
     key: 'sutEko',
-    ad: 'Süt Ekonomisi',
+    ad: 'Süt Kârlılığı',
     kod: 'ÇF-01',
     tur: 'ciftlik',
-    btnLabel: 'Ekonomiyi Hesapla',
-    baslik: 'Süt Ekonomisi',
+    btnLabel: 'Kârlılığı Hesapla',
+    baslik: 'Süt Kârlılığı',
     aciklama:
       'Süt geliri ile yem ve işletme masraflarını denkleştirir; inek başına yıllık kârı, IOFC’yi, başabaş süt fiyatını ve verimini hesaplar, <strong>fiyat × verim duyarlılık matrisiyle</strong> riski görünür kılar.',
     meta: [
@@ -101,11 +101,11 @@ export const MODULES: Record<ModuleKey, ModuleConfig> = {
   },
   besiEko: {
     key: 'besiEko',
-    ad: 'Besi Ekonomisi',
+    ad: 'Besi Kârlılığı',
     kod: 'ÇF-02',
     tur: 'ciftlik',
-    btnLabel: 'Ekonomiyi Hesapla',
-    baslik: 'Besi Ekonomisi',
+    btnLabel: 'Kârlılığı Hesapla',
+    baslik: 'Besi Kârlılığı',
     aciklama:
       'Hayvan alışı, besleme süresi ve satışı arasındaki nakit akışını denkleştirir; besi başına net kârı, kg artış maliyetini, başabaş alış/satış fiyatlarını ve <strong>alış–satış makasının duyarlılık matrisiyle</strong> riskini hesaplar.',
     meta: [

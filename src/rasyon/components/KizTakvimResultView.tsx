@@ -1,4 +1,5 @@
 import React from 'react';
+import { GlossaryText } from './GlossaryText';
 import { Download, Calendar, Printer, Clock } from 'lucide-react';
 import { KizTakvimInputs } from '../types';
 import { kizHesapla } from '../utils/reproduction';
@@ -128,7 +129,7 @@ export const KizTakvimResultView: React.FC<KizTakvimResultViewProps> = ({
             Klinik Tohumlama Zamanlaması (AM-PM Kuralı)
           </h4>
           <p className="text-xs text-[#4A5141] mt-1 leading-relaxed">
-            Kızgınlık sabah saatlerinde görüldüyse (atlama, böğürme, şeffaf akıntı) <strong>aynı günün akşamı (12 saat sonra)</strong>; akşam saatlerinde görüldüyse <strong>ertesi sabah erkenden</strong> tohumlama yapılmalıdır. Ovülasyon, kızgınlığın bitiminden yaklaşık 10–12 saat sonra gerçekleşir.
+            <GlossaryText text="Kızgınlık sabah saatlerinde görüldüyse (atlama, böğürme, şeffaf akıntı) aynı günün akşamı (12 saat sonra); akşam saatlerinde görüldüyse ertesi sabah erkenden tohumlama yapılmalıdır. Ovülasyon, kızgınlığın bitiminden yaklaşık 10-12 saat sonra gerçekleşir." />
           </p>
         </div>
       </div>

@@ -806,7 +806,7 @@ export const RasyonApp: React.FC<RasyonAppProps> = ({
           <div className="flex items-center gap-2">
             <span className="font-heading font-extrabold text-[#20261A]">Ada Çiftliği</span>
             <span>—</span>
-            <span>Veterinerlik ve Zootekni Karar Destek Platformu</span>
+            <span>Zooteknik Karar Destek Platformu</span>
           </div>
           <div className="flex items-center gap-4">
             <button

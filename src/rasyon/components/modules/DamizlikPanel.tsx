@@ -4,6 +4,8 @@ import { DAM_TUR, DAM_BAYRAK, DAM_NOT } from '../../data/breeding';
 import { damHesapla } from '../../utils/economics';
 import { fmt } from '../../utils/formatters';
 
+import { GlossaryText } from '../GlossaryText';
+
 interface DamizlikPanelProps {
   inputs: DamizlikInputs;
   onChange: (inputs: DamizlikInputs) => void;
@@ -217,9 +219,9 @@ export const DamizlikPanel: React.FC<DamizlikPanelProps> = ({
           </tbody>
         </table>
 
-        <p className="text-xs text-[#6B7160] leading-relaxed mt-4">
-          {DAM_NOT[inputs.tur]}
-        </p>
+        <div className="text-xs text-[#6B7160] leading-relaxed mt-4">
+          <GlossaryText text={DAM_NOT[inputs.tur]} />
+        </div>
       </div>
     </div>
   );

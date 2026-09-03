@@ -179,7 +179,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenAdmin }) => {
               </button>
               <div className="flex items-center gap-2">
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-500/70"></span>
-                <span className="text-center md:text-left">Ada Çiftliği Veterinerlik ve Zootekni Karar Destek Platformu</span>
+                <span className="text-center md:text-left">Ada Çiftliği Zooteknik Karar Destek Platformu</span>
               </div>
             </div>
           </div>

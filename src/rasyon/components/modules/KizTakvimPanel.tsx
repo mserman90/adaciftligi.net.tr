@@ -3,6 +3,7 @@ import { KizTakvimInputs, ReproTur, CowBreed } from '../../types';
 import { KIZ_TUR, KIZ_NOT } from '../../data/reproduction';
 import { kizHesapla } from '../../utils/reproduction';
 import { fmtTarih } from '../../utils/formatters';
+import { GlossaryText } from '../GlossaryText';
 
 interface KizTakvimPanelProps {
   inputs: KizTakvimInputs;
@@ -157,9 +158,9 @@ export const KizTakvimPanel: React.FC<KizTakvimPanelProps> = ({
             </tr>
           </tbody>
         </table>
-        <p className="text-xs text-[#6B7160] leading-relaxed mt-4">
-          {KIZ_NOT[inputs.tur]}
-        </p>
+        <div className="text-xs text-[#6B7160] leading-relaxed mt-4">
+          <GlossaryText text={KIZ_NOT[inputs.tur]} />
+        </div>
       </div>
     </div>
   );

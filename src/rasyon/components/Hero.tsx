@@ -142,7 +142,7 @@ export const Hero: React.FC<HeroProps> = ({
               : 'text-[#6B7160] hover:text-[#20261A] hover:bg-[#F2EFE2]'
           }`}
         >
-          <Coins className="w-4 h-4" /> Süt Ekonomisi
+          <Coins className="w-4 h-4" /> Süt Kârlılığı
         </button>
 
         <button
@@ -153,7 +153,7 @@ export const Hero: React.FC<HeroProps> = ({
               : 'text-[#6B7160] hover:text-[#20261A] hover:bg-[#F2EFE2]'
           }`}
         >
-          <Banknote className="w-4 h-4" /> Besi Ekonomisi
+          <Banknote className="w-4 h-4" /> Besi Kârlılığı
         </button>
 
         <button

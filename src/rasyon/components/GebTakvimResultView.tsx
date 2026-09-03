@@ -1,4 +1,5 @@
 import React from 'react';
+import { GlossaryText } from './GlossaryText';
 import { Download, Calendar, Printer } from 'lucide-react';
 import { GebTakvimInputs } from '../types';
 import { gebHesapla } from '../utils/reproduction';
@@ -177,7 +178,7 @@ export const GebTakvimResultView: React.FC<GebTakvimResultViewProps> = ({
                       {fmtTarih(a.tarih)}
                     </td>
                     <td className="px-4 py-3 text-xs text-[#6B7160] leading-relaxed">
-                      {a.aciklama}
+                      <GlossaryText text={a.aciklama} />
                     </td>
                   </tr>
                 );

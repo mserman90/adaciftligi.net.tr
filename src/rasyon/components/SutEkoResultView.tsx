@@ -39,7 +39,7 @@ export const SutEkoResultView: React.FC<SutEkoResultViewProps> = ({
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
-    onToast('Süt ekonomisi analizi CSV olarak indirildi.');
+    onToast('Süt kârlılığı analizi CSV olarak indirildi.');
   };
 
   return (

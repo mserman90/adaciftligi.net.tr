@@ -123,7 +123,7 @@ export const GUIDES: Record<ModuleKey, GuideData> = {
     ],
   },
   sutEko: {
-    title: 'Süt ekonomisi nasıl yönetilir?',
+    title: 'Süt kârlılığı nasıl yönetilir?',
     intro: 'Rasyon matematiği işletmenin yarısıdır; diğer yarısı, üretilen süt ile harcanan paranın kayda geçirilmesidir. Aşağıdaki dört ilke, hesapları sürünün gerçek nakit akışına dönüştürür.',
     articles: [
       {
@@ -149,7 +149,7 @@ export const GUIDES: Record<ModuleKey, GuideData> = {
     ],
   },
   besiEko: {
-    title: 'Besi ekonomisi nasıl yönetilir?',
+    title: 'Besi kârlılığı nasıl yönetilir?',
     intro: 'Besinde kâr iki fiyat arasında değil, iki fiyat arasındaki sürede kazanılır: aldığınız kilo ile sattığınız kilo arasındaki her gün ya para üretir ya yakar. Dört ilke, makası sürdürülebilir kâra çevirir.',
     articles: [
       {
@@ -439,8 +439,8 @@ export const FAQS: Record<ModuleKey, FaqItem[]> = {
       a: 'Yem pazarlığında tavanı gösterir: şu anki verim ve fiyatla bir ineğin günlük yemine ödeyebileceğiniz üst sınırdır.',
     },
     {
-      q: 'Süt Ekonomisi modülüyle farkı ne, hangisini ne zaman kullanmalıyım?',
-      a: 'IOFC günlük operasyonel nabzı ölçer: sabah sağımında bile anında hesaplanır. Süt Ekonomisi modülü ise yıllık tam kârı (kuru dönem, buzağı geliri, işçilik, amortizasyon dahil) hesaplar.',
+      q: 'Süt Kârlılığı modülüyle farkı ne, hangisini ne zaman kullanmalıyım?',
+      a: 'IOFC günlük operasyonel nabzı ölçer: sabah sağımında bile anında hesaplanır. Süt Kârlılığı modülü ise yıllık tam kârı (kuru dönem, buzağı geliri, işçilik, amortizasyon dahil) hesaplar.',
     },
   ],
   damizlik: [

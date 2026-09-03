@@ -38,7 +38,7 @@ export const BesiEkoResultView: React.FC<BesiEkoResultViewProps> = ({
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
-    onToast('Besi ekonomisi analizi CSV olarak indirildi.');
+    onToast('Besi kârlılığı analizi CSV olarak indirildi.');
   };
 
   return (
