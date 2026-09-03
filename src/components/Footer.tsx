@@ -2,7 +2,11 @@ import React from 'react';
 import { Phone, MessageCircle, Mail, MapPin, ShieldCheck, ArrowUp } from 'lucide-react';
 import { FARM_CONTACT } from '../data/farmData';
 
-export const Footer: React.FC = () => {
+interface FooterProps {
+  onOpenAdmin?: () => void;
+}
+
+export const Footer: React.FC<FooterProps> = ({ onOpenAdmin }) => {
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -159,6 +163,25 @@ export const Footer: React.FC = () => {
             </button>
           </div>
         </div>
+
+        {/* Sitenin En Dibi: Yönetici Girişi & Rasyon Portalı */}
+        {onOpenAdmin && (
+          <div className="mt-8 pt-4 border-t border-stone-800/80 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-stone-500">
+            <div className="flex items-center gap-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500/70"></span>
+              <span>Ada Çiftliği Veterinerlik ve Zootekni Karar Destek Platformu</span>
+            </div>
+            <button
+              type="button"
+              id="footer-bottom-admin-btn"
+              onClick={onOpenAdmin}
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-stone-900 hover:bg-stone-800 text-stone-400 hover:text-emerald-400 border border-stone-800 hover:border-emerald-800/60 transition-all cursor-pointer font-medium"
+            >
+              <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
+              <span>Yönetici Girişi</span>
+            </button>
+          </div>
+        )}
       </div>
     </footer>
   );

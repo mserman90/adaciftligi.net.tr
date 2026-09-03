@@ -395,11 +395,6 @@ export const ImageProvider: React.FC<{ children: React.ReactNode }> = ({ childre
           <span className="leading-snug">{toastMessage}</span>
         </div>
       )}
-
-      {/* All Photos Manager Modal */}
-      {isPhotoManagerOpen && (
-        <PhotoManagerModal onClose={() => setIsPhotoManagerOpen(false)} />
-      )}
     </ImageContext.Provider>
   );
 };
@@ -413,97 +408,18 @@ export const useFarmImages = () => {
 };
 
 /**
- * Reusable Photo Overlay Component with Camera Change Button & Drag-and-Drop
+ * Passive Photo Change placeholder (buttons removed per user request)
  */
 export interface PhotoChangeControlProps {
-  imageKey: string;
+  imageKey?: string;
   label?: string;
   className?: string;
   size?: 'sm' | 'md' | 'lg';
   showLabel?: boolean;
 }
 
-export const PhotoChangeControl: React.FC<PhotoChangeControlProps> = ({
-  imageKey,
-  label,
-  className = '',
-  size = 'md',
-  showLabel = false,
-}) => {
-  const { isCustomImage, setImage, resetImage } = useFarmImages();
-  const fileInputRef = useRef<HTMLInputElement>(null);
-  const isCustom = isCustomImage(imageKey);
-
-  const handleFileChange = (file: File) => {
-    if (!file.type.startsWith('image/') && !file.name.endsWith('.jfif')) {
-      alert('Lütfen geçerli bir resim dosyası seçin (.jpg, .png, .jfif, .webp)');
-      return;
-    }
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      const result = e.target?.result as string;
-      if (result) {
-        setImage(imageKey, result, label);
-      }
-    };
-    reader.readAsDataURL(file);
-  };
-
-  const btnSizeClasses =
-    size === 'sm'
-      ? 'p-1.5 text-xs'
-      : size === 'lg'
-      ? 'px-3 py-2 text-xs font-semibold'
-      : 'px-2.5 py-1.5 text-xs font-medium';
-
-  const iconSizeClasses = size === 'sm' ? 'w-3 h-3' : 'w-3.5 h-3.5';
-
-  return (
-    <div className={`flex items-center gap-1.5 z-20 ${className}`}>
-      <input
-        type="file"
-        ref={fileInputRef}
-        accept="image/*,.jfif"
-        className="hidden"
-        onChange={(e) => {
-          if (e.target.files && e.target.files[0]) {
-            handleFileChange(e.target.files[0]);
-            e.target.value = '';
-          }
-        }}
-      />
-
-      {/* Change Photo Button */}
-      <button
-        type="button"
-        onClick={(e) => {
-          e.stopPropagation();
-          fileInputRef.current?.click();
-        }}
-        title={`${label || 'Fotoğrafı'} değiştir`}
-        className={`flex items-center gap-1.5 rounded-full bg-stone-900/85 hover:bg-stone-900 text-white backdrop-blur-md border border-white/20 shadow-md transition-all active:scale-95 cursor-pointer ${btnSizeClasses}`}
-      >
-        <Camera className={`${iconSizeClasses} text-emerald-400`} />
-        {showLabel && <span>Fotoğrafı Değiştir</span>}
-      </button>
-
-      {/* Reset to Default Button */}
-      {isCustom && (
-        <button
-          type="button"
-          onClick={(e) => {
-            e.stopPropagation();
-            resetImage(imageKey, label);
-          }}
-          title="Varsayılan fotoğrafa geri dön"
-          className={`flex items-center gap-1 rounded-full bg-stone-900/85 hover:bg-stone-900 text-stone-200 backdrop-blur-md border border-white/20 shadow-md transition-all active:scale-95 cursor-pointer ${btnSizeClasses}`}
-        >
-          <RotateCcw className={`${iconSizeClasses} text-stone-300`} />
-          {showLabel && <span className="hidden sm:inline">Sıfırla</span>}
-        </button>
-      )}
-    </div>
-  );
+export const PhotoChangeControl: React.FC<PhotoChangeControlProps> = () => {
+  return null;
 };
 
 /**

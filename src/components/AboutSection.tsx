@@ -1,74 +1,12 @@
-import React, { useState, useRef } from 'react';
-import { HeartHandshake, ShieldCheck, Waves, Sun, Sparkles, MapPin, Camera, ZoomIn, X, Upload, RotateCcw, Check } from 'lucide-react';
+import React, { useState } from 'react';
+import { HeartHandshake, ShieldCheck, Waves, Sun, Sparkles, MapPin, ZoomIn, X, Camera } from 'lucide-react';
 import { FARM_CONTACT, FARM_GALLERY, FarmGalleryItem } from '../data/farmData';
 import { useFarmImages } from '../context/ImageContext';
 
 export const AboutSection: React.FC = () => {
   const [selectedGalleryItem, setSelectedGalleryItem] = useState<FarmGalleryItem | null>(null);
   const [galleryFilter, setGalleryFilter] = useState<string>('Tümü');
-  const { getImage, setImage, resetImage, isCustomImage } = useFarmImages();
-
-  const [dragOverTank, setDragOverTank] = useState(false);
-  const [dragOverVillage, setDragOverVillage] = useState(false);
-  const [dragOverSheep, setDragOverSheep] = useState(false);
-  const [dragOverGalleryId, setDragOverGalleryId] = useState<string | null>(null);
-
-  const tankFileInputRef = useRef<HTMLInputElement>(null);
-  const villageFileInputRef = useRef<HTMLInputElement>(null);
-  const sheepFileInputRef = useRef<HTMLInputElement>(null);
-  const galleryFileInputRef = useRef<HTMLInputElement>(null);
-  const activeGalleryTargetRef = useRef<string | null>(null);
-
-  const handleApplyVillageFile = (file: File) => {
-    if (!file.type.startsWith('image/') && !file.name.endsWith('.jfif')) return;
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      const result = e.target?.result as string;
-      if (result) {
-        setImage('about_village', result, 'Adasarhanlı Köyü Manzarası');
-      }
-    };
-    reader.readAsDataURL(file);
-  };
-
-  const handleApplyTankFile = (file: File) => {
-    if (!file.type.startsWith('image/') && !file.name.endsWith('.jfif')) return;
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      const result = e.target?.result as string;
-      if (result) {
-        setImage('about_tank', result, '+4°C Süt Soğutma Tankı');
-      }
-    };
-    reader.readAsDataURL(file);
-  };
-
-  const handleApplySheepFile = (file: File) => {
-    if (!file.type.startsWith('image/') && !file.name.endsWith('.jfif')) return;
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      const result = e.target?.result as string;
-      if (result) {
-        setImage('about_sheep', result, 'Mera Kıvırcık Sürüsü');
-      }
-    };
-    reader.readAsDataURL(file);
-  };
-
-  const handleApplyGalleryFile = (galleryId: string, title: string, file: File) => {
-    if (!file.type.startsWith('image/') && !file.name.endsWith('.jfif')) return;
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      const result = e.target?.result as string;
-      if (result) {
-        setImage(`gallery_${galleryId}`, result, title);
-        if (selectedGalleryItem && selectedGalleryItem.id === galleryId) {
-          setSelectedGalleryItem({ ...selectedGalleryItem, image: result });
-        }
-      }
-    };
-    reader.readAsDataURL(file);
-  };
+  const { getImage } = useFarmImages();
 
   const categories = ['Tümü', 'Mera & Otlak', 'Küçükbaş', 'Kuzu', 'Büyükbaş', 'Süt & Hijyen'];
 
@@ -122,45 +60,13 @@ export const AboutSection: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center mb-16">
           {/* Photos Showcase */}
           <div className="lg:col-span-6 space-y-4">
-            {/* Hidden Village File Input */}
-            <input
-              type="file"
-              ref={villageFileInputRef}
-              accept="image/*,.jfif"
-              className="hidden"
-              onChange={(e) => {
-                if (e.target.files && e.target.files[0]) {
-                  handleApplyVillageFile(e.target.files[0]);
-                  e.target.value = '';
-                }
-              }}
-            />
-
             {/* Main Adasarhanlı Köyü / Meriç / Edirne Landscape Showcase Card */}
             {(() => {
               const villageImg = getImage('about_village', '/images/drive/23911dbc-b407-46d5-95fb-656107f0c494.jfif');
-              const isCustomVillage = isCustomImage('about_village');
 
               return (
                 <div
-                  onDragOver={(e) => {
-                    e.preventDefault();
-                    setDragOverVillage(true);
-                  }}
-                  onDragLeave={(e) => {
-                    e.preventDefault();
-                    setDragOverVillage(false);
-                  }}
-                  onDrop={(e) => {
-                    e.preventDefault();
-                    setDragOverVillage(false);
-                    if (e.dataTransfer.files && e.dataTransfer.files[0]) {
-                      handleApplyVillageFile(e.dataTransfer.files[0]);
-                    }
-                  }}
-                  className={`group relative rounded-3xl overflow-hidden shadow-lg border border-stone-200/80 aspect-[16/10] bg-stone-100 transition-all duration-300 ${
-                    dragOverVillage ? 'ring-4 ring-emerald-500 ring-inset' : ''
-                  }`}
+                  className="group relative rounded-3xl overflow-hidden shadow-lg border border-stone-200/80 aspect-[16/10] bg-stone-100 transition-all duration-300"
                 >
                   <img
                     src={villageImg}
@@ -173,39 +79,6 @@ export const AboutSection: React.FC = () => {
                     }}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-stone-950/70 via-transparent to-transparent pointer-events-none" />
-
-                  {/* Drag drop overlay */}
-                  {dragOverVillage && (
-                    <div className="absolute inset-0 bg-emerald-950/85 flex flex-col items-center justify-center text-white z-20 p-4 text-center">
-                      <Upload className="w-8 h-8 text-emerald-300 mb-1 animate-bounce" />
-                      <p className="font-bold text-sm">Adasarhanlı Köyü Fotoğrafını Buraya Bırakın</p>
-                    </div>
-                  )}
-
-                  {/* Upload / Reset Controls Top Right */}
-                  <div className="absolute top-3.5 right-3.5 flex items-center gap-1.5 z-10 opacity-90 group-hover:opacity-100 transition-opacity">
-                    <button
-                      type="button"
-                      onClick={() => villageFileInputRef.current?.click()}
-                      title="Adasarhanlı Köyü fotoğrafını değiştir (veya resmi buraya sürükleyin)"
-                      className="flex items-center gap-1 px-3 py-1.5 rounded-full bg-stone-900/85 hover:bg-stone-900 text-white text-xs font-medium backdrop-blur-md border border-white/20 shadow-md transition-all active:scale-95 cursor-pointer hover:border-emerald-400"
-                    >
-                      <Camera className="w-3.5 h-3.5 text-emerald-400" />
-                      <span>Fotoğraf Değiştir</span>
-                    </button>
-
-                    {isCustomVillage && (
-                      <button
-                        type="button"
-                        onClick={() => resetImage('about_village', 'Adasarhanlı Köyü Manzarası')}
-                        title="Varsayılan fotoğrafa dön"
-                        className="flex items-center gap-1 px-2.5 py-1.5 rounded-full bg-stone-900/85 hover:bg-stone-900 text-stone-200 text-xs font-medium backdrop-blur-md border border-white/20 shadow-md transition-all active:scale-95 cursor-pointer"
-                      >
-                        <RotateCcw className="w-3 h-3 text-stone-300" />
-                        <span className="hidden sm:inline text-[11px]">Sıfırla</span>
-                      </button>
-                    )}
-                  </div>
 
                   <div className="absolute bottom-4 left-4 right-4 text-white pointer-events-none">
                     <div className="flex items-center gap-1.5 text-xs font-semibold text-emerald-300 mb-0.5">
@@ -220,59 +93,14 @@ export const AboutSection: React.FC = () => {
               );
             })()}
 
-            {/* Hidden Inputs for Tank and Sheep */}
-            <input
-              type="file"
-              ref={tankFileInputRef}
-              accept="image/*,.jfif"
-              className="hidden"
-              onChange={(e) => {
-                if (e.target.files && e.target.files[0]) {
-                  handleApplyTankFile(e.target.files[0]);
-                  e.target.value = '';
-                }
-              }}
-            />
-
-            <input
-              type="file"
-              ref={sheepFileInputRef}
-              accept="image/*,.jfif"
-              className="hidden"
-              onChange={(e) => {
-                if (e.target.files && e.target.files[0]) {
-                  handleApplySheepFile(e.target.files[0]);
-                  e.target.value = '';
-                }
-              }}
-            />
-
             <div className="grid grid-cols-2 gap-4">
-              {/* Milk Tank Photo Card with Drag & Drop & Upload */}
+              {/* Milk Tank Photo Card */}
               {(() => {
                 const tankImg = getImage('about_tank', '/images/drive/Gemini_Generated_Image_ln24chln24chln24.jfif');
-                const isCustomTank = isCustomImage('about_tank');
 
                 return (
                   <div
-                    onDragOver={(e) => {
-                      e.preventDefault();
-                      setDragOverTank(true);
-                    }}
-                    onDragLeave={(e) => {
-                      e.preventDefault();
-                      setDragOverTank(false);
-                    }}
-                    onDrop={(e) => {
-                      e.preventDefault();
-                      setDragOverTank(false);
-                      if (e.dataTransfer.files && e.dataTransfer.files[0]) {
-                        handleApplyTankFile(e.dataTransfer.files[0]);
-                      }
-                    }}
-                    className={`group relative rounded-2xl overflow-hidden border border-stone-200 aspect-[4/3] bg-stone-100 transition-all duration-300 ${
-                      dragOverTank ? 'ring-4 ring-emerald-500 ring-inset' : ''
-                    }`}
+                    className="group relative rounded-2xl overflow-hidden border border-stone-200 aspect-[4/3] bg-stone-100 transition-all duration-300"
                   >
                     <img
                       src={tankImg}
@@ -286,38 +114,6 @@ export const AboutSection: React.FC = () => {
                     />
                     <div className="absolute inset-0 bg-stone-950/25 group-hover:bg-transparent transition-colors pointer-events-none" />
 
-                    {/* Drag drop overlay */}
-                    {dragOverTank && (
-                      <div className="absolute inset-0 bg-emerald-950/85 flex flex-col items-center justify-center text-white z-20 p-2 text-center">
-                        <Upload className="w-6 h-6 text-emerald-300 mb-1 animate-bounce" />
-                        <p className="font-bold text-[10px]">Süt Tankı Fotoğrafını Bırakın</p>
-                      </div>
-                    )}
-
-                    {/* Upload / Reset Controls */}
-                    <div className="absolute top-2 right-2 flex items-center gap-1 z-10 opacity-90 group-hover:opacity-100 transition-opacity">
-                      <button
-                        type="button"
-                        onClick={() => tankFileInputRef.current?.click()}
-                        title="Süt tankı fotoğrafını değiştir"
-                        className="flex items-center gap-1 px-2 py-1 rounded-full bg-stone-900/85 hover:bg-stone-900 text-white text-[11px] font-medium backdrop-blur-md border border-white/20 shadow-md transition-all active:scale-95 cursor-pointer hover:border-emerald-400"
-                      >
-                        <Camera className="w-3 h-3 text-emerald-400" />
-                        <span className="hidden sm:inline">Değiştir</span>
-                      </button>
-
-                      {isCustomTank && (
-                        <button
-                          type="button"
-                          onClick={() => resetImage('about_tank', '+4°C Süt Tankı')}
-                          title="Varsayılan fotoğrafa dön"
-                          className="p-1.5 rounded-full bg-stone-900/85 hover:bg-stone-900 text-stone-200 text-xs backdrop-blur-md border border-white/20 shadow-md transition-all active:scale-95 cursor-pointer"
-                        >
-                          <RotateCcw className="w-3 h-3 text-stone-300" />
-                        </button>
-                      )}
-                    </div>
-
                     <div className="absolute bottom-2 left-2 right-2 text-white text-[11px] font-semibold bg-stone-900/70 backdrop-blur-xs px-2 py-1 rounded-lg truncate pointer-events-none">
                       +4°C Hijyenik Süt Tankı
                     </div>
@@ -325,31 +121,13 @@ export const AboutSection: React.FC = () => {
                 );
               })()}
 
-              {/* Mera Kıvırcık Sürüsü Card with Drag & Drop & Upload */}
+              {/* Mera Kıvırcık Sürüsü Card */}
               {(() => {
                 const sheepImg = getImage('about_sheep', '/images/drive/Gemini_Generated_Image_p665hcp665hcp665.jfif');
-                const isCustomSheep = isCustomImage('about_sheep');
 
                 return (
                   <div
-                    onDragOver={(e) => {
-                      e.preventDefault();
-                      setDragOverSheep(true);
-                    }}
-                    onDragLeave={(e) => {
-                      e.preventDefault();
-                      setDragOverSheep(false);
-                    }}
-                    onDrop={(e) => {
-                      e.preventDefault();
-                      setDragOverSheep(false);
-                      if (e.dataTransfer.files && e.dataTransfer.files[0]) {
-                        handleApplySheepFile(e.dataTransfer.files[0]);
-                      }
-                    }}
-                    className={`group relative rounded-2xl overflow-hidden border border-stone-200 aspect-[4/3] bg-stone-100 transition-all duration-300 ${
-                      dragOverSheep ? 'ring-4 ring-emerald-500 ring-inset' : ''
-                    }`}
+                    className="group relative rounded-2xl overflow-hidden border border-stone-200 aspect-[4/3] bg-stone-100 transition-all duration-300"
                   >
                     <img
                       src={sheepImg}
@@ -362,38 +140,6 @@ export const AboutSection: React.FC = () => {
                       }}
                     />
                     <div className="absolute inset-0 bg-stone-950/25 group-hover:bg-transparent transition-colors pointer-events-none" />
-
-                    {/* Drag drop overlay */}
-                    {dragOverSheep && (
-                      <div className="absolute inset-0 bg-emerald-950/85 flex flex-col items-center justify-center text-white z-20 p-2 text-center">
-                        <Upload className="w-6 h-6 text-emerald-300 mb-1 animate-bounce" />
-                        <p className="font-bold text-[10px]">Sürü Fotoğrafını Bırakın</p>
-                      </div>
-                    )}
-
-                    {/* Upload / Reset Controls */}
-                    <div className="absolute top-2 right-2 flex items-center gap-1 z-10 opacity-90 group-hover:opacity-100 transition-opacity">
-                      <button
-                        type="button"
-                        onClick={() => sheepFileInputRef.current?.click()}
-                        title="Mera sürüsü fotoğrafını değiştir"
-                        className="flex items-center gap-1 px-2 py-1 rounded-full bg-stone-900/85 hover:bg-stone-900 text-white text-[11px] font-medium backdrop-blur-md border border-white/20 shadow-md transition-all active:scale-95 cursor-pointer hover:border-emerald-400"
-                      >
-                        <Camera className="w-3 h-3 text-emerald-400" />
-                        <span className="hidden sm:inline">Değiştir</span>
-                      </button>
-
-                      {isCustomSheep && (
-                        <button
-                          type="button"
-                          onClick={() => resetImage('about_sheep', 'Mera Kıvırcık Sürüsü')}
-                          title="Varsayılan fotoğrafa dön"
-                          className="p-1.5 rounded-full bg-stone-900/85 hover:bg-stone-900 text-stone-200 text-xs backdrop-blur-md border border-white/20 shadow-md transition-all active:scale-95 cursor-pointer"
-                        >
-                          <RotateCcw className="w-3 h-3 text-stone-300" />
-                        </button>
-                      )}
-                    </div>
 
                     <div className="absolute bottom-2 left-2 right-2 text-white text-[11px] font-semibold bg-stone-900/70 backdrop-blur-xs px-2 py-1 rounded-lg truncate pointer-events-none">
                       Mera Kıvırcık Sürüsü
@@ -454,21 +200,6 @@ export const AboutSection: React.FC = () => {
 
         {/* Çiftliğimizden Gerçek Kareler / Photo Gallery Section */}
         <div className="pt-12 border-t border-stone-200/80">
-          {/* Hidden Gallery File Input */}
-          <input
-            type="file"
-            ref={galleryFileInputRef}
-            accept="image/*,.jfif"
-            className="hidden"
-            onChange={(e) => {
-              if (e.target.files && e.target.files[0] && activeGalleryTargetRef.current) {
-                const item = FARM_GALLERY.find((g) => g.id === activeGalleryTargetRef.current);
-                handleApplyGalleryFile(activeGalleryTargetRef.current, item?.title || 'Galeri Fotoğrafı', e.target.files[0]);
-                e.target.value = '';
-              }
-            }}
-          />
-
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
             <div>
               <div className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#123c28] mb-1.5">
@@ -512,33 +243,13 @@ export const AboutSection: React.FC = () => {
                 ? getImage('about_tank', item.image)
                 : item.image;
               const displayImage = getImage(imgKey, fallback);
-              const isCustom = isCustomImage(imgKey);
-              const isDraggedOver = dragOverGalleryId === item.id;
 
               return (
                 <div
                   key={item.id}
                   id={`gallery-item-${item.id}`}
-                  onDragOver={(e) => {
-                    e.preventDefault();
-                    setDragOverGalleryId(item.id);
-                  }}
-                  onDragLeave={(e) => {
-                    e.preventDefault();
-                    setDragOverGalleryId(null);
-                  }}
-                  onDrop={(e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    setDragOverGalleryId(null);
-                    if (e.dataTransfer.files && e.dataTransfer.files[0]) {
-                      handleApplyGalleryFile(item.id, item.title, e.dataTransfer.files[0]);
-                    }
-                  }}
                   onClick={() => setSelectedGalleryItem({ ...item, image: displayImage })}
-                  className={`group relative rounded-2xl overflow-hidden border border-stone-200 bg-stone-100 aspect-[16/11] cursor-pointer shadow-xs card-hover-lift transition-all duration-300 ${
-                    isDraggedOver ? 'ring-4 ring-emerald-500 ring-inset' : ''
-                  }`}
+                  className="group relative rounded-2xl overflow-hidden border border-stone-200 bg-stone-100 aspect-[16/11] cursor-pointer shadow-xs card-hover-lift transition-all duration-300"
                 >
                   <img
                     src={displayImage}
@@ -552,49 +263,13 @@ export const AboutSection: React.FC = () => {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-stone-950/80 via-stone-950/25 to-transparent opacity-80 group-hover:opacity-90 transition-opacity pointer-events-none" />
 
-                  {/* Drag drop overlay */}
-                  {isDraggedOver && (
-                    <div className="absolute inset-0 bg-emerald-950/85 flex flex-col items-center justify-center text-white z-20 p-2 text-center pointer-events-none">
-                      <Upload className="w-7 h-7 text-emerald-300 mb-1 animate-bounce" />
-                      <p className="font-bold text-xs">Fotoğrafı Buraya Bırakın</p>
-                    </div>
-                  )}
-
                   {/* Category Tag */}
                   <div className="absolute top-3 left-3 bg-white/95 backdrop-blur-xs px-2.5 py-1 rounded-full text-[11px] font-bold text-stone-900 border border-stone-200/80 shadow-xs pointer-events-none">
                     {item.category}
                   </div>
 
-                  {/* Action Controls on Top Right: Değiştir + Reset + Zoom */}
-                  <div className="absolute top-2.5 right-2.5 flex items-center gap-1.5 z-10 opacity-90 group-hover:opacity-100 transition-opacity">
-                    <button
-                      type="button"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        activeGalleryTargetRef.current = item.id;
-                        galleryFileInputRef.current?.click();
-                      }}
-                      title={`${item.title} fotoğrafını değiştir`}
-                      className="flex items-center gap-1 px-2.5 py-1 rounded-full bg-stone-900/85 hover:bg-stone-900 text-white text-[11px] font-medium backdrop-blur-md border border-white/20 shadow-md transition-all active:scale-95 cursor-pointer hover:border-emerald-400"
-                    >
-                      <Camera className="w-3 h-3 text-emerald-400" />
-                      <span className="hidden sm:inline">Değiştir</span>
-                    </button>
-
-                    {isCustom && (
-                      <button
-                        type="button"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          resetImage(imgKey, item.title);
-                        }}
-                        title="Varsayılan fotoğrafa dön"
-                        className="p-1.5 rounded-full bg-stone-900/85 hover:bg-stone-900 text-stone-200 text-xs backdrop-blur-md border border-white/20 shadow-md transition-all active:scale-95 cursor-pointer"
-                      >
-                        <RotateCcw className="w-3 h-3 text-stone-300" />
-                      </button>
-                    )}
-
+                  {/* Zoom Icon on Top Right */}
+                  <div className="absolute top-2.5 right-2.5 flex items-center z-10 opacity-90 group-hover:opacity-100 transition-opacity">
                     <div className="w-7 h-7 rounded-full bg-stone-900/60 backdrop-blur-xs text-white flex items-center justify-center">
                       <ZoomIn className="w-3.5 h-3.5" />
                     </div>
@@ -618,7 +293,6 @@ export const AboutSection: React.FC = () => {
         {selectedGalleryItem && (() => {
           const modalImgKey = `gallery_${selectedGalleryItem.id}`;
           const currentModalImg = getImage(modalImgKey, selectedGalleryItem.image);
-          const isCustomModalImg = isCustomImage(modalImgKey);
 
           return (
             <div
@@ -637,29 +311,6 @@ export const AboutSection: React.FC = () => {
                     referrerPolicy="no-referrer"
                   />
                   <div className="absolute top-4 right-4 flex items-center gap-2">
-                    <button
-                      type="button"
-                      onClick={() => {
-                        activeGalleryTargetRef.current = selectedGalleryItem.id;
-                        galleryFileInputRef.current?.click();
-                      }}
-                      className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-stone-900/80 hover:bg-stone-900 text-white text-xs font-medium backdrop-blur-md border border-white/20 shadow-lg cursor-pointer"
-                    >
-                      <Camera className="w-3.5 h-3.5 text-emerald-400" />
-                      <span>Fotoğrafı Değiştir</span>
-                    </button>
-
-                    {isCustomModalImg && (
-                      <button
-                        type="button"
-                        onClick={() => resetImage(modalImgKey, selectedGalleryItem.title)}
-                        className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-stone-900/80 hover:bg-stone-900 text-stone-200 text-xs font-medium backdrop-blur-md border border-white/20 shadow-lg cursor-pointer"
-                      >
-                        <RotateCcw className="w-3 h-3 text-stone-300" />
-                        <span>Sıfırla</span>
-                      </button>
-                    )}
-
                     <button
                       type="button"
                       onClick={() => setSelectedGalleryItem(null)}

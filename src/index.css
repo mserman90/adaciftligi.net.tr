@@ -55,3 +55,30 @@
     transform: none !important;
   }
 }
+
+/* Rasyon Platform Theming, Typography & Keyframes */
+.font-heading {
+  font-family: 'Bricolage Grotesque', var(--font-sans), sans-serif;
+}
+.font-mono-code {
+  font-family: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+@keyframes tickAnim {
+  0% { background-color: #E3EAD4; }
+  100% { background-color: transparent; }
+}
+.tick-flash {
+  animation: tickAnim 0.8s ease-out;
+}
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  body {
+    background: #ffffff !important;
+  }
+  .print-card {
+    border: 1px solid #cccccc !important;
+    box-shadow: none !important;
+  }
+}

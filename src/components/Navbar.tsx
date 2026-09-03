@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Phone, MessageCircle, Menu, X, ArrowRight, ShieldCheck, Camera } from 'lucide-react';
+import { Phone, MessageCircle, Menu, X, ArrowRight } from 'lucide-react';
 import { FARM_CONTACT } from '../data/farmData';
 import { FarmWeatherBanner } from './FarmWeatherBanner';
-import { useFarmImages } from '../context/ImageContext';
 
 interface NavbarProps {
   onOpenInquiry: (productName?: string) => void;
@@ -11,7 +10,6 @@ interface NavbarProps {
 export const Navbar: React.FC<NavbarProps> = ({ onOpenInquiry }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const { openPhotoManager, customCount } = useFarmImages();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -82,23 +80,6 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenInquiry }) => {
 
           {/* Desktop CTA buttons */}
           <div className="hidden sm:flex items-center gap-3">
-            {/* Manage Photos Button */}
-            <button
-              type="button"
-              onClick={openPhotoManager}
-              id="navbar-manage-photos-btn"
-              title="Sitedeki tüm fotoğrafları yönetin ve değiştirin"
-              className="inline-flex items-center gap-1.5 text-stone-700 hover:text-[#123c28] text-xs font-semibold px-3 py-2 rounded-full border border-stone-200 hover:border-emerald-600 bg-stone-50/80 hover:bg-emerald-50/50 transition-all cursor-pointer"
-            >
-              <Camera className="w-3.5 h-3.5 text-emerald-700" />
-              <span>Fotoğraflar</span>
-              {customCount > 0 && (
-                <span className="w-4 h-4 rounded-full bg-emerald-700 text-white text-[10px] flex items-center justify-center font-bold">
-                  {customCount}
-                </span>
-              )}
-            </button>
-
             <a
               href={`tel:${FARM_CONTACT.phoneRaw}`}
               id="navbar-call-btn"
@@ -198,23 +179,6 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenInquiry }) => {
               >
                 <span>Fiyat & Sipariş Talebi</span>
                 <ArrowRight className="w-4 h-4" />
-              </button>
-
-              <button
-                type="button"
-                onClick={() => {
-                  setMobileMenuOpen(false);
-                  openPhotoManager();
-                }}
-                className="w-full bg-stone-100 hover:bg-stone-200 text-stone-800 py-2.5 px-4 rounded-full font-semibold text-sm flex items-center justify-center gap-2 transition-colors cursor-pointer border border-stone-200"
-              >
-                <Camera className="w-4 h-4 text-emerald-700" />
-                <span>Fotoğrafları Yönet & Değiştir</span>
-                {customCount > 0 && (
-                  <span className="w-4 h-4 rounded-full bg-emerald-700 text-white text-[10px] flex items-center justify-center font-bold">
-                    {customCount}
-                  </span>
-                )}
               </button>
 
               <div className="grid grid-cols-2 gap-2 pt-1">

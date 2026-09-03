@@ -1,5 +1,5 @@
-import React, { useState, useRef } from 'react';
-import { ArrowUpRight, Check, Sparkles, Camera, Upload, RotateCcw } from 'lucide-react';
+import React, { useState } from 'react';
+import { ArrowUpRight, Check, Sparkles } from 'lucide-react';
 import { FARM_PRODUCTS } from '../data/farmData';
 import { useFarmImages } from '../context/ImageContext';
 
@@ -9,31 +9,7 @@ interface ProductGridProps {
 
 export const ProductGrid: React.FC<ProductGridProps> = ({ onSelectProduct }) => {
   const [activeTab, setActiveTab] = useState<'all' | 'kucukbas' | 'buyukbas' | 'sut'>('all');
-  const { getImage, setImage, resetImage, isCustomImage } = useFarmImages();
-  const [draggedCardId, setDraggedCardId] = useState<string | null>(null);
-  const fileInputRef = useRef<HTMLInputElement>(null);
-  const activeProductTargetRef = useRef<string | null>(null);
-
-  const handleApplyImage = (productId: string, dataUrlOrPath: string, productTitle: string) => {
-    setImage(`product_${productId}`, dataUrlOrPath, productTitle);
-  };
-
-  const handleResetImage = (productId: string, productTitle: string, e: React.MouseEvent) => {
-    e.stopPropagation();
-    resetImage(`product_${productId}`, productTitle);
-  };
-
-  const handleFileChange = (productId: string, productTitle: string, file: File) => {
-    if (!file.type.startsWith('image/') && !file.name.endsWith('.jfif')) return;
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      const result = e.target?.result as string;
-      if (result) {
-        handleApplyImage(productId, result, productTitle);
-      }
-    };
-    reader.readAsDataURL(file);
-  };
+  const { getImage } = useFarmImages();
 
   const filteredProducts = activeTab === 'all'
     ? FARM_PRODUCTS
@@ -48,21 +24,6 @@ export const ProductGrid: React.FC<ProductGridProps> = ({ onSelectProduct }) => 
 
   return (
     <section id="urunler" className="py-20 sm:py-28 bg-stone-50/60 border-t border-stone-200/80 relative">
-      {/* Hidden Global Product Image File Input */}
-      <input
-        type="file"
-        ref={fileInputRef}
-        accept="image/*,.jfif"
-        className="hidden"
-        onChange={(e) => {
-          if (e.target.files && e.target.files[0] && activeProductTargetRef.current) {
-            const prod = FARM_PRODUCTS.find((p) => p.id === activeProductTargetRef.current);
-            handleFileChange(activeProductTargetRef.current, prod?.title || 'Ürün', e.target.files[0]);
-            e.target.value = '';
-          }
-        }}
-      />
-
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
@@ -104,8 +65,6 @@ export const ProductGrid: React.FC<ProductGridProps> = ({ onSelectProduct }) => 
           {filteredProducts.map((product) => {
             const imgKey = `product_${product.id}`;
             const currentImg = getImage(imgKey, product.image);
-            const isCustom = isCustomImage(imgKey);
-            const isDraggedOver = draggedCardId === product.id;
 
             return (
               <div
@@ -113,27 +72,8 @@ export const ProductGrid: React.FC<ProductGridProps> = ({ onSelectProduct }) => 
                 id={`product-card-${product.id}`}
                 className="group bg-white rounded-3xl border border-stone-200/90 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.04)] overflow-hidden flex flex-col card-hover-lift"
               >
-                {/* Image Container with Drag & Drop */}
-                <div
-                  onDragOver={(e) => {
-                    e.preventDefault();
-                    setDraggedCardId(product.id);
-                  }}
-                  onDragLeave={(e) => {
-                    e.preventDefault();
-                    setDraggedCardId(null);
-                  }}
-                  onDrop={(e) => {
-                    e.preventDefault();
-                    setDraggedCardId(null);
-                    if (e.dataTransfer.files && e.dataTransfer.files[0]) {
-                      handleFileChange(product.id, product.title, e.dataTransfer.files[0]);
-                    }
-                  }}
-                  className={`relative aspect-[16/10] overflow-hidden bg-stone-100 transition-all duration-300 ${
-                    isDraggedOver ? 'ring-4 ring-emerald-500 ring-inset' : ''
-                  }`}
-                >
+                {/* Image Container */}
+                <div className="relative aspect-[16/10] overflow-hidden bg-stone-100">
                   <img
                     src={currentImg}
                     alt={`${product.title} - Ada Çiftliği Meriç`}
@@ -146,45 +86,9 @@ export const ProductGrid: React.FC<ProductGridProps> = ({ onSelectProduct }) => 
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-stone-950/50 via-transparent to-transparent opacity-70 pointer-events-none" />
 
-                  {/* Drag drop overlay */}
-                  {isDraggedOver && (
-                    <div className="absolute inset-0 bg-emerald-950/85 flex flex-col items-center justify-center text-white z-20 p-4 text-center">
-                      <Upload className="w-8 h-8 text-emerald-300 mb-1 animate-bounce" />
-                      <p className="font-bold text-xs">Fotoğrafı Buraya Bırakın</p>
-                    </div>
-                  )}
-
                   {/* Category Badge */}
                   <div className="absolute top-3.5 left-3.5 bg-white/95 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold text-stone-900 border border-stone-200/80 shadow-xs z-10">
                     {product.categoryLabel}
-                  </div>
-
-                  {/* Photo Change Controls on Top Right */}
-                  <div className="absolute top-3.5 right-3.5 flex items-center gap-1.5 z-10 opacity-90 group-hover:opacity-100 transition-opacity">
-                    <button
-                      type="button"
-                      onClick={() => {
-                        activeProductTargetRef.current = product.id;
-                        fileInputRef.current?.click();
-                      }}
-                      title={`${product.title} fotoğrafını değiştir (veya resmi üzerine sürükleyip bırakın)`}
-                      className="flex items-center gap-1 px-2.5 py-1.5 rounded-full bg-stone-900/85 hover:bg-stone-900 text-white text-xs font-medium backdrop-blur-md border border-white/20 shadow-md transition-all active:scale-95 cursor-pointer hover:border-emerald-400"
-                    >
-                      <Camera className="w-3.5 h-3.5 text-emerald-400" />
-                      <span className="text-[11px] font-medium pr-0.5">Değiştir</span>
-                    </button>
-
-                    {isCustom && (
-                      <button
-                        type="button"
-                        onClick={(e) => handleResetImage(product.id, product.title, e)}
-                        title="Varsayılan fotoğrafa dön"
-                        className="flex items-center gap-1 px-2 py-1.5 rounded-full bg-stone-900/85 hover:bg-stone-900 text-stone-200 text-xs font-medium backdrop-blur-md border border-white/20 shadow-md transition-all active:scale-95 cursor-pointer"
-                      >
-                        <RotateCcw className="w-3 h-3 text-stone-300" />
-                        <span className="hidden sm:inline text-[11px]">Sıfırla</span>
-                      </button>
-                    )}
                   </div>
 
                   <div className="absolute bottom-3 left-3 right-3 text-white text-xs font-medium bg-stone-900/75 backdrop-blur-md px-3 py-1.5 rounded-xl truncate pointer-events-none">

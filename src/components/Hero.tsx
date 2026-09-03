@@ -1,5 +1,5 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { ArrowRight, ChevronDown, CheckCircle2, Shield, PhoneCall, Sparkles, Camera, Upload, RotateCcw, Check } from 'lucide-react';
+import React, { useEffect, useRef } from 'react';
+import { ArrowRight, ChevronDown, CheckCircle2, Shield, PhoneCall, Sparkles } from 'lucide-react';
 import { FARM_STATS, FARM_CONTACT } from '../data/farmData';
 import { useFarmImages } from '../context/ImageContext';
 import { gsap } from 'gsap';
@@ -15,29 +15,9 @@ export const Hero: React.FC<HeroProps> = ({ onOpenInquiry }) => {
   const ctaGroupRef = useRef<HTMLDivElement>(null);
   const statsBarRef = useRef<HTMLDivElement>(null);
   const imageCardRef = useRef<HTMLDivElement>(null);
-  const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const { getImage, setImage, resetImage, isCustomImage } = useFarmImages();
+  const { getImage } = useFarmImages();
   const heroImage = getImage('hero', '/images/drive/Gemini_Generated_Image_byt5yibyt5yibyt5.jfif');
-  const hasCustomImage = isCustomImage('hero');
-  const [isDragging, setIsDragging] = useState(false);
-
-  const handleImageFile = (file: File) => {
-    if (!file.type.startsWith('image/') && !file.name.endsWith('.jfif')) return;
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      const result = e.target?.result as string;
-      if (result) {
-        setImage('hero', result, 'Hero Ana Sürü Görseli');
-      }
-    };
-    reader.readAsDataURL(file);
-  };
-
-  const handleResetDefault = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    resetImage('hero', 'Hero Ana Sürü Görseli');
-  };
 
   useEffect(() => {
     // Check prefers-reduced-motion
@@ -185,41 +165,10 @@ export const Hero: React.FC<HeroProps> = ({ onOpenInquiry }) => {
           {/* Hero Media Visual Column */}
           <div className="lg:col-span-5 relative" ref={imageCardRef}>
             <div className="relative mx-auto max-w-md lg:max-w-none">
-              {/* Hidden file input */}
-              <input
-                type="file"
-                ref={fileInputRef}
-                accept="image/*,.jfif"
-                className="hidden"
-                id="hero-file-upload-input"
-                onChange={(e) => {
-                  if (e.target.files && e.target.files[0]) {
-                    handleImageFile(e.target.files[0]);
-                  }
-                }}
-              />
-
-              {/* Main Photo Card with Drag & Drop */}
+              {/* Main Photo Card */}
               <div
                 id="hero-photo-container"
-                onDragOver={(e) => {
-                  e.preventDefault();
-                  setIsDragging(true);
-                }}
-                onDragLeave={(e) => {
-                  e.preventDefault();
-                  setIsDragging(false);
-                }}
-                onDrop={(e) => {
-                  e.preventDefault();
-                  setIsDragging(false);
-                  if (e.dataTransfer.files && e.dataTransfer.files[0]) {
-                    handleImageFile(e.dataTransfer.files[0]);
-                  }
-                }}
-                className={`overflow-hidden rounded-3xl border shadow-[0_16px_40px_-12px_rgba(18,60,40,0.14)] bg-stone-100 relative group aspect-[4/3] lg:aspect-[5/4] transition-all duration-300 ${
-                  isDragging ? 'border-emerald-500 ring-4 ring-emerald-500/20' : 'border-stone-200'
-                }`}
+                className="overflow-hidden rounded-3xl border border-stone-200 shadow-[0_16px_40px_-12px_rgba(18,60,40,0.14)] bg-stone-100 relative group aspect-[4/3] lg:aspect-[5/4] transition-all duration-300"
               >
                 <img
                   src={heroImage}
@@ -239,42 +188,6 @@ export const Hero: React.FC<HeroProps> = ({ onOpenInquiry }) => {
 
                 {/* Subtle Gradient Shadow */}
                 <div className="absolute inset-0 bg-gradient-to-t from-stone-950/75 via-stone-950/20 to-transparent pointer-events-none" />
-
-                {/* Drag-over active indicator */}
-                {isDragging && (
-                  <div className="absolute inset-0 bg-emerald-950/80 backdrop-blur-xs flex flex-col items-center justify-center text-white z-20 p-6 text-center border-2 border-dashed border-emerald-400 m-2 rounded-2xl animate-fade-in">
-                    <Upload className="w-12 h-12 text-emerald-300 mb-2 animate-bounce" />
-                    <p className="font-semibold text-base">Görseli Buraya Bırakın</p>
-                    <p className="text-xs text-emerald-200 mt-1">İndirdiğiniz resmi bırakarak anında güncelleyin</p>
-                  </div>
-                )}
-
-                {/* Top Action Bar (Upload / Reset Image) */}
-                <div className="absolute top-3 left-3 right-3 flex items-center justify-between z-10 opacity-90 group-hover:opacity-100 transition-opacity">
-                  <button
-                    type="button"
-                    onClick={() => fileInputRef.current?.click()}
-                    id="btn-upload-hero-image"
-                    title="Görseli Değiştir (Sürükle-bırak veya bilgisayarından seç)"
-                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-stone-900/75 hover:bg-stone-900 text-white text-xs font-medium backdrop-blur-md border border-white/20 shadow-md transition-all active:scale-95 cursor-pointer"
-                  >
-                    <Camera className="w-3.5 h-3.5 text-emerald-300" />
-                    <span>Fotoğrafı Değiştir</span>
-                  </button>
-
-                  {hasCustomImage && (
-                    <button
-                      type="button"
-                      onClick={handleResetDefault}
-                      id="btn-reset-hero-image"
-                      title="Varsayılan fotoğrafa dön"
-                      className="flex items-center gap-1 px-2.5 py-1.5 rounded-full bg-stone-900/75 hover:bg-stone-900 text-stone-200 text-xs font-medium backdrop-blur-md border border-white/20 shadow-md transition-all active:scale-95 cursor-pointer"
-                    >
-                      <RotateCcw className="w-3 h-3 text-stone-300" />
-                      <span className="hidden sm:inline">Sıfırla</span>
-                    </button>
-                  )}
-                </div>
 
                 {/* Floating On-Image Info Caption */}
                 <div className="absolute bottom-5 left-5 right-5 text-white pointer-events-none">

@@ -1,44 +1,13 @@
-import React, { useRef } from 'react';
-import { Star, Sparkles, Quote, Camera, RotateCcw } from 'lucide-react';
+import React from 'react';
+import { Star, Sparkles, Quote } from 'lucide-react';
 import { TESTIMONIALS } from '../data/farmData';
 import { useFarmImages } from '../context/ImageContext';
 
 export const Testimonials: React.FC = () => {
-  const { getImage, updateImage, resetImage, isCustomImage } = useFarmImages();
-  const fileInputRef = useRef<HTMLInputElement>(null);
-  const activeTargetRef = useRef<{ id: string; name: string } | null>(null);
-
-  const handleApplyFile = (id: string, name: string, file: File) => {
-    if (!file.type.startsWith('image/')) {
-      alert('Lütfen geçerli bir resim dosyası seçin (JPG, PNG, WebP).');
-      return;
-    }
-    const reader = new FileReader();
-    reader.onload = (event) => {
-      const base64 = event.target?.result as string;
-      if (base64) {
-        updateImage(`testimonial_${id}`, base64, `${name} Profil Fotoğrafı`);
-      }
-    };
-    reader.readAsDataURL(file);
-  };
+  const { getImage } = useFarmImages();
 
   return (
     <section id="yorumlar" className="py-20 sm:py-28 bg-stone-50/70 border-t border-stone-200/80">
-      {/* Hidden file input */}
-      <input
-        type="file"
-        ref={fileInputRef}
-        accept="image/*,.jfif"
-        className="hidden"
-        onChange={(e) => {
-          if (e.target.files && e.target.files[0] && activeTargetRef.current) {
-            handleApplyFile(activeTargetRef.current.id, activeTargetRef.current.name, e.target.files[0]);
-            e.target.value = '';
-          }
-        }}
-      />
-
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
@@ -60,7 +29,6 @@ export const Testimonials: React.FC = () => {
           {TESTIMONIALS.map((t) => {
             const key = `testimonial_${t.id}`;
             const avatarSrc = getImage(key, t.avatar);
-            const isCustom = isCustomImage(key);
 
             return (
               <div
@@ -84,10 +52,10 @@ export const Testimonials: React.FC = () => {
                   </p>
                 </div>
 
-                {/* Author Row with Circular Avatar and Change Controls */}
+                {/* Author Row with Circular Avatar */}
                 <div className="pt-4 border-t border-stone-100 flex items-center justify-between gap-3">
                   <div className="flex items-center gap-3 min-w-0">
-                    <div className="relative group w-12 h-12 rounded-full overflow-hidden border-2 border-stone-100 shrink-0">
+                    <div className="relative w-12 h-12 rounded-full overflow-hidden border-2 border-stone-100 shrink-0">
                       <img
                         src={avatarSrc}
                         alt={t.name}
@@ -98,17 +66,6 @@ export const Testimonials: React.FC = () => {
                           (e.target as HTMLImageElement).src = '/images/avatar_2.jpg';
                         }}
                       />
-                      <button
-                        type="button"
-                        onClick={() => {
-                          activeTargetRef.current = { id: t.id, name: t.name };
-                          fileInputRef.current?.click();
-                        }}
-                        title={`${t.name} fotoğrafını değiştir`}
-                        className="absolute inset-0 bg-stone-900/60 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer"
-                      >
-                        <Camera className="w-4 h-4" />
-                      </button>
                     </div>
 
                     <div className="min-w-0">
@@ -123,18 +80,6 @@ export const Testimonials: React.FC = () => {
                       </div>
                     </div>
                   </div>
-
-                  {/* Reset button if custom */}
-                  {isCustom && (
-                    <button
-                      type="button"
-                      onClick={() => resetImage(key, t.name)}
-                      title="Varsayılan fotoğrafa dön"
-                      className="p-1.5 rounded-full bg-stone-100 hover:bg-stone-200 text-stone-600 text-xs transition-colors shrink-0 cursor-pointer"
-                    >
-                      <RotateCcw className="w-3.5 h-3.5" />
-                    </button>
-                  )}
                 </div>
               </div>
             );
