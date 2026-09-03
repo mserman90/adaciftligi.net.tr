@@ -1,3 +1,4 @@
+export type Language = 'tr' | 'en';
 export type ModuleKey =
   | 'besi'
   | 'sut'

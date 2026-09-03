@@ -122,12 +122,12 @@ export const SutPanel: React.FC<SutPanelProps> = ({ inputs, onChange }) => {
                 onChange={(e) => onChange({ ...inputs, kabaMin: Number(e.target.value) })}
                 className="w-full bg-white border border-[#DCD7C4] rounded-md px-2.5 py-2 font-mono-code text-sm text-right focus:outline-none focus:border-[#2E5B39]"
               />
-              <span className="font-mono-code text-xs text-[#6B7160]">% KM</span>
+              <span className="font-mono-code text-xs text-[#6B7160]">% KM (DM)</span>
             </div>
           </div>
           <div>
             <label className="block font-mono-code text-[11px] tracking-wider uppercase text-[#6B7160] mb-2 font-medium">
-              <FarmerTerm termId="ndf">NDF alt sınırı</FarmerTerm>
+              <FarmerTerm termId="ndf">NDF (NDF) alt sınırı</FarmerTerm>
             </label>
             <div className="flex items-center gap-2">
               <input
@@ -139,7 +139,7 @@ export const SutPanel: React.FC<SutPanelProps> = ({ inputs, onChange }) => {
                 onChange={(e) => onChange({ ...inputs, ndfMin: Number(e.target.value) })}
                 className="w-full bg-white border border-[#DCD7C4] rounded-md px-2.5 py-2 font-mono-code text-sm text-right focus:outline-none focus:border-[#2E5B39]"
               />
-              <span className="font-mono-code text-xs text-[#6B7160]">% KM</span>
+              <span className="font-mono-code text-xs text-[#6B7160]">% KM (DM)</span>
             </div>
           </div>
         </div>
@@ -173,7 +173,7 @@ export const SutPanel: React.FC<SutPanelProps> = ({ inputs, onChange }) => {
             </tr>
             <tr className="border-b border-[#ECE8D8]">
               <td className="py-2.5">
-                <GlossaryText text="Süt (4% yağlı eşdeğer, YGDS)" />
+                <GlossaryText text="Süt (4% YGDS (FCM))" />
               </td>
               <td className="py-2.5 font-mono-code font-semibold text-right">{fmt(iht.fcm, 1)}</td>
               <td className="py-2.5 font-mono-code text-xs text-[#6B7160] text-right">kg/gün</td>

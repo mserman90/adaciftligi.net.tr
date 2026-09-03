@@ -9,21 +9,62 @@ import {
   TrendingUp,
   ClipboardCheck,
 } from 'lucide-react';
-import { ModuleKey } from '../types';
+import { ModuleKey, Language } from '../types';
 import { MODULES } from '../data/modules';
 
 interface HeroProps {
+  lang: Language;
   currentModule: ModuleKey;
   onSelectModule: (m: ModuleKey) => void;
   onOpenGuide?: () => void;
 }
 
 export const Hero: React.FC<HeroProps> = ({
+  lang,
   currentModule,
   onSelectModule,
   onOpenGuide,
 }) => {
+  
   const config = MODULES[currentModule];
+  
+  const translations = {
+    tr: {
+      home: 'Home',
+      rasyon: 'Ration & Farm Modules',
+      ciftlik_mod: 'Farm Module',
+      rasyon_mod: 'Ration Module',
+      btn_besi: 'Beef Cattle',
+      btn_sut: 'Dairy Cow',
+      btn_koyun: 'Sheep & Lamb',
+      btn_keci: 'Goat & Kid',
+      btn_sutEko: 'Dairy Profitability',
+      btn_besiEko: 'Beef Profitability',
+      btn_geb: 'Gestation Calendar',
+      btn_kiz: 'Estrus Calendar',
+      btn_iofc: 'IOFC',
+      btn_damizlik: 'Breeding Score',
+      modules: {
+        sut: { ad: 'Dairy Cow', baslik: 'Dairy Cow Ration', aciklama: 'Calculates nutrient requirements based on body weight, daily milk yield, and milk fat percentage. Formulates the <strong>lowest cost ration</strong> based on 4% FCM.', meta: ['4% FCM-based energy balance', 'NDF and forage constraints', 'Ca:P macro mineral balance'] },
+        besi: { ad: 'Beef Cattle', baslik: 'Beef Cattle Ration', aciklama: 'Calculates nutrient requirements based on body weight and target daily gain. Formulates the <strong>lowest cost ration</strong> using your selected ingredients.', meta: ['NRC (2000) growth models', 'NEm and NEg energy balance', 'Rumen degradable protein limits'] },
+        koyun: { ad: 'Sheep & Lamb', baslik: 'Sheep & Lamb Ration', aciklama: 'Calculates nutrient requirements for maintenance, gestation, lactation, or lamb fattening. Formulates the optimal ration.', meta: ['Gestation and lactation periods', 'Urinary calculi risk prevention', 'Lamb fattening energy limits'] },
+        keci: { ad: 'Goat & Kid', baslik: 'Goat & Kid Ration', aciklama: 'Calculates nutrient requirements for maintenance, gestation, lactation, or kid fattening.', meta: ['Saanen lactation curve', 'Dry matter intake regulation', 'Maintenance energy balance'] },
+        sutEko: { ad: 'Dairy Profitability', baslik: 'Dairy Profitability', aciklama: 'Calculates annual profit per cow, breakeven milk price and yield, and visualizes risk with a <strong>price × yield sensitivity matrix</strong>.', meta: ['Breakeven analysis', 'Fixed and variable costs', 'Price sensitivity matrix'] },
+        besiEko: { ad: 'Beef Profitability', baslik: 'Beef Profitability', aciklama: 'Calculates profit per head based on purchase, feed, and fixed costs. Displays <strong>breakeven selling price</strong> and margin.', meta: ['Live weight gain cost', 'Breakeven selling price', 'Operating cost distribution'] },
+        gebTakvim: { ad: 'Gestation Calendar', baslik: 'Gestation Calendar', aciklama: 'Calculates key dates for dry-off, close-up, and calving based on insemination date.', meta: ['Dry-off alarm', 'Close-up (negative DCAD) diet switch', 'Calving window'] },
+        kizTakvim: { ad: 'Estrus Calendar', baslik: 'Estrus Calendar', aciklama: 'Calculates the next expected estrus cycle and return-to-heat dates.', meta: ['21-day cycle tracking', 'Return-to-heat alerts', 'Breeding window'] },
+        iofc: { ad: 'IOFC', baslik: 'IOFC — Income Over Feed Cost', aciklama: 'Calculates daily milk income minus feed cost. Provides instant visibility into your <strong>IOFC, breakeven triangle, and sensitivity matrix</strong>.', meta: ['Daily IOFC tracker', 'Breakeven milk price', 'Feed cost per kg milk'] },
+        damizlik: { ad: 'Breeding Score', baslik: 'Breeding Score', aciklama: 'Evaluates breeding potential and anatomical health of animals using Body Condition Score (BCS) and other metrics.', meta: ['Body Condition Score (BCS)', 'Anatomical tracking', 'Breeding evaluation'] }
+      }
+    }
+  };
+
+  const t = lang === 'en' ? translations.tr : null;
+  const dispAd = lang === 'en' ? t.modules[currentModule].ad : config.ad;
+  const dispBaslik = lang === 'en' ? t.modules[currentModule].baslik : config.baslik;
+  const dispAciklama = lang === 'en' ? t.modules[currentModule].aciklama : dispAciklama;
+  const dispMeta = lang === 'en' ? t.modules[currentModule].meta : config.meta;
+
 
   return (
     <section className="pt-8 pb-4">
@@ -32,21 +73,21 @@ export const Hero: React.FC<HeroProps> = ({
         <a href="#top" className="hover:text-[#2E5B39] transition-colors">
           Anasayfa
         </a>{' '}
-        &nbsp;/&nbsp; Rasyon &amp; Çiftlik Modülleri &nbsp;/&nbsp;{' '}
-        <span className="text-[#20261A] font-semibold">{config.ad}</span>
+        &nbsp;/&nbsp; {lang === 'en' ? t.rasyon : 'Rasyon & Çiftlik Modülleri'} &nbsp;/&nbsp;{' '}
+        <span className="text-[#20261A] font-semibold">{dispAd}</span>
       </div>
 
       {/* Hero Badge */}
       <div className="inline-flex items-center gap-2.5 font-mono-code text-[11px] tracking-widest text-[#2E5B39] uppercase">
         <span className="w-6 h-[1px] bg-[#B98A2B] inline-block"></span>
         <span>
-          {config.tur === 'ciftlik' ? 'Çiftlik Modülü' : 'Rasyon Modülü'} · {config.kod}
+          {lang === 'en' ? (config.tur === 'ciftlik' ? t.ciftlik_mod : t.rasyon_mod) : (config.tur === 'ciftlik' ? 'Çiftlik Modülü' : 'Rasyon Modülü')} · {config.kod}
         </span>
       </div>
 
       {/* Hero Heading */}
       <h1 className="font-heading font-extrabold text-3xl sm:text-4xl md:text-5xl tracking-tight leading-[1.08] text-[#20261A] my-3 max-w-3xl">
-        {config.baslik}
+        {dispBaslik}
       </h1>
 
       {/* Hero Description */}
@@ -65,7 +106,7 @@ export const Hero: React.FC<HeroProps> = ({
               : 'text-[#6B7160] hover:text-[#20261A] hover:bg-[#F2EFE2]'
           }`}
         >
-          <Beef className="w-4 h-4" /> Besi Sığırı
+          <Beef className="w-4 h-4" /> {lang === 'en' ? t.btn_besi : 'Besi Sığırı'}
         </button>
 
         <button
@@ -76,7 +117,7 @@ export const Hero: React.FC<HeroProps> = ({
               : 'text-[#6B7160] hover:text-[#20261A] hover:bg-[#F2EFE2]'
           }`}
         >
-          <Milk className="w-4 h-4" /> Süt İneği
+          <Milk className="w-4 h-4" /> {lang === 'en' ? t.btn_sut : 'Süt İneği'}
         </button>
 
         <button
@@ -103,7 +144,7 @@ export const Hero: React.FC<HeroProps> = ({
             <circle cx="10.5" cy="10.4" r=".75" fill="currentColor" stroke="none" />
             <circle cx="13.5" cy="10.4" r=".75" fill="currentColor" stroke="none" />
           </svg>
-          Koyun &amp; Kuzu
+          {lang === 'en' ? t.btn_koyun : 'Koyun & Kuzu'}
         </button>
 
         <button
@@ -131,7 +172,7 @@ export const Hero: React.FC<HeroProps> = ({
             <circle cx="10.5" cy="10.4" r=".75" fill="currentColor" stroke="none" />
             <circle cx="13.5" cy="10.4" r=".75" fill="currentColor" stroke="none" />
           </svg>
-          Keçi &amp; Oğlak
+          {lang === 'en' ? t.btn_keci : 'Keçi & Oğlak'}
         </button>
 
         <button
@@ -142,7 +183,7 @@ export const Hero: React.FC<HeroProps> = ({
               : 'text-[#6B7160] hover:text-[#20261A] hover:bg-[#F2EFE2]'
           }`}
         >
-          <Coins className="w-4 h-4" /> Süt Kârlılığı
+          <Coins className="w-4 h-4" /> {lang === 'en' ? t.btn_sutEko : 'Süt Kârlılığı'}
         </button>
 
         <button
@@ -153,7 +194,7 @@ export const Hero: React.FC<HeroProps> = ({
               : 'text-[#6B7160] hover:text-[#20261A] hover:bg-[#F2EFE2]'
           }`}
         >
-          <Banknote className="w-4 h-4" /> Besi Kârlılığı
+          <Banknote className="w-4 h-4" /> {lang === 'en' ? t.btn_besiEko : 'Besi Kârlılığı'}
         </button>
 
         <button
@@ -164,7 +205,7 @@ export const Hero: React.FC<HeroProps> = ({
               : 'text-[#6B7160] hover:text-[#20261A] hover:bg-[#F2EFE2]'
           }`}
         >
-          <CalendarDays className="w-4 h-4" /> Gebelik Takvimi
+          <CalendarDays className="w-4 h-4" /> {lang === 'en' ? t.btn_geb : 'Gebelik Takvimi'}
         </button>
 
         <button
@@ -175,7 +216,7 @@ export const Hero: React.FC<HeroProps> = ({
               : 'text-[#6B7160] hover:text-[#20261A] hover:bg-[#F2EFE2]'
           }`}
         >
-          <HeartPulse className="w-4 h-4" /> Kızgınlık Takvimi
+          <HeartPulse className="w-4 h-4" /> {lang === 'en' ? t.btn_kiz : 'Kızgınlık Takvimi'}
         </button>
 
         <button
@@ -186,7 +227,7 @@ export const Hero: React.FC<HeroProps> = ({
               : 'text-[#6B7160] hover:text-[#20261A] hover:bg-[#F2EFE2]'
           }`}
         >
-          <TrendingUp className="w-4 h-4" /> SYGM
+          <TrendingUp className="w-4 h-4" /> {lang === 'en' ? t.btn_iofc : 'SYGM'}
         </button>
 
         <button
@@ -197,13 +238,13 @@ export const Hero: React.FC<HeroProps> = ({
               : 'text-[#6B7160] hover:text-[#20261A] hover:bg-[#F2EFE2]'
           }`}
         >
-          <ClipboardCheck className="w-4 h-4" /> Damızlık Skor
+          <ClipboardCheck className="w-4 h-4" /> {lang === 'en' ? t.btn_damizlik : 'Damızlık Skor'}
         </button>
       </div>
 
       {/* Meta Features Strip */}
       <div className="flex flex-wrap gap-x-6 gap-y-2 py-3 border-y border-[#DCD7C4] font-mono-code text-[11.5px] text-[#6B7160]">
-        {config.meta.map((item, idx) => (
+        {dispMeta.map((item, idx) => (
           <span key={idx} className="flex items-center gap-1.5">
             <span className="w-1.5 h-1.5 rounded-full bg-[#B98A2B]"></span>
             {item}

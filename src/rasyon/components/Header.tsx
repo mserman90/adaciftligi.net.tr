@@ -13,9 +13,11 @@ import {
   ShieldCheck,
   User,
 } from 'lucide-react';
-import { ModuleKey } from '../types';
+import { Language, ModuleKey } from '../types';
 
 interface HeaderProps {
+  lang: Language;
+  setLang: (l: Language) => void;
   currentModule: ModuleKey;
   onSelectModule: (m: ModuleKey) => void;
   onOpenLoginModal?: () => void;
@@ -26,6 +28,8 @@ interface HeaderProps {
 }
 
 export const Header: React.FC<HeaderProps> = ({
+  lang,
+  setLang,
   currentModule,
   onSelectModule,
   onOpenLoginModal,
@@ -181,6 +185,16 @@ export const Header: React.FC<HeaderProps> = ({
           </div>
 
           {/* Last Saved Badge */}
+          
+          {/* Language Toggle */}
+          <button
+            onClick={() => setLang(lang === 'tr' ? 'en' : 'tr')}
+            className="flex items-center justify-center w-8 h-8 rounded-lg border border-[rgba(243,241,228,0.3)] hover:bg-[rgba(243,241,228,0.1)] text-xs font-bold text-[#F3F1E4] transition-all cursor-pointer"
+            title="Dili Değiştir / Change Language"
+          >
+            {lang === 'tr' ? 'TR' : 'EN'}
+          </button>
+
           {lastSavedInfo && (
             <div
               className="hidden md:flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-[#E9D9A8]/10 border border-[#E9D9A8]/30 text-xs text-[#E9D9A8] transition-all tick-flash"

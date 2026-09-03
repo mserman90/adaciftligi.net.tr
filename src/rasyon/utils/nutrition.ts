@@ -406,7 +406,7 @@ function buildRationResult(
       ad: 'Nötral Deterjan Lif (NDF)',
       ihtiyac: ndfHedef,
       saglanan: verilen.ndf,
-      birim: '% KM',
+      birim: '% KM (DM)',
       oran: ndfHedef > 0 ? (verilen.ndf / ndfHedef) * 100 : 100,
     });
   }
@@ -417,7 +417,7 @@ function buildRationResult(
       ad: 'Kaba Yem Oranı',
       ihtiyac: g.kabaMin,
       saglanan: kabaOran,
-      birim: '% KM',
+      birim: '% KM (DM)',
       oran: (kabaOran / g.kabaMin) * 100,
     });
   }

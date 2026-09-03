@@ -30,12 +30,12 @@ export const RationResultView: React.FC<RationResultViewProps> = ({
   const handleCopyClipboard = () => {
     let text = `${moduleName} — Rasyon Özeti\n`;
     text += `Günlük Maliyet: ${fmt(result.gunlukMaliyet, 2)} ₺/baş/gün\n`;
-    text += `1 kg KM Maliyeti: ${fmt(result.kmMaliyeti, 2)} ₺/kg KM\n`;
+    text += `1 kg KM (DM) Maliyeti: ${fmt(result.kmMaliyeti, 2)} ₺/kg KM\n`;
     text += `Toplam Yaş Yem: ${fmt(result.toplamYasYem, 2)} kg/gün\n`;
     text += `Kuru Madde: ${fmt(result.toplamDmi, 2)} kg/gün\n\n`;
     text += `Bileşenler:\n`;
     result.kalemler.forEach((k) => {
-      text += `- ${k.ad}: ${fmt(k.yasKg, 2)} kg (${fmt(k.pay, 1)}% KM) — ${fmt(k.maliyet, 2)} ₺\n`;
+      text += `- ${k.ad}: ${fmt(k.yasKg, 2)} kg (${fmt(k.pay, 1)}% KM (DM)) — ${fmt(k.maliyet, 2)} ₺\n`;
     });
     navigator.clipboard.writeText(text);
     onToast('Rasyon tablosu panoya kopyalandı.');
@@ -70,7 +70,7 @@ export const RationResultView: React.FC<RationResultViewProps> = ({
     
     doc.setFontSize(10);
     doc.text(`Günlük Maliyet: ${fmt(result.gunlukMaliyet, 2)} TL/baş/gün`, 14, 30);
-    doc.text(`1 kg KM Maliyeti: ${fmt(result.kmMaliyeti, 2)} TL/kg KM`, 14, 36);
+    doc.text(`1 kg KM (DM) Maliyeti: ${fmt(result.kmMaliyeti, 2)} TL/kg KM`, 14, 36);
     doc.text(`Toplam Yas Yem: ${fmt(result.toplamYasYem, 2)} kg/gün`, 14, 42);
     doc.text(`Kuru Madde (DMI): ${fmt(result.toplamDmi, 2)} kg/gün`, 14, 48);
 
@@ -160,7 +160,7 @@ export const RationResultView: React.FC<RationResultViewProps> = ({
 
         <div className="bg-[#FCFBF6] border border-[#DCD7C4] rounded-xl p-4.5 shadow-2xs">
           <span className="block font-mono-code text-[10.5px] uppercase tracking-wider text-[#6B7160] mb-1">
-            <FarmerTerm termId="km">1 kg KM maliyeti</FarmerTerm>
+            <FarmerTerm termId="km">1 kg KM (DM) maliyeti</FarmerTerm>
           </span>
           <div className="font-mono-code text-2xl font-bold text-[#20261A]">
             {fmt(result.kmMaliyeti, 2)}{' '}
@@ -215,7 +215,7 @@ export const RationResultView: React.FC<RationResultViewProps> = ({
                     Yaş kg
                   </th>
                   <th className="px-3 py-2.5 font-mono-code text-[10.5px] uppercase text-[#6B7160] text-right font-medium">
-                    <FarmerTerm termId="km">KM payı</FarmerTerm>
+                    <FarmerTerm termId="km">KM (DM) payı</FarmerTerm>
                   </th>
                   <th className="px-4 py-2.5 font-mono-code text-[10.5px] uppercase text-[#6B7160] text-right font-medium">
                     Maliyet

@@ -499,6 +499,8 @@ export const RasyonApp: React.FC<RasyonAppProps> = ({
 
       {/* App Header */}
       <Header
+        lang={lang}
+        setLang={setLang}
         currentModule={currentModule}
         onSelectModule={setCurrentModule}
         onBackToWebsite={onBackToWebsite}
@@ -511,6 +513,7 @@ export const RasyonApp: React.FC<RasyonAppProps> = ({
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-8">
         {/* Module Hero Banner */}
         <Hero
+            lang={lang}
           currentModule={currentModule}
           onSelectModule={setCurrentModule}
           onOpenGuide={() => setIsGuideOpen(true)}
@@ -934,7 +937,7 @@ export const RasyonApp: React.FC<RasyonAppProps> = ({
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-[#20261A] mb-1">NDF %</label>
+                  <label className="block text-xs font-semibold text-[#20261A] mb-1">NDF (NDF) %</label>
                   <input
                     type="number" min="0" step="0.1"
                     value={modalIngredient.ndf}

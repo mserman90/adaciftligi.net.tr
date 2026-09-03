@@ -13,7 +13,7 @@ export const GLOSSARY_TERMS: GlossaryTerm[] = [
   {
     id: 'km',
     matchTerms: ['kuru madde', 'kuru maddenin', 'kuru maddesinin', 'kuru maddesi', 'kuru maddede', 'KM'],
-    title: 'Kuru Madde (KM)',
+    title: 'Kuru Madde - KM (DM)',
     category: 'Rasyon & Besleme',
     badge: 'Besleme Temeli',
     shortMeaning: 'Yemin suyunu sıktığınızda geriye kalan asıl besleyici unsuzdur.',
@@ -147,7 +147,7 @@ export const GLOSSARY_TERMS: GlossaryTerm[] = [
   {
     id: 'hp',
     matchTerms: ['ham protein', 'Ham Protein', 'HP'],
-    title: 'Ham Protein (HP)',
+    title: 'Ham Protein - HP (CP)',
     category: 'Rasyon & Besleme',
     badge: 'Kas & Süt Yapıtaşı',
     shortMeaning: 'Yemdeki azot ve protein maddelerinin toplamı; kasın ve sütün ana harcı.',
@@ -171,7 +171,7 @@ export const GLOSSARY_TERMS: GlossaryTerm[] = [
   {
     id: 'fcm',
     matchTerms: ['YGDS', '4% YGDS', 'yağa göre düzeltilmiş süt'],
-    title: '4% YGDS (Yağa Göre Düzeltilmiş Süt)',
+    title: 'Yağa Göre Düzeltilmiş Süt - YGDS (FCM)',
     category: 'Rasyon & Besleme',
     badge: 'Adil Verim Ölçüsü',
     shortMeaning: 'Farklı yağ oranına sahip sütleri standart %4 yağ kabul ederek eşitleyen formül.',
@@ -243,7 +243,7 @@ export const GLOSSARY_TERMS: GlossaryTerm[] = [
   {
     id: 'iofc',
     matchTerms: ['SYGM', 'Income Over Feed Cost', 'yemden kalan gelir'],
-    title: 'SYGM (Süt Yem Geliri Marjı)',
+    title: 'Süt Yem Geliri Marjı - SYGM (IOFC)',
     category: 'Ekonomi & Maliyet',
     badge: 'Günlük Çiftlik Kârı',
     shortMeaning: 'Günlük süt parasından günlük yem faturasını çıkardıktan sonra cepte kalan net para.',
@@ -483,7 +483,7 @@ export const GLOSSARY_TERMS: GlossaryTerm[] = [
   {
     id: 'nem',
     matchTerms: ['NEm', 'Net Enerji Yaşama', 'Yaşama Enerjisi'],
-    title: 'Net Enerji Yaşama (NEm)',
+    title: 'Net Enerji Yaşama - NEY (NEm)',
     category: 'Rasyon & Besleme',
     badge: 'Hayatta Kalma Yakıtı',
     shortMeaning: 'Hayvanın hiç et veya süt üretmese bile, sadece nefes alıp hayatta kalabilmesi için harcadığı enerjidir.',
@@ -495,7 +495,7 @@ export const GLOSSARY_TERMS: GlossaryTerm[] = [
   {
     id: 'neg',
     matchTerms: ['NEg', 'Net Enerji Büyüme', 'Büyüme Enerjisi'],
-    title: 'Net Enerji Büyüme (NEg)',
+    title: 'Net Enerji Büyüme - NEB (NEg)',
     category: 'Rasyon & Besleme',
     badge: 'Et ve Kilo Yakıtı',
     shortMeaning: 'Hayvanın yaşama payından artıp doğrudan et yapmaya ve kilo almaya harcadığı enerjidir.',
@@ -507,7 +507,7 @@ export const GLOSSARY_TERMS: GlossaryTerm[] = [
   {
     id: 'nel',
     matchTerms: ['NEL', 'Net Enerji Laktasyon', 'Süt Enerjisi'],
-    title: 'Net Enerji Laktasyon (NEL)',
+    title: 'Net Enerji Laktasyon - NEL (NEL)',
     category: 'Rasyon & Besleme',
     badge: 'Süt Üretim Yakıtı',
     shortMeaning: 'Sağmal hayvanın doğrudan süt üretimi için kullanabildiği net enerjidir.',
@@ -519,7 +519,7 @@ export const GLOSSARY_TERMS: GlossaryTerm[] = [
   {
     id: 'ndf',
     matchTerms: ['NDF', 'NDF %', 'Nötral Deterjan Lif', 'Lif', 'NDF alt sınırı'],
-    title: 'Nötral Deterjan Lif (NDF)',
+    title: 'Nötral Deterjan Lif - NDL (NDF)',
     category: 'Rasyon & Besleme',
     badge: 'Doygunluk & Geviş',
     shortMeaning: 'Yemin hayvanın işkembesinde yer kaplayan ve onu doyuran lif (posa) kısmıdır.',
@@ -567,7 +567,7 @@ export const GLOSSARY_TERMS: GlossaryTerm[] = [
   {
     id: 'dmi',
     matchTerms: ['Kuru Madde Tüketimi', 'DMI', 'Yem Tüketimi', 'KMT', 'Kuru madde (DMI)'],
-    title: 'Kuru Madde Tüketimi (DMI)',
+    title: 'Kuru Madde Tüketimi - KMT (DMI)',
     category: 'Performans & Verim',
     badge: 'Yeme Kapasitesi',
     shortMeaning: 'Hayvanın 24 saatte önündeki yemin içindeki suyu düştükten sonra yiyebildiği net katı yem (Kuru Madde) miktarıdır.',
@@ -589,7 +589,7 @@ export const GLOSSARY_TERMS: GlossaryTerm[] = [
   {
     id: 'dcad',
     matchTerms: ['AKD', 'negatif AKD', 'anyonik', 'anyon katyon dengesi', 'katyon'],
-    title: 'Anyon-Katyon Dengesi (AKD)',
+    title: 'Anyon-Katyon Dengesi - AKD (DCAD)',
     category: 'Rasyon & Besleme',
     badge: 'Doğum Felci Kalkanı',
     shortMeaning: 'Rasyondaki anyon (Klor, Sülfür) ve katyon (Sodyum, Potasyum) mineralleri arasındaki matematiksel farktır.',

@@ -96,7 +96,7 @@ export const BesiPanel: React.FC<BesiPanelProps> = ({ inputs, onChange }) => {
               onChange={(e) => handleKabaMin(Number(e.target.value))}
               className="w-24 bg-white border border-[#DCD7C4] rounded-md px-2.5 py-2 font-mono-code text-sm text-right focus:outline-none focus:border-[#2E5B39] focus:ring-2 focus:ring-[#2E5B39]/20"
             />
-            <span className="font-mono-code text-xs text-[#6B7160] min-w-[50px]">% KM</span>
+            <span className="font-mono-code text-xs text-[#6B7160] min-w-[50px]">% KM (DM)</span>
           </div>
         </div>
 

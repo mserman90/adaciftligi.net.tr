@@ -327,7 +327,7 @@ export const IofcPanel: React.FC<IofcPanelProps> = ({
               <td className="py-2.5 font-mono-code text-xs text-[#6B7160] text-right"></td>
             </tr>
             <tr className="border-b border-[#ECE8D8]">
-              <td className="py-2.5">SYGM (aylık)</td>
+              <td className="py-2.5">SYGM (IOFC) (aylık)</td>
               <td className="py-2.5 font-mono-code font-semibold text-right">{fmt(d.iofcAy, 0)}</td>
               <td className="py-2.5 font-mono-code text-xs text-[#6B7160] text-right">₺/ay</td>
             </tr>

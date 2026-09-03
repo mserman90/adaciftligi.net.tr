@@ -54,25 +54,25 @@ export const IngredientsTable: React.FC<IngredientsTableProps> = ({
                 Hammadde
               </th>
               <th className="px-3 py-3 font-mono-code text-[10.5px] tracking-wider uppercase text-[#6B7160] text-right font-medium">
-                <FarmerTerm termId="km">KM %</FarmerTerm>
+                <FarmerTerm termId="km">KM (DM) %</FarmerTerm>
               </th>
               {isBesiCol && (
                 <>
                   <th className="px-3 py-3 font-mono-code text-[10.5px] tracking-wider uppercase text-[#6B7160] text-right font-medium">
-                    <FarmerTerm termId="nem">NEm</FarmerTerm> <span className="opacity-60 text-[10px]">¹</span>
+                    <FarmerTerm termId="nem">NEY (NEm)</FarmerTerm> <span className="opacity-60 text-[10px]">¹</span>
                   </th>
                   <th className="px-3 py-3 font-mono-code text-[10.5px] tracking-wider uppercase text-[#6B7160] text-right font-medium">
-                    <FarmerTerm termId="neg">NEg</FarmerTerm> <span className="opacity-60 text-[10px]">¹</span>
+                    <FarmerTerm termId="neg">NEB (NEg)</FarmerTerm> <span className="opacity-60 text-[10px]">¹</span>
                   </th>
                 </>
               )}
               {isSutCol && (
                 <th className="px-3 py-3 font-mono-code text-[10.5px] tracking-wider uppercase text-[#6B7160] text-right font-medium">
-                  <FarmerTerm termId="nel">NEL</FarmerTerm> <span className="opacity-60 text-[10px]">¹</span>
+                  <FarmerTerm termId="nel">NEL (NEL)</FarmerTerm> <span className="opacity-60 text-[10px]">¹</span>
                 </th>
               )}
               <th className="px-3 py-3 font-mono-code text-[10.5px] tracking-wider uppercase text-[#6B7160] text-right font-medium">
-                <FarmerTerm termId="hp">HP %</FarmerTerm>
+                <FarmerTerm termId="hp">HP (CP) %</FarmerTerm>
               </th>
               <th className="px-3 py-3 font-mono-code text-[10.5px] tracking-wider uppercase text-[#6B7160] text-right font-medium">
                 <FarmerTerm termId="ca">Ca %</FarmerTerm>
@@ -82,7 +82,7 @@ export const IngredientsTable: React.FC<IngredientsTableProps> = ({
               </th>
               {isSutCol && (
                 <th className="px-3 py-3 font-mono-code text-[10.5px] tracking-wider uppercase text-[#6B7160] text-right font-medium">
-                  <FarmerTerm termId="ndf">NDF %</FarmerTerm>
+                  <FarmerTerm termId="ndf">NDF (NDF) %</FarmerTerm>
                 </th>
               )}
               <th className="px-3 py-3 font-mono-code text-[10.5px] tracking-wider uppercase text-[#6B7160] text-left font-medium">
