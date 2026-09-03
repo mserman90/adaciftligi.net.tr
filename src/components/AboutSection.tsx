@@ -1,10 +1,62 @@
-import React, { useState } from 'react';
-import { HeartHandshake, ShieldCheck, Waves, Sun, Sparkles, MapPin, Camera, ZoomIn, X } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { HeartHandshake, ShieldCheck, Waves, Sun, Sparkles, MapPin, Camera, ZoomIn, X, Upload, RotateCcw } from 'lucide-react';
 import { FARM_CONTACT, FARM_GALLERY, FarmGalleryItem } from '../data/farmData';
 
 export const AboutSection: React.FC = () => {
   const [selectedGalleryItem, setSelectedGalleryItem] = useState<FarmGalleryItem | null>(null);
   const [galleryFilter, setGalleryFilter] = useState<string>('Tümü');
+
+  const [customTankImage, setCustomTankImage] = useState<string | null>(() => {
+    if (typeof window !== 'undefined') {
+      try {
+        return localStorage.getItem('adaciftligi_tank_image') || null;
+      } catch (e) {
+        return null;
+      }
+    }
+    return null;
+  });
+
+  const [dragOverTank, setDragOverTank] = useState(false);
+  const tankFileInputRef = useRef<HTMLInputElement>(null);
+
+  // Auto-detect if user put the specific milk tank generated image in public/images
+  useEffect(() => {
+    if (!customTankImage) {
+      const testImg = new Image();
+      testImg.src = '/images/Gemini_Generated_Image_ln24chln24chln24.jfif';
+      testImg.onload = () => {
+        setCustomTankImage('/images/Gemini_Generated_Image_ln24chln24chln24.jfif');
+      };
+    }
+  }, [customTankImage]);
+
+  const handleApplyTankImage = (file: File) => {
+    if (!file.type.startsWith('image/') && !file.name.endsWith('.jfif')) return;
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const result = e.target?.result as string;
+      if (result) {
+        setCustomTankImage(result);
+        try {
+          localStorage.setItem('adaciftligi_tank_image', result);
+        } catch (err) {
+          console.warn('LocalStorage error', err);
+        }
+      }
+    };
+    reader.readAsDataURL(file);
+  };
+
+  const handleResetTankImage = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setCustomTankImage(null);
+    try {
+      localStorage.removeItem('adaciftligi_tank_image');
+    } catch (err) {
+      console.warn('LocalStorage error', err);
+    }
+  };
 
   const categories = ['Tümü', 'Mera & Otlak', 'Küçükbaş', 'Kuzu', 'Büyükbaş', 'Süt & Hijyen'];
 
@@ -81,11 +133,44 @@ export const AboutSection: React.FC = () => {
               </div>
             </div>
 
+            {/* Hidden Tank File Input */}
+            <input
+              type="file"
+              ref={tankFileInputRef}
+              accept="image/*,.jfif"
+              className="hidden"
+              onChange={(e) => {
+                if (e.target.files && e.target.files[0]) {
+                  handleApplyTankImage(e.target.files[0]);
+                }
+              }}
+            />
+
             <div className="grid grid-cols-2 gap-4">
-              <div className="group relative rounded-2xl overflow-hidden border border-stone-200 aspect-[4/3] bg-stone-100">
+              {/* Milk Tank Photo Card with Drag & Drop & Upload */}
+              <div
+                onDragOver={(e) => {
+                  e.preventDefault();
+                  setDragOverTank(true);
+                }}
+                onDragLeave={(e) => {
+                  e.preventDefault();
+                  setDragOverTank(false);
+                }}
+                onDrop={(e) => {
+                  e.preventDefault();
+                  setDragOverTank(false);
+                  if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+                    handleApplyTankImage(e.dataTransfer.files[0]);
+                  }
+                }}
+                className={`group relative rounded-2xl overflow-hidden border border-stone-200 aspect-[4/3] bg-stone-100 transition-all duration-300 ${
+                  dragOverTank ? 'ring-4 ring-emerald-500 ring-inset' : ''
+                }`}
+              >
                 <img
-                  src="/images/tank.jpg"
-                  alt="Hijyenik süt sağım ve soğutma tankı ünitesi"
+                  src={customTankImage || '/images/tank.jpg'}
+                  alt="Hijyenik süt sağım ve soğutma tankı ünitesi - Ada Çiftliği Meriç"
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   referrerPolicy="no-referrer"
                   loading="lazy"
@@ -93,11 +178,44 @@ export const AboutSection: React.FC = () => {
                     (e.target as HTMLImageElement).src = '/images/sut.jpg';
                   }}
                 />
-                <div className="absolute inset-0 bg-stone-950/20 group-hover:bg-transparent transition-colors" />
-                <div className="absolute bottom-2 left-2 right-2 text-white text-[11px] font-semibold bg-stone-900/70 backdrop-blur-xs px-2 py-1 rounded-lg truncate">
+                <div className="absolute inset-0 bg-stone-950/20 group-hover:bg-transparent transition-colors pointer-events-none" />
+
+                {/* Drag drop overlay */}
+                {dragOverTank && (
+                  <div className="absolute inset-0 bg-emerald-950/85 flex flex-col items-center justify-center text-white z-20 p-2 text-center">
+                    <Upload className="w-6 h-6 text-emerald-300 mb-1 animate-bounce" />
+                    <p className="font-bold text-[10px]">Süt Tankı Fotoğrafını Bırakın</p>
+                  </div>
+                )}
+
+                {/* Upload / Reset Controls */}
+                <div className="absolute top-2 right-2 flex items-center gap-1 z-10 opacity-90 group-hover:opacity-100 transition-opacity">
+                  <button
+                    type="button"
+                    onClick={() => tankFileInputRef.current?.click()}
+                    title="Süt tankı fotoğrafını değiştir (veya resmi buraya sürükleyin)"
+                    className="p-1.5 rounded-full bg-stone-900/80 hover:bg-stone-900 text-white text-xs backdrop-blur-md border border-white/20 shadow-md transition-all active:scale-95 cursor-pointer"
+                  >
+                    <Camera className="w-3 h-3 text-emerald-300" />
+                  </button>
+
+                  {customTankImage && (
+                    <button
+                      type="button"
+                      onClick={handleResetTankImage}
+                      title="Varsayılan fotoğrafa dön"
+                      className="p-1.5 rounded-full bg-stone-900/80 hover:bg-stone-900 text-stone-300 text-xs backdrop-blur-md border border-white/20 shadow-md transition-all active:scale-95 cursor-pointer"
+                    >
+                      <RotateCcw className="w-3 h-3 text-stone-300" />
+                    </button>
+                  )}
+                </div>
+
+                <div className="absolute bottom-2 left-2 right-2 text-white text-[11px] font-semibold bg-stone-900/70 backdrop-blur-xs px-2 py-1 rounded-lg truncate pointer-events-none">
                   +4°C Hijyenik Süt Tankı
                 </div>
               </div>
+
               <div className="group relative rounded-2xl overflow-hidden border border-stone-200 aspect-[4/3] bg-stone-100">
                 <img
                   src="/images/koyun.jpg"

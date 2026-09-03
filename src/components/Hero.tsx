@@ -1,5 +1,5 @@
-import React, { useEffect, useRef } from 'react';
-import { ArrowRight, ChevronDown, CheckCircle2, Shield, PhoneCall, Sparkles } from 'lucide-react';
+import React, { useEffect, useRef, useState } from 'react';
+import { ArrowRight, ChevronDown, CheckCircle2, Shield, PhoneCall, Sparkles, Camera, Upload, RotateCcw, Check } from 'lucide-react';
 import { FARM_STATS, FARM_CONTACT } from '../data/farmData';
 import { gsap } from 'gsap';
 
@@ -14,6 +14,61 @@ export const Hero: React.FC<HeroProps> = ({ onOpenInquiry }) => {
   const ctaGroupRef = useRef<HTMLDivElement>(null);
   const statsBarRef = useRef<HTMLDivElement>(null);
   const imageCardRef = useRef<HTMLDivElement>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const [heroImage, setHeroImage] = useState<string>(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('adaciftligi_hero_image');
+      if (saved) return saved;
+    }
+    return '/images/hero_cows.jpg';
+  });
+  const [hasCustomImage, setHasCustomImage] = useState<boolean>(() => {
+    if (typeof window !== 'undefined') {
+      return Boolean(localStorage.getItem('adaciftligi_hero_image'));
+    }
+    return false;
+  });
+  const [isDragging, setIsDragging] = useState(false);
+  const [showSuccessToast, setShowSuccessToast] = useState(false);
+
+  // Check if user has placed the jfif file directly in public/images/
+  useEffect(() => {
+    if (!localStorage.getItem('adaciftligi_hero_image')) {
+      const testImg = new Image();
+      testImg.src = '/images/Gemini_Generated_Image_byt5yibyt5yibyt5.jfif';
+      testImg.onload = () => {
+        setHeroImage('/images/Gemini_Generated_Image_byt5yibyt5yibyt5.jfif');
+      };
+    }
+  }, []);
+
+  const handleImageFile = (file: File) => {
+    if (!file.type.startsWith('image/') && !file.name.endsWith('.jfif')) return;
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const result = e.target?.result as string;
+      if (result) {
+        setHeroImage(result);
+        setHasCustomImage(true);
+        try {
+          localStorage.setItem('adaciftligi_hero_image', result);
+        } catch (err) {
+          console.warn('LocalStorage limit reached, displaying in-memory only', err);
+        }
+        setShowSuccessToast(true);
+        setTimeout(() => setShowSuccessToast(false), 4500);
+      }
+    };
+    reader.readAsDataURL(file);
+  };
+
+  const handleResetDefault = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    localStorage.removeItem('adaciftligi_hero_image');
+    setHeroImage('/images/hero_cows.jpg');
+    setHasCustomImage(false);
+  };
 
   useEffect(() => {
     // Check prefers-reduced-motion
@@ -161,34 +216,119 @@ export const Hero: React.FC<HeroProps> = ({ onOpenInquiry }) => {
           {/* Hero Media Visual Column */}
           <div className="lg:col-span-5 relative" ref={imageCardRef}>
             <div className="relative mx-auto max-w-md lg:max-w-none">
-              {/* Main Photo Card */}
-              <div className="overflow-hidden rounded-3xl border border-stone-200 shadow-[0_16px_40px_-12px_rgba(18,60,40,0.14)] bg-stone-100 relative group aspect-[4/3] lg:aspect-[5/4]">
+              {/* Hidden file input */}
+              <input
+                type="file"
+                ref={fileInputRef}
+                accept="image/*,.jfif"
+                className="hidden"
+                id="hero-file-upload-input"
+                onChange={(e) => {
+                  if (e.target.files && e.target.files[0]) {
+                    handleImageFile(e.target.files[0]);
+                  }
+                }}
+              />
+
+              {/* Main Photo Card with Drag & Drop */}
+              <div
+                id="hero-photo-container"
+                onDragOver={(e) => {
+                  e.preventDefault();
+                  setIsDragging(true);
+                }}
+                onDragLeave={(e) => {
+                  e.preventDefault();
+                  setIsDragging(false);
+                }}
+                onDrop={(e) => {
+                  e.preventDefault();
+                  setIsDragging(false);
+                  if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+                    handleImageFile(e.dataTransfer.files[0]);
+                  }
+                }}
+                className={`overflow-hidden rounded-3xl border shadow-[0_16px_40px_-12px_rgba(18,60,40,0.14)] bg-stone-100 relative group aspect-[4/3] lg:aspect-[5/4] transition-all duration-300 ${
+                  isDragging ? 'border-emerald-500 ring-4 ring-emerald-500/20' : 'border-stone-200'
+                }`}
+              >
                 <img
-                  src="/images/hero_cows.jpg"
+                  src={heroImage}
                   alt="Doğal taşkın ovası merasında otlayan sağlıklı sığır sürüsü - Ada Çiftliği"
                   className="w-full h-full object-cover group-hover:scale-103 transition-transform duration-700"
                   referrerPolicy="no-referrer"
                   loading="eager"
                   onError={(e) => {
-                    (e.target as HTMLImageElement).src = '/images/hero_barn.jpg';
+                    const target = e.target as HTMLImageElement;
+                    if (target.src !== '/images/hero_cows.jpg') {
+                      target.src = '/images/hero_cows.jpg';
+                    } else {
+                      target.src = '/images/hero_barn.jpg';
+                    }
                   }}
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-stone-950/70 via-stone-950/15 to-transparent" />
 
-                {/* Floating On-Image Info */}
-                <div className="absolute bottom-5 left-5 right-5 text-white">
+                {/* Subtle Gradient Shadow */}
+                <div className="absolute inset-0 bg-gradient-to-t from-stone-950/75 via-stone-950/20 to-transparent pointer-events-none" />
+
+                {/* Drag-over active indicator */}
+                {isDragging && (
+                  <div className="absolute inset-0 bg-emerald-950/80 backdrop-blur-xs flex flex-col items-center justify-center text-white z-20 p-6 text-center border-2 border-dashed border-emerald-400 m-2 rounded-2xl animate-fade-in">
+                    <Upload className="w-12 h-12 text-emerald-300 mb-2 animate-bounce" />
+                    <p className="font-semibold text-base">Görseli Buraya Bırakın</p>
+                    <p className="text-xs text-emerald-200 mt-1">İndirdiğiniz resmi bırakarak anında güncelleyin</p>
+                  </div>
+                )}
+
+                {/* Top Action Bar (Upload / Reset Image) */}
+                <div className="absolute top-3 left-3 right-3 flex items-center justify-between z-10 opacity-90 group-hover:opacity-100 transition-opacity">
+                  <button
+                    type="button"
+                    onClick={() => fileInputRef.current?.click()}
+                    id="btn-upload-hero-image"
+                    title="Görseli Değiştir (Sürükle-bırak veya bilgisayarından seç)"
+                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-stone-900/75 hover:bg-stone-900 text-white text-xs font-medium backdrop-blur-md border border-white/20 shadow-md transition-all active:scale-95 cursor-pointer"
+                  >
+                    <Camera className="w-3.5 h-3.5 text-emerald-300" />
+                    <span>Fotoğrafı Değiştir</span>
+                  </button>
+
+                  {hasCustomImage && (
+                    <button
+                      type="button"
+                      onClick={handleResetDefault}
+                      id="btn-reset-hero-image"
+                      title="Varsayılan fotoğrafa dön"
+                      className="flex items-center gap-1 px-2.5 py-1.5 rounded-full bg-stone-900/75 hover:bg-stone-900 text-stone-200 text-xs font-medium backdrop-blur-md border border-white/20 shadow-md transition-all active:scale-95 cursor-pointer"
+                    >
+                      <RotateCcw className="w-3 h-3 text-stone-300" />
+                      <span className="hidden sm:inline">Sıfırla</span>
+                    </button>
+                  )}
+                </div>
+
+                {/* Floating On-Image Info Caption */}
+                <div className="absolute bottom-5 left-5 right-5 text-white pointer-events-none">
                   <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-emerald-300 mb-1.5">
                     <Sparkles className="w-3.5 h-3.5" />
                     <span>Edirne / Meriç Havzası</span>
                   </div>
-                  <p className="text-sm sm:text-base font-medium text-stone-100 leading-snug">
+                  <p className="text-sm sm:text-base font-medium text-stone-100 leading-snug drop-shadow-sm">
                     Doğal nehir taşkın ovasının zengin florasında beslenen sağlıklı sürülerimiz.
                   </p>
                 </div>
+
+                {/* Success Notification Toast */}
+                {showSuccessToast && (
+                  <div className="absolute top-12 left-4 right-4 bg-emerald-900/95 text-emerald-100 border border-emerald-500/50 p-2.5 rounded-xl text-xs font-medium backdrop-blur-md shadow-xl z-20 flex items-center gap-2 animate-fade-in">
+                    <Check className="w-4 h-4 text-emerald-400 shrink-0" />
+                    <span>Yeni sürü fotoğrafınız başarıyla uygulandı ve kaydedildi!</span>
+                  </div>
+                )}
               </div>
 
               {/* Floating Certification Badge */}
-              <div className="absolute -bottom-5 -left-4 sm:-left-6 bg-white rounded-2xl p-3.5 sm:p-4 shadow-lg border border-stone-200/80 flex items-center gap-3.5 max-w-[240px]">
+              <div className="absolute -bottom-5 -left-4 sm:-left-6 bg-white rounded-2xl p-3.5 sm:p-4 shadow-lg border border-stone-200/80 flex items-center gap-3.5 max-w-[240px] z-10">
                 <div className="w-11 h-11 rounded-xl bg-emerald-50 text-[#123c28] flex items-center justify-center shrink-0 border border-emerald-100">
                   <Shield className="w-6 h-6" />
                 </div>
@@ -203,7 +343,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenInquiry }) => {
               </div>
 
               {/* Floating Badge on top right */}
-              <div className="absolute -top-4 -right-4 sm:-right-6 bg-white/95 backdrop-blur-md rounded-2xl py-2 px-3.5 shadow-md border border-stone-200/80 flex items-center gap-2">
+              <div className="absolute -top-4 -right-4 sm:-right-6 bg-white/95 backdrop-blur-md rounded-2xl py-2 px-3.5 shadow-md border border-stone-200/80 flex items-center gap-2 z-10">
                 <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-ping" />
                 <span className="text-xs font-semibold text-stone-800">Günlük Taze Sağım</span>
               </div>
