@@ -7,11 +7,12 @@ import {
   RationResult,
 } from '../types';
 
-export const LAST_RATION_STORAGE_KEY = 'ada_ciftligi_last_ration_v1';
+export const RATION_HISTORY_STORAGE_KEY = 'ada_ciftligi_ration_history_v1';
 
 export type RationModuleKey = 'besi' | 'sut' | 'koyun' | 'keci';
 
 export interface SavedLastRationState {
+  id?: string;
   module: RationModuleKey;
   savedAt: string; // ISO String
   savedAtFormatted: string; // Turkish date/time format
@@ -26,6 +27,36 @@ export interface SavedLastRationState {
   result: RationResult;
 }
 
+export function loadRationHistory(): SavedLastRationState[] {
+  try {
+    if (typeof window === 'undefined' || !window.localStorage) {
+      return [];
+    }
+    const raw = window.localStorage.getItem(RATION_HISTORY_STORAGE_KEY);
+    if (!raw) {
+      // Migrate from old single saved state
+      const oldRaw = window.localStorage.getItem('ada_ciftligi_last_ration_v1');
+      if (oldRaw) {
+        const parsed = JSON.parse(oldRaw) as SavedLastRationState;
+        if (parsed && parsed.result?.basarili) {
+          parsed.id = crypto.randomUUID ? crypto.randomUUID() : Date.now().toString();
+          window.localStorage.setItem(RATION_HISTORY_STORAGE_KEY, JSON.stringify([parsed]));
+          return [parsed];
+        }
+      }
+      return [];
+    }
+    const parsed = JSON.parse(raw) as SavedLastRationState[];
+    if (Array.isArray(parsed)) {
+      return parsed.filter(p => p && p.result && p.result.basarili);
+    }
+    return [];
+  } catch (error) {
+    console.error('Ada Çiftliği: Rasyon geçmişi okunamadı:', error);
+    return [];
+  }
+}
+
 /**
  * Saves the last successfully calculated ration and its input state to localStorage.
  */
@@ -34,7 +65,17 @@ export function saveLastRation(data: SavedLastRationState): boolean {
     if (typeof window === 'undefined' || !window.localStorage) {
       return false;
     }
-    window.localStorage.setItem(LAST_RATION_STORAGE_KEY, JSON.stringify(data));
+    if (!data.id) {
+      data.id = crypto.randomUUID ? crypto.randomUUID() : Date.now().toString();
+    }
+    
+    const history = loadRationHistory();
+    const newHistory = [data, ...history.filter(h => h.id !== data.id)].slice(0, 5);
+    window.localStorage.setItem(RATION_HISTORY_STORAGE_KEY, JSON.stringify(newHistory));
+    
+    // For backward compatibility keep setting the old key
+    window.localStorage.setItem('ada_ciftligi_last_ration_v1', JSON.stringify(data));
+    
     return true;
   } catch (error) {
     console.error('Ada Çiftliği: Rasyon yerel depoya kaydedilemedi:', error);
@@ -46,29 +87,8 @@ export function saveLastRation(data: SavedLastRationState): boolean {
  * Loads the last saved ration from localStorage.
  */
 export function loadLastRation(): SavedLastRationState | null {
-  try {
-    if (typeof window === 'undefined' || !window.localStorage) {
-      return null;
-    }
-    const raw = window.localStorage.getItem(LAST_RATION_STORAGE_KEY);
-    if (!raw) return null;
-
-    const parsed = JSON.parse(raw) as SavedLastRationState;
-    if (
-      parsed &&
-      parsed.module &&
-      parsed.result &&
-      parsed.result.basarili &&
-      Array.isArray(parsed.ingredients) &&
-      Array.isArray(parsed.selectedIngredientIds)
-    ) {
-      return parsed;
-    }
-    return null;
-  } catch (error) {
-    console.error('Ada Çiftliği: Kayıtlı rasyon yerel depodan okunamadı:', error);
-    return null;
-  }
+  const history = loadRationHistory();
+  return history.length > 0 ? history[0] : null;
 }
 
 /**
@@ -79,7 +99,8 @@ export function clearLastRation(): boolean {
     if (typeof window === 'undefined' || !window.localStorage) {
       return false;
     }
-    window.localStorage.removeItem(LAST_RATION_STORAGE_KEY);
+    window.localStorage.removeItem(RATION_HISTORY_STORAGE_KEY);
+    window.localStorage.removeItem('ada_ciftligi_last_ration_v1');
     return true;
   } catch (error) {
     console.error('Ada Çiftliği: Kayıtlı rasyon silinemedi:', error);

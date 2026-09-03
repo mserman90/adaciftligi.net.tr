@@ -49,12 +49,13 @@ import { KizTakvimResultView } from './components/KizTakvimResultView';
 import { IofcResultView } from './components/IofcResultView';
 import { DamizlikResultView } from './components/DamizlikResultView';
 
-import { Play, RotateCcw, AlertCircle, Sparkles, HelpCircle } from 'lucide-react';
+import { Play, RotateCcw, AlertCircle, Sparkles, HelpCircle, History, CheckCircle2 } from 'lucide-react';
 import { GlossaryProvider } from './components/GlossaryText';
 import {
   saveLastRation,
   loadLastRation,
   clearLastRation,
+  loadRationHistory,
   SavedLastRationState,
 } from './utils/storage';
 
@@ -69,8 +70,10 @@ export const RasyonApp: React.FC<RasyonAppProps> = ({
   onLogout,
   adminUsername = 'admin',
 }) => {
-  // Load any previously saved ration calculation from localStorage on initial render
-  const [initialSavedRation] = useState<SavedLastRationState | null>(() => loadLastRation());
+  // Load ration history from localStorage on initial render
+  const [rationHistory, setRationHistory] = useState<SavedLastRationState[]>(() => loadRationHistory());
+  
+  const [initialSavedRation] = useState<SavedLastRationState | null>(() => rationHistory.length > 0 ? rationHistory[0] : null);
   const [lastSavedInfo, setLastSavedInfo] = useState<string | null>(
     () => initialSavedRation?.savedAtFormatted || null
   );
@@ -350,6 +353,7 @@ export const RasyonApp: React.FC<RasyonAppProps> = ({
       };
 
       saveLastRation(payload);
+      setRationHistory(loadRationHistory()); // Refresh history
       setLastSavedInfo(formattedTime);
 
       setRationResults((prev) => ({ ...prev, [currentModule]: res }));
@@ -367,8 +371,24 @@ export const RasyonApp: React.FC<RasyonAppProps> = ({
 
   const handleClearSavedRation = () => {
     clearLastRation();
+    setRationHistory([]);
     setLastSavedInfo(null);
-    showToast('Kayıtlı rasyon yerel depodan silindi.');
+    showToast('Kayıtlı rasyon geçmişi yerel depodan silindi.');
+  };
+
+  const handleRestoreHistory = (h: SavedLastRationState) => {
+    setCurrentModule(h.module);
+    if (h.inputs?.besi) setBesiInputs(h.inputs.besi);
+    if (h.inputs?.sut) setSutInputs(h.inputs.sut);
+    if (h.inputs?.koyun) setKoyunInputs(h.inputs.koyun);
+    if (h.inputs?.keci) setKeciInputs(h.inputs.keci);
+    
+    setIngredients(h.ingredients);
+    setSelectedIngredientIds(new Set(h.selectedIngredientIds));
+    setRationResults((prev) => ({ ...prev, [h.module]: h.result }));
+    setRationErrors((prev) => ({ ...prev, [h.module]: undefined }));
+    setLastSavedInfo(h.savedAtFormatted);
+    showToast(`${h.savedAtFormatted} tarihli rasyon başarıyla yüklendi.`);
   };
 
   const isRationModule =
@@ -416,6 +436,40 @@ export const RasyonApp: React.FC<RasyonAppProps> = ({
           onSelectModule={setCurrentModule}
           onOpenGuide={() => setIsGuideOpen(true)}
         />
+
+        {/* Ration History Bar */}
+        {rationHistory.length > 0 && (
+          <div className="bg-white border border-[#DCD7C4] rounded-xl p-4 shadow-sm flex items-start gap-4">
+            <div className="w-10 h-10 rounded-lg bg-[#F2EFE2] text-[#2E5B39] flex items-center justify-center shrink-0 border border-[#DCD7C4]/60">
+              <History className="w-5 h-5" />
+            </div>
+            <div className="flex-1 min-w-0">
+              <h3 className="font-heading font-bold text-sm text-[#20261A] mb-2">Son Hesaplanan Rasyonlar</h3>
+              <div className="flex flex-wrap gap-2">
+                {rationHistory.map((h, i) => {
+                  const isCurrent = h.savedAtFormatted === lastSavedInfo;
+                  const modName = MODULES[h.module]?.title || h.module;
+                  return (
+                    <button
+                      key={h.id || i}
+                      onClick={() => handleRestoreHistory(h)}
+                      className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all border ${
+                        isCurrent 
+                        ? 'bg-[#2E5B39] text-white border-[#2E5B39] shadow-sm cursor-default' 
+                        : 'bg-[#FCFBF6] text-[#6B7160] border-[#E2DDCB] hover:bg-[#F2EFE2] hover:text-[#20261A] cursor-pointer'
+                      }`}
+                    >
+                      {isCurrent && <CheckCircle2 className="w-3.5 h-3.5" />}
+                      <span>{modName}</span>
+                      <span className="opacity-70 font-normal">|</span>
+                      <span>{h.savedAtFormatted.split(' ')[1]}</span>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* STEP 01: Input Parameters */}
         <section id="step-inputs" className="space-y-3">
