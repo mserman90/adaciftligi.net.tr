@@ -165,7 +165,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenInquiry }) => {
               <div className="overflow-hidden rounded-3xl border border-stone-200 shadow-[0_16px_40px_-12px_rgba(18,60,40,0.14)] bg-stone-100 relative group aspect-[4/3] lg:aspect-[5/4]">
                 <img
                   src="/images/hero_cows.jpg"
-                  alt="Ada Çiftliği Meriç Edirne mera ve otlak alanı"
+                  alt="Doğal taşkın ovası merasında otlayan sağlıklı sığır sürüsü - Ada Çiftliği"
                   className="w-full h-full object-cover group-hover:scale-103 transition-transform duration-700"
                   referrerPolicy="no-referrer"
                   loading="eager"
