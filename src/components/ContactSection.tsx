@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { MapPin, Phone, MessageCircle, Mail, Clock, Send, Sparkles, Check, ExternalLink } from 'lucide-react';
 import { FARM_CONTACT } from '../data/farmData';
 
@@ -11,6 +11,24 @@ export const ContactSection: React.FC = () => {
     note: ''
   });
   const [submitted, setSubmitted] = useState(false);
+  const [customVillageImg, setCustomVillageImg] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      try {
+        const saved = localStorage.getItem('adaciftligi_village_image');
+        if (saved) {
+          setCustomVillageImg(saved);
+        } else {
+          const testImg = new Image();
+          testImg.src = '/images/23911dbc-b407-46d5-95fb-656107f0c494.jfif';
+          testImg.onload = () => setCustomVillageImg('/images/23911dbc-b407-46d5-95fb-656107f0c494.jfif');
+        }
+      } catch (e) {
+        // ignore
+      }
+    }
+  }, []);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -148,7 +166,7 @@ export const ContactSection: React.FC = () => {
               <div className="mt-4 pt-4 border-t border-stone-100 flex items-center gap-3">
                 <div className="w-16 h-12 rounded-xl overflow-hidden bg-stone-100 border border-stone-200 shrink-0">
                   <img
-                    src="/images/facility_small.jpg"
+                    src={customVillageImg || '/images/facility_small.jpg'}
                     alt="Ada Çiftliği Adasarhanlı Köyü Tesisleri"
                     className="w-full h-full object-cover"
                     referrerPolicy="no-referrer"

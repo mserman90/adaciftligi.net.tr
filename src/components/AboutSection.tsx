@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { HeartHandshake, ShieldCheck, Waves, Sun, Sparkles, MapPin, Camera, ZoomIn, X, Upload, RotateCcw } from 'lucide-react';
+import { HeartHandshake, ShieldCheck, Waves, Sun, Sparkles, MapPin, Camera, ZoomIn, X, Upload, RotateCcw, Check } from 'lucide-react';
 import { FARM_CONTACT, FARM_GALLERY, FarmGalleryItem } from '../data/farmData';
 
 export const AboutSection: React.FC = () => {
@@ -17,10 +17,25 @@ export const AboutSection: React.FC = () => {
     return null;
   });
 
-  const [dragOverTank, setDragOverTank] = useState(false);
-  const tankFileInputRef = useRef<HTMLInputElement>(null);
+  const [customVillageImage, setCustomVillageImage] = useState<string | null>(() => {
+    if (typeof window !== 'undefined') {
+      try {
+        return localStorage.getItem('adaciftligi_village_image') || null;
+      } catch (e) {
+        return null;
+      }
+    }
+    return null;
+  });
 
-  // Auto-detect if user put the specific milk tank generated image in public/images
+  const [dragOverTank, setDragOverTank] = useState(false);
+  const [dragOverVillage, setDragOverVillage] = useState(false);
+  const [toastMessage, setToastMessage] = useState<string | null>(null);
+
+  const tankFileInputRef = useRef<HTMLInputElement>(null);
+  const villageFileInputRef = useRef<HTMLInputElement>(null);
+
+  // Auto-detect if user put the specific generated images in public/images
   useEffect(() => {
     if (!customTankImage) {
       const testImg = new Image();
@@ -29,7 +44,43 @@ export const AboutSection: React.FC = () => {
         setCustomTankImage('/images/Gemini_Generated_Image_ln24chln24chln24.jfif');
       };
     }
-  }, [customTankImage]);
+    if (!customVillageImage) {
+      const testVillageImg = new Image();
+      testVillageImg.src = '/images/23911dbc-b407-46d5-95fb-656107f0c494.jfif';
+      testVillageImg.onload = () => {
+        setCustomVillageImage('/images/23911dbc-b407-46d5-95fb-656107f0c494.jfif');
+      };
+    }
+  }, [customTankImage, customVillageImage]);
+
+  const handleApplyVillageImage = (file: File) => {
+    if (!file.type.startsWith('image/') && !file.name.endsWith('.jfif')) return;
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const result = e.target?.result as string;
+      if (result) {
+        setCustomVillageImage(result);
+        try {
+          localStorage.setItem('adaciftligi_village_image', result);
+        } catch (err) {
+          console.warn('LocalStorage error', err);
+        }
+        setToastMessage('Adasarhanlı Köyü / Meriç fotoğrafı güncellendi!');
+        setTimeout(() => setToastMessage(null), 4000);
+      }
+    };
+    reader.readAsDataURL(file);
+  };
+
+  const handleResetVillageImage = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setCustomVillageImage(null);
+    try {
+      localStorage.removeItem('adaciftligi_village_image');
+    } catch (err) {
+      console.warn('LocalStorage error', err);
+    }
+  };
 
   const handleApplyTankImage = (file: File) => {
     if (!file.type.startsWith('image/') && !file.name.endsWith('.jfif')) return;
@@ -43,6 +94,8 @@ export const AboutSection: React.FC = () => {
         } catch (err) {
           console.warn('LocalStorage error', err);
         }
+        setToastMessage('+4°C Süt Tankı fotoğrafı güncellendi!');
+        setTimeout(() => setToastMessage(null), 4000);
       }
     };
     reader.readAsDataURL(file);
@@ -88,7 +141,15 @@ export const AboutSection: React.FC = () => {
   ];
 
   return (
-    <section id="ciftlik-hakkinda" className="py-20 sm:py-28 bg-white overflow-hidden">
+    <section id="ciftlik-hakkinda" className="py-20 sm:py-28 bg-white overflow-hidden relative">
+      {/* Floating Toast Notification */}
+      {toastMessage && (
+        <div className="fixed bottom-6 right-6 z-50 bg-[#123c28] text-white px-5 py-3 rounded-2xl shadow-2xl border border-emerald-500/30 flex items-center gap-2.5 text-sm font-medium animate-fade-in">
+          <Check className="w-5 h-5 text-emerald-400 shrink-0" />
+          <span>{toastMessage}</span>
+        </div>
+      )}
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Intro Tag & Title */}
         <div className="max-w-3xl mb-16">
@@ -110,24 +171,90 @@ export const AboutSection: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center mb-16">
           {/* Photos Showcase */}
           <div className="lg:col-span-6 space-y-4">
-            <div className="relative rounded-3xl overflow-hidden shadow-lg border border-stone-200/80 aspect-[16/10]">
+            {/* Hidden Village File Input */}
+            <input
+              type="file"
+              ref={villageFileInputRef}
+              accept="image/*,.jfif"
+              className="hidden"
+              onChange={(e) => {
+                if (e.target.files && e.target.files[0]) {
+                  handleApplyVillageImage(e.target.files[0]);
+                }
+              }}
+            />
+
+            {/* Main Adasarhanlı Köyü / Meriç / Edirne Landscape Showcase Card */}
+            <div
+              onDragOver={(e) => {
+                e.preventDefault();
+                setDragOverVillage(true);
+              }}
+              onDragLeave={(e) => {
+                e.preventDefault();
+                setDragOverVillage(false);
+              }}
+              onDrop={(e) => {
+                e.preventDefault();
+                setDragOverVillage(false);
+                if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+                  handleApplyVillageImage(e.dataTransfer.files[0]);
+                }
+              }}
+              className={`group relative rounded-3xl overflow-hidden shadow-lg border border-stone-200/80 aspect-[16/10] bg-stone-100 transition-all duration-300 ${
+                dragOverVillage ? 'ring-4 ring-emerald-500 ring-inset' : ''
+              }`}
+            >
               <img
-                src="/images/hero_barn.jpg"
+                src={customVillageImage || '/images/hero_barn.jpg'}
                 alt="Meriç Edirne Adasarhanlı Çiftlik Manzarası"
-                className="w-full h-full object-cover hover:scale-103 transition-transform duration-700"
+                className="w-full h-full object-cover group-hover:scale-103 transition-transform duration-700"
                 referrerPolicy="no-referrer"
                 loading="lazy"
                 onError={(e) => {
                   (e.target as HTMLImageElement).src = '/images/farm_landscape.jpg';
                 }}
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-stone-950/60 via-transparent to-transparent" />
-              <div className="absolute bottom-4 left-4 right-4 text-white">
-                <div className="flex items-center gap-1.5 text-xs font-semibold text-emerald-300">
+              <div className="absolute inset-0 bg-gradient-to-t from-stone-950/70 via-transparent to-transparent pointer-events-none" />
+
+              {/* Drag drop overlay */}
+              {dragOverVillage && (
+                <div className="absolute inset-0 bg-emerald-950/85 flex flex-col items-center justify-center text-white z-20 p-4 text-center">
+                  <Upload className="w-8 h-8 text-emerald-300 mb-1 animate-bounce" />
+                  <p className="font-bold text-sm">Adasarhanlı Köyü Fotoğrafını Buraya Bırakın</p>
+                </div>
+              )}
+
+              {/* Upload / Reset Controls Top Right */}
+              <div className="absolute top-3.5 right-3.5 flex items-center gap-1.5 z-10 opacity-90 group-hover:opacity-100 transition-opacity">
+                <button
+                  type="button"
+                  onClick={() => villageFileInputRef.current?.click()}
+                  title="Adasarhanlı Köyü fotoğrafını değiştir (veya resmi buraya sürükleyin)"
+                  className="p-2 rounded-full bg-stone-900/80 hover:bg-stone-900 text-white text-xs backdrop-blur-md border border-white/20 shadow-md transition-all active:scale-95 cursor-pointer flex items-center gap-1"
+                >
+                  <Camera className="w-3.5 h-3.5 text-emerald-300" />
+                  <span className="hidden sm:inline text-[11px] font-medium pr-1">Fotoğraf Değiştir</span>
+                </button>
+
+                {customVillageImage && (
+                  <button
+                    type="button"
+                    onClick={handleResetVillageImage}
+                    title="Varsayılan fotoğrafa dön"
+                    className="p-2 rounded-full bg-stone-900/80 hover:bg-stone-900 text-stone-300 text-xs backdrop-blur-md border border-white/20 shadow-md transition-all active:scale-95 cursor-pointer"
+                  >
+                    <RotateCcw className="w-3.5 h-3.5 text-stone-300" />
+                  </button>
+                )}
+              </div>
+
+              <div className="absolute bottom-4 left-4 right-4 text-white pointer-events-none">
+                <div className="flex items-center gap-1.5 text-xs font-semibold text-emerald-300 mb-0.5">
                   <MapPin className="w-3.5 h-3.5" />
                   <span>Adasarhanlı Köyü / Meriç / Edirne</span>
                 </div>
-                <div className="text-sm font-medium text-stone-100">
+                <div className="text-sm sm:text-base font-medium text-stone-100">
                   Meriç nehri sulama kanallarıyla çevrili 140+ dönüm organik otlak
                 </div>
               </div>
@@ -320,42 +447,51 @@ export const AboutSection: React.FC = () => {
 
           {/* Gallery 6-Grid with Topic Images */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredGallery.map((item) => (
-              <div
-                key={item.id}
-                onClick={() => setSelectedGalleryItem(item)}
-                className="group relative rounded-2xl overflow-hidden border border-stone-200 bg-stone-100 aspect-[16/11] cursor-pointer shadow-xs card-hover-lift"
-              >
-                <img
-                  src={item.image}
-                  alt={`${item.title} - Ada Çiftliği`}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  referrerPolicy="no-referrer"
-                  loading="lazy"
-                  onError={(e) => {
-                    (e.target as HTMLImageElement).src = '/images/hero_cows.jpg';
-                  }}
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-stone-950/80 via-stone-950/25 to-transparent opacity-80 group-hover:opacity-90 transition-opacity" />
+            {filteredGallery.map((item) => {
+              const displayImage =
+                (item.id === 'g1' && customVillageImage)
+                  ? customVillageImage
+                  : (item.id === 'g5' && customTankImage)
+                  ? customTankImage
+                  : item.image;
 
-                <div className="absolute top-3 left-3 bg-white/95 backdrop-blur-xs px-2.5 py-1 rounded-full text-[11px] font-bold text-stone-900 border border-stone-200/80 shadow-xs">
-                  {item.category}
-                </div>
+              return (
+                <div
+                  key={item.id}
+                  onClick={() => setSelectedGalleryItem({ ...item, image: displayImage })}
+                  className="group relative rounded-2xl overflow-hidden border border-stone-200 bg-stone-100 aspect-[16/11] cursor-pointer shadow-xs card-hover-lift"
+                >
+                  <img
+                    src={displayImage}
+                    alt={`${item.title} - Ada Çiftliği`}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    referrerPolicy="no-referrer"
+                    loading="lazy"
+                    onError={(e) => {
+                      (e.target as HTMLImageElement).src = '/images/hero_cows.jpg';
+                    }}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-stone-950/80 via-stone-950/25 to-transparent opacity-80 group-hover:opacity-90 transition-opacity" />
 
-                <div className="absolute top-3 right-3 w-8 h-8 rounded-full bg-stone-900/60 backdrop-blur-xs text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                  <ZoomIn className="w-4 h-4" />
-                </div>
+                  <div className="absolute top-3 left-3 bg-white/95 backdrop-blur-xs px-2.5 py-1 rounded-full text-[11px] font-bold text-stone-900 border border-stone-200/80 shadow-xs">
+                    {item.category}
+                  </div>
 
-                <div className="absolute bottom-3 left-3 right-3 text-white">
-                  <h4 className="font-bold text-sm leading-tight text-white mb-1 drop-shadow-xs">
-                    {item.title}
-                  </h4>
-                  <p className="text-[11px] text-stone-200 line-clamp-2 leading-relaxed opacity-90">
-                    {item.description}
-                  </p>
+                  <div className="absolute top-3 right-3 w-8 h-8 rounded-full bg-stone-900/60 backdrop-blur-xs text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                    <ZoomIn className="w-4 h-4" />
+                  </div>
+
+                  <div className="absolute bottom-3 left-3 right-3 text-white">
+                    <h4 className="font-bold text-sm leading-tight text-white mb-1 drop-shadow-xs">
+                      {item.title}
+                    </h4>
+                    <p className="text-[11px] text-stone-200 line-clamp-2 leading-relaxed opacity-90">
+                      {item.description}
+                    </p>
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
 
