@@ -1,0 +1,6 @@
+{
+  "name": "Ada Çiftliği",
+  "description": "Edirne Meriç Adasarhanlı Köyü'nde doğal koyun, kuzu, inek, dana yetiştiriciliği ve günlük taze süt üretimi.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
