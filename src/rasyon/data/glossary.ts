@@ -456,6 +456,138 @@ export const GLOSSARY_TERMS: GlossaryTerm[] = [
     practicalTip:
       'Rasyonda Kalsiyum : Fosfor (Ca:P) dengesi mutlaka 1,6:1 ile 2:1 arasında tutulmalıdır. Kepek ve tahıllar fosforca zengin, kalsiyumca zayıftır.',
   },
+  {
+    id: 'km',
+    matchTerms: ['Kuru Madde', 'KM', 'KM %', 'KM Maliyeti', 'Kuru maddesi', '1 kg KM maliyeti', 'KM payı'],
+    title: 'Kuru Madde (KM)',
+    category: 'Rasyon & Besleme',
+    badge: 'Gerçek Yem',
+    shortMeaning: 'Yemin içindeki su tamamen uçurulduktan sonra geriye kalan, asıl besinleri barındıran katı kısmıdır.',
+    farmerExplanation:
+      'İnekler veya koyunlar suyla değil, yemin içindeki kuru kısımla doyar ve beslenirler. Örneğin 100 kilo yonca otunun 12 kilosu sudur, 88 kilosu kuru maddedir. Hayvanın midesi doluluğu hissettiğinde yemeyi bırakır, bu yüzden rasyon hesabı her zaman içindeki su çıkarılarak "Kuru Madde" üzerinden yapılır.',
+    practicalTip:
+      'Özellikle mısır sılajı gibi çok sulu (örneğin %70 su) yemlerde fiyata aldanmayın. Siz aslında su satın alıyor olabilirsiniz. Önemli olan 1 kg kuru maddenin maliyetidir.',
+  },
+  {
+    id: 'hp',
+    matchTerms: ['Ham Protein', 'HP', 'HP %', 'Protein'],
+    title: 'Ham Protein (HP)',
+    category: 'Rasyon & Besleme',
+    badge: 'Büyüme & Süt Taşı',
+    shortMeaning: 'Yemin içinde bulunan ve et ile süt üretiminin temel yapı taşı olan azotlu bileşiklerdir.',
+    farmerExplanation:
+      'Protein, hayvanın kas yapması (et bağlaması) ve süt üretmesi için gereken tuğladır. Eğer rasyonda protein eksikse inek sütü kısar, besi hayvanı ise kas yerine sadece yağ yapar. Ancak ihtiyaçtan fazla protein vermek de hem pahalıdır hem de hayvanın böbreklerini ve karaciğerini yorarak döl tutma sorunlarına (üre yüksekliği) yol açar.',
+    practicalTip:
+      'Süt ineklerinde rasyondaki protein genelde %15-%17 civarında tutulurken, besi son döneminde bu ihtiyaç %12\'lere kadar düşer. Pahalı olan proteini gereksiz yere fazla yedirmeyin.',
+  },
+  {
+    id: 'nem',
+    matchTerms: ['NEm', 'Net Enerji Yaşama', 'Yaşama Enerjisi'],
+    title: 'Net Enerji Yaşama (NEm)',
+    category: 'Rasyon & Besleme',
+    badge: 'Hayatta Kalma Yakıtı',
+    shortMeaning: 'Hayvanın hiç et veya süt üretmese bile, sadece nefes alıp hayatta kalabilmesi için harcadığı enerjidir.',
+    farmerExplanation:
+      'Bir arabayı rölantide çalıştırdığınızda bile mazot yakar. Hayvanın da kalbinin atması, yürümesi ve vücut ısısını koruması için enerjiye ihtiyacı vardır. Yediği yemin enerjisi önce bu "yaşama payı"na (NEm) gider, artan kısım et veya süte dönüşür.',
+    practicalTip:
+      'Soğuk kış aylarında veya hayvanları çok uzak meralarda yürüttüğünüzde hayvanın "yaşama enerjisi" ihtiyacı artar; bu yüzden yemin daha büyük bir kısmı boşa gider, verim düşer.',
+  },
+  {
+    id: 'neg',
+    matchTerms: ['NEg', 'Net Enerji Büyüme', 'Büyüme Enerjisi'],
+    title: 'Net Enerji Büyüme (NEg)',
+    category: 'Rasyon & Besleme',
+    badge: 'Et ve Kilo Yakıtı',
+    shortMeaning: 'Hayvanın yaşama payından artıp doğrudan et yapmaya ve kilo almaya harcadığı enerjidir.',
+    farmerExplanation:
+      'Özellikle besi danaları ve kuzularda en önemli değerdir. Hayvan günlük yaşama enerjisini (NEm) karşıladıktan sonra midesinde kalan fazlalık enerjiyi et ve yağa çevirir. Yemdeki NEg değeri ne kadar yüksekse, hayvan o kadar hızlı kilo alır.',
+    practicalTip:
+      'Besi hayvanlarına yedirdiğiniz rasyondaki enerji (NEg) çok düşükse, hayvan sadece doyar ama tartıya çıktığında gram almamış olur. Arpa ve mısır gibi tahıllar NEg açısından zengindir.',
+  },
+  {
+    id: 'nel',
+    matchTerms: ['NEL', 'Net Enerji Laktasyon', 'Süt Enerjisi'],
+    title: 'Net Enerji Laktasyon (NEL)',
+    category: 'Rasyon & Besleme',
+    badge: 'Süt Üretim Yakıtı',
+    shortMeaning: 'Sağmal hayvanın doğrudan süt üretimi için kullanabildiği net enerjidir.',
+    farmerExplanation:
+      'İneğin süt yapabilmesi için proteine olduğu kadar güçlü bir enerjiye de ihtiyacı vardır. Eğer yemin NEL (Laktasyon enerjisi) değeri düşükse inek kendi sırtından, etinden eritmeye başlar ve zayıflar (ketozis). Süt sığırcılığında en çok bakılan enerji türüdür.',
+    practicalTip:
+      'Taze sağılan ve yüksek süt veren ineklerde yem tüketimi kısıtlıdır. Bu yüzden az miktar yemde çok enerji (yüksek NEL) içeren yonca, mısır sılajı ve ezme tahıllar vermek zorundasınız.',
+  },
+  {
+    id: 'ndf',
+    matchTerms: ['NDF', 'NDF %', 'Nötral Deterjan Lif', 'Lif', 'NDF alt sınırı'],
+    title: 'Nötral Deterjan Lif (NDF)',
+    category: 'Rasyon & Besleme',
+    badge: 'Doygunluk & Geviş',
+    shortMeaning: 'Yemin hayvanın işkembesinde yer kaplayan ve onu doyuran lif (posa) kısmıdır.',
+    farmerExplanation:
+      'Hayvanın midesi bir depo gibidir. Eğer yem çok lifliyse (NDF yüksekse, örneğin saman) depo çabuk şişer, hayvan hemen doydum sanıp yemeyi bırakır ama aslında gerekli besini alamamıştır. Aynı zamanda NDF geviş getirmeyi sağlar, işkembeyi çalıştırır.',
+    practicalTip:
+      'Samanın NDF\'si çok yüksektir, bu yüzden hayvanı tıka basa doldurur ama süt vermez. İdeal bir süt rasyonunda hayvanı hem geviş getirtecek hem de tıkayıp iştahını kesmeyecek bir NDF dengesi (%28-33 arası) olmalıdır.',
+  },
+  {
+    id: 'kaba_yem',
+    matchTerms: ['Kaba yem', 'kaba_yem', 'Kaba Yem Oranı', 'Kaba yem alt sınırı', 'Rasyonda kaba yem alt sınırı'],
+    title: 'Kaba Yem',
+    category: 'Rasyon & Besleme',
+    badge: 'İşkembe Dostu',
+    shortMeaning: 'Lif (selüloz) oranı yüksek, hacimli ve geviş getirmeyi uyaran yemlerdir (Ot, saman, silaj).',
+    farmerExplanation:
+      'İnek ve koyunların sağlıklı kalabilmesi için midelerinin (işkembe) bir mikser gibi sürekli çalışması ve hayvanın bol bol geviş getirmesi gerekir. Kaba yemler bu mikseri çalıştıran süpürge gibidir. Kaba yem olmadan sadece arpa buğday verirseniz işkembe asitlenir, hayvan zehirlenir.',
+    practicalTip:
+      'Rasyonun Kuru Maddesinin (KM) en az %40-45\'i kaliteli kaba yemlerden gelmelidir. En kaliteli kaba yem zamanında biçilmiş yonca ve iyi fermente olmuş mısır sılajıdır.',
+  },
+  {
+    id: 'kesif_yem',
+    matchTerms: ['Kesif yem', 'Fabrika Yemi', 'Konsantre Yem', 'kesif_yem'],
+    title: 'Kesif (Konsantre) Yem',
+    category: 'Rasyon & Besleme',
+    badge: 'Enerji & Protein Bombası',
+    shortMeaning: 'Lif oranı düşük, hacimce küçük ama enerji ve protein açısından çok yoğun yemlerdir (Tahıllar, küspeler, fabrika yemleri).',
+    farmerExplanation:
+      'Hayvanın et ve süt üretimini şaha kaldıran yakıttır. Midede az yer kaplar ama çok fazla besin içerir. Ancak tıpkı insanın sürekli tatlı ve çikolata yemesi gibi, kaba yem (salata/sebze) olmadan sürekli kesif yem verilirse hayvanın midesi bozulur, ayaklarında tırnak hastalıkları (laminitis) başlar.',
+    practicalTip:
+      'Verim ne kadar artarsa kesif yem miktarı da o kadar artar. Ancak hayvanları yavaş yavaş, haftalara bölerek alıştırmazsanız işkembeyi bozup ishale ve ayak iltihabına sebep olursunuz.',
+  },
+  {
+    id: 'acab',
+    matchTerms: ['ACAB', 'Günlük Canlı Ağırlık Artışı', 'ADG', 'Canlı Ağırlık Artışı', 'Hedef günlük canlı ağırlık artışı (ACAB)'],
+    title: 'Günlük Canlı Ağırlık Artışı (ACAB)',
+    category: 'Performans & Verim',
+    badge: 'Büyüme Hızı',
+    shortMeaning: 'Bir besi hayvanının 24 saat içinde net olarak aldığı kilo miktarıdır.',
+    farmerExplanation:
+      'Besi çiftliklerinin karnesidir. Dananın her gün tartıya ne kadar ağırlık koyduğunu gösterir. Ortalama bir besi danası günde 1.2 kg ile 1.6 kg arası canlı ağırlık kazanmalıdır. Eğer 1 kg\'ın altındaysa besleme maliyetiniz boşa gidiyor demektir.',
+    practicalTip:
+      'Canlı ağırlık artışını düzenli takip etmek için çiftliğinizde mutlaka bir kantar bulundurun veya mezurayla göğüs çevresi ölçümü yaparak aylık gidişatı not alın.',
+  },
+  {
+    id: 'dmi',
+    matchTerms: ['Kuru Madde Tüketimi', 'DMI', 'Yem Tüketimi', 'KMT', 'Kuru madde (DMI)'],
+    title: 'Kuru Madde Tüketimi (DMI)',
+    category: 'Performans & Verim',
+    badge: 'Yeme Kapasitesi',
+    shortMeaning: 'Hayvanın 24 saatte önündeki yemin içindeki suyu düştükten sonra yiyebildiği net katı yem (Kuru Madde) miktarıdır.',
+    farmerExplanation:
+      'İnekler mucizevi makinelerdir. Süt verdikçe daha çok yemek isterler. Ancak midelerinin bir doluluk sınırı vardır. Bir inek ortalama kendi canlı ağırlığının %3\'ü ile %4\'ü kadar kuru madde yiyebilir. Bizim görevimiz o kısıtlı midenin içine girecek yemi en yüksek enerji ve proteinle doldurmaktır.',
+    practicalTip:
+      'Hayvanların önündeki yemliği asla tamamen boş bırakmayın. Eğer yemlik pırıl pırıl sıyrılmışsa, hayvan aç kalmış demektir; bir sonraki öğünde yem miktarını (DMI) artırmanız gerekir.',
+  },
+  {
+    id: 'iofc',
+    matchTerms: ['IOFC', 'Yem Maliyeti Düşülmüş Gelir', 'Gelir Eksi Yem Maliyeti'],
+    title: 'Yem Maliyeti Düşülmüş Gelir (IOFC)',
+    category: 'Ekonomi',
+    badge: 'Cepte Kalan Para',
+    shortMeaning: 'Süt veya et satışından kazandığınız toplam paradan, hayvanın yediği rasyonun maliyetini çıkardığınızda cebinizde kalan net rakamdır.',
+    farmerExplanation:
+      'Çiftçinin en çok bakması gereken yerdir. Bir inek günde 40 litre süt verip dünyaları yiyorsa, size 25 litre süt verip az yiyen inekten daha az para kazandırıyor olabilir. Bizim programımız sadece süt artışına değil, "cebinize kalan en yüksek paraya" (IOFC) göre hesap yapar.',
+    practicalTip:
+      'En ucuz rasyon her zaman en kârlı rasyon değildir. Önemli olan o ucuz yemin size kaç litre süt olarak döneceğidir. Hesabınızı her zaman IOFC yani cebinizde kalan günlük net kâra göre yapın.',
+  }
 ];
 
 /**

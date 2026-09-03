@@ -1,3 +1,4 @@
+import { FarmerTerm } from './GlossaryText';
 import React from 'react';
 import { Download, Printer, Trash2 } from 'lucide-react';
 import { IofcInputs, IofcRecord } from '../types';
@@ -46,7 +47,7 @@ export const IofcResultView: React.FC<IofcResultViewProps> = ({
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         <div className="bg-[#FCFBF6] border border-[#DCD7C4] rounded-xl p-4.5 shadow-2xs">
           <span className="block font-mono-code text-[10.5px] uppercase tracking-wider text-[#6B7160] mb-1">
-            IOFC (inek / gün)
+            <FarmerTerm termId="iofc">IOFC</FarmerTerm> (inek / gün)
           </span>
           <div
             className={`font-mono-code text-2xl font-bold ${
@@ -61,7 +62,7 @@ export const IofcResultView: React.FC<IofcResultViewProps> = ({
 
         <div className="bg-[#FCFBF6] border border-[#DCD7C4] rounded-xl p-4.5 shadow-2xs">
           <span className="block font-mono-code text-[10.5px] uppercase tracking-wider text-[#6B7160] mb-1">
-            IOFC / kg süt
+            <FarmerTerm termId="iofc">IOFC</FarmerTerm> / kg süt
           </span>
           <div className="font-mono-code text-2xl font-bold text-[#20261A]">
             {fmt(d.iofcKg, 2)}{' '}
@@ -82,7 +83,7 @@ export const IofcResultView: React.FC<IofcResultViewProps> = ({
 
         <div className="bg-[#FCFBF6] border border-[#DCD7C4] rounded-xl p-4.5 shadow-2xs">
           <span className="block font-mono-code text-[10.5px] uppercase tracking-wider text-[#6B7160] mb-1">
-            Sürü IOFC (aylık)
+            Sürü <FarmerTerm termId="iofc">IOFC</FarmerTerm> (aylık)
           </span>
           <div className="font-mono-code text-2xl font-bold text-[#2E5B39]">
             {fmt(d.suruGun * 30, 0)}{' '}
