@@ -169,6 +169,10 @@ export const Hero: React.FC<HeroProps> = ({ onOpenInquiry }) => {
                   className="w-full h-full object-cover group-hover:scale-103 transition-transform duration-700"
                   referrerPolicy="no-referrer"
                   loading="eager"
+                  onError={(e) => {
+                    (e.target as HTMLImageElement).src =
+                      'https://images.unsplash.com/photo-1516253593875-bd7ba052fbc5?q=80&w=1200&auto=format&fit=crop';
+                  }}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-stone-950/70 via-stone-950/15 to-transparent" />
 

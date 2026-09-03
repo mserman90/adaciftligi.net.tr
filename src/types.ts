@@ -29,6 +29,8 @@ export interface ProductionStep {
   description: string;
   iconName: string;
   details: string[];
+  image?: string;
+  imageAlt?: string;
 }
 
 export interface Testimonial {

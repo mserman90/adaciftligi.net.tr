@@ -53,6 +53,10 @@ export const Testimonials: React.FC = () => {
                   className="w-12 h-12 rounded-full object-cover border-2 border-stone-100 shrink-0"
                   referrerPolicy="no-referrer"
                   loading="lazy"
+                  onError={(e) => {
+                    (e.target as HTMLImageElement).src =
+                      'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=200&auto=format&fit=crop';
+                  }}
                 />
                 <div className="min-w-0">
                   <div className="text-sm font-bold text-stone-900 truncate">

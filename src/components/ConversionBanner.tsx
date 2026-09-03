@@ -14,8 +14,18 @@ export const ConversionBanner: React.FC<ConversionBannerProps> = ({ onOpenInquir
       <div className="absolute bottom-0 left-0 w-80 h-80 bg-emerald-400/10 rounded-full blur-2xl pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="bg-[#174730] border border-emerald-700/50 rounded-3xl p-8 sm:p-12 lg:p-14 shadow-2xl">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+        <div className="relative bg-[#174730] border border-emerald-700/50 rounded-3xl p-8 sm:p-12 lg:p-14 shadow-2xl overflow-hidden">
+          {/* Subtle farm landscape background overlay */}
+          <img
+            src="https://images.unsplash.com/photo-1500076656116-558758c991c1?q=80&w=1200&auto=format&fit=crop"
+            alt="Ada Çiftliği mera manzarası"
+            className="absolute inset-0 w-full h-full object-cover opacity-15 mix-blend-luminosity pointer-events-none"
+            referrerPolicy="no-referrer"
+            loading="lazy"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#174730] via-[#174730]/90 to-[#123c28]/95 pointer-events-none" />
+
+          <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
             {/* Main Message */}
             <div className="lg:col-span-8 space-y-4">
               <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-emerald-900/60 border border-emerald-600/40 text-emerald-300 text-xs font-semibold tracking-wide uppercase">

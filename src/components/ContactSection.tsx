@@ -143,6 +143,27 @@ export const ContactSection: React.FC = () => {
                   referrerPolicy="no-referrer-when-downgrade"
                 />
               </div>
+
+              {/* Farm Facility Thumbnail & Directions Note */}
+              <div className="mt-4 pt-4 border-t border-stone-100 flex items-center gap-3">
+                <div className="w-16 h-12 rounded-xl overflow-hidden bg-stone-100 border border-stone-200 shrink-0">
+                  <img
+                    src="https://images.unsplash.com/photo-1516253593875-bd7ba052fbc5?q=80&w=300&auto=format&fit=crop"
+                    alt="Ada Çiftliği Adasarhanlı Köyü Tesisleri"
+                    className="w-full h-full object-cover"
+                    referrerPolicy="no-referrer"
+                    loading="lazy"
+                    onError={(e) => {
+                      (e.target as HTMLImageElement).src =
+                        'https://images.unsplash.com/photo-1500595046743-cd271d694d30?q=80&w=300&auto=format&fit=crop';
+                    }}
+                  />
+                </div>
+                <div className="text-xs">
+                  <span className="font-semibold text-stone-900 block">Kolay Ulaşım Güzergahı:</span>
+                  <span className="text-stone-500">Meriç ilçe merkezine 12 km mesafede, Adasarhanlı Köyü asfalt yolu üzerinde.</span>
+                </div>
+              </div>
             </div>
           </div>
 

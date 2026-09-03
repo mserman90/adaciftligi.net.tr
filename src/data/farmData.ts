@@ -116,7 +116,7 @@ export const FARM_PRODUCTS: FarmProduct[] = [
     title: 'Besi Danası & Canlı Kurbanlık',
     category: 'buyukbas',
     categoryLabel: 'Büyükbaş',
-    image: 'https://images.unsplash.com/photo-1527153857715-3908f2ae5e81?q=80&w=1000&auto=format&fit=crop',
+    image: 'https://images.unsplash.com/photo-1546445317-29f4545e9d53?q=80&w=1000&auto=format&fit=crop',
     tag: 'Etçi Irklar (Şarole / Angus / Simental)',
     breed: 'Simental & Şarole Melezi Erkek Besi Danaları',
     feeding: 'Çiftlik harmanlaması arpa kırması, kepek & kaba ot',
@@ -158,6 +158,8 @@ export const PRODUCTION_STEPS: ProductionStep[] = [
     subtitle: 'Doğal Habitat & Hayvan Refahı',
     description: 'Hayvanlarımız gün ışığında, Meriç nehrinin alüvyon zengin topraklarında yetişen kekik, yonca ve yabani meralarda serbestçe gezinir. Fabrika artıklarından uzak, kendi arazilerimizde ürettiğimiz kaba yemle beslenir.',
     iconName: 'Sprout',
+    image: 'https://images.unsplash.com/photo-1500595046743-cd271d694d30?q=80&w=800&auto=format&fit=crop',
+    imageAlt: 'Meriç Nehri havzasında serbest otlayan sürüler ve doğal meralar',
     details: [
       '140 dönüm doğal mera ve gölgelikli gezinme alanları',
       'GDO ve kimyasal büyüme hormonu kesinlikle kullanılmaz',
@@ -170,6 +172,8 @@ export const PRODUCTION_STEPS: ProductionStep[] = [
     subtitle: 'Kusursuz Hijyen & Biyogüvenlik',
     description: 'Süt sağımı el değmeden paslanmaz çelik hatlarla gerçekleştirilir. Sürümüz anlaşmalı veteriner hekimimiz tarafından haftalık aşı, kan analizi ve genel sağlık taramasından geçirilir.',
     iconName: 'ShieldCheck',
+    image: 'https://images.unsplash.com/photo-1596733430284-f7437764b1a9?q=80&w=800&auto=format&fit=crop',
+    imageAlt: 'Veteriner sağlık kontrolü, küpeleme ve modern padok bakımı',
     details: [
       'Hassas meme temizliği ve daldırma dezenfeksiyonu',
       'Paslanmaz gıda sınıfı AISI 304 krom boru hatları',
@@ -182,11 +186,66 @@ export const PRODUCTION_STEPS: ProductionStep[] = [
     subtitle: 'Hızlı Soğuk Zincir & Şeffaf Tartım',
     description: 'Sağılan süt 7 dakika içinde +3.8°C sıcaklığa düşürülerek bakteri üremesi engellenir. Canlı hayvan sevkiyatlarında dijital kalibreli kantar ve resmi ilçe tarım sevk raporları ile teslim yapılır.',
     iconName: 'Truck',
+    image: 'https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?q=80&w=800&auto=format&fit=crop',
+    imageAlt: 'Soğutmalı tanker ve canlı hayvan nakliyat aracı',
     details: [
       'Termoking soğutuculu paslanmaz çelik taşıma tankeri',
       'Yerinde canlı ağırlık tartımı ve şeffaf faturalandırma',
       'Edirne, Trakya ilçeleri ve çevre illere hızlı lojistik'
     ]
+  }
+];
+
+export interface FarmGalleryItem {
+  id: string;
+  title: string;
+  category: string;
+  image: string;
+  description: string;
+}
+
+export const FARM_GALLERY: FarmGalleryItem[] = [
+  {
+    id: 'g1',
+    title: 'Meriç Deltası Doğal Mera Yayılımı',
+    category: 'Mera & Otlak',
+    image: 'https://images.unsplash.com/photo-1500595046743-cd271d694d30?q=80&w=1000&auto=format&fit=crop',
+    description: 'Adasarhanlı Köyü Meriç Nehri havzasında taze kekik ve kır otları ile serbest beslenme.'
+  },
+  {
+    id: 'g2',
+    title: 'Kıvırcık Koyun ve Koç Damızlıkları',
+    category: 'Küçükbaş',
+    image: 'https://images.unsplash.com/photo-1484557052118-f32bd25b45b5?q=80&w=1000&auto=format&fit=crop',
+    description: 'Trakya iklimine adapte, hastalıklara dirençli ve yüksek et randımanlı damızlık sürüler.'
+  },
+  {
+    id: 'g3',
+    title: 'Bahar Dönemi Süt Kuzusu Padokları',
+    category: 'Kuzu',
+    image: 'https://images.unsplash.com/photo-1535083783855-76ae62b2914e?q=80&w=1000&auto=format&fit=crop',
+    description: 'Anne sütü ve taze yonca ile büyütülen yumuşak etli sağlıklı kuzularımız.'
+  },
+  {
+    id: 'g4',
+    title: 'Simental Süt İnekleri & Havadar Barınak',
+    category: 'Büyükbaş',
+    image: 'https://images.unsplash.com/photo-1570042225831-d98fa7577f1e?q=80&w=1000&auto=format&fit=crop',
+    description: 'Günde 28-36 litre süt verimine sahip, düzenli tırnak ve meme bakımı yapılan damızlıklar.'
+  },
+  {
+    id: 'g5',
+    title: 'AISI 304 Krom Süt Soğutma Tankı (+3.8°C)',
+    category: 'Süt & Hijyen',
+    image: 'https://images.unsplash.com/photo-1595273670150-bd0c3c392e46?q=80&w=1000&auto=format&fit=crop',
+    description: 'El değmeden vakumlu sağılan sütün anında soğutulduğu izole paslanmaz çelik depolama ünitesi.'
+  },
+  {
+    id: 'g6',
+    title: 'Besi Danaları & Açık Gezinti Padokları',
+    category: 'Besi & Kurbanlık',
+    image: 'https://images.unsplash.com/photo-1546445317-29f4545e9d53?q=80&w=1000&auto=format&fit=crop',
+    description: 'Kendi yetiştirdiğimiz arpa ve yulafla dengeli beslenen, yüksek karkas verimli erkek danalar.'
   }
 ];
 
