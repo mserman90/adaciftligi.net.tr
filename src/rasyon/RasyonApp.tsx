@@ -405,6 +405,7 @@ export const RasyonApp: React.FC<RasyonAppProps> = ({
         onBackToWebsite={onBackToWebsite}
         onLogout={onLogout}
         adminUsername={adminUsername}
+        lastSavedInfo={lastSavedInfo}
       />
 
       {/* Main Content */}

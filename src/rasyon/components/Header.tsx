@@ -22,6 +22,7 @@ interface HeaderProps {
   onBackToWebsite?: () => void;
   onLogout?: () => void;
   adminUsername?: string;
+  lastSavedInfo?: string | null;
 }
 
 export const Header: React.FC<HeaderProps> = ({
@@ -31,6 +32,7 @@ export const Header: React.FC<HeaderProps> = ({
   onBackToWebsite,
   onLogout,
   adminUsername = 'admin',
+  lastSavedInfo,
 }) => {
   return (
     <header className="bg-[#22452B] text-[#F3F1E4] sticky top-0 z-50 border-b-2 border-[#B98A2B] no-print shadow-sm">
@@ -177,6 +179,33 @@ export const Header: React.FC<HeaderProps> = ({
               <ClipboardCheck className="w-3 h-3" /> Damızlık
             </button>
           </div>
+
+          {/* Last Saved Badge */}
+          {lastSavedInfo && (
+            <div
+              className="hidden md:flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-[#E9D9A8]/10 border border-[#E9D9A8]/30 text-xs text-[#E9D9A8] transition-all tick-flash"
+              title="Son Rasyon Kaydı"
+            >
+              <div className="relative">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="w-3.5 h-3.5 text-emerald-300"
+                >
+                  <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z" />
+                  <polyline points="17 21 17 13 7 13 7 21" />
+                  <polyline points="7 3 7 8 15 8" />
+                </svg>
+                <span className="absolute -top-1 -right-1 w-1.5 h-1.5 bg-emerald-500 rounded-full animate-ping" />
+                <span className="absolute -top-1 -right-1 w-1.5 h-1.5 bg-emerald-500 rounded-full" />
+              </div>
+              <span className="font-mono-code font-medium opacity-90">{lastSavedInfo}</span>
+            </div>
+          )}
 
           {/* Admin badge */}
           <div className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-[#F3F1E4]/10 border border-[#F3F1E4]/20 text-xs text-[#E9D9A8]">

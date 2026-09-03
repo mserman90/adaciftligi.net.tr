@@ -201,21 +201,6 @@ export const Hero: React.FC<HeroProps> = ({ onOpenInquiry }) => {
                 </div>
               </div>
 
-              {/* Floating Certification Badge */}
-              <div className="absolute -bottom-5 -left-4 sm:-left-6 bg-white rounded-2xl p-3.5 sm:p-4 shadow-lg border border-stone-200/80 flex items-center gap-3.5 max-w-[240px] z-10">
-                <div className="w-11 h-11 rounded-xl bg-emerald-50 text-[#123c28] flex items-center justify-center shrink-0 border border-emerald-100">
-                  <Shield className="w-6 h-6" />
-                </div>
-                <div>
-                  <div className="text-xs font-bold text-stone-900 leading-tight">
-                    T.C. Tarım Bakanlığı
-                  </div>
-                  <div className="text-[11px] text-stone-500 leading-tight mt-0.5">
-                    Kayıtlı ve Düzenli Sağlık Takip Belgeli
-                  </div>
-                </div>
-              </div>
-
               {/* Floating Badge on top right */}
               <div className="absolute -top-4 -right-4 sm:-right-6 bg-white/95 backdrop-blur-md rounded-2xl py-2 px-3.5 shadow-md border border-stone-200/80 flex items-center gap-2 z-10">
                 <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-ping" />

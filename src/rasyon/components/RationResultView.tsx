@@ -1,8 +1,16 @@
 import React from 'react';
-import { Copy, Download, Printer, CheckCircle2, HardDrive, Trash2 } from 'lucide-react';
+import { Copy, Download, Printer, CheckCircle2, HardDrive, Trash2, FileText } from 'lucide-react';
 import { RationResult } from '../types';
 import { fmt } from '../utils/formatters';
 import { GlossaryText, FarmerTerm } from './GlossaryText';
+import { jsPDF } from 'jspdf';
+import 'jspdf-autotable';
+// Extend jsPDF interface to include autoTable
+declare module 'jspdf' {
+  interface jsPDF {
+    autoTable: (options: any) => jsPDF;
+  }
+}
 
 interface RationResultViewProps {
   result: RationResult;
@@ -53,6 +61,58 @@ export const RationResultView: React.FC<RationResultViewProps> = ({
     link.click();
     document.body.removeChild(link);
     onToast('CSV dosyası indirildi.');
+  };
+
+  const handleDownloadPdf = () => {
+    const doc = new jsPDF();
+    doc.setFontSize(16);
+    doc.text(`${moduleName} — Rasyon Özeti`, 14, 20);
+    
+    doc.setFontSize(10);
+    doc.text(`Günlük Maliyet: ${fmt(result.gunlukMaliyet, 2)} TL/baş/gün`, 14, 30);
+    doc.text(`1 kg KM Maliyeti: ${fmt(result.kmMaliyeti, 2)} TL/kg KM`, 14, 36);
+    doc.text(`Toplam Yas Yem: ${fmt(result.toplamYasYem, 2)} kg/gün`, 14, 42);
+    doc.text(`Kuru Madde (DMI): ${fmt(result.toplamDmi, 2)} kg/gün`, 14, 48);
+
+    const rasyonData = result.kalemler.map(k => [
+      k.ad,
+      fmt(k.yasKg, 2),
+      `%${fmt(k.pay, 1)}`,
+      `${fmt(k.maliyet, 2)} TL`
+    ]);
+    
+    rasyonData.push([
+      'TOPLAM', 
+      `${fmt(result.toplamYasYem, 2)} kg`,
+      '%100.0',
+      `${fmt(result.gunlukMaliyet, 2)} TL`
+    ]);
+
+    doc.autoTable({
+      startY: 55,
+      head: [['Hammadde', 'Yas Yem (kg)', 'KM Payi', 'Maliyet']],
+      body: rasyonData,
+      theme: 'grid',
+      headStyles: { fillColor: [46, 91, 57] },
+    });
+
+    const besinData = result.besinler.map(b => [
+      b.ad,
+      `${fmt(b.ihtiyac, 1)} ${b.birim}`,
+      `${fmt(b.saglanan, 1)} ${b.birim}`,
+      `%${fmt(b.oran, 1)}`
+    ]);
+
+    doc.autoTable({
+      startY: (doc as any).lastAutoTable.finalY + 10,
+      head: [['Besin Maddesi', 'Ihtiyac', 'Saglanan', 'Karsilama Orani']],
+      body: besinData,
+      theme: 'grid',
+      headStyles: { fillColor: [46, 91, 57] },
+    });
+
+    doc.save(`adaciftligi_rasyon_${Date.now()}.pdf`);
+    onToast('PDF dosyası indirildi.');
   };
 
   const handlePrint = () => {
@@ -282,6 +342,13 @@ export const RationResultView: React.FC<RationResultViewProps> = ({
           className="inline-flex items-center gap-1.5 px-4 py-2 border border-[#DCD7C4] bg-white hover:bg-[#F2EFE2] rounded-lg text-xs font-semibold text-[#20261A] transition-colors cursor-pointer"
         >
           <Download className="w-3.5 h-3.5" /> CSV İndir
+        </button>
+        <button
+          type="button"
+          onClick={handleDownloadPdf}
+          className="inline-flex items-center gap-1.5 px-4 py-2 border border-[#DCD7C4] bg-white hover:bg-[#F2EFE2] rounded-lg text-xs font-semibold text-[#20261A] transition-colors cursor-pointer"
+        >
+          <FileText className="w-3.5 h-3.5" /> PDF İndir
         </button>
         <button
           type="button"
