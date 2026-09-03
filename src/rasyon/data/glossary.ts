@@ -577,18 +577,6 @@ export const GLOSSARY_TERMS: GlossaryTerm[] = [
       'Hayvanların önündeki yemliği asla tamamen boş bırakmayın. Eğer yemlik pırıl pırıl sıyrılmışsa, hayvan aç kalmış demektir; bir sonraki öğünde yem miktarını (DMI) artırmanız gerekir.',
   },
   {
-    id: 'iofc',
-    matchTerms: ['IOFC', 'Yem Maliyeti Düşülmüş Gelir', 'Gelir Eksi Yem Maliyeti'],
-    title: 'Yem Maliyeti Düşülmüş Gelir (IOFC)',
-    category: 'Ekonomi',
-    badge: 'Cepte Kalan Para',
-    shortMeaning: 'Süt veya et satışından kazandığınız toplam paradan, hayvanın yediği rasyonun maliyetini çıkardığınızda cebinizde kalan net rakamdır.',
-    farmerExplanation:
-      'Çiftçinin en çok bakması gereken yerdir. Bir inek günde 40 litre süt verip dünyaları yiyorsa, size 25 litre süt verip az yiyen inekten daha az para kazandırıyor olabilir. Bizim programımız sadece süt artışına değil, "cebinize kalan en yüksek paraya" (IOFC) göre hesap yapar.',
-    practicalTip:
-      'En ucuz rasyon her zaman en kârlı rasyon değildir. Önemli olan o ucuz yemin size kaç litre süt olarak döneceğidir. Hesabınızı her zaman IOFC yani cebinizde kalan günlük net kâra göre yapın.',
-  },
-  {
     id: 'palpasyon',
     matchTerms: ['palpasyon', 'rektal palpasyon', 'el palpasyonu', 'palpasyonu', 'ultrason', 'ultrasonla', 'ultrasonu', 'ultrasonuyla'],
     title: 'Rektal Palpasyon & Ultrason',

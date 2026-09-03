@@ -279,7 +279,7 @@ export const IofcPanel: React.FC<IofcPanelProps> = ({
         </div>
 
         <p className="text-xs text-[#6B7160] leading-relaxed">
-          IOFC = (verim × fiyat) − yem maliyeti. Yem maliyetini Süt İneği modülündeki optimum rasyondan <strong>“Son rasyondan aktar”</strong> ile alabilirsiniz.
+          <GlossaryText text="IOFC" /> = (verim × fiyat) − yem maliyeti. Yem maliyetini Süt İneği modülündeki optimum rasyondan <strong>“Son rasyondan aktar”</strong> ile alabilirsiniz.
         </p>
       </div>
 
@@ -309,14 +309,14 @@ export const IofcPanel: React.FC<IofcPanelProps> = ({
               <td className="py-2.5 font-mono-code text-xs text-[#6B7160] text-right">₺/gün</td>
             </tr>
             <tr className="border-b border-[#ECE8D8]">
-              <td className="py-2.5 font-bold text-[#2E5B39]">IOFC</td>
+              <td className="py-2.5 font-bold text-[#2E5B39]"><GlossaryText text="IOFC" /></td>
               <td className={`py-2.5 font-mono-code font-bold text-right ${d.iofc < 0 ? 'text-[#8A3B2E]' : 'text-[#2E5B39]'}`}>
                 {fmt(d.iofc, 1)}
               </td>
               <td className="py-2.5 font-mono-code text-xs text-[#6B7160] text-right">₺/gün</td>
             </tr>
             <tr className="border-b border-[#ECE8D8]">
-              <td className="py-2.5">IOFC / kg süt</td>
+              <td className="py-2.5"><GlossaryText text="IOFC" /> / kg süt</td>
               <td className="py-2.5 font-mono-code font-semibold text-right">{fmt(d.iofcKg, 2)}</td>
               <td className="py-2.5 font-mono-code text-xs text-[#6B7160] text-right">₺/kg</td>
             </tr>
@@ -331,14 +331,14 @@ export const IofcPanel: React.FC<IofcPanelProps> = ({
               <td className="py-2.5 font-mono-code text-xs text-[#6B7160] text-right">₺/ay</td>
             </tr>
             <tr>
-              <td className="py-2.5">Sürü IOFC (günlük)</td>
+              <td className="py-2.5">Sürü <GlossaryText text="IOFC" /> (günlük)</td>
               <td className="py-2.5 font-mono-code font-bold text-[#2E5B39] text-right">{fmt(d.suruGun, 0)}</td>
               <td className="py-2.5 font-mono-code text-xs text-[#6B7160] text-right">₺/gün</td>
             </tr>
           </tbody>
         </table>
         <p className="text-xs text-[#6B7160] leading-relaxed mt-4">
-          IOFC sabit giderleri içermez; işçilik, amortizasyon ve diğer giderler IOFC'den karşılanmalıdır. Tam kâr analizi için Süt Kârlılığı modülüne bakın.
+          <GlossaryText text="IOFC" /> sabit giderleri içermez; işçilik, amortizasyon ve diğer giderler IOFC'den karşılanmalıdır. Tam kâr analizi için Süt Kârlılığı modülüne bakın.
         </p>
       </div>
     </div>
