@@ -88,6 +88,48 @@ export const RasyonApp: React.FC<RasyonAppProps> = ({
   const [toastMessage, setToastMessage] = useState<string | null>(null);
   const [lang, setLang] = useState<'tr' | 'en'>('tr');
 
+  // Dark mode state with localStorage persistence and OS preference detection
+  const [isDarkMode, setIsDarkMode] = useState<boolean>(() => {
+    try {
+      const saved = localStorage.getItem('ada_rasyon_theme');
+      if (saved) return saved === 'dark';
+      return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    } catch {
+      return false;
+    }
+  });
+
+  const toggleDarkMode = () => {
+    setIsDarkMode((prev) => {
+      const next = !prev;
+      try {
+        localStorage.setItem('ada_rasyon_theme', next ? 'dark' : 'light');
+      } catch (err) {
+        console.error(err);
+      }
+      showToast(
+        next
+          ? (lang === 'en'
+              ? 'Dark Mode (Eye Comfort) enabled.'
+              : 'Karanlık Mod (Göz Dinlendirme) aktif edildi.')
+          : (lang === 'en' ? 'Light Mode enabled.' : 'Aydınlık Mod aktif edildi.')
+      );
+      return next;
+    });
+  };
+
+  // Keyboard shortcut Alt+D to toggle dark mode
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.altKey && (e.key === 'd' || e.key === 'D')) {
+        e.preventDefault();
+        toggleDarkMode();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [lang]);
+
   // Toast helper
   const showToast = (msg: string) => {
     setToastMessage(msg);
@@ -489,7 +531,13 @@ export const RasyonApp: React.FC<RasyonAppProps> = ({
 
   return (
     <GlossaryProvider>
-      <div className="min-h-screen bg-[#F6F4EC] text-[#20261A] font-sans flex flex-col selection:bg-[#E2DDCB]">
+      <div
+        className={`min-h-screen font-sans flex flex-col selection:bg-[#E2DDCB] transition-colors duration-200 ${
+          isDarkMode
+            ? 'dark dark-rasyon'
+            : 'bg-[#F6F4EC] text-[#20261A]'
+        }`}
+      >
       {/* Toast Banner */}
       {toastMessage && (
         <div className="fixed bottom-6 right-6 z-50 bg-[#20261A] text-white px-5 py-3 rounded-xl shadow-xl text-xs font-mono-code flex items-center gap-2.5 animate-in slide-in-from-bottom-3 duration-200">
@@ -508,6 +556,8 @@ export const RasyonApp: React.FC<RasyonAppProps> = ({
         onLogout={onLogout}
         adminUsername={adminUsername}
         lastSavedInfo={lastSavedInfo}
+        isDarkMode={isDarkMode}
+        onToggleDarkMode={toggleDarkMode}
       />
 
       {/* Main Content */}

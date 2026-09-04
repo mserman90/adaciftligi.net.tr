@@ -82,3 +82,220 @@
     box-shadow: none !important;
   }
 }
+
+/* =========================================================
+   Rasyon Platform - Dark Mode (Göz Dinlendirme / Eye Comfort)
+   Designed specifically for zootechnical & agricultural workstation
+   sessions to eliminate glare, reduce ocular strain, and enhance
+   data legibility during extended ration formulation work.
+   ========================================================= */
+
+.dark-rasyon {
+  color-scheme: dark;
+  background-color: #0E130F !important;
+  color: #E2ECE5 !important;
+}
+
+/* Background surfaces - Cards, panels, wells */
+.dark-rasyon .bg-white,
+.dark-rasyon .bg-\[\#FCFBF6\],
+.dark-rasyon .bg-\[\#FAF8F0\],
+.dark-rasyon .bg-\[\#F9F7F0\],
+.dark-rasyon .bg-\[\#F6F4EC\],
+.dark-rasyon .bg-\[\#F3F1E4\],
+.dark-rasyon .bg-\[\#F4F1E4\],
+.dark-rasyon .bg-\[\#FBF7F2\] {
+  background-color: #172019 !important;
+}
+
+/* Sub-headers, secondary panels, neutral pill backgrounds */
+.dark-rasyon .bg-\[\#F2EFE2\],
+.dark-rasyon .bg-\[\#EAE6D6\],
+.dark-rasyon .bg-\[\#E8E4D4\],
+.dark-rasyon .bg-\[\#E2DDCB\],
+.dark-rasyon .bg-\[\#E6EBDD\] {
+  background-color: #1E2921 !important;
+}
+
+/* Primary and secondary text colors */
+.dark-rasyon .text-\[\#20261A\],
+.dark-rasyon .text-\[\#3B4232\],
+.dark-rasyon .text-stone-900,
+.dark-rasyon .text-stone-800,
+.dark-rasyon .text-gray-900 {
+  color: #E6EFE8 !important;
+}
+
+.dark-rasyon .text-\[\#6B7160\],
+.dark-rasyon .text-\[\#555C4A\],
+.dark-rasyon .text-\[\#4B5240\],
+.dark-rasyon .text-\[\#4A5240\],
+.dark-rasyon .text-\[\#4A5141\],
+.dark-rasyon .text-\[\#858C79\],
+.dark-rasyon .text-stone-600,
+.dark-rasyon .text-stone-500,
+.dark-rasyon .text-gray-600,
+.dark-rasyon .text-gray-500 {
+  color: #9CB0A2 !important;
+}
+
+/* Accent texts with high contrast in dark mode */
+.dark-rasyon .text-\[\#2E5B39\],
+.dark-rasyon .text-\[\#254A2E\],
+.dark-rasyon .text-\[\#22452B\],
+.dark-rasyon .text-\[\#22442B\],
+.dark-rasyon .text-\[\#1D4026\],
+.dark-rasyon .text-\[\#1F4327\],
+.dark-rasyon .text-\[\#123c28\] {
+  color: #5BC37E !important;
+}
+
+.dark-rasyon .text-\[\#8A3B2E\],
+.dark-rasyon .text-\[\#682B21\],
+.dark-rasyon .text-\[\#5C3B34\],
+.dark-rasyon .text-\[\#523A36\] {
+  color: #F87171 !important;
+}
+
+.dark-rasyon .text-\[\#B98A2B\],
+.dark-rasyon .text-\[\#8C6420\],
+.dark-rasyon .text-\[\#C19B4C\] {
+  color: #F3C966 !important;
+}
+
+.dark-rasyon .text-\[\#2D5866\] {
+  color: #67C4E0 !important;
+}
+
+.dark-rasyon .text-\[\#583266\] {
+  color: #CF9AE8 !important;
+}
+
+/* Borders */
+.dark-rasyon .border-\[\#DCD7C4\],
+.dark-rasyon .border-\[\#E2DDCB\],
+.dark-rasyon .border-\[\#C1BAA3\],
+.dark-rasyon .border-\[\#ECE8D8\],
+.dark-rasyon .border-\[\#E0DAC9\],
+.dark-rasyon .border-\[\#BFB99F\],
+.dark-rasyon .border-\[\#E5CFC5\],
+.dark-rasyon .border-\[\#DCD7C4\]\/60,
+.dark-rasyon .border-stone-200,
+.dark-rasyon .border-stone-300 {
+  border-color: #273429 !important;
+}
+
+/* Interactive Form Inputs, Number Fields, & Selects */
+.dark-rasyon input:not([type="checkbox"]):not([type="radio"]),
+.dark-rasyon select,
+.dark-rasyon textarea {
+  background-color: #121813 !important;
+  color: #E8F1EA !important;
+  border-color: #2D3D30 !important;
+}
+
+.dark-rasyon input:not([type="checkbox"]):not([type="radio"]):focus,
+.dark-rasyon select:focus,
+.dark-rasyon textarea:focus {
+  border-color: #4CAF6C !important;
+  box-shadow: 0 0 0 1px #4CAF6C !important;
+}
+
+.dark-rasyon select option {
+  background-color: #172019 !important;
+  color: #E8F1EA !important;
+}
+
+/* Checkboxes */
+.dark-rasyon input[type="checkbox"] {
+  accent-color: #348E53 !important;
+}
+
+/* Tables & Data Grids */
+.dark-rasyon table {
+  color: #E2ECE5;
+}
+
+.dark-rasyon thead tr {
+  background-color: #1B251D !important;
+  border-bottom-color: #273429 !important;
+}
+
+.dark-rasyon tbody tr {
+  border-bottom-color: #222C24 !important;
+}
+
+.dark-rasyon tbody tr:hover {
+  background-color: #1F2B21 !important;
+}
+
+.dark-rasyon tbody tr.bg-\[\#F6F4EC\],
+.dark-rasyon tbody tr.bg-\[\#FAF8F0\],
+.dark-rasyon tbody tr.bg-\[\#FCFBF6\] {
+  background-color: #1A241C !important;
+}
+
+/* Status Badges, Indicators & Alert boxes */
+.dark-rasyon .bg-\[\#EAF2E8\] {
+  background-color: rgba(46, 125, 83, 0.22) !important;
+  color: #92E4AB !important;
+  border-color: rgba(76, 175, 108, 0.35) !important;
+}
+
+.dark-rasyon .bg-\[\#FDF2F0\],
+.dark-rasyon .bg-\[\#FDF3F2\],
+.dark-rasyon .bg-\[\#FBF0EE\] {
+  background-color: rgba(138, 59, 46, 0.22) !important;
+  color: #FCA5A5 !important;
+  border-color: rgba(239, 68, 68, 0.35) !important;
+}
+
+.dark-rasyon .bg-\[\#FBF4E6\],
+.dark-rasyon .bg-\[\#FFFBEB\] {
+  background-color: rgba(185, 138, 43, 0.22) !important;
+  color: #FDE047 !important;
+  border-color: rgba(234, 179, 8, 0.35) !important;
+}
+
+.dark-rasyon .bg-\[\#EFF5F7\] {
+  background-color: rgba(45, 88, 102, 0.25) !important;
+  color: #7DD3FC !important;
+  border-color: rgba(56, 189, 248, 0.35) !important;
+}
+
+.dark-rasyon .bg-\[\#F4EEF7\] {
+  background-color: rgba(88, 50, 102, 0.25) !important;
+  color: #E9D5FF !important;
+  border-color: rgba(192, 132, 252, 0.35) !important;
+}
+
+/* Secondary Button overrides in Dark Mode */
+.dark-rasyon button.bg-white {
+  background-color: #1D261F !important;
+  color: #E2ECE5 !important;
+  border-color: #2F3E32 !important;
+}
+
+.dark-rasyon button.bg-white:hover {
+  background-color: #243026 !important;
+}
+
+/* Floating glossary popover */
+.dark-rasyon .floating-glossary-popover,
+.dark-rasyon [data-glossary-popover="true"] {
+  background-color: #172019 !important;
+  border-color: #3B8652 !important;
+  color: #E2ECE5 !important;
+  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.7) !important;
+}
+
+/* Custom dark scrollbar within Rasyon */
+.dark-rasyon ::-webkit-scrollbar-track {
+  background: #111712 !important;
+}
+.dark-rasyon ::-webkit-scrollbar-thumb {
+  background: #2D3D30 !important;
+}
+.dark-rasyon ::-webkit-scrollbar-thumb:hover {
+  background: #3B503F !important;
+}

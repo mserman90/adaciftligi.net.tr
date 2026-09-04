@@ -12,6 +12,8 @@ import {
   LogOut,
   ShieldCheck,
   User,
+  Moon,
+  Sun,
 } from 'lucide-react';
 import { Language, ModuleKey } from '../types';
 
@@ -25,6 +27,8 @@ interface HeaderProps {
   onLogout?: () => void;
   adminUsername?: string;
   lastSavedInfo?: string | null;
+  isDarkMode?: boolean;
+  onToggleDarkMode?: () => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({
@@ -37,9 +41,11 @@ export const Header: React.FC<HeaderProps> = ({
   onLogout,
   adminUsername = 'admin',
   lastSavedInfo,
+  isDarkMode = false,
+  onToggleDarkMode,
 }) => {
   return (
-    <header className="bg-[#22452B] text-[#F3F1E4] sticky top-0 z-50 border-b-2 border-[#B98A2B] no-print shadow-sm">
+    <header className={`${isDarkMode ? 'bg-[#14261B] border-b-2 border-[#8A6720]' : 'bg-[#22452B] border-b-2 border-[#B98A2B]'} text-[#F3F1E4] sticky top-0 z-50 no-print shadow-sm transition-colors duration-200`}>
       <div className="max-w-[1240px] mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-3 sm:gap-6">
         {/* Left: Brand & Return button */}
         <div className="flex items-center gap-3">
@@ -188,12 +194,45 @@ export const Header: React.FC<HeaderProps> = ({
           
           {/* Language Toggle */}
           <button
+            type="button"
             onClick={() => setLang(lang === 'tr' ? 'en' : 'tr')}
             className="flex items-center justify-center w-8 h-8 rounded-lg border border-[rgba(243,241,228,0.3)] hover:bg-[rgba(243,241,228,0.1)] text-xs font-bold text-[#F3F1E4] transition-all cursor-pointer"
             title="Dili Değiştir / Change Language"
           >
             {lang === 'tr' ? 'TR' : 'EN'}
           </button>
+
+          {/* Dark Mode (Göz Dinlendirme) Toggle */}
+          {onToggleDarkMode && (
+            <button
+              type="button"
+              id="rasyon-dark-mode-toggle"
+              onClick={onToggleDarkMode}
+              className={`inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer border ${
+                isDarkMode
+                  ? 'bg-amber-400/20 border-amber-400/40 text-amber-200 hover:bg-amber-400/30'
+                  : 'bg-[rgba(243,241,228,0.12)] border-[rgba(243,241,228,0.3)] text-[#F3F1E4] hover:bg-[rgba(243,241,228,0.22)]'
+              }`}
+              title={
+                isDarkMode
+                  ? (lang === 'en' ? 'Switch to Light Mode' : 'Aydınlık Moda Geç')
+                  : (lang === 'en' ? 'Dark Mode (Eye Comfort) — Reduces screen glare during extended work sessions [Alt+D]' : 'Karanlık Mod (Göz Dinlendirme) — Uzun süreli çalışmalarda ekran parlamasını ve göz yorgunluğunu azaltır [Alt+D]')
+              }
+              aria-label={isDarkMode ? 'Aydınlık Mod' : 'Karanlık Mod'}
+            >
+              {isDarkMode ? (
+                <>
+                  <Sun className="w-3.5 h-3.5 text-amber-300 animate-pulse" />
+                  <span className="hidden xl:inline text-[11px] tracking-wide">Aydınlık</span>
+                </>
+              ) : (
+                <>
+                  <Moon className="w-3.5 h-3.5 text-[#E9D9A8]" />
+                  <span className="hidden xl:inline text-[11px] tracking-wide">Karanlık</span>
+                </>
+              )}
+            </button>
+          )}
 
           {lastSavedInfo && (
             <div

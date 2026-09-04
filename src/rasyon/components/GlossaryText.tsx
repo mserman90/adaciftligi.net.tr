@@ -156,7 +156,8 @@ const FloatingGlossaryPopover: React.FC<FloatingGlossaryPopoverProps> = ({
         width: `${Math.min(360, window.innerWidth - 32)}px`,
         zIndex: 9999,
       }}
-      className="bg-[#FCFBF6] border-2 border-[#2E5B39] rounded-2xl shadow-2xl p-4 text-[#20261A] text-xs space-y-3 animate-in fade-in zoom-in-95 duration-150"
+      data-glossary-popover="true"
+      className="bg-[#FCFBF6] border-2 border-[#2E5B39] rounded-2xl shadow-2xl p-4 text-[#20261A] text-xs space-y-3 animate-in fade-in zoom-in-95 duration-150 floating-glossary-popover"
     >
       {/* Header */}
       <div className="flex items-start justify-between gap-2 border-b border-[#DCD7C4] pb-2.5">
