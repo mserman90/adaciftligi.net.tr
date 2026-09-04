@@ -1,9 +1,21 @@
 <!doctype html>
-<html lang="tr" class="scroll-smooth">
+<html lang="tr" class="dark scroll-smooth">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Ada Çiftliği | Meriç Edirne - Doğal Hayvancılık & Günlük Taze Süt</title>
+    <script>
+      (function() {
+        try {
+          var saved = localStorage.getItem('ada_theme');
+          if (saved === 'light') {
+            document.documentElement.classList.remove('dark');
+          } else {
+            document.documentElement.classList.add('dark');
+          }
+        } catch (e) {}
+      })();
+    </script>
     <meta name="description" content="Meriç Adasarhanlı Köyü'nde doğal koyun, kuzu, inek, dana yetiştiriciliği ve günlük soğuk zincir taze süt üretimi. Toptan ve perakende sipariş imkanı." />
     <link rel="canonical" href="https://adaciftligi.net.tr/" />
 
@@ -104,7 +116,7 @@
     }
     </script>
   </head>
-  <body class="bg-white text-stone-800 antialiased selection:bg-emerald-800 selection:text-white">
+  <body class="bg-white dark:bg-[#0c140e] text-stone-800 dark:text-[#e2ece5] antialiased selection:bg-emerald-800 selection:text-white">
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

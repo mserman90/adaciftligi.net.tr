@@ -92,15 +92,15 @@ export const RasyonApp: React.FC<RasyonAppProps> = ({
   const [toastMessage, setToastMessage] = useState<string | null>(null);
   const [lang, setLang] = useState<'tr' | 'en'>('tr');
 
-  // Dark mode state with localStorage persistence (defaults to light mode)
+  // Dark mode state with localStorage persistence (defaults to dark mode)
   const [isDarkMode, setIsDarkMode] = useState<boolean>(() => {
     if (propIsDarkMode !== undefined) return propIsDarkMode;
     try {
       const saved = localStorage.getItem('ada_theme') || localStorage.getItem('ada_rasyon_theme');
       if (saved !== null) return saved === 'dark';
-      return false;
+      return true;
     } catch {
-      return false;
+      return true;
     }
   });
 

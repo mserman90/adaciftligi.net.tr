@@ -33,17 +33,17 @@ export default function App() {
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<string | undefined>();
 
-  // Dark mode state: default is explicitly LIGHT ("açık") mode
+  // Dark mode state: default is DARK ("koyu") mode
   const [isDarkMode, setIsDarkMode] = useState<boolean>(() => {
     try {
       const saved = localStorage.getItem('ada_theme');
       if (saved !== null) {
         return saved === 'dark';
       }
-      // Varsayılan tema açık moddur
-      return false;
+      // Varsayılan tema koyu (dark) moddur
+      return true;
     } catch {
-      return false;
+      return true;
     }
   });
 
