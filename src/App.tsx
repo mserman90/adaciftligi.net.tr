@@ -33,14 +33,19 @@ export default function App() {
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<string | undefined>();
 
-  // Dark mode state: default is DARK ("koyu") mode
+  // Dark mode state: default is strictly DARK ("koyu") mode
   const [isDarkMode, setIsDarkMode] = useState<boolean>(() => {
     try {
+      if (localStorage.getItem('ada_theme_pref_v2') !== 'set') {
+        localStorage.setItem('ada_theme_pref_v2', 'set');
+        localStorage.setItem('ada_theme', 'dark');
+        localStorage.setItem('ada_rasyon_theme', 'dark');
+        return true;
+      }
       const saved = localStorage.getItem('ada_theme');
       if (saved !== null) {
         return saved === 'dark';
       }
-      // Varsayılan tema koyu (dark) moddur
       return true;
     } catch {
       return true;

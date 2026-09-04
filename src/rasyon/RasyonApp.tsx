@@ -96,6 +96,9 @@ export const RasyonApp: React.FC<RasyonAppProps> = ({
   const [isDarkMode, setIsDarkMode] = useState<boolean>(() => {
     if (propIsDarkMode !== undefined) return propIsDarkMode;
     try {
+      if (localStorage.getItem('ada_theme_pref_v2') !== 'set') {
+        return true;
+      }
       const saved = localStorage.getItem('ada_theme') || localStorage.getItem('ada_rasyon_theme');
       if (saved !== null) return saved === 'dark';
       return true;

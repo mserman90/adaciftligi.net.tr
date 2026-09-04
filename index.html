@@ -7,13 +7,21 @@
     <script>
       (function() {
         try {
+          // Ensure new default 'dark' takes precedence over stale session storage
+          if (localStorage.getItem('ada_theme_pref_v2') !== 'set') {
+            localStorage.setItem('ada_theme_pref_v2', 'set');
+            localStorage.setItem('ada_theme', 'dark');
+            localStorage.setItem('ada_rasyon_theme', 'dark');
+          }
           var saved = localStorage.getItem('ada_theme');
           if (saved === 'light') {
             document.documentElement.classList.remove('dark');
           } else {
             document.documentElement.classList.add('dark');
           }
-        } catch (e) {}
+        } catch (e) {
+          document.documentElement.classList.add('dark');
+        }
       })();
     </script>
     <meta name="description" content="Meriç Adasarhanlı Köyü'nde doğal koyun, kuzu, inek, dana yetiştiriciliği ve günlük soğuk zincir taze süt üretimi. Toptan ve perakende sipariş imkanı." />
