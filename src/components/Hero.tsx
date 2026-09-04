@@ -65,7 +65,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenInquiry, lang = 'tr' }) => {
     <section
       ref={heroRef}
       id="hero-section"
-      className="relative pt-36 sm:pt-40 lg:pt-44 pb-16 sm:pb-24 overflow-hidden bg-white"
+      className="relative pt-44 sm:pt-48 lg:pt-52 pb-16 sm:pb-24 overflow-hidden bg-white"
     >
       {/* Subtle organic background mesh */}
       <div className="absolute top-0 right-0 -z-10 w-96 h-96 bg-emerald-50/70 rounded-full blur-3xl translate-x-1/3 -translate-y-1/3 pointer-events-none" />

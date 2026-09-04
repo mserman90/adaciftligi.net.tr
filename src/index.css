@@ -44,12 +44,38 @@
   box-shadow: 0 16px 36px -8px rgba(18, 60, 40, 0.09), 0 4px 12px -2px rgba(0, 0, 0, 0.04);
 }
 
+/* Top Announcement Ticker Animation */
+@keyframes tickerSlide {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.animate-top-ticker {
+  display: inline-flex;
+  white-space: nowrap;
+  animation: tickerSlide 25s linear infinite;
+  will-change: transform;
+}
+
+.animate-top-ticker:hover,
+.ticker-container:hover .animate-top-ticker {
+  animation-play-state: paused;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, ::before, ::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+  .animate-top-ticker {
+    animation: none !important;
+    transform: none !important;
   }
   .card-hover-lift:hover {
     transform: none !important;

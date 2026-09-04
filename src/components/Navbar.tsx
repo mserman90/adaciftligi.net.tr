@@ -45,6 +45,84 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenInquiry, lang = 'tr', setL
         id="main-navbar"
         className="fixed top-0 left-0 right-0 z-40 transition-all duration-300"
       >
+        {/* Top Warning Announcement Ticker */}
+        <div
+          id="top-test-ticker"
+          className="bg-amber-400 text-amber-950 border-b border-amber-500/60 py-1.5 overflow-hidden select-none relative z-50 shadow-xs ticker-container"
+          role="status"
+          aria-live="polite"
+        >
+          <div className="flex items-center">
+            {/* Left pinned notice tag */}
+            <div className="hidden sm:flex items-center gap-1.5 bg-amber-600 text-white text-[10.5px] font-black uppercase px-2.5 py-0.5 tracking-wider shrink-0 z-10 shadow-xs border-r border-amber-700/40 ml-2 rounded">
+              <AlertTriangle className="w-3.5 h-3.5 text-amber-200 animate-pulse" />
+              <span>{lang === 'en' ? 'TEST NOTICE' : 'TEST UYARISI'}</span>
+            </div>
+
+            {/* Seamless Continuous Scrolling Ticker */}
+            <div className="overflow-hidden flex-1 relative flex">
+              <div className="animate-top-ticker items-center text-amber-950 font-bold text-[11.5px] sm:text-xs tracking-wide">
+                <span className="inline-flex items-center gap-3 px-4">
+                  <AlertTriangle className="w-3.5 h-3.5 text-amber-900 shrink-0" />
+                  <span className="uppercase font-extrabold text-amber-950 underline decoration-amber-600 underline-offset-2">
+                    {lang === 'en' ? 'TEST BROADCAST:' : 'TEST YAYINI:'}
+                  </span>
+                  <span className="font-extrabold">
+                    {lang === 'en'
+                      ? 'Contents may not reflect actual conditions'
+                      : 'İçerikler gerçek durumu yansıtmayabilir'}
+                  </span>
+                  <span className="text-amber-800">·</span>
+                  <span className="text-amber-900 font-medium">
+                    {lang === 'en'
+                      ? 'Ada Farm web portal is currently undergoing testing and verification'
+                      : 'Ada Çiftliği web sitesi test aşamasında olup tüm bilgiler ve veriler temsilidir'}
+                  </span>
+                  <span className="text-amber-800">·</span>
+                  <span className="uppercase font-bold text-amber-900">
+                    {lang === 'en' ? 'NOTICE:' : 'UYARI:'}
+                  </span>
+                  <span className="font-semibold">
+                    {lang === 'en'
+                      ? 'Orders, product pricing and live figures are for demonstration purposes'
+                      : 'Siparişler, fiyatlar ve canlı veriler demonstrasyon amaçlıdır'}
+                  </span>
+                  <span className="text-amber-800">✦</span>
+                </span>
+
+                {/* Duplicate chunk for continuous infinite scrolling */}
+                <span className="inline-flex items-center gap-3 px-4">
+                  <AlertTriangle className="w-3.5 h-3.5 text-amber-900 shrink-0" />
+                  <span className="uppercase font-extrabold text-amber-950 underline decoration-amber-600 underline-offset-2">
+                    {lang === 'en' ? 'TEST BROADCAST:' : 'TEST YAYINI:'}
+                  </span>
+                  <span className="font-extrabold">
+                    {lang === 'en'
+                      ? 'Contents may not reflect actual conditions'
+                      : 'İçerikler gerçek durumu yansıtmayabilir'}
+                  </span>
+                  <span className="text-amber-800">·</span>
+                  <span className="text-amber-900 font-medium">
+                    {lang === 'en'
+                      ? 'Ada Farm web portal is currently undergoing testing and verification'
+                      : 'Ada Çiftliği web sitesi test aşamasında olup tüm bilgiler ve veriler temsilidir'}
+                  </span>
+                  <span className="text-amber-800">·</span>
+                  <span className="uppercase font-bold text-amber-900">
+                    {lang === 'en' ? 'NOTICE:' : 'UYARI:'}
+                  </span>
+                  <span className="font-semibold">
+                    {lang === 'en'
+                      ? 'Orders, product pricing and live figures are for demonstration purposes'
+                      : 'Siparişler, fiyatlar ve canlı veriler demonstrasyon amaçlıdır'}
+                  </span>
+                  <span className="text-amber-800">✦</span>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
         {/* Automated Live Weather & Pasture Status Banner */}
         <FarmWeatherBanner onOpenInquiry={onOpenInquiry} compact={isScrolled} lang={lang} />
 
@@ -72,27 +150,19 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenInquiry, lang = 'tr', setL
                   {lang === 'en' ? 'Ada Farm' : 'Ada Çiftliği'}
                 </span>
 
-                {/* Dikkati çeken ve uygun büyüklükte Test Yayını Uyarısı */}
+                {/* Dikkati çeken Test Yayını Rozeti */}
                 <div
                   id="navbar-test-mode-notice"
-                  className="inline-flex items-center gap-1.5 px-2.5 py-0.5 sm:py-1 rounded-md bg-amber-100/90 border border-amber-300 text-amber-950 shadow-xs"
+                  className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md bg-amber-100 border border-amber-300 text-amber-950 shadow-xs"
                   title={
                     lang === 'en'
                       ? 'This website is in test broadcast; contents and data may not reflect actual conditions.'
                       : 'Bu web sitesi test yayınındadır; içerikler, veriler ve bilgiler gerçek durumu yansıtmayabilir.'
                   }
                 >
-                  <AlertTriangle className="w-3.5 h-3.5 text-amber-700 shrink-0 animate-pulse" />
-                  <span className="text-[11px] sm:text-xs font-bold text-amber-900 tracking-tight">
-                    {lang === 'en' ? 'TEST BROADCAST:' : 'TEST YAYINI:'}
-                  </span>
-                  <span className="hidden sm:inline text-[11px] sm:text-xs text-amber-850 font-semibold">
-                    {lang === 'en'
-                      ? 'Contents may not reflect actual conditions'
-                      : 'İçerikler gerçek durumu yansıtmayabilir'}
-                  </span>
-                  <span className="sm:hidden text-[10px] text-amber-850 font-semibold">
-                    {lang === 'en' ? 'Demo' : 'Gerçeği yansıtmayabilir'}
+                  <AlertTriangle className="w-3 h-3 text-amber-700 shrink-0" />
+                  <span className="text-[10px] sm:text-[11px] font-bold text-amber-900 tracking-tight">
+                    {lang === 'en' ? 'TEST BROADCAST' : 'TEST YAYINI'}
                   </span>
                 </div>
               </div>
