@@ -45,37 +45,28 @@
 }
 
 /* Top Announcement Ticker Animation */
-@keyframes tickerSlide {
+@keyframes continuousTickerScroll {
   0% {
     transform: translate3d(0, 0, 0);
   }
   100% {
-    transform: translate3d(-50%, 0, 0);
+    transform: translate3d(-100%, 0, 0);
   }
 }
 
-.animate-top-ticker {
-  display: inline-flex;
-  white-space: nowrap;
-  animation: tickerSlide 25s linear infinite;
+.top-ticker-track {
+  display: flex !important;
+  flex-shrink: 0 !important;
+  align-items: center !important;
+  white-space: nowrap !important;
+  animation: continuousTickerScroll 32s linear infinite !important;
   will-change: transform;
 }
 
-.animate-top-ticker:hover,
-.ticker-container:hover .animate-top-ticker {
-  animation-play-state: paused;
-}
-
 @media (prefers-reduced-motion: reduce) {
-  *, ::before, ::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
-  }
-  .animate-top-ticker {
-    animation: none !important;
-    transform: none !important;
+  *:not(.top-ticker-track), ::before, ::after {
+    animation-duration: 0.01ms;
+    transition-duration: 0.01ms;
   }
   .card-hover-lift:hover {
     transform: none !important;

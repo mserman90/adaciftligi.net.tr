@@ -45,79 +45,151 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenInquiry, lang = 'tr', setL
         id="main-navbar"
         className="fixed top-0 left-0 right-0 z-40 transition-all duration-300"
       >
-        {/* Top Warning Announcement Ticker */}
+        {/* Top Warning Announcement Ticker - Continuous Infinite Marquee */}
         <div
           id="top-test-ticker"
-          className="bg-amber-400 text-amber-950 border-b border-amber-500/60 py-1.5 overflow-hidden select-none relative z-50 shadow-xs ticker-container"
+          className="bg-amber-400 text-amber-950 border-b border-amber-500/70 py-1.5 overflow-hidden select-none relative z-50 shadow-xs"
           role="status"
           aria-live="polite"
         >
-          <div className="flex items-center">
+          <style>{`
+            @keyframes continuousTickerScroll {
+              0% {
+                transform: translate3d(0, 0, 0);
+              }
+              100% {
+                transform: translate3d(-100%, 0, 0);
+              }
+            }
+            .top-ticker-track {
+              display: flex !important;
+              flex-shrink: 0 !important;
+              align-items: center !important;
+              white-space: nowrap !important;
+              animation: continuousTickerScroll 34s linear infinite !important;
+              will-change: transform;
+            }
+          `}</style>
+
+          <div className="flex items-center w-full">
             {/* Left pinned notice tag */}
-            <div className="hidden sm:flex items-center gap-1.5 bg-amber-600 text-white text-[10.5px] font-black uppercase px-2.5 py-0.5 tracking-wider shrink-0 z-10 shadow-xs border-r border-amber-700/40 ml-2 rounded">
+            <div className="flex items-center gap-1.5 bg-amber-600 text-white text-[10.5px] font-black uppercase px-2.5 py-0.5 tracking-wider shrink-0 z-20 shadow-xs border-r border-amber-700/40 ml-2 rounded">
               <AlertTriangle className="w-3.5 h-3.5 text-amber-200 animate-pulse" />
-              <span>{lang === 'en' ? 'TEST NOTICE' : 'TEST UYARISI'}</span>
+              <span>{lang === 'en' ? 'TEST' : 'TEST UYARISI'}</span>
             </div>
 
-            {/* Seamless Continuous Scrolling Ticker */}
-            <div className="overflow-hidden flex-1 relative flex">
-              <div className="animate-top-ticker items-center text-amber-950 font-bold text-[11.5px] sm:text-xs tracking-wide">
-                <span className="inline-flex items-center gap-3 px-4">
-                  <AlertTriangle className="w-3.5 h-3.5 text-amber-900 shrink-0" />
-                  <span className="uppercase font-extrabold text-amber-950 underline decoration-amber-600 underline-offset-2">
+            {/* Seamless Continuous Scrolling Dual Tracks */}
+            <div className="overflow-hidden flex-1 relative flex select-none">
+              {/* Track 1 */}
+              <div className="top-ticker-track text-amber-950 text-[11.5px] sm:text-xs tracking-wide">
+                <span className="inline-flex items-center gap-2 px-4 sm:px-6">
+                  <AlertTriangle className="w-4 h-4 text-amber-950 shrink-0" />
+                  <span className="uppercase font-black text-amber-950 tracking-wider">
                     {lang === 'en' ? 'TEST BROADCAST:' : 'TEST YAYINI:'}
                   </span>
-                  <span className="font-extrabold">
+                  <span className="font-extrabold text-amber-950 underline decoration-amber-700 underline-offset-2">
                     {lang === 'en'
                       ? 'Contents may not reflect actual conditions'
                       : 'İçerikler gerçek durumu yansıtmayabilir'}
                   </span>
-                  <span className="text-amber-800">·</span>
-                  <span className="text-amber-900 font-medium">
-                    {lang === 'en'
-                      ? 'Ada Farm web portal is currently undergoing testing and verification'
-                      : 'Ada Çiftliği web sitesi test aşamasında olup tüm bilgiler ve veriler temsilidir'}
-                  </span>
-                  <span className="text-amber-800">·</span>
-                  <span className="uppercase font-bold text-amber-900">
-                    {lang === 'en' ? 'NOTICE:' : 'UYARI:'}
-                  </span>
-                  <span className="font-semibold">
-                    {lang === 'en'
-                      ? 'Orders, product pricing and live figures are for demonstration purposes'
-                      : 'Siparişler, fiyatlar ve canlı veriler demonstrasyon amaçlıdır'}
-                  </span>
-                  <span className="text-amber-800">✦</span>
                 </span>
 
-                {/* Duplicate chunk for continuous infinite scrolling */}
-                <span className="inline-flex items-center gap-3 px-4">
-                  <AlertTriangle className="w-3.5 h-3.5 text-amber-900 shrink-0" />
-                  <span className="uppercase font-extrabold text-amber-950 underline decoration-amber-600 underline-offset-2">
+                <span className="text-amber-800/70 font-bold select-none">✦</span>
+
+                <span className="inline-flex items-center gap-2 px-4 sm:px-6">
+                  <span className="w-1.5 h-1.5 rounded-full bg-amber-700 shrink-0" />
+                  <span className="uppercase font-bold text-amber-900 tracking-tight">
+                    {lang === 'en' ? 'DEVELOPMENT NOTICE:' : 'GELİŞTİRME AŞAMASI:'}
+                  </span>
+                  <span className="font-semibold text-amber-900">
+                    {lang === 'en'
+                      ? 'Ada Farm web portal is currently undergoing testing and verification'
+                      : 'Ada Çiftliği web portalı ve yönetim modülleri test aşamasındadır'}
+                  </span>
+                </span>
+
+                <span className="text-amber-800/70 font-bold select-none">✦</span>
+
+                <span className="inline-flex items-center gap-2 px-4 sm:px-6">
+                  <span className="w-1.5 h-1.5 rounded-full bg-amber-700 shrink-0" />
+                  <span className="uppercase font-bold text-amber-900 tracking-tight">
+                    {lang === 'en' ? 'DEMO DATA:' : 'TEMSİLİ BİLGİ:'}
+                  </span>
+                  <span className="font-semibold text-amber-900">
+                    {lang === 'en'
+                      ? 'Orders, product pricing and live figures are for demonstration purposes only'
+                      : 'Fiyatlar, sürü verileri ve canlı göstergeler demonstrasyon amaçlıdır'}
+                  </span>
+                </span>
+
+                <span className="text-amber-800/70 font-bold select-none">✦</span>
+
+                <span className="inline-flex items-center gap-2 px-4 sm:px-6">
+                  <span className="w-1.5 h-1.5 rounded-full bg-amber-700 shrink-0" />
+                  <span className="font-semibold text-amber-900">
+                    {lang === 'en'
+                      ? 'Test broadcast records do not constitute a binding commercial commitment'
+                      : 'Test yayını sürecindeki veriler bağlayıcı ticari teklif veya taahhüt içermez'}
+                  </span>
+                </span>
+
+                <span className="text-amber-800/70 font-bold select-none">✦</span>
+              </div>
+
+              {/* Track 2 (Identical clone for seamless continuous infinite loop) */}
+              <div className="top-ticker-track text-amber-950 text-[11.5px] sm:text-xs tracking-wide" aria-hidden="true">
+                <span className="inline-flex items-center gap-2 px-4 sm:px-6">
+                  <AlertTriangle className="w-4 h-4 text-amber-950 shrink-0" />
+                  <span className="uppercase font-black text-amber-950 tracking-wider">
                     {lang === 'en' ? 'TEST BROADCAST:' : 'TEST YAYINI:'}
                   </span>
-                  <span className="font-extrabold">
+                  <span className="font-extrabold text-amber-950 underline decoration-amber-700 underline-offset-2">
                     {lang === 'en'
                       ? 'Contents may not reflect actual conditions'
                       : 'İçerikler gerçek durumu yansıtmayabilir'}
                   </span>
-                  <span className="text-amber-800">·</span>
-                  <span className="text-amber-900 font-medium">
+                </span>
+
+                <span className="text-amber-800/70 font-bold select-none">✦</span>
+
+                <span className="inline-flex items-center gap-2 px-4 sm:px-6">
+                  <span className="w-1.5 h-1.5 rounded-full bg-amber-700 shrink-0" />
+                  <span className="uppercase font-bold text-amber-900 tracking-tight">
+                    {lang === 'en' ? 'DEVELOPMENT NOTICE:' : 'GELİŞTİRME AŞAMASI:'}
+                  </span>
+                  <span className="font-semibold text-amber-900">
                     {lang === 'en'
                       ? 'Ada Farm web portal is currently undergoing testing and verification'
-                      : 'Ada Çiftliği web sitesi test aşamasında olup tüm bilgiler ve veriler temsilidir'}
+                      : 'Ada Çiftliği web portalı ve yönetim modülleri test aşamasındadır'}
                   </span>
-                  <span className="text-amber-800">·</span>
-                  <span className="uppercase font-bold text-amber-900">
-                    {lang === 'en' ? 'NOTICE:' : 'UYARI:'}
-                  </span>
-                  <span className="font-semibold">
-                    {lang === 'en'
-                      ? 'Orders, product pricing and live figures are for demonstration purposes'
-                      : 'Siparişler, fiyatlar ve canlı veriler demonstrasyon amaçlıdır'}
-                  </span>
-                  <span className="text-amber-800">✦</span>
                 </span>
+
+                <span className="text-amber-800/70 font-bold select-none">✦</span>
+
+                <span className="inline-flex items-center gap-2 px-4 sm:px-6">
+                  <span className="w-1.5 h-1.5 rounded-full bg-amber-700 shrink-0" />
+                  <span className="uppercase font-bold text-amber-900 tracking-tight">
+                    {lang === 'en' ? 'DEMO DATA:' : 'TEMSİLİ BİLGİ:'}
+                  </span>
+                  <span className="font-semibold text-amber-900">
+                    {lang === 'en'
+                      ? 'Orders, product pricing and live figures are for demonstration purposes only'
+                      : 'Fiyatlar, sürü verileri ve canlı göstergeler demonstrasyon amaçlıdır'}
+                  </span>
+                </span>
+
+                <span className="text-amber-800/70 font-bold select-none">✦</span>
+
+                <span className="inline-flex items-center gap-2 px-4 sm:px-6">
+                  <span className="w-1.5 h-1.5 rounded-full bg-amber-700 shrink-0" />
+                  <span className="font-semibold text-amber-900">
+                    {lang === 'en'
+                      ? 'Test broadcast records do not constitute a binding commercial commitment'
+                      : 'Test yayını sürecindeki veriler bağlayıcı ticari teklif veya taahhüt içermez'}
+                  </span>
+                </span>
+
+                <span className="text-amber-800/70 font-bold select-none">✦</span>
               </div>
             </div>
           </div>
