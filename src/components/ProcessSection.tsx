@@ -66,8 +66,11 @@ export const ProcessSection = ({ lang = 'tr' }: { lang?: 'tr' | 'en' }) => {
                   <div className="absolute inset-0 bg-gradient-to-t from-stone-950/70 via-stone-950/20 to-transparent pointer-events-none" />
 
                   {/* Step number on top left */}
-                  <div className="absolute top-3.5 left-3.5 bg-white/95 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-black text-[#123c28] shadow-xs border border-stone-200/60 pointer-events-none">
-                    {lang === 'en' ? 'Step' : 'Adım'} {step.stepNumber}
+                  <div
+                    data-image-badge="true"
+                    className="image-corner-badge absolute top-3.5 left-3.5 bg-white px-3 py-1 rounded-full text-xs font-black text-black shadow-xs border border-stone-200/90 pointer-events-none"
+                  >
+                    <span>{lang === 'en' ? 'Step' : 'Adım'} {step.stepNumber}</span>
                   </div>
 
                   {/* Floating Icon on bottom right of image */}

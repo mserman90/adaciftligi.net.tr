@@ -10,7 +10,7 @@ export const FARM_CONTACT: ContactInfo = {
   phoneRaw: '+905323428200',
   whatsapp: '+90 (532) 342 82 00',
   whatsappUrl: 'https://wa.me/905323428200?text=Merhaba%20Ada%20%C3%87iftli%C4%9Fi,%20%C3%BCr%C3%BCnleriniz%20ve%20fiyatlar%20hakk%C4%B1nda%20bilgi%20almak%20istiyorum.',
-  email: 'iletisim@adaciftligi.net.tr',
+  email: 'adaciftligi22@gmail.com',
   workingHours: 'Haftanın 7 Günü: 07:00 – 19:30',
   coordinates: {
     lat: 41.1834,
@@ -612,7 +612,7 @@ export const FARM_CONTACT_EN: ContactInfo = {
   phoneRaw: '+905323428200',
   whatsapp: '+90 (532) 342 82 00',
   whatsappUrl: 'https://wa.me/905323428200?text=Hello%20Ada%20Farm,%20I%20would%20like%20to%20get%20information%20about%20your%20products%20and%20prices.',
-  email: 'iletisim@adaciftligi.net.tr',
+  email: 'adaciftligi22@gmail.com',
   workingHours: '7 Days a Week: 07:00 – 19:30',
   coordinates: {
     lat: 41.1834,

@@ -287,8 +287,11 @@ export const AboutSection: React.FC<{ lang?: 'tr' | 'en' }> = ({ lang = 'tr' }) 
                   <div className="absolute inset-0 bg-gradient-to-t from-stone-950/80 via-stone-950/25 to-transparent opacity-80 group-hover:opacity-90 transition-opacity pointer-events-none" />
 
                   {/* Category Tag */}
-                  <div className="absolute top-3 left-3 bg-white/95 backdrop-blur-xs px-2.5 py-1 rounded-full text-[11px] font-bold text-stone-900 border border-stone-200/80 shadow-xs pointer-events-none">
-                    {item.category}
+                  <div
+                    data-image-badge="true"
+                    className="image-corner-badge absolute top-3 left-3 bg-white px-2.5 py-1 rounded-full text-[11px] font-bold text-black border border-stone-200/90 shadow-xs pointer-events-none"
+                  >
+                    <span>{item.category}</span>
                   </div>
 
                   {/* Zoom Icon on Top Right */}

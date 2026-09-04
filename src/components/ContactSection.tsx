@@ -122,6 +122,27 @@ export const ContactSection = ({ lang = 'tr' }: { lang?: 'tr' | 'en' }) => {
                 </div>
               </div>
 
+              {/* Email */}
+              <div className="flex items-start gap-4">
+                <div className="w-11 h-11 rounded-2xl bg-emerald-50 border border-emerald-100 flex items-center justify-center text-[#123c28] shrink-0">
+                  <Mail className="w-5 h-5" />
+                </div>
+                <div>
+                  <div className="text-xs font-bold uppercase tracking-wider text-stone-400">
+                    {lang === 'en' ? 'Official E-Mail' : 'E-Posta Adresi'}
+                  </div>
+                  <a
+                    href={`mailto:${contactData.email}`}
+                    className="text-base font-bold text-[#123c28] hover:underline mt-0.5 block"
+                  >
+                    {contactData.email}
+                  </a>
+                  <div className="text-xs text-stone-500">
+                    {lang === 'en' ? 'Corporate inquiries and official correspondence' : 'Kurumsal yazışma ve resmi talepleriniz için'}
+                  </div>
+                </div>
+              </div>
+
               {/* Working Hours */}
               <div className="flex items-start gap-4">
                 <div className="w-11 h-11 rounded-2xl bg-emerald-50 border border-emerald-100 flex items-center justify-center text-[#123c28] shrink-0">

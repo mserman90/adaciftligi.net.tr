@@ -198,9 +198,13 @@ export const Hero: React.FC<HeroProps> = ({ onOpenInquiry, lang = 'tr' }) => {
               </div>
 
               {/* Floating Badge on top right */}
-              <div className="absolute -top-4 -right-4 sm:-right-6 bg-white/95 backdrop-blur-md rounded-2xl py-2 px-3.5 shadow-md border border-stone-200/80 flex items-center gap-2 z-10">
-                <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-ping" />
-                <span className="text-xs font-semibold text-stone-800">{l.badge}</span>
+              <div
+                id="hero-floating-badge"
+                data-image-badge="true"
+                className="image-corner-badge absolute -top-4 -right-4 sm:-right-6 bg-white rounded-2xl py-2 px-3.5 shadow-md border border-stone-200/90 flex items-center gap-2 z-10 font-bold"
+              >
+                <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-ping shrink-0" />
+                <span className="text-xs font-bold text-black">{l.badge}</span>
               </div>
             </div>
           </div>

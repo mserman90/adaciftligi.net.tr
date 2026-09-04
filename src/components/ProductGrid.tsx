@@ -90,8 +90,11 @@ export const ProductGrid: React.FC<ProductGridProps> = ({ onSelectProduct, lang 
                   <div className="absolute inset-0 bg-gradient-to-t from-stone-950/50 via-transparent to-transparent opacity-70 pointer-events-none" />
 
                   {/* Category Badge */}
-                  <div className="absolute top-3.5 left-3.5 bg-white/95 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold text-stone-900 border border-stone-200/80 shadow-xs z-10">
-                    {product.categoryLabel}
+                  <div
+                    data-image-badge="true"
+                    className="image-corner-badge absolute top-3.5 left-3.5 bg-white px-3 py-1 rounded-full text-xs font-bold text-black border border-stone-200/90 shadow-xs z-10"
+                  >
+                    <span>{product.categoryLabel}</span>
                   </div>
 
                   <div className="absolute bottom-3 left-3 right-3 text-white text-xs font-medium bg-stone-900/75 backdrop-blur-md px-3 py-1.5 rounded-xl truncate pointer-events-none">

@@ -47,7 +47,11 @@ export const EditablePhotoContainer: React.FC<EditablePhotoContainerProps> = ({
       />
 
       {/* Optional Badge */}
-      {badge && <div className="absolute top-3 left-3 z-10">{badge}</div>}
+      {badge && (
+        <div data-image-badge="true" className="image-corner-badge absolute top-3 left-3 z-10">
+          {badge}
+        </div>
+      )}
 
       {/* Extra child overlays or captions */}
       {children}

@@ -187,6 +187,33 @@ html.dark body {
   color: #e2ece5 !important;
 }
 
+/* Image Corner Badges & Overlays in Dark Mode (Resim Köşesi Rozetleri) */
+/* "Günlük Taze Sağım" ve ürün/kategori etiketlerinin koyu modda da beyaz zemin üzerinde siyah harflerle gösterilmesi */
+.dark .image-corner-badge,
+.dark [data-image-badge="true"],
+.image-corner-badge,
+[data-image-badge="true"] {
+  background-color: #ffffff !important;
+  color: #000000 !important;
+  border-color: rgba(229, 231, 235, 0.95) !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3) !important;
+}
+
+.dark .image-corner-badge *,
+.dark [data-image-badge="true"] *,
+.image-corner-badge *,
+[data-image-badge="true"] * {
+  color: #000000 !important;
+}
+
+/* Canlı yeşil durum sinyali (ping dot) yeşil rengini korusun */
+.dark .image-corner-badge span[class*="bg-emerald"],
+.image-corner-badge span[class*="bg-emerald"],
+.dark [data-image-badge="true"] span[class*="bg-emerald"],
+[data-image-badge="true"] span[class*="bg-emerald"] {
+  background-color: #10b981 !important;
+}
+
 /* Smooth card lift effects */
 .card-hover-lift {
   transition: transform 0.28s cubic-bezier(0.2, 0, 0, 1), box-shadow 0.28s cubic-bezier(0.2, 0, 0, 1), border-color 0.28s ease;
