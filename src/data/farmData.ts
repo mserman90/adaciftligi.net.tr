@@ -6,10 +6,10 @@ export const FARM_CONTACT: ContactInfo = {
   district: 'Meriç',
   province: 'Edirne',
   fullAddress: 'Adasarhanlı Köyü Yolu, 22600 Meriç / Edirne',
-  phone: '+90 (532) 412 22 88',
-  phoneRaw: '+905324122288',
-  whatsapp: '+90 (532) 412 22 88',
-  whatsappUrl: 'https://wa.me/905324122288?text=Merhaba%20Ada%20%C3%87iftli%C4%9Fi,%20%C3%BCr%C3%BCnleriniz%20ve%20fiyatlar%20hakk%C4%B1nda%20bilgi%20almak%20istiyorum.',
+  phone: '+90 (532) 342 82 00',
+  phoneRaw: '+905323428200',
+  whatsapp: '+90 (532) 342 82 00',
+  whatsappUrl: 'https://wa.me/905323428200?text=Merhaba%20Ada%20%C3%87iftli%C4%9Fi,%20%C3%BCr%C3%BCnleriniz%20ve%20fiyatlar%20hakk%C4%B1nda%20bilgi%20almak%20istiyorum.',
   email: 'iletisim@adaciftligi.net.tr',
   workingHours: 'Haftanın 7 Günü: 07:00 – 19:30',
   coordinates: {
@@ -517,11 +517,11 @@ export const FAQ_ITEMS_EN: FaqItem[] = [
 ];
 
 export const FARM_CONTACT_EN = {
-  phone: '0532 123 45 67',
-  phoneRaw: '+905321234567',
+  phone: '+90 (532) 342 82 00',
+  phoneRaw: '+905323428200',
   email: 'info@adaciftligi.com',
   address: 'Adasarhanlı Village, Meric District\nEdirne, Turkey 22700',
   googleMapsUrl: 'https://maps.app.goo.gl/xxx',
-  whatsappUrl: 'https://wa.me/905321234567',
+  whatsappUrl: 'https://wa.me/905323428200?text=Hello%20Ada%20Farm,%20I%20would%20like%20to%20get%20information%20about%20your%20products%20and%20prices.',
   workingHours: '7 Days a Week: 07:00 – 19:30'
 };

@@ -25,7 +25,7 @@ export const ContactSection = ({ lang = 'tr' }: { lang?: 'tr' | 'en' }) => {
     // Build direct WhatsApp message
     const message = `Merhaba Ada Çiftliği,\nAdım: ${formData.name || 'Belirtilmedi'}\nTelefonum: ${formData.phone || 'Belirtilmedi'}\nİlgilendiğim Ürün: ${formData.product}\nMiktar/Talep: ${formData.quantity || 'Belirtilmedi'}\nNot: ${formData.note || 'Yok'}`;
     const encoded = encodeURIComponent(message);
-    window.open(`https://wa.me/905324122288?text=${encoded}`, '_blank');
+    window.open(`https://wa.me/905323428200?text=${encoded}`, '_blank');
     setSubmitted(true);
   };
 
