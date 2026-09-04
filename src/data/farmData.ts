@@ -59,7 +59,7 @@ export const FARM_PRODUCTS: FarmProduct[] = [
     title: 'Damızlık & Kesimlik Koyun',
     category: 'kucukbas',
     categoryLabel: 'Küçükbaş',
-    image: '/images/koyun.jpg',
+    image: '/images/koyun.webp',
     tag: 'Trakya Kıvırcık & Merinos',
     breed: 'Saf Kıvırcık & Anadolu Merinosu',
     feeding: 'Meriç doğal mera otlatması + yonca',
@@ -78,7 +78,7 @@ export const FARM_PRODUCTS: FarmProduct[] = [
     title: 'Süt Kuzusu & Besi Kuzusu',
     category: 'kucukbas',
     categoryLabel: 'Küçükbaş',
-    image: '/images/kuzu.jpg',
+    image: '/images/kuzu.webp',
     tag: 'Doğal Anne Sütü & Bahar Otu',
     breed: 'Kıvırcık Melezi Süt Kuzuları',
     feeding: 'Anne sütü + taze yonca ve arpa ezmesi',
@@ -97,7 +97,7 @@ export const FARM_PRODUCTS: FarmProduct[] = [
     title: 'Yüksek Verimli Süt İneği',
     category: 'buyukbas',
     categoryLabel: 'Büyükbaş',
-    image: '/images/inek.jpg',
+    image: '/images/inek.webp',
     tag: 'Simental & Siyah Alaca (Holstein)',
     breed: 'Simental Kombine & Holstein Süt Irkı',
     feeding: 'Mısır silajı, fiğ, yonca ve doğal kaba yem',
@@ -116,7 +116,7 @@ export const FARM_PRODUCTS: FarmProduct[] = [
     title: 'Besi Danası & Canlı Kurbanlık',
     category: 'buyukbas',
     categoryLabel: 'Büyükbaş',
-    image: '/images/dana.jpg',
+    image: '/images/dana.webp',
     tag: 'Etçi Irklar (Şarole / Angus / Simental)',
     breed: 'Simental & Şarole Melezi Erkek Besi Danaları',
     feeding: 'Çiftlik harmanlaması arpa kırması, kepek & kaba ot',
@@ -135,7 +135,7 @@ export const FARM_PRODUCTS: FarmProduct[] = [
     title: 'Günlük Taze Çiğ Çiftlik Sütü',
     category: 'sut',
     categoryLabel: 'Süt Üretimi',
-    image: '/images/sut.jpg',
+    image: '/images/sut.webp',
     tag: 'Yağ Oranı %3.9+ | Katkısız & Soğuk Zincir',
     breed: 'Çiftlik Süt İneklerinden Taze Sağım',
     feeding: 'Doğal kaba yem ve mera besisi aroması',
@@ -158,7 +158,7 @@ export const PRODUCTION_STEPS: ProductionStep[] = [
     subtitle: 'Doğal Habitat & Hayvan Refahı',
     description: 'Hayvanlarımız gün ışığında, Meriç nehrinin alüvyon zengin topraklarında yetişen kekik, yonca ve yabani meralarda serbestçe gezinir. Fabrika artıklarından uzak, kendi arazilerimizde ürettiğimiz kaba yemle beslenir.',
     iconName: 'Sprout',
-    image: '/images/step_pasture.jpg',
+    image: '/images/step_pasture.webp',
     imageAlt: 'Meriç Nehri havzasında serbest otlayan sürüler ve doğal meralar',
     details: [
       '140 dönüm doğal mera ve gölgelikli gezinme alanları',
@@ -172,7 +172,7 @@ export const PRODUCTION_STEPS: ProductionStep[] = [
     subtitle: 'Kusursuz Hijyen & Biyogüvenlik',
     description: 'Süt sağımı el değmeden paslanmaz çelik hatlarla gerçekleştirilir. Sürümüz anlaşmalı veteriner hekimimiz tarafından haftalık aşı, kan analizi ve genel sağlık taramasından geçirilir.',
     iconName: 'ShieldCheck',
-    image: '/images/step_vet.jpg',
+    image: '/images/step_vet.webp',
     imageAlt: 'Veteriner sağlık kontrolü, küpeleme ve modern padok bakımı',
     details: [
       'Hassas meme temizliği ve daldırma dezenfeksiyonu',
@@ -186,7 +186,7 @@ export const PRODUCTION_STEPS: ProductionStep[] = [
     subtitle: 'Hızlı Soğuk Zincir & Şeffaf Tartım',
     description: 'Sağılan süt 7 dakika içinde +3.8°C sıcaklığa düşürülerek bakteri üremesi engellenir. Canlı hayvan sevkiyatlarında dijital kalibreli kantar ve resmi ilçe tarım sevk raporları ile teslim yapılır.',
     iconName: 'Truck',
-    image: '/images/step_transport.jpg',
+    image: '/images/step_transport.webp',
     imageAlt: 'Soğutmalı tanker ve canlı hayvan nakliyat aracı',
     details: [
       'Termoking soğutuculu paslanmaz çelik taşıma tankeri',
@@ -209,42 +209,42 @@ export const FARM_GALLERY: FarmGalleryItem[] = [
     id: 'g1',
     title: 'Meriç Deltası Doğal Mera Yayılımı',
     category: 'Mera & Otlak',
-    image: '/images/hero_cows.jpg',
+    image: '/images/hero_cows.webp',
     description: 'Adasarhanlı Köyü Meriç Nehri havzasında taze kekik ve kır otları ile serbest beslenme.'
   },
   {
     id: 'g2',
     title: 'Kıvırcık Koyun ve Koç Damızlıkları',
     category: 'Küçükbaş',
-    image: '/images/koyun.jpg',
+    image: '/images/koyun.webp',
     description: 'Trakya iklimine adapte, hastalıklara dirençli ve yüksek et randımanlı damızlık sürüler.'
   },
   {
     id: 'g3',
     title: 'Bahar Dönemi Süt Kuzusu Padokları',
     category: 'Kuzu',
-    image: '/images/kuzu.jpg',
+    image: '/images/kuzu.webp',
     description: 'Anne sütü ve taze yonca ile büyütülen yumuşak etli sağlıklı kuzularımız.'
   },
   {
     id: 'g4',
     title: 'Simental Süt İnekleri & Havadar Barınak',
     category: 'Büyükbaş',
-    image: '/images/inek.jpg',
+    image: '/images/inek.webp',
     description: 'Günde 28-36 litre süt verimine sahip, düzenli tırnak ve meme bakımı yapılan damızlıklar.'
   },
   {
     id: 'g5',
     title: 'AISI 304 Krom Süt Soğutma Tankı (+3.8°C)',
     category: 'Süt & Hijyen',
-    image: '/images/tank.jpg',
+    image: '/images/tank.webp',
     description: 'El değmeden vakumlu sağılan sütün anında soğutulduğu izole paslanmaz çelik depolama ünitesi.'
   },
   {
     id: 'g6',
     title: 'Besi Danaları & Açık Gezinti Padokları',
     category: 'Besi & Kurbanlık',
-    image: '/images/dana.jpg',
+    image: '/images/dana.webp',
     description: 'Kendi yetiştirdiğimiz arpa ve yulafla dengeli beslenen, yüksek karkas verimli erkek danalar.'
   }
 ];
@@ -257,7 +257,7 @@ export const TESTIMONIALS: Testimonial[] = [
     location: 'Edirne Merkez',
     comment: 'Ada Çiftliği ile 5 yıldır aralıksız çalışıyoruz. Kıvırcık kuzularının et randımanı ve lezzeti Edirne esnafı olarak bizi hiç yanıltmadı. Hayvanların hepsi sağlıklı ve aşılı, kantar tartımları her zaman dürüst.',
     rating: 5,
-    avatar: '/images/avatar_1.jpg',
+    avatar: '/images/avatar_1.webp',
     badge: '5 Yıldır Düzenli Alıcı'
   },
   {
@@ -267,7 +267,7 @@ export const TESTIMONIALS: Testimonial[] = [
     location: 'Uzunköprü / Edirne',
     comment: 'Günlük aldığımız çiğ sütün kuru madde ve yağ oranı harika. Yaptığımız ezine tipi peynir ve yoğurtlarda tutarlılığı doğrudan hissediyoruz. Soğuk tank teslimatına gösterdikleri özen için teşekkür ederiz.',
     rating: 5,
-    avatar: '/images/avatar_2.jpg',
+    avatar: '/images/avatar_2.webp',
     badge: 'Günlük Taze Süt Tedariği'
   },
   {
@@ -277,7 +277,7 @@ export const TESTIMONIALS: Testimonial[] = [
     location: 'Havsa / Edirne',
     comment: 'Geçen yıl aldığımız 45 baş Simental besi danası çok iyi randıman verdi. Hayvanlar Adasarhanlı köyünün merasında iyi altyapı görmüş, barınak koşulları son derece ferah ve temiz.',
     rating: 5,
-    avatar: '/images/avatar_3.jpg',
+    avatar: '/images/avatar_3.webp',
     badge: 'Büyükbaş Damızlık Müşterisi'
   },
   {
@@ -287,7 +287,7 @@ export const TESTIMONIALS: Testimonial[] = [
     location: 'İstanbul (Bakırköy Grubu)',
     comment: 'İstanbul’dan her bayram Meriç Adasarhanlı’ya geliyoruz. İki senedir hisse danalarımızı Ada Çiftliği’nden ayırtıyoruz. Çiftliği gezebilmek, hayvanın ne yediğini kendi gözünle görmek güven veriyor.',
     rating: 5,
-    avatar: '/images/avatar_4.jpg',
+    avatar: '/images/avatar_4.webp',
     badge: 'Bireysel & Aile Müşterisi'
   }
 ];
@@ -339,7 +339,7 @@ export const FARM_PRODUCTS_EN: FarmProduct[] = [
     categoryLabel: 'Sheep & Lamb',
     title: 'Curly Sheep & Lamb Breeding',
     description: 'Our curly sheep, raised grazing freely on natural pastures, are resistant to diseases and offer high meat yield.',
-    image: '/images/koyun.jpg',
+    image: '/images/koyun.webp',
     tag: 'Daily Grazing',
     highlights: [
       'Resistant to the Thracian climate',
@@ -357,7 +357,7 @@ export const FARM_PRODUCTS_EN: FarmProduct[] = [
     categoryLabel: 'Cattle',
     title: 'Simental Cattle & Fattening Calves',
     description: 'We raise Simental breed cattle for both dairy and meat, offering high carcass yield calves.',
-    image: '/images/inek.jpg',
+    image: '/images/inek.webp',
     tag: 'Veterinarian Inspected',
     highlights: [
       'High meat and milk yield',
@@ -375,7 +375,7 @@ export const FARM_PRODUCTS_EN: FarmProduct[] = [
     categoryLabel: 'Daily Fresh Milk',
     title: 'Untouched Raw Farm Milk',
     description: 'High dry matter milk, cooled immediately after milking in our modern facility.',
-    image: '/images/tank.jpg',
+    image: '/images/tank.webp',
     tag: '+4°C Cold Chain',
     highlights: [
       'High fat and protein ratio',
@@ -396,7 +396,7 @@ export const PRODUCTION_STEPS_EN: ProductionStep[] = [
     subtitle: 'Healthy Herd & Rich Flora',
     description: 'Our animals graze freely on the natural pastures of the Meric basin and are fed with natural roughage we produce ourselves.',
     iconName: 'Sprout',
-    image: '/images/hero_cows.jpg',
+    image: '/images/hero_cows.webp',
     imageAlt: 'Herds grazing on Meric river basin',
     details: [
       '140 acres of natural pasture',
@@ -410,7 +410,7 @@ export const PRODUCTION_STEPS_EN: ProductionStep[] = [
     subtitle: 'Flawless Hygiene & Biosecurity',
     description: 'Milking is done untouched via stainless steel lines. Our herd is checked weekly by our vet.',
     iconName: 'ShieldCheck',
-    image: '/images/step_vet.jpg',
+    image: '/images/step_vet.webp',
     imageAlt: 'Veterinary health control',
     details: [
       'Precise udder cleaning and disinfection',
@@ -424,7 +424,7 @@ export const PRODUCTION_STEPS_EN: ProductionStep[] = [
     subtitle: 'Fast Cold Chain & Transparent Weighing',
     description: 'Milked milk is cooled to +3.8°C in 7 minutes. Live animal shipments are made with digital scales and vet reports.',
     iconName: 'Truck',
-    image: '/images/step_transport.jpg',
+    image: '/images/step_transport.webp',
     imageAlt: 'Refrigerated tanker transport',
     details: [
       'Thermoking cooled stainless transport',
@@ -442,7 +442,7 @@ export const TESTIMONIALS_EN: Testimonial[] = [
     location: 'Edirne Center',
     comment: 'We have been working with Ada Farm for 5 years. Their lamb meat yield and taste never disappoint. Honest weighing.',
     rating: 5,
-    avatar: '/images/avatar_1.jpg',
+    avatar: '/images/avatar_1.webp',
     badge: '5-Year Regular Buyer'
   },
   {
@@ -452,7 +452,7 @@ export const TESTIMONIALS_EN: Testimonial[] = [
     location: 'Uzunkopru / Edirne',
     comment: 'The dry matter and fat ratio of the raw milk we buy daily is great. We feel the consistency in our cheese.',
     rating: 5,
-    avatar: '/images/avatar_2.jpg',
+    avatar: '/images/avatar_2.webp',
     badge: 'Daily Fresh Milk Buyer'
   },
   {
@@ -462,7 +462,7 @@ export const TESTIMONIALS_EN: Testimonial[] = [
     location: 'Havsa / Edirne',
     comment: 'The 45 Simental calves we bought last year gave great yield. The animals saw good infrastructure in the pasture.',
     rating: 5,
-    avatar: '/images/avatar_3.jpg',
+    avatar: '/images/avatar_3.webp',
     badge: 'Cattle Breeding Customer'
   },
   {

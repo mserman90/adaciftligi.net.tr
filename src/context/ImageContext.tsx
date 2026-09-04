@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useEffect, useRef } from 'react';
 import { Camera, RotateCcw, Upload, Check, Image as ImageIcon, X, FolderOpen, Sparkles, ExternalLink } from 'lucide-react';
+import { compressUploadedImage } from '../utils/imageCompressor';
 
 export interface ImageSlot {
   key: string;
@@ -20,56 +21,56 @@ export interface DrivePhotoItem {
 export const GOOGLE_DRIVE_PHOTOS: DrivePhotoItem[] = [
   {
     id: 'gdrive_milk_tank',
-    name: 'Gemini_Generated_Image_ln24chln24chln24.jfif',
-    src: '/images/drive/Gemini_Generated_Image_ln24chln24chln24.jfif',
+    name: 'Gemini_Generated_Image_ln24chln24chln24.webp',
+    src: '/images/drive/Gemini_Generated_Image_ln24chln24chln24.webp',
     title: 'Süt Sağım Ünitesi & Soğuk Depolama Krom Tankı (+4.1°C)',
     category: 'Süt & Tesis',
     description: 'Vakumlu sağım sistemi, paslanmaz çelik süt tankı ve Holstein inekler.',
   },
   {
     id: 'gdrive_lamb_cuts',
-    name: '027b9871-269f-464e-84c0-9843159a765b.jfif',
-    src: '/images/drive/027b9871-269f-464e-84c0-9843159a765b.jfif',
+    name: '027b9871-269f-464e-84c0-9843159a765b.webp',
+    src: '/images/drive/027b9871-269f-464e-84c0-9843159a765b.webp',
     title: 'Trakya Kıvırcık Süt & Besi Kuzusu Taze Et Parçaları',
     category: 'Kuzu Eti',
     description: 'Ahşap masada biberiye ve kekikli pirzola, but ve kuzu parçaları.',
   },
   {
     id: 'gdrive_sheep_flock',
-    name: 'Gemini_Generated_Image_p665hcp665hcp665.jfif',
-    src: '/images/drive/Gemini_Generated_Image_p665hcp665hcp665.jfif',
+    name: 'Gemini_Generated_Image_p665hcp665hcp665.webp',
+    src: '/images/drive/Gemini_Generated_Image_p665hcp665hcp665.webp',
     title: 'Meriç Ovası Trakya Kıvırcık Koyun & Kuzu Sürüsü',
     category: 'Kıvırcık Koyun',
     description: 'Nehir kıyısı kır çiçekli geniş merada otlayan koyun sürüsü ve çoban.',
   },
   {
     id: 'gdrive_cows_river',
-    name: 'Gemini_Generated_Image_byt5yibyt5yibyt5.jfif',
-    src: '/images/drive/Gemini_Generated_Image_byt5yibyt5yibyt5.jfif',
+    name: 'Gemini_Generated_Image_byt5yibyt5yibyt5.webp',
+    src: '/images/drive/Gemini_Generated_Image_byt5yibyt5yibyt5.webp',
     title: 'Meriç Nehri Boyunda Otlayan Sütçü İnekler',
     category: 'Büyükbaş',
     description: 'Yemyeşil nehir kıyısı çayırda serbestçe otlayan inekler.',
   },
   {
     id: 'gdrive_beef_feedlot',
-    name: 'Gemini_Generated_Image_dvn834dvn834dvn8.jfif',
-    src: '/images/drive/Gemini_Generated_Image_dvn834dvn834dvn8.jfif',
+    name: 'Gemini_Generated_Image_dvn834dvn834dvn8.webp',
+    src: '/images/drive/Gemini_Generated_Image_dvn834dvn834dvn8.webp',
     title: 'Güneşli Açık Padoklarda Besi Danaları',
     category: 'Besi Danası',
     description: 'Açık gezinti alanında doğal yemliklerden beslenen etçi besi sığırları.',
   },
   {
     id: 'gdrive_river_pasture',
-    name: '0397dc1f-a0b2-416d-b580-a6e60fa3e026.jfif',
-    src: '/images/drive/0397dc1f-a0b2-416d-b580-a6e60fa3e026.jfif',
+    name: '0397dc1f-a0b2-416d-b580-a6e60fa3e026.webp',
+    src: '/images/drive/0397dc1f-a0b2-416d-b580-a6e60fa3e026.webp',
     title: 'Meriç Kıyısı Otlak & Ot Balya Manzarası',
     category: 'Mera & Manzara',
     description: 'Nehir kenarı otlakta otlayan koyunlar ve yemyeşil Trakya doğası.',
   },
   {
     id: 'gdrive_village_facility',
-    name: '23911dbc-b407-46d5-95fb-656107f0c494.jfif',
-    src: '/images/drive/23911dbc-b407-46d5-95fb-656107f0c494.jfif',
+    name: '23911dbc-b407-46d5-95fb-656107f0c494.webp',
+    src: '/images/drive/23911dbc-b407-46d5-95fb-656107f0c494.webp',
     title: 'Edirne Meriç Adasarhanlı Köyü Tesis Alanı & Mera',
     category: 'Çiftlik & Konum',
     description: 'Ada Çiftliği Adasarhanlı köyü nehri kıyısı doğal çiftlik arazisi.',
@@ -82,152 +83,152 @@ export const ALL_IMAGE_SLOTS: ImageSlot[] = [
     key: 'hero',
     label: 'Hero Başlık Ana Çiftlik Görseli (Meriç İnekleri)',
     section: 'Giriş (Hero)',
-    defaultSrc: '/images/drive/Gemini_Generated_Image_byt5yibyt5yibyt5.jfif',
+    defaultSrc: '/images/drive/Gemini_Generated_Image_byt5yibyt5yibyt5.webp',
   },
   // 2. Ürünler
   {
     key: 'product_koyun',
     label: 'Damızlık & Kesimlik Trakya Kıvırcık Koyunu',
     section: 'Ürünlerimiz',
-    defaultSrc: '/images/drive/Gemini_Generated_Image_p665hcp665hcp665.jfif',
+    defaultSrc: '/images/drive/Gemini_Generated_Image_p665hcp665hcp665.webp',
   },
   {
     key: 'product_kuzu',
     label: 'Trakya Kıvırcık Süt & Besi Kuzusu',
     section: 'Ürünlerimiz',
-    defaultSrc: '/images/drive/027b9871-269f-464e-84c0-9843159a765b.jfif',
+    defaultSrc: '/images/drive/027b9871-269f-464e-84c0-9843159a765b.webp',
   },
   {
     key: 'product_sut',
     label: 'Günlük Taze Çiğ Çiftlik Sütü (+4°C Krom Tank)',
     section: 'Ürünlerimiz',
-    defaultSrc: '/images/drive/Gemini_Generated_Image_ln24chln24chln24.jfif',
+    defaultSrc: '/images/drive/Gemini_Generated_Image_ln24chln24chln24.webp',
   },
   {
     key: 'product_dana',
     label: 'Simental & Şarole Besi Danası (Açık Padok)',
     section: 'Ürünlerimiz',
-    defaultSrc: '/images/drive/Gemini_Generated_Image_dvn834dvn834dvn8.jfif',
+    defaultSrc: '/images/drive/Gemini_Generated_Image_dvn834dvn834dvn8.webp',
   },
   {
     key: 'product_inek',
     label: 'Süt Verimli Gebe Düve & Süt İneği',
     section: 'Ürünlerimiz',
-    defaultSrc: '/images/drive/Gemini_Generated_Image_byt5yibyt5yibyt5.jfif',
+    defaultSrc: '/images/drive/Gemini_Generated_Image_byt5yibyt5yibyt5.webp',
   },
   // 3. Çiftlik & Hakkımızda
   {
     key: 'about_village',
     label: 'Adasarhanlı Köyü / Meriç / Edirne Doğal Mera Manzarası',
     section: 'Hakkımızda',
-    defaultSrc: '/images/drive/23911dbc-b407-46d5-95fb-656107f0c494.jfif',
+    defaultSrc: '/images/drive/23911dbc-b407-46d5-95fb-656107f0c494.webp',
   },
   {
     key: 'about_tank',
     label: '+4°C Krom Hijyenik Süt Soğutma Tankı',
     section: 'Hakkımızda',
-    defaultSrc: '/images/drive/Gemini_Generated_Image_ln24chln24chln24.jfif',
+    defaultSrc: '/images/drive/Gemini_Generated_Image_ln24chln24chln24.webp',
   },
   {
     key: 'about_sheep',
     label: 'Mera Kıvırcık Sürüsü (Meriç Havzası)',
     section: 'Hakkımızda',
-    defaultSrc: '/images/drive/Gemini_Generated_Image_p665hcp665hcp665.jfif',
+    defaultSrc: '/images/drive/Gemini_Generated_Image_p665hcp665hcp665.webp',
   },
   // 4. Galeri
   {
     key: 'gallery_g1',
     label: 'Meriç Deltası Doğal Mera Yayılımı',
     section: 'Galeri',
-    defaultSrc: '/images/drive/Gemini_Generated_Image_byt5yibyt5yibyt5.jfif',
+    defaultSrc: '/images/drive/Gemini_Generated_Image_byt5yibyt5yibyt5.webp',
   },
   {
     key: 'gallery_g2',
     label: 'Kıvırcık Koyun ve Koç Damızlıkları',
     section: 'Galeri',
-    defaultSrc: '/images/drive/Gemini_Generated_Image_p665hcp665hcp665.jfif',
+    defaultSrc: '/images/drive/Gemini_Generated_Image_p665hcp665hcp665.webp',
   },
   {
     key: 'gallery_g3',
     label: 'Trakya Kıvırcık Kuzu Eti Parçaları',
     section: 'Galeri',
-    defaultSrc: '/images/drive/027b9871-269f-464e-84c0-9843159a765b.jfif',
+    defaultSrc: '/images/drive/027b9871-269f-464e-84c0-9843159a765b.webp',
   },
   {
     key: 'gallery_g4',
     label: 'Simental Süt İnekleri & Havadar Mera',
     section: 'Galeri',
-    defaultSrc: '/images/drive/Gemini_Generated_Image_byt5yibyt5yibyt5.jfif',
+    defaultSrc: '/images/drive/Gemini_Generated_Image_byt5yibyt5yibyt5.webp',
   },
   {
     key: 'gallery_g5',
     label: 'AISI 304 Krom Süt Soğutma Tankı (+4°C)',
     section: 'Galeri',
-    defaultSrc: '/images/drive/Gemini_Generated_Image_ln24chln24chln24.jfif',
+    defaultSrc: '/images/drive/Gemini_Generated_Image_ln24chln24chln24.webp',
   },
   {
     key: 'gallery_g6',
     label: 'Besi Danaları & Açık Gezinti Padokları',
     section: 'Galeri',
-    defaultSrc: '/images/drive/Gemini_Generated_Image_dvn834dvn834dvn8.jfif',
+    defaultSrc: '/images/drive/Gemini_Generated_Image_dvn834dvn834dvn8.webp',
   },
   // 5. Üretim Süreci
   {
     key: 'process_step_1',
     label: 'Adım 1: Doğal Otlatma & Dengeli Besleme',
     section: 'Üretim Süreci',
-    defaultSrc: '/images/drive/0397dc1f-a0b2-416d-b580-a6e60fa3e026.jfif',
+    defaultSrc: '/images/drive/0397dc1f-a0b2-416d-b580-a6e60fa3e026.webp',
   },
   {
     key: 'process_step_2',
     label: 'Adım 2: Otomatik Sağım & Soğuk Zincir Tankı',
     section: 'Üretim Süreci',
-    defaultSrc: '/images/drive/Gemini_Generated_Image_ln24chln24chln24.jfif',
+    defaultSrc: '/images/drive/Gemini_Generated_Image_ln24chln24chln24.webp',
   },
   {
     key: 'process_step_3',
     label: 'Adım 3: Tesis Çıkışı & Güvenli Teslimat',
     section: 'Üretim Süreci',
-    defaultSrc: '/images/drive/23911dbc-b407-46d5-95fb-656107f0c494.jfif',
+    defaultSrc: '/images/drive/23911dbc-b407-46d5-95fb-656107f0c494.webp',
   },
   // 6. İletişim / Harita Yanı Tesis
   {
     key: 'contact_facility',
     label: 'Ada Çiftliği Adasarhanlı Tesisleri',
     section: 'İletişim & Konum',
-    defaultSrc: '/images/drive/23911dbc-b407-46d5-95fb-656107f0c494.jfif',
+    defaultSrc: '/images/drive/23911dbc-b407-46d5-95fb-656107f0c494.webp',
   },
   // 7. Teklif Bandı Arka Plan
   {
     key: 'conversion_bg',
     label: 'Teklif Bandı Arka Planı (Meriç Otlağı)',
     section: 'Teklif Bandı',
-    defaultSrc: '/images/drive/0397dc1f-a0b2-416d-b580-a6e60fa3e026.jfif',
+    defaultSrc: '/images/drive/0397dc1f-a0b2-416d-b580-a6e60fa3e026.webp',
   },
   // 8. Müşteri Yorumları Avatarları
   {
     key: 'testimonial_1',
     label: 'Hüseyin K. (Kasap & Izgara)',
     section: 'Müşteri Yorumları',
-    defaultSrc: '/images/avatar_1.jpg',
+    defaultSrc: '/images/avatar_1.webp',
   },
   {
     key: 'testimonial_2',
     label: 'Murat & Selim B. (Mandıra Üreticisi)',
     section: 'Müşteri Yorumları',
-    defaultSrc: '/images/avatar_2.jpg',
+    defaultSrc: '/images/avatar_2.webp',
   },
   {
     key: 'testimonial_3',
     label: 'Erdoğan Y. (Kurbanlık Alıcısı)',
     section: 'Müşteri Yorumları',
-    defaultSrc: '/images/avatar_3.jpg',
+    defaultSrc: '/images/avatar_3.webp',
   },
   {
     key: 'testimonial_4',
     label: 'Gülten H. (Aile Tüketicisi)',
     section: 'Müşteri Yorumları',
-    defaultSrc: '/images/avatar_4.jpg',
+    defaultSrc: '/images/avatar_4.webp',
   },
 ];
 
@@ -257,7 +258,15 @@ export const ImageProvider: React.FC<{ children: React.ReactNode }> = ({ childre
         // 1. Unified storage
         const saved = localStorage.getItem(STORAGE_KEY);
         if (saved) {
-          Object.assign(initial, JSON.parse(saved));
+          const parsed = JSON.parse(saved);
+          const cleaned: Record<string, string> = {};
+          for (const [k, v] of Object.entries(parsed)) {
+            if (typeof v === 'string' && v.trim()) {
+              // Normalize old jfif/unoptimized references to webp
+              cleaned[k] = v.replace(/\.(jfif)$/i, '.webp');
+            }
+          }
+          Object.assign(initial, cleaned);
         }
       } catch (e) {
         console.warn('ImageContext init storage error', e);
@@ -269,36 +278,6 @@ export const ImageProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   const [toastMessage, setToastMessage] = useState<string | null>(null);
   const [isPhotoManagerOpen, setIsPhotoManagerOpen] = useState(false);
   const toastTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-
-  // Auto detect if user has generated images in public/images
-  useEffect(() => {
-    // Village photo
-    if (!images['about_village']) {
-      const testVillage = new Image();
-      testVillage.src = '/images/23911dbc-b407-46d5-95fb-656107f0c494.jfif';
-      testVillage.onload = () => {
-        setImages((prev) => ({
-          ...prev,
-          about_village: '/images/23911dbc-b407-46d5-95fb-656107f0c494.jfif',
-          gallery_g1: prev.gallery_g1 || '/images/23911dbc-b407-46d5-95fb-656107f0c494.jfif',
-        }));
-      };
-    }
-
-    // Tank photo
-    if (!images['about_tank']) {
-      const testTank = new Image();
-      testTank.src = '/images/Gemini_Generated_Image_ln24chln24chln24.jfif';
-      testTank.onload = () => {
-        setImages((prev) => ({
-          ...prev,
-          about_tank: '/images/Gemini_Generated_Image_ln24chln24chln24.jfif',
-          product_sut: prev.product_sut || '/images/Gemini_Generated_Image_ln24chln24chln24.jfif',
-          gallery_g5: prev.gallery_g5 || '/images/Gemini_Generated_Image_ln24chln24chln24.jfif',
-        }));
-      };
-    }
-  }, []);
 
   const setToast = (msg: string) => {
     if (toastTimeoutRef.current) clearTimeout(toastTimeoutRef.current);
@@ -447,21 +426,28 @@ const PhotoManagerModal: React.FC<{ onClose: () => void }> = ({ onClose }) => {
     fileInputRef.current?.click();
   };
 
-  const handleFileSelected = (file: File) => {
+  const handleFileSelected = async (file: File) => {
     if (!activeKeyRef.current) return;
     if (!file.type.startsWith('image/') && !file.name.endsWith('.jfif')) {
       alert('Lütfen geçerli bir resim dosyası seçin (.jpg, .png, .jfif, .webp)');
       return;
     }
-    const reader = new FileReader();
     const targetKey = activeKeyRef.current;
-    reader.onload = (e) => {
-      const result = e.target?.result as string;
-      if (result) {
-        setImage(targetKey, result);
-      }
-    };
-    reader.readAsDataURL(file);
+    try {
+      // Automatically compress client-side to prevent massive localStorage payload & slow loading
+      const compressedDataUrl = await compressUploadedImage(file, 1600, 0.82);
+      setImage(targetKey, compressedDataUrl);
+    } catch {
+      // Fallback to FileReader if canvas compression fails
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const result = e.target?.result as string;
+        if (result) {
+          setImage(targetKey, result);
+        }
+      };
+      reader.readAsDataURL(file);
+    }
   };
 
   return (

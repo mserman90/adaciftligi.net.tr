@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { MapPin, Phone, MessageCircle, Mail, Clock, Send, Sparkles, Check, ExternalLink } from 'lucide-react';
 import { FARM_CONTACT, FARM_CONTACT_EN } from '../data/farmData';
 import { useFarmImages } from '../context/ImageContext';
+import { OptimizedImage } from './OptimizedImage';
 
 export const ContactSection = ({ lang = 'tr' }: { lang?: 'tr' | 'en' }) => {
   const contactData = lang === 'en' ? FARM_CONTACT_EN : FARM_CONTACT;
@@ -17,7 +18,7 @@ export const ContactSection = ({ lang = 'tr' }: { lang?: 'tr' | 'en' }) => {
   const [submitted, setSubmitted] = useState(false);
 
   // Facility image defaults to village image if set, or facility default
-  const defaultVillage = getImage('about_village', '/images/hero_barn.jpg');
+  const defaultVillage = getImage('about_village', '/images/hero_barn.webp');
   const facilityImg = getImage('contact_facility', defaultVillage);
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -158,15 +159,12 @@ export const ContactSection = ({ lang = 'tr' }: { lang?: 'tr' | 'en' }) => {
                   <div
                     className="relative w-20 h-14 rounded-xl overflow-hidden bg-stone-100 border border-stone-200 shrink-0"
                   >
-                    <img
+                    <OptimizedImage
                       src={facilityImg}
                       alt="Ada Çiftliği Adasarhanlı Köyü Tesisleri"
-                      className="w-full h-full object-cover"
-                      referrerPolicy="no-referrer"
-                      loading="lazy"
-                      onError={(e) => {
-                        (e.target as HTMLImageElement).src = '/images/hero_cows.jpg';
-                      }}
+                      fallbackSrc="/images/hero_cows.webp"
+                      className="w-full h-full"
+                      imgClassName="w-full h-full object-cover"
                     />
                   </div>
 

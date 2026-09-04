@@ -3,6 +3,7 @@ import React from 'react';
 import { MessageCircle, Phone, ArrowRight, CheckCircle2, Shield } from 'lucide-react';
 import { FARM_CONTACT } from '../data/farmData';
 import { useFarmImages } from '../context/ImageContext';
+import { OptimizedImage } from './OptimizedImage';
 
 interface ConversionBannerProps {
   lang?: 'tr' | 'en';
@@ -11,7 +12,7 @@ interface ConversionBannerProps {
 
 export const ConversionBanner: React.FC<ConversionBannerProps> = ({ onOpenInquiry }) => {
   const { getImage } = useFarmImages();
-  const bannerImg = getImage('conversion_bg', '/images/farm_landscape.jpg');
+  const bannerImg = getImage('conversion_bg', '/images/farm_landscape.webp');
 
   return (
     <section id="talep-bandi" className="relative bg-[#123c28] text-white py-16 sm:py-20 overflow-hidden">
@@ -24,15 +25,12 @@ export const ConversionBanner: React.FC<ConversionBannerProps> = ({ onOpenInquir
           className="relative bg-[#174730] border border-emerald-700/50 rounded-3xl p-8 sm:p-12 lg:p-14 shadow-2xl overflow-hidden transition-all duration-300"
         >
           {/* Subtle farm landscape background overlay */}
-          <img
+          <OptimizedImage
             src={bannerImg}
             alt="Ada Çiftliği mera manzarası"
-            className="absolute inset-0 w-full h-full object-cover opacity-20 mix-blend-luminosity pointer-events-none transition-all duration-700"
-            referrerPolicy="no-referrer"
-            loading="lazy"
-            onError={(e) => {
-              (e.target as HTMLImageElement).src = '/images/hero_cows.jpg';
-            }}
+            fallbackSrc="/images/farm_landscape.webp"
+            className="absolute inset-0 w-full h-full pointer-events-none"
+            imgClassName="w-full h-full object-cover opacity-20 mix-blend-luminosity transition-all duration-700"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-[#174730] via-[#174730]/90 to-[#123c28]/95 pointer-events-none" />
 

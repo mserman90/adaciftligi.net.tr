@@ -3,6 +3,7 @@ import React, { useEffect, useRef } from 'react';
 import { ArrowRight, ChevronDown, CheckCircle2, Shield, PhoneCall, Sparkles } from 'lucide-react';
 import { FARM_STATS, FARM_CONTACT } from '../data/farmData';
 import { useFarmImages } from '../context/ImageContext';
+import { OptimizedImage } from './OptimizedImage';
 import { gsap } from 'gsap';
 
 interface HeroProps {
@@ -20,7 +21,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenInquiry, lang = 'tr' }) => {
   const imageCardRef = useRef<HTMLDivElement>(null);
 
   const { getImage } = useFarmImages();
-  const heroImage = getImage('hero', '/images/drive/Gemini_Generated_Image_byt5yibyt5yibyt5.jfif');
+  const heroImage = getImage('hero', '/images/drive/Gemini_Generated_Image_byt5yibyt5yibyt5.webp');
 
   useEffect(() => {
     // Check prefers-reduced-motion
@@ -170,20 +171,13 @@ export const Hero: React.FC<HeroProps> = ({ onOpenInquiry, lang = 'tr' }) => {
                 id="hero-photo-container"
                 className="overflow-hidden rounded-3xl border border-stone-200 shadow-[0_16px_40px_-12px_rgba(18,60,40,0.14)] bg-stone-100 relative group aspect-[4/3] lg:aspect-[5/4] transition-all duration-300"
               >
-                <img
+                <OptimizedImage
                   src={heroImage}
                   alt="Doğal taşkın ovası merasında otlayan sağlıklı sığır sürüsü - Ada Çiftliği"
-                  className="w-full h-full object-cover group-hover:scale-103 transition-transform duration-700"
-                  referrerPolicy="no-referrer"
-                  loading="eager"
-                  onError={(e) => {
-                    const target = e.target as HTMLImageElement;
-                    if (target.src !== '/images/hero_cows.jpg') {
-                      target.src = '/images/hero_cows.jpg';
-                    } else {
-                      target.src = '/images/hero_barn.jpg';
-                    }
-                  }}
+                  priority={true}
+                  fallbackSrc="/images/hero_cows.webp"
+                  className="w-full h-full"
+                  imgClassName="w-full h-full object-cover group-hover:scale-103 transition-transform duration-700"
                 />
 
                 {/* Subtle Gradient Shadow */}

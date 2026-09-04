@@ -32,7 +32,7 @@ export const InquiryModal: React.FC<InquiryModalProps> = ({
 
   const handleWhatsAppSend = (e: React.FormEvent) => {
     e.preventDefault();
-    const text = `Merhaba Ada Çiftliği,\n*Fiyat & Bilgi Talebi*\n- İsim: ${name || 'Belirtilmedi'}\n- Telefon: ${phone || 'Belirtilmedi'}\n- Ürün: ${selectedProduct}\n- {lang === 'en' ? 'Order Type' : 'Alım Türü'}: ${orderType}\n- Miktar/Adet: ${quantity || 'Görüşülecek'}\n- Not: ${note || 'Yok'}\n\nDetaylı bilgi ve güncel fiyat teklifi alabilir miyim?`;
+    const text = `Merhaba Ada Çiftliği,\n*Fiyat & Bilgi Talebi*\n- İsim: ${name || 'Belirtilmedi'}\n- Telefon: ${phone || 'Belirtilmedi'}\n- Ürün: ${selectedProduct}\n- ${lang === 'en' ? 'Order Type' : 'Alım Türü'}: ${orderType}\n- Miktar/Adet: ${quantity || 'Görüşülecek'}\n- Not: ${note || 'Yok'}\n\nDetaylı bilgi ve güncel fiyat teklifi alabilir miyim?`;
     window.open(`https://wa.me/905323428200?text=${encodeURIComponent(text)}`, '_blank');
     onClose();
   };

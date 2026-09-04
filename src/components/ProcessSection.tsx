@@ -3,6 +3,7 @@ import React from 'react';
 import { Sprout, ShieldCheck, Truck, Sparkles, Check } from 'lucide-react';
 import { PRODUCTION_STEPS, PRODUCTION_STEPS_EN } from '../data/farmData';
 import { useFarmImages } from '../context/ImageContext';
+import { OptimizedImage } from './OptimizedImage';
 
 export const ProcessSection = ({ lang = 'tr' }: { lang?: 'tr' | 'en' }) => {
   const { getImage } = useFarmImages();
@@ -55,15 +56,12 @@ export const ProcessSection = ({ lang = 'tr' }: { lang?: 'tr' | 'en' }) => {
                 <div
                   className="relative aspect-[16/10] overflow-hidden bg-stone-200 transition-all duration-300"
                 >
-                  <img
+                  <OptimizedImage
                     src={displayImage}
                     alt={step.imageAlt || step.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    referrerPolicy="no-referrer"
-                    loading="lazy"
-                    onError={(e) => {
-                      (e.target as HTMLImageElement).src = '/images/hero_cows.jpg';
-                    }}
+                    fallbackSrc={step.image || '/images/hero_cows.webp'}
+                    className="w-full h-full"
+                    imgClassName="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-stone-950/70 via-stone-950/20 to-transparent pointer-events-none" />
 

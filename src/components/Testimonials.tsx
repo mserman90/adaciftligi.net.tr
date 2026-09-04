@@ -3,6 +3,7 @@ import { t } from '../translations';
 import { Star, Sparkles, Quote } from 'lucide-react';
 import { TESTIMONIALS, TESTIMONIALS_EN } from '../data/farmData';
 import { useFarmImages } from '../context/ImageContext';
+import { OptimizedImage } from './OptimizedImage';
 
 export const Testimonials = ({ lang = 'tr' }: { lang?: 'tr' | 'en' }) => {
   const l = t[lang].testimonials;
@@ -57,15 +58,12 @@ export const Testimonials = ({ lang = 'tr' }: { lang?: 'tr' | 'en' }) => {
                 <div className="pt-4 border-t border-stone-100 flex items-center justify-between gap-3">
                   <div className="flex items-center gap-3 min-w-0">
                     <div className="relative w-12 h-12 rounded-full overflow-hidden border-2 border-stone-100 shrink-0">
-                      <img
+                      <OptimizedImage
                         src={avatarSrc}
                         alt={t.name}
-                        className="w-full h-full object-cover"
-                        referrerPolicy="no-referrer"
-                        loading="lazy"
-                        onError={(e) => {
-                          (e.target as HTMLImageElement).src = '/images/avatar_2.jpg';
-                        }}
+                        fallbackSrc={t.avatar}
+                        className="w-full h-full"
+                        imgClassName="w-full h-full object-cover"
                       />
                     </div>
 

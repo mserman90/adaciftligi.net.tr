@@ -3,6 +3,7 @@ import { ArrowUpRight, Check, Sparkles } from 'lucide-react';
 import { t } from '../translations';
 import { FARM_PRODUCTS, FARM_PRODUCTS_EN } from '../data/farmData';
 import { useFarmImages } from '../context/ImageContext';
+import { OptimizedImage } from './OptimizedImage';
 
 interface ProductGridProps {
   lang?: 'tr' | 'en';
@@ -79,15 +80,12 @@ export const ProductGrid: React.FC<ProductGridProps> = ({ onSelectProduct, lang 
               >
                 {/* Image Container */}
                 <div className="relative aspect-[16/10] overflow-hidden bg-stone-100">
-                  <img
+                  <OptimizedImage
                     src={currentImg}
                     alt={`${product.title} - Ada Çiftliği Meriç`}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    referrerPolicy="no-referrer"
-                    loading="lazy"
-                    onError={(e) => {
-                      (e.target as HTMLImageElement).src = '/images/hero_cows.jpg';
-                    }}
+                    fallbackSrc={product.image}
+                    className="w-full h-full"
+                    imgClassName="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-stone-950/50 via-transparent to-transparent opacity-70 pointer-events-none" />
 

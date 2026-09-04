@@ -1,5 +1,6 @@
 import React from 'react';
 import { useFarmImages } from '../context/ImageContext';
+import { OptimizedImage } from './OptimizedImage';
 
 export interface EditablePhotoContainerProps {
   imageKey: string;
@@ -36,19 +37,13 @@ export const EditablePhotoContainer: React.FC<EditablePhotoContainerProps> = ({
       onClick={onClick}
       className={`relative overflow-hidden group transition-all duration-300 ${aspectRatio} ${className}`}
     >
-      {/* Main Image */}
-      <img
+      {/* Main Image with WebP & Skeleton */}
+      <OptimizedImage
         src={currentSrc}
         alt={alt}
-        className={`w-full h-full object-cover transition-transform duration-500 ${imgClassName}`}
-        referrerPolicy="no-referrer"
-        loading="lazy"
-        onError={(e) => {
-          const target = e.target as HTMLImageElement;
-          if (target.src !== defaultSrc) {
-            target.src = defaultSrc;
-          }
-        }}
+        fallbackSrc={defaultSrc}
+        className="w-full h-full"
+        imgClassName={`w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 ${imgClassName}`}
       />
 
       {/* Optional Badge */}
@@ -59,3 +54,4 @@ export const EditablePhotoContainer: React.FC<EditablePhotoContainerProps> = ({
     </div>
   );
 };
+

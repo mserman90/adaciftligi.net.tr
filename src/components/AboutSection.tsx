@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { HeartHandshake, ShieldCheck, Waves, Sun, Sparkles, MapPin, ZoomIn, X, Camera } from 'lucide-react';
 import { FARM_CONTACT, FARM_GALLERY, FarmGalleryItem } from '../data/farmData';
 import { useFarmImages } from '../context/ImageContext';
+import { OptimizedImage } from './OptimizedImage';
 
 export const AboutSection: React.FC<{ lang?: 'tr' | 'en' }> = ({ lang = 'tr' }) => {
   const l = t[lang].about;
@@ -64,21 +65,18 @@ export const AboutSection: React.FC<{ lang?: 'tr' | 'en' }> = ({ lang = 'tr' }) 
           <div className="lg:col-span-6 space-y-4">
             {/* Main {lang === 'en' ? 'Adasarhanli Village / Meric / Edirne' : 'Adasarhanlı Köyü / Meriç / Edirne'} Landscape Showcase Card */}
             {(() => {
-              const villageImg = getImage('about_village', '/images/drive/23911dbc-b407-46d5-95fb-656107f0c494.jfif');
+              const villageImg = getImage('about_village', '/images/drive/23911dbc-b407-46d5-95fb-656107f0c494.webp');
 
               return (
                 <div
                   className="group relative rounded-3xl overflow-hidden shadow-lg border border-stone-200/80 aspect-[16/10] bg-stone-100 transition-all duration-300"
                 >
-                  <img
+                  <OptimizedImage
                     src={villageImg}
                     alt="Meriç Edirne Adasarhanlı Çiftlik Manzarası"
-                    className="w-full h-full object-cover group-hover:scale-103 transition-transform duration-700"
-                    referrerPolicy="no-referrer"
-                    loading="lazy"
-                    onError={(e) => {
-                      (e.target as HTMLImageElement).src = '/images/farm_landscape.jpg';
-                    }}
+                    fallbackSrc="/images/farm_landscape.webp"
+                    className="w-full h-full"
+                    imgClassName="w-full h-full object-cover group-hover:scale-103 transition-transform duration-700"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-stone-950/70 via-transparent to-transparent pointer-events-none" />
 
@@ -98,21 +96,18 @@ export const AboutSection: React.FC<{ lang?: 'tr' | 'en' }> = ({ lang = 'tr' }) 
             <div className="grid grid-cols-2 gap-4">
               {/* Milk Tank Photo Card */}
               {(() => {
-                const tankImg = getImage('about_tank', '/images/drive/Gemini_Generated_Image_ln24chln24chln24.jfif');
+                const tankImg = getImage('about_tank', '/images/drive/Gemini_Generated_Image_ln24chln24chln24.webp');
 
                 return (
                   <div
                     className="group relative rounded-2xl overflow-hidden border border-stone-200 aspect-[4/3] bg-stone-100 transition-all duration-300"
                   >
-                    <img
+                    <OptimizedImage
                       src={tankImg}
                       alt="Hijyenik süt sağım ve soğutma tankı ünitesi - Ada Çiftliği Meriç"
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                      referrerPolicy="no-referrer"
-                      loading="lazy"
-                      onError={(e) => {
-                        (e.target as HTMLImageElement).src = '/images/sut.jpg';
-                      }}
+                      fallbackSrc="/images/sut.webp"
+                      className="w-full h-full"
+                      imgClassName="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     />
                     <div className="absolute inset-0 bg-stone-950/25 group-hover:bg-transparent transition-colors pointer-events-none" />
 
@@ -125,21 +120,18 @@ export const AboutSection: React.FC<{ lang?: 'tr' | 'en' }> = ({ lang = 'tr' }) 
 
               {/* Mera Kıvırcık Sürüsü Card */}
               {(() => {
-                const sheepImg = getImage('about_sheep', '/images/drive/Gemini_Generated_Image_p665hcp665hcp665.jfif');
+                const sheepImg = getImage('about_sheep', '/images/drive/Gemini_Generated_Image_p665hcp665hcp665.webp');
 
                 return (
                   <div
                     className="group relative rounded-2xl overflow-hidden border border-stone-200 aspect-[4/3] bg-stone-100 transition-all duration-300"
                   >
-                    <img
+                    <OptimizedImage
                       src={sheepImg}
                       alt="Kıvırcık koyun ve serbest mera sürüsü"
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                      referrerPolicy="no-referrer"
-                      loading="lazy"
-                      onError={(e) => {
-                        (e.target as HTMLImageElement).src = '/images/kuzu.jpg';
-                      }}
+                      fallbackSrc="/images/kuzu.webp"
+                      className="w-full h-full"
+                      imgClassName="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     />
                     <div className="absolute inset-0 bg-stone-950/25 group-hover:bg-transparent transition-colors pointer-events-none" />
 
@@ -253,15 +245,12 @@ export const AboutSection: React.FC<{ lang?: 'tr' | 'en' }> = ({ lang = 'tr' }) 
                   onClick={() => setSelectedGalleryItem({ ...item, image: displayImage })}
                   className="group relative rounded-2xl overflow-hidden border border-stone-200 bg-stone-100 aspect-[16/11] cursor-pointer shadow-xs card-hover-lift transition-all duration-300"
                 >
-                  <img
+                  <OptimizedImage
                     src={displayImage}
                     alt={`${item.title} - Ada Çiftliği`}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    referrerPolicy="no-referrer"
-                    loading="lazy"
-                    onError={(e) => {
-                      (e.target as HTMLImageElement).src = '/images/hero_cows.jpg';
-                    }}
+                    fallbackSrc={item.image}
+                    className="w-full h-full"
+                    imgClassName="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-stone-950/80 via-stone-950/25 to-transparent opacity-80 group-hover:opacity-90 transition-opacity pointer-events-none" />
 
@@ -306,11 +295,12 @@ export const AboutSection: React.FC<{ lang?: 'tr' | 'en' }> = ({ lang = 'tr' }) 
                 onClick={(e) => e.stopPropagation()}
               >
                 <div className="relative aspect-[16/10] bg-stone-950">
-                  <img
+                  <OptimizedImage
                     src={currentModalImg}
                     alt={selectedGalleryItem.title}
-                    className="w-full h-full object-contain"
-                    referrerPolicy="no-referrer"
+                    fallbackSrc={selectedGalleryItem.image}
+                    className="w-full h-full"
+                    imgClassName="w-full h-full object-contain"
                   />
                   <div className="absolute top-4 right-4 flex items-center gap-2">
                     <button
