@@ -81,7 +81,9 @@ export const Hero: React.FC<HeroProps> = ({ onOpenInquiry, lang = 'tr' }) => {
                 <span className="w-2 h-2 rounded-full bg-[#123c28] animate-pulse" />
                 <span>{l.location}</span>
                 <span className="text-stone-300">|</span>
-                <span className="text-stone-600">Doğal Hayvancılık & Süt</span>
+                <span className="text-stone-600">
+                  {lang === 'en' ? 'Natural Livestock & Dairy' : 'Doğal Hayvancılık & Süt'}
+                </span>
               </div>
               <a
                 href="#farm-weather-banner"
@@ -173,7 +175,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenInquiry, lang = 'tr' }) => {
               >
                 <OptimizedImage
                   src={heroImage}
-                  alt="Doğal taşkın ovası merasında otlayan sağlıklı sığır sürüsü - Ada Çiftliği"
+                  alt={lang === 'en' ? 'Healthy cattle herd grazing in natural floodplain pasture - Ada Farm' : 'Doğal taşkın ovası merasında otlayan sağlıklı sığır sürüsü - Ada Çiftliği'}
                   priority={true}
                   fallbackSrc="/images/hero_cows.webp"
                   className="w-full h-full"

@@ -10,7 +10,7 @@ interface ConversionBannerProps {
   onOpenInquiry: () => void;
 }
 
-export const ConversionBanner: React.FC<ConversionBannerProps> = ({ onOpenInquiry }) => {
+export const ConversionBanner: React.FC<ConversionBannerProps> = ({ onOpenInquiry, lang = 'tr' }) => {
   const { getImage } = useFarmImages();
   const bannerImg = getImage('conversion_bg', '/images/farm_landscape.webp');
 
@@ -27,7 +27,7 @@ export const ConversionBanner: React.FC<ConversionBannerProps> = ({ onOpenInquir
           {/* Subtle farm landscape background overlay */}
           <OptimizedImage
             src={bannerImg}
-            alt="Ada Çiftliği mera manzarası"
+            alt={lang === 'en' ? 'Ada Farm pasture landscape' : 'Ada Çiftliği mera manzarası'}
             fallbackSrc="/images/farm_landscape.webp"
             className="absolute inset-0 w-full h-full pointer-events-none"
             imgClassName="w-full h-full object-cover opacity-20 mix-blend-luminosity transition-all duration-700"
@@ -39,31 +39,34 @@ export const ConversionBanner: React.FC<ConversionBannerProps> = ({ onOpenInquir
             <div className="lg:col-span-8 space-y-4">
               <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-emerald-900/60 border border-emerald-600/40 text-emerald-300 text-xs font-semibold tracking-wide uppercase">
                 <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                <span>Toptan & Perakende Alım Fırsatları</span>
+                <span>{lang === 'en' ? 'Wholesale & Retail Buying Opportunities' : 'Toptan & Perakende Alım Fırsatları'}</span>
               </div>
 
               <h2 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white leading-tight">
-                Mandıranız, Kasabınız veya Aileniz İçin Doğrudan Çiftlik Fiyatları
+                {lang === 'en'
+                  ? 'Direct Farm Prices for Your Dairy, Butcher, or Family'
+                  : 'Mandıranız, Kasabınız veya Aileniz İçin Doğrudan Çiftlik Fiyatları'}
               </h2>
 
               <p className="text-emerald-100/90 text-sm sm:text-base lg:text-lg leading-relaxed max-w-2xl">
-                Haftalık düzenli soğuk süt tedariği, sürü bazında toptan kuzu/koyun sevkiyatı veya
-                canlı baskül kurbanlık/besi danası talepleriniz için anında teklif alın.
+                {lang === 'en'
+                  ? 'Get an instant quote for regular weekly cold milk supply, flock-based wholesale lamb/sheep shipments, or live-scale sacrifice and fattening calves.'
+                  : 'Haftalık düzenli soğuk süt tedariği, sürü bazında toptan kuzu/koyun sevkiyatı veya canlı baskül kurbanlık/besi danası talepleriniz için anında teklif alın.'}
               </p>
 
               {/* Guarantees */}
               <div className="pt-2 flex flex-wrap items-center gap-y-2 gap-x-6 text-xs sm:text-sm text-emerald-200">
                 <div className="flex items-center gap-2">
                   <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
-                  <span>Resmi İlçe Tarım Sevk Belgeli</span>
+                  <span>{lang === 'en' ? 'Official District Agriculture Dispatch Certified' : 'Resmi İlçe Tarım Sevk Belgeli'}</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
-                  <span>Hassas Dijital Baskül Tartımı</span>
+                  <span>{lang === 'en' ? 'Precision Digital Scale Weighing' : 'Hassas Dijital Baskül Tartımı'}</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
-                  <span>Hızlı Trakya Lojistik Desteği</span>
+                  <span>{lang === 'en' ? 'Fast Thrace Logistics Support' : 'Hızlı Trakya Lojistik Desteği'}</span>
                 </div>
               </div>
             </div>
@@ -75,7 +78,7 @@ export const ConversionBanner: React.FC<ConversionBannerProps> = ({ onOpenInquir
                 onClick={onOpenInquiry}
                 className="w-full bg-white hover:bg-stone-100 text-[#123c28] font-bold text-base py-4 px-6 rounded-full shadow-lg hover:shadow-xl transition-all duration-200 flex items-center justify-center gap-2.5 active:scale-98 cursor-pointer"
               >
-                <span>Hemen Fiyat Teklifi Al</span>
+                <span>{lang === 'en' ? 'Get Instant Price Quote' : 'Hemen Fiyat Teklifi Al'}</span>
                 <ArrowRight className="w-5 h-5" />
               </button>
 
@@ -86,7 +89,7 @@ export const ConversionBanner: React.FC<ConversionBannerProps> = ({ onOpenInquir
                 className="w-full bg-[#25D366] hover:bg-[#20ba59] text-white font-semibold text-sm sm:text-base py-3.5 px-6 rounded-full transition-all duration-200 flex items-center justify-center gap-2.5 shadow-md active:scale-98"
               >
                 <MessageCircle className="w-5 h-5 fill-current" />
-                <span>WhatsApp’tan Anında Yazın</span>
+                <span>{lang === 'en' ? 'Chat Instantly on WhatsApp' : 'WhatsApp’tan Anında Yazın'}</span>
               </a>
 
               <a
@@ -94,7 +97,7 @@ export const ConversionBanner: React.FC<ConversionBannerProps> = ({ onOpenInquir
                 className="w-full bg-transparent hover:bg-emerald-900/50 text-white font-medium text-xs sm:text-sm py-2.5 px-4 rounded-full border border-emerald-600/40 transition-colors flex items-center justify-center gap-2"
               >
                 <Phone className="w-4 h-4 text-emerald-300" />
-                <span>Telefon: {FARM_CONTACT.phone}</span>
+                <span>{lang === 'en' ? `Phone: ${FARM_CONTACT.phone}` : `Telefon: ${FARM_CONTACT.phone}`}</span>
               </a>
             </div>
           </div>

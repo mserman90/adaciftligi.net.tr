@@ -26,7 +26,7 @@ import {
 } from 'lucide-react';
 import { FarmWeatherData } from '../types';
 import { fetchMericWeather } from '../utils/weatherService';
-import { FARM_CONTACT } from '../data/farmData';
+import { FARM_CONTACT, FARM_CONTACT_EN } from '../data/farmData';
 
 interface FarmWeatherBannerProps {
   lang?: 'tr' | 'en';
@@ -44,10 +44,12 @@ export const FarmWeatherBanner: React.FC<FarmWeatherBannerProps> = ({
   const [refreshing, setRefreshing] = useState<boolean>(false);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
+  const contactData = lang === 'en' ? FARM_CONTACT_EN : FARM_CONTACT;
+
   const loadWeather = async (force: boolean = false) => {
     if (force) setRefreshing(true);
     try {
-      const data = await fetchMericWeather(force);
+      const data = await fetchMericWeather(force, lang === 'en' ? 'en' : 'tr');
       setWeatherData(data);
     } catch (err) {
       console.error('Failed to load weather:', err);
@@ -66,7 +68,7 @@ export const FarmWeatherBanner: React.FC<FarmWeatherBannerProps> = ({
       loadWeather(true);
     }, 10 * 60 * 1000);
     return () => clearInterval(interval);
-  }, []);
+  }, [lang]);
 
   const getWeatherIcon = (code?: number, isDay: boolean = true) => {
     if (code === undefined) return <Sun className="w-4 h-4 text-amber-400" />;
@@ -84,7 +86,7 @@ export const FarmWeatherBanner: React.FC<FarmWeatherBannerProps> = ({
   if (!weatherData && loading) {
     return (
       <aside
-        aria-label="Meriç Çiftlik Hava Durumu Yükleniyor"
+        aria-label={lang === 'en' ? 'Loading Meric Farm Weather' : 'Meriç Çiftlik Hava Durumu Yükleniyor'}
         className="w-full bg-[#0d2a1c] text-emerald-100/70 text-xs py-1.5 px-4 border-b border-emerald-900/50 flex items-center justify-center gap-2"
       >
         <RefreshCw className="w-3 h-3 animate-spin text-emerald-400" />
@@ -103,7 +105,7 @@ export const FarmWeatherBanner: React.FC<FarmWeatherBannerProps> = ({
       {/* Top Banner Bar */}
       <aside
         id="farm-weather-banner"
-        aria-label="Ada Çiftliği Canlı Mera ve Hava Durumu Bandı"
+        aria-label={lang === 'en' ? 'Ada Farm Live Pasture and Weather Banner' : 'Ada Çiftliği Canlı Mera ve Hava Durumu Bandı'}
         className={`w-full bg-[#0b2418] text-stone-100 border-b border-emerald-900/60 text-xs transition-all duration-300 ${
           compact ? 'py-1.5 px-3' : 'py-2 px-3 sm:px-4'
         }`}
@@ -117,7 +119,7 @@ export const FarmWeatherBanner: React.FC<FarmWeatherBannerProps> = ({
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
               </span>
               <span className="text-[11px] uppercase tracking-wider text-emerald-300 hidden md:inline">
-                Canlı Çiftlik Raporu:
+                {lang === 'en' ? 'Live Farm Report:' : 'Canlı Çiftlik Raporu:'}
               </span>
               <span className="inline-flex items-center gap-1 text-white font-medium">
                 <MapPin className="w-3 h-3 text-emerald-400 shrink-0" />
@@ -137,7 +139,7 @@ export const FarmWeatherBanner: React.FC<FarmWeatherBannerProps> = ({
                 {weatherData.weatherDescription}
               </span>
               <span className="text-emerald-300/60 hidden lg:inline text-[11px]">
-                ({lang === 'en' ? 'Humidity:' : 'Nem:'} %{weatherData.humidity} · {lang === 'en' ? 'Wind:' : 'Rüzgar:'} {weatherData.windSpeed} km/s)
+                ({lang === 'en' ? 'Humidity:' : 'Nem:'} %{weatherData.humidity} · {lang === 'en' ? 'Wind:' : 'Rüzgar:'} {weatherData.windSpeed} {lang === 'en' ? 'km/h' : 'km/s'})
               </span>
             </div>
           </div>
@@ -154,7 +156,7 @@ export const FarmWeatherBanner: React.FC<FarmWeatherBannerProps> = ({
                   ? 'bg-amber-950/80 text-amber-300 border-amber-600/60 hover:bg-amber-900/90 hover:border-amber-500'
                   : 'bg-rose-950/80 text-rose-300 border-rose-600/60 hover:bg-rose-900/90 hover:border-rose-500'
               }`}
-              title="Mera ve otlatma detaylarını inceleyin"
+              title={lang === 'en' ? 'Inspect pasture and grazing details' : 'Mera ve otlatma detaylarını inceleyin'}
             >
               <span
                 className={`w-1.5 h-1.5 rounded-full ${
@@ -170,7 +172,7 @@ export const FarmWeatherBanner: React.FC<FarmWeatherBannerProps> = ({
                   ? lang === 'en' ? 'Pasture Open: Free Grazing' : 'Mera Açık: Serbest Otlatma'
                   : isPastureRestricted
                   ? lang === 'en' ? 'Protected Pasture Grazing' : 'Korumalı Mera Otlatması'
-                  : 'Mera Kapalı: Barınak Besisi'}
+                  : lang === 'en' ? 'Pasture Closed: Shelter Feeding' : 'Mera Kapalı: Barınak Besisi'}
               </span>
               <ChevronRight className="w-3 h-3 text-emerald-400/80 group-hover:translate-x-0.5 transition-transform" />
             </button>
@@ -178,7 +180,7 @@ export const FarmWeatherBanner: React.FC<FarmWeatherBannerProps> = ({
             {/* Quick Milking status (hidden on small mobile to save space) */}
             <span className="hidden xl:inline-flex items-center gap-1 text-[11px] text-stone-300">
               <CheckCircle2 className="w-3 h-3 text-emerald-400" />
-              <span>Süt Sağımı Tamamlandı (+3.8°C Tank)</span>
+              <span>{lang === 'en' ? 'Milking Completed (+3.8°C Tank)' : 'Süt Sağımı Tamamlandı (+3.8°C Tank)'}</span>
             </span>
 
             {/* Action buttons */}
@@ -186,9 +188,9 @@ export const FarmWeatherBanner: React.FC<FarmWeatherBannerProps> = ({
               <button
                 onClick={() => loadWeather(true)}
                 disabled={refreshing}
-                title="Hava durumunu ve faaliyetleri şimdi yenile"
+                title={lang === 'en' ? 'Refresh weather and activities now' : 'Hava durumunu ve faaliyetleri şimdi yenile'}
                 className="p-1 rounded-md text-emerald-300/80 hover:text-white hover:bg-emerald-900/60 transition-colors focus:outline-none"
-                aria-label="Verileri yenile"
+                aria-label={lang === 'en' ? 'Refresh data' : 'Verileri yenile'}
               >
                 <RefreshCw
                   className={`w-3.5 h-3.5 ${refreshing ? 'animate-spin text-emerald-400' : ''}`}
@@ -197,10 +199,10 @@ export const FarmWeatherBanner: React.FC<FarmWeatherBannerProps> = ({
 
               <button
                 onClick={() => setIsModalOpen(true)}
-                className="hidden sm:inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[11px] text-emerald-200 hover:text-white bg-emerald-900/50 hover:bg-emerald-800/70 border border-emerald-700/50 transition-colors"
+                className="hidden sm:inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[11px] text-emerald-200 hover:text-white bg-emerald-900/50 hover:bg-emerald-800/70 border border-emerald-700/50 transition-colors cursor-pointer"
               >
                 <Info className="w-3 h-3" />
-                <span>Faaliyet Raporu</span>
+                <span>{lang === 'en' ? 'Activity Report' : 'Faaliyet Raporu'}</span>
               </button>
             </div>
           </div>
@@ -223,8 +225,8 @@ export const FarmWeatherBanner: React.FC<FarmWeatherBannerProps> = ({
             {/* Close Button */}
             <button
               onClick={() => setIsModalOpen(false)}
-              className="absolute top-4 right-4 sm:top-6 sm:right-6 p-2 rounded-full text-stone-400 hover:text-stone-700 hover:bg-stone-100 transition-colors"
-              aria-label="Kapat"
+              className="absolute top-4 right-4 sm:top-6 sm:right-6 p-2 rounded-full text-stone-400 hover:text-stone-700 hover:bg-stone-100 transition-colors cursor-pointer"
+              aria-label={lang === 'en' ? 'Close' : 'Kapat'}
             >
               <X className="w-5 h-5" />
             </button>
@@ -240,14 +242,14 @@ export const FarmWeatherBanner: React.FC<FarmWeatherBannerProps> = ({
                     {lang === 'en' ? 'Meric / Edirne Live Report' : 'Meriç / Edirne Canlı Rapor'}
                   </span>
                   <span className="text-xs text-stone-400">
-                    Güncellendi: {weatherData.lastUpdated}
+                    {lang === 'en' ? 'Updated:' : 'Güncellendi:'} {weatherData.lastUpdated}
                   </span>
                 </div>
                 <h3
                   id="farm-status-modal-title"
                   className="text-xl sm:text-2xl font-extrabold text-stone-900 tracking-tight"
                 >
-                  Ada Çiftliği Günlük Faaliyet ve Mera Durumu
+                  {lang === 'en' ? 'Ada Farm Daily Activities & Pasture Status' : 'Ada Çiftliği Günlük Faaliyet ve Mera Durumu'}
                 </h3>
               </div>
             </div>
@@ -262,10 +264,10 @@ export const FarmWeatherBanner: React.FC<FarmWeatherBannerProps> = ({
                 <button
                   onClick={() => loadWeather(true)}
                   disabled={refreshing}
-                  className="text-xs text-emerald-700 hover:text-emerald-900 flex items-center gap-1 font-medium"
+                  className="text-xs text-emerald-700 hover:text-emerald-900 flex items-center gap-1 font-medium cursor-pointer"
                 >
                   <RefreshCw className={`w-3 h-3 ${refreshing ? 'animate-spin' : ''}`} />
-                  <span>Yenile</span>
+                  <span>{lang === 'en' ? 'Refresh' : 'Yenile'}</span>
                 </button>
               </div>
 
@@ -273,33 +275,33 @@ export const FarmWeatherBanner: React.FC<FarmWeatherBannerProps> = ({
                 <div className="bg-white p-3 rounded-lg border border-stone-200/60 shadow-2xs">
                   <div className="text-stone-400 text-xs flex items-center gap-1 mb-1">
                     <Thermometer className="w-3.5 h-3.5 text-amber-600" />
-                    <span>Sıcaklık</span>
+                    <span>{lang === 'en' ? 'Temperature' : 'Sıcaklık'}</span>
                   </div>
                   <div className="text-xl font-extrabold text-stone-900">
                     {weatherData.temperature}°C
                   </div>
                   <div className="text-[11px] text-stone-500">
-                    Hissedilen: {weatherData.apparentTemperature}°C
+                    {lang === 'en' ? 'Feels like:' : 'Hissedilen:'} {weatherData.apparentTemperature}°C
                   </div>
                 </div>
 
                 <div className="bg-white p-3 rounded-lg border border-stone-200/60 shadow-2xs">
                   <div className="text-stone-400 text-xs flex items-center gap-1 mb-1">
                     {getWeatherIcon(weatherData.weatherCode, weatherData.isDay)}
-                    <span>Gökyüzü</span>
+                    <span>{lang === 'en' ? 'Sky' : 'Gökyüzü'}</span>
                   </div>
                   <div className="text-sm font-bold text-stone-900 truncate">
                     {weatherData.weatherDescription}
                   </div>
                   <div className="text-[11px] text-stone-500">
-                    {weatherData.isDay ? 'Gündüz Dönemi' : 'Gece Dönemi'}
+                    {weatherData.isDay ? (lang === 'en' ? 'Daytime' : 'Gündüz Dönemi') : (lang === 'en' ? 'Nighttime' : 'Gece Dönemi')}
                   </div>
                 </div>
 
                 <div className="bg-white p-3 rounded-lg border border-stone-200/60 shadow-2xs">
                   <div className="text-stone-400 text-xs flex items-center gap-1 mb-1">
                     <Droplets className="w-3.5 h-3.5 text-sky-600" />
-                    <span>Bağıl {lang === 'en' ? 'Humidity' : 'Nem'}</span>
+                    <span>{lang === 'en' ? 'Rel. Humidity' : 'Bağıl Nem'}</span>
                   </div>
                   <div className="text-xl font-extrabold text-stone-900">
                     %{weatherData.humidity}
@@ -316,7 +318,7 @@ export const FarmWeatherBanner: React.FC<FarmWeatherBannerProps> = ({
                   </div>
                   <div className="text-xl font-extrabold text-stone-900">
                     {weatherData.windSpeed}{' '}
-                    <span className="text-xs font-normal text-stone-500">km/s</span>
+                    <span className="text-xs font-normal text-stone-500">{lang === 'en' ? 'km/h' : 'km/s'}</span>
                   </div>
                   <div className="text-[11px] text-stone-500">{lang === 'en' ? 'Meric River Breeze' : 'Meriç Nehri Esintisi'}</div>
                 </div>
@@ -363,7 +365,7 @@ export const FarmWeatherBanner: React.FC<FarmWeatherBannerProps> = ({
                       {weatherData.pastureBadgeText}
                     </span>
                     <span className="text-xs text-stone-600 font-medium">
-                      Adasarhanlı Köyü Mera Parselleri
+                      {lang === 'en' ? 'Adasarhanli Village Pasture Parcels' : 'Adasarhanlı Köyü Mera Parselleri'}
                     </span>
                   </div>
                   <p className="text-sm text-stone-800 leading-relaxed font-medium mb-2">
@@ -380,7 +382,7 @@ export const FarmWeatherBanner: React.FC<FarmWeatherBannerProps> = ({
             <div className="mb-6">
               <h4 className="text-sm font-bold text-stone-900 mb-3 flex items-center gap-2">
                 <Clock className="w-4 h-4 text-[#123c28]" />
-                Bugünkü Çiftlik Rutini ve Faaliyet Durumları
+                {lang === 'en' ? "Today's Farm Routine & Activity Status" : 'Bugünkü Çiftlik Rutini ve Faaliyet Durumları'}
               </h4>
 
               <div className="space-y-2.5">
@@ -427,30 +429,29 @@ export const FarmWeatherBanner: React.FC<FarmWeatherBannerProps> = ({
             <div className="bg-stone-50 rounded-xl p-4 border border-stone-200 flex flex-col sm:flex-row items-center justify-between gap-4">
               <div className="text-left">
                 <p className="text-xs font-bold text-stone-900">
-                  Çiftliğimizi ve hayvanlarımızı yerinde görmek ister misiniz?
+                  {lang === 'en' ? 'Would you like to see our farm and animals on site?' : 'Çiftliğimizi ve hayvanlarımızı yerinde görmek ister misiniz?'}
                 </p>
                 <p className="text-xs text-stone-600">
-                  {lang === 'en' ? 'Please call us before coming to our Meric Adasarhanli Village farm site to get current pasture' : 'Meriç Adasarhanlı Köyü çiftlik sahamıza gelmeden önce arayarak güncel mera'}
-                  parseli konumunu alabilirsiniz.
+                  {lang === 'en' ? 'Please call us before coming to our Meric Adasarhanli Village farm site to get the current pasture location.' : 'Meriç Adasarhanlı Köyü çiftlik sahamıza gelmeden önce arayarak güncel mera parseli konumunu alabilirsiniz.'}
                 </p>
               </div>
 
               <div className="flex items-center gap-2 shrink-0 w-full sm:w-auto">
                 <a
-                  href={`tel:${FARM_CONTACT.phoneRaw}`}
+                  href={`tel:${contactData.phoneRaw}`}
                   className="flex-1 sm:flex-none inline-flex items-center justify-center gap-1.5 px-3.5 py-2 rounded-full bg-[#123c28] text-white text-xs font-semibold hover:bg-[#184e34] transition-colors"
                 >
                   <PhoneCall className="w-3.5 h-3.5" />
                   <span>{lang === 'en' ? 'Call Farm' : 'Çiftliği Ara'}</span>
                 </a>
                 <a
-                  href={FARM_CONTACT.whatsappUrl}
+                  href={contactData.whatsappUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex-1 sm:flex-none inline-flex items-center justify-center gap-1.5 px-3.5 py-2 rounded-full bg-emerald-700 text-white text-xs font-semibold hover:bg-emerald-800 transition-colors"
                 >
                   <MessageCircle className="w-3.5 h-3.5" />
-                  <span>Konum İste</span>
+                  <span>{lang === 'en' ? 'Request Location' : 'Konum İste'}</span>
                 </a>
               </div>
             </div>

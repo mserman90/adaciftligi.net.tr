@@ -1,42 +1,68 @@
 import { t } from '../translations';
 import React, { useState } from 'react';
 import { HeartHandshake, ShieldCheck, Waves, Sun, Sparkles, MapPin, ZoomIn, X, Camera } from 'lucide-react';
-import { FARM_CONTACT, FARM_GALLERY, FarmGalleryItem } from '../data/farmData';
+import { FARM_CONTACT, FARM_GALLERY, FARM_GALLERY_EN, FarmGalleryItem } from '../data/farmData';
 import { useFarmImages } from '../context/ImageContext';
 import { OptimizedImage } from './OptimizedImage';
 
 export const AboutSection: React.FC<{ lang?: 'tr' | 'en' }> = ({ lang = 'tr' }) => {
   const l = t[lang].about;
   const [selectedGalleryItem, setSelectedGalleryItem] = useState<FarmGalleryItem | null>(null);
-  const [galleryFilter, setGalleryFilter] = useState<string>('Tümü');
+  const [galleryFilter, setGalleryFilter] = useState<string>('all');
   const { getImage } = useFarmImages();
 
-  const categories = ['Tümü', 'Mera & Otlak', 'Küçükbaş', 'Kuzu', 'Büyükbaş', 'Süt & Hijyen'];
+  const categories = lang === 'en'
+    ? [
+        { id: 'all', label: 'All' },
+        { id: 'Pasture & Grazing', label: 'Pasture & Grazing' },
+        { id: 'Sheep & Lamb', label: 'Sheep & Lamb' },
+        { id: 'Lamb', label: 'Lamb' },
+        { id: 'Cattle', label: 'Cattle' },
+        { id: 'Milk & Hygiene', label: 'Milk & Hygiene' }
+      ]
+    : [
+        { id: 'all', label: 'Tümü' },
+        { id: 'Mera & Otlak', label: 'Mera & Otlak' },
+        { id: 'Küçükbaş', label: 'Küçükbaş' },
+        { id: 'Kuzu', label: 'Kuzu' },
+        { id: 'Büyükbaş', label: 'Büyükbaş' },
+        { id: 'Süt & Hijyen', label: 'Süt & Hijyen' }
+      ];
 
-  const filteredGallery = galleryFilter === 'Tümü'
-    ? FARM_GALLERY
-    : FARM_GALLERY.filter((item) => item.category === galleryFilter);
+  const gallerySource = lang === 'en' ? FARM_GALLERY_EN : FARM_GALLERY;
+
+  const filteredGallery = galleryFilter === 'all'
+    ? gallerySource
+    : gallerySource.filter((item) => item.category === galleryFilter);
 
   const values = [
     {
       icon: Waves,
       title: lang === 'en' ? 'Meric Alluvial Basin' : 'Meriç Alüvyon Havzası',
-      description: lang === 'en' ? 'Feeding is provided with natural weeds, thyme and fresh alfalfa grown in the mineral-rich soil of Adasarhanli Village on the banks of the Edirne Meric river.' : 'Edirne Meriç nehri kıyısındaki Adasarhanlı Köyü’nün mineralce zengin toprağında yetişen doğal yabani otlar, kekik ve taze yonca ile besleme sağlanır.'
+      description: lang === 'en'
+        ? 'Feeding is provided with natural weeds, wild thyme, and fresh alfalfa grown in the mineral-rich soil of Adasarhanli Village on the banks of the Edirne Meric river.'
+        : 'Edirne Meriç nehri kıyısındaki Adasarhanlı Köyü’nün mineralce zengin toprağında yetişen doğal yabani otlar, kekik ve taze yonca ile besleme sağlanır.'
     },
     {
       icon: HeartHandshake,
-      title: 'Ödünsüz Hayvan Refahı',
-      description: 'Stres faktörlerinin en aza indirildiği geniş havalandırmalı açık padoklar, bol gün ışığı ve serbest gezinme imkanıyla hayvanlarımız sağlıklı büyür.'
+      title: lang === 'en' ? 'Uncompromising Animal Welfare' : 'Ödünsüz Hayvan Refahı',
+      description: lang === 'en'
+        ? 'Our animals grow healthy in spacious, airy open paddocks with minimal stress factors, ample daylight, and free grazing privileges.'
+        : 'Stres faktörlerinin en aza indirildiği geniş havalandırmalı açık padoklar, bol gün ışığı ve serbest gezinme imkanıyla hayvanlarımız sağlıklı büyür.'
     },
     {
       icon: ShieldCheck,
-      title: 'Sürekli Veteriner & Biyogüvenlik',
-      description: 'Tüm sürümüz düzenli kan tahlilleri, parazit mücadeleleri, TÜRKVET resmi küpeleme ve eksiksiz aşı takvimi ile denetim altında tutulur.'
+      title: lang === 'en' ? 'Continuous Veterinary & Biosecurity' : 'Sürekli Veteriner & Biyogüvenlik',
+      description: lang === 'en'
+        ? 'Our entire herd is strictly supervised with periodic blood tests, parasite controls, official TÜRKVET ear tagging, and a complete vaccination schedule.'
+        : 'Tüm sürümüz düzenli kan tahlilleri, parazit mücadeleleri, TÜRKVET resmi küpeleme ve eksiksiz aşı takvimi ile denetim altında tutulur.'
     },
     {
       icon: Sun,
-      title: 'GDO ve Hormonsuz Doğallık',
-      description: 'Hızlı kilo aldırma amaçlı suni büyüme hormonları veya sentetik premiksler kullanılmaz; geleneksel Trakya besiciliği modern teknolojiyle buluşturulur.'
+      title: lang === 'en' ? 'GMO & Hormone-Free Naturalness' : 'GDO ve Hormonsuz Doğallık',
+      description: lang === 'en'
+        ? 'No artificial growth hormones or synthetic premixes for rapid weight gain are ever used; traditional Thracian livestock farming meets modern clean standards.'
+        : 'Hızlı kilo aldırma amaçlı suni büyüme hormonları veya sentetik premiksler kullanılmaz; geleneksel Trakya besiciliği modern teknolojiyle buluşturulur.'
     }
   ];
 
@@ -47,15 +73,17 @@ export const AboutSection: React.FC<{ lang?: 'tr' | 'en' }> = ({ lang = 'tr' }) 
         <div className="max-w-3xl mb-16">
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200/60 text-[#123c28] text-xs font-semibold uppercase tracking-wider mb-3">
             <Sparkles className="w-3.5 h-3.5" />
-            <span>Ada Çiftliği Hakkında</span>
+            <span>{lang === 'en' ? 'About Ada Farm' : 'Ada Çiftliği Hakkında'}</span>
           </div>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-stone-900 tracking-tight leading-tight">
-            Trakya’nın Kalbinde, Doğaya ve Hayvana Saygılı Üretim
+            {lang === 'en'
+              ? 'In the Heart of Thrace, Production Respectful of Nature and Animals'
+              : 'Trakya’nın Kalbinde, Doğaya ve Hayvana Saygılı Üretim'}
           </h2>
           <p className="mt-4 text-stone-600 text-base sm:text-lg leading-relaxed">
-            {lang === 'en' ? 'Founded in 2012 in Adasarhanli Village, Meric district of Edirne, Ada Farm;' : '2012 yılında Edirne’nin Meriç ilçesine bağlı Adasarhanlı Köyü’nde kurulan Ada Çiftliği;'}
-            geleneksel mera hayvancılığı kültürünü, modern hijyen ve biyogüvenlik prensipleriyle
-            harmanlayarak bölgenin öncü süt ve besi işletmelerinden biri haline gelmiştir.
+            {lang === 'en'
+              ? 'Founded in 2012 in Adasarhanli Village, Meric district of Edirne, Ada Farm has become one of the region’s premier dairy and livestock enterprises by combining traditional pasture husbandry with modern hygiene and biosecurity standards.'
+              : '2012 yılında Edirne’nin Meriç ilçesine bağlı Adasarhanlı Köyü’nde kurulan Ada Çiftliği; geleneksel mera hayvancılığı kültürünü, modern hijyen ve biyogüvenlik prensipleriyle harmanlayarak bölgenin öncü süt ve besi işletmelerinden biri haline gelmiştir.'}
           </p>
         </div>
 
@@ -63,7 +91,7 @@ export const AboutSection: React.FC<{ lang?: 'tr' | 'en' }> = ({ lang = 'tr' }) 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center mb-16">
           {/* Photos Showcase */}
           <div className="lg:col-span-6 space-y-4">
-            {/* Main {lang === 'en' ? 'Adasarhanli Village / Meric / Edirne' : 'Adasarhanlı Köyü / Meriç / Edirne'} Landscape Showcase Card */}
+            {/* Main Landscape Showcase Card */}
             {(() => {
               const villageImg = getImage('about_village', '/images/drive/23911dbc-b407-46d5-95fb-656107f0c494.webp');
 
@@ -73,7 +101,7 @@ export const AboutSection: React.FC<{ lang?: 'tr' | 'en' }> = ({ lang = 'tr' }) 
                 >
                   <OptimizedImage
                     src={villageImg}
-                    alt="Meriç Edirne Adasarhanlı Çiftlik Manzarası"
+                    alt={lang === 'en' ? 'Meric Edirne Adasarhanli Farm Landscape' : 'Meriç Edirne Adasarhanlı Çiftlik Manzarası'}
                     fallbackSrc="/images/farm_landscape.webp"
                     className="w-full h-full"
                     imgClassName="w-full h-full object-cover group-hover:scale-103 transition-transform duration-700"
@@ -83,7 +111,7 @@ export const AboutSection: React.FC<{ lang?: 'tr' | 'en' }> = ({ lang = 'tr' }) 
                   <div className="absolute bottom-4 left-4 right-4 text-white pointer-events-none">
                     <div className="flex items-center gap-1.5 text-xs font-semibold text-emerald-300 mb-0.5">
                       <MapPin className="w-3.5 h-3.5" />
-                      <span>Adasarhanlı Köyü / Meriç / Edirne</span>
+                      <span>{lang === 'en' ? 'Adasarhanli Village / Meric / Edirne' : 'Adasarhanlı Köyü / Meriç / Edirne'}</span>
                     </div>
                     <div className="text-sm sm:text-base font-medium text-stone-100">
                       {lang === 'en' ? '140+ acres of organic pasture surrounded by Meric river irrigation canals' : 'Meriç nehri sulama kanallarıyla çevrili 140+ dönüm organik otlak'}
@@ -104,7 +132,7 @@ export const AboutSection: React.FC<{ lang?: 'tr' | 'en' }> = ({ lang = 'tr' }) 
                   >
                     <OptimizedImage
                       src={tankImg}
-                      alt="Hijyenik süt sağım ve soğutma tankı ünitesi - Ada Çiftliği Meriç"
+                      alt={lang === 'en' ? 'Hygienic milking and cooling tank unit - Ada Farm Meric' : 'Hijyenik süt sağım ve soğutma tankı ünitesi - Ada Çiftliği Meriç'}
                       fallbackSrc="/images/sut.webp"
                       className="w-full h-full"
                       imgClassName="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
@@ -112,7 +140,7 @@ export const AboutSection: React.FC<{ lang?: 'tr' | 'en' }> = ({ lang = 'tr' }) 
                     <div className="absolute inset-0 bg-stone-950/25 group-hover:bg-transparent transition-colors pointer-events-none" />
 
                     <div className="absolute bottom-2 left-2 right-2 text-white text-[11px] font-semibold bg-stone-900/70 backdrop-blur-xs px-2 py-1 rounded-lg truncate pointer-events-none">
-                      +4°C Hijyenik Süt Tankı
+                      {lang === 'en' ? '+4°C Hygienic Milk Tank' : '+4°C Hijyenik Süt Tankı'}
                     </div>
                   </div>
                 );
@@ -128,7 +156,7 @@ export const AboutSection: React.FC<{ lang?: 'tr' | 'en' }> = ({ lang = 'tr' }) 
                   >
                     <OptimizedImage
                       src={sheepImg}
-                      alt="Kıvırcık koyun ve serbest mera sürüsü"
+                      alt={lang === 'en' ? 'Curly sheep and free pasture flock' : 'Kıvırcık koyun ve serbest mera sürüsü'}
                       fallbackSrc="/images/kuzu.webp"
                       className="w-full h-full"
                       imgClassName="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
@@ -136,7 +164,7 @@ export const AboutSection: React.FC<{ lang?: 'tr' | 'en' }> = ({ lang = 'tr' }) 
                     <div className="absolute inset-0 bg-stone-950/25 group-hover:bg-transparent transition-colors pointer-events-none" />
 
                     <div className="absolute bottom-2 left-2 right-2 text-white text-[11px] font-semibold bg-stone-900/70 backdrop-blur-xs px-2 py-1 rounded-lg truncate pointer-events-none">
-                      Mera Kıvırcık Sürüsü
+                      {lang === 'en' ? 'Pasture Curly Sheep Flock' : 'Mera Kıvırcık Sürüsü'}
                     </div>
                   </div>
                 );
@@ -176,10 +204,12 @@ export const AboutSection: React.FC<{ lang?: 'tr' | 'en' }> = ({ lang = 'tr' }) 
             </div>
             <div>
               <h4 className="text-base sm:text-lg font-bold text-stone-900">
-                Resmi Kayıtlı & Denetlenen Çiftlik İşletmesi
+                {lang === 'en' ? 'Officially Registered & Inspected Farm Enterprise' : 'Resmi Kayıtlı & Denetlenen Çiftlik İşletmesi'}
               </h4>
               <p className="text-xs sm:text-sm text-stone-600">
-                T.C. Tarım ve Orman Bakanlığı İlçe Müdürlüğü nezdinde onaylı küpeleme, aşılama ve sevk izinleri.
+                {lang === 'en'
+                  ? 'Approved ear-tagging, vaccination, and dispatch permits under Republic of Turkey Ministry of Agriculture and Forestry District Directorate.'
+                  : 'T.C. Tarım ve Orman Bakanlığı İlçe Müdürlüğü nezdinde onaylı küpeleme, aşılama ve sevk izinleri.'}
               </p>
             </div>
           </div>
@@ -188,7 +218,7 @@ export const AboutSection: React.FC<{ lang?: 'tr' | 'en' }> = ({ lang = 'tr' }) 
             href={`tel:${FARM_CONTACT.phoneRaw}`}
             className="whitespace-nowrap px-6 py-3 rounded-full bg-white hover:bg-stone-50 border border-stone-200 text-[#123c28] text-sm font-semibold shadow-xs transition-colors"
           >
-            Çiftlik Ziyareti İçin Randevu Al
+            {lang === 'en' ? 'Book an Appointment for Farm Visit' : 'Çiftlik Ziyareti İçin Randevu Al'}
           </a>
         </div>
 
@@ -198,13 +228,15 @@ export const AboutSection: React.FC<{ lang?: 'tr' | 'en' }> = ({ lang = 'tr' }) 
             <div>
               <div className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#123c28] mb-1.5">
                 <Camera className="w-3.5 h-3.5" />
-                <span>Fotoğraf Galerisi</span>
+                <span>{lang === 'en' ? 'Photo Gallery' : 'Fotoğraf Galerisi'}</span>
               </div>
               <h3 className="text-2xl sm:text-3xl font-extrabold text-stone-900 tracking-tight">
-                Ada Çiftliği Tesis ve Faaliyetlerimiz
+                {lang === 'en' ? 'Ada Farm Facilities & Operations' : 'Ada Çiftliği Tesis ve Faaliyetlerimiz'}
               </h3>
               <p className="text-stone-600 text-sm mt-1">
-                Adasarhanlı Köyü’ndeki açık padoklarımız, meralarımız ve soğuk zincir süt altyapımızdan anlık kareler.
+                {lang === 'en'
+                  ? 'Live snapshots from our open paddocks, natural pastures, and cold-chain milk infrastructure in Adasarhanli Village.'
+                  : 'Adasarhanlı Köyü’ndeki açık padoklarımız, meralarımız ve soğuk zincir süt altyapımızdan anlık kareler.'}
               </p>
             </div>
 
@@ -212,16 +244,16 @@ export const AboutSection: React.FC<{ lang?: 'tr' | 'en' }> = ({ lang = 'tr' }) 
             <div className="flex items-center gap-2 overflow-x-auto pb-1">
               {categories.map((cat) => (
                 <button
-                  key={cat}
+                  key={cat.id}
                   type="button"
-                  onClick={() => setGalleryFilter(cat)}
+                  onClick={() => setGalleryFilter(cat.id)}
                   className={`px-3.5 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition-all cursor-pointer ${
-                    galleryFilter === cat
+                    galleryFilter === cat.id
                       ? 'bg-[#123c28] text-white shadow-xs'
                       : 'bg-stone-100 text-stone-700 hover:bg-stone-200'
                   }`}
                 >
-                  {cat}
+                  {cat.label}
                 </button>
               ))}
             </div>
@@ -247,7 +279,7 @@ export const AboutSection: React.FC<{ lang?: 'tr' | 'en' }> = ({ lang = 'tr' }) 
                 >
                   <OptimizedImage
                     src={displayImage}
-                    alt={`${item.title} - Ada Çiftliği`}
+                    alt={`${item.title} - ${lang === 'en' ? 'Ada Farm' : 'Ada Çiftliği'}`}
                     fallbackSrc={item.image}
                     className="w-full h-full"
                     imgClassName="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
@@ -307,7 +339,7 @@ export const AboutSection: React.FC<{ lang?: 'tr' | 'en' }> = ({ lang = 'tr' }) 
                       type="button"
                       onClick={() => setSelectedGalleryItem(null)}
                       className="w-9 h-9 rounded-full bg-black/60 hover:bg-black text-white flex items-center justify-center transition-colors shadow-lg cursor-pointer"
-                      aria-label="Kapat"
+                      aria-label={lang === 'en' ? 'Close' : 'Kapat'}
                     >
                       <X className="w-5 h-5" />
                     </button>
@@ -329,7 +361,7 @@ export const AboutSection: React.FC<{ lang?: 'tr' | 'en' }> = ({ lang = 'tr' }) 
                     href={`tel:${FARM_CONTACT.phoneRaw}`}
                     className="px-5 py-2.5 rounded-full bg-[#123c28] hover:bg-[#1a5338] text-white text-xs font-semibold whitespace-nowrap text-center transition-colors"
                   >
-                    Tesis Ziyareti Planla
+                    {lang === 'en' ? 'Schedule a Facility Visit' : 'Tesis Ziyareti Planla'}
                   </a>
                 </div>
               </div>

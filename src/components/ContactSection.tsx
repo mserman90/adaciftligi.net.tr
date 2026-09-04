@@ -24,7 +24,9 @@ export const ContactSection = ({ lang = 'tr' }: { lang?: 'tr' | 'en' }) => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // Build direct WhatsApp message
-    const message = `Merhaba Ada Çiftliği,\nAdım: ${formData.name || 'Belirtilmedi'}\nTelefonum: ${formData.phone || 'Belirtilmedi'}\nİlgilendiğim Ürün: ${formData.product}\nMiktar/Talep: ${formData.quantity || 'Belirtilmedi'}\nNot: ${formData.note || 'Yok'}`;
+    const message = lang === 'en'
+      ? `Hello Ada Farm,\nName: ${formData.name || 'Not specified'}\nPhone: ${formData.phone || 'Not specified'}\nProduct: ${formData.product}\nQuantity/Demand: ${formData.quantity || 'Not specified'}\nNote: ${formData.note || 'None'}`
+      : `Merhaba Ada Çiftliği,\nAdım: ${formData.name || 'Belirtilmedi'}\nTelefonum: ${formData.phone || 'Belirtilmedi'}\nİlgilendiğim Ürün: ${formData.product}\nMiktar/Talep: ${formData.quantity || 'Belirtilmedi'}\nNot: ${formData.note || 'Yok'}`;
     const encoded = encodeURIComponent(message);
     window.open(`https://wa.me/905323428200?text=${encoded}`, '_blank');
     setSubmitted(true);
@@ -37,14 +39,15 @@ export const ContactSection = ({ lang = 'tr' }: { lang?: 'tr' | 'en' }) => {
         <div className="max-w-3xl mb-16">
           <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-emerald-50 border border-emerald-200/60 text-[#123c28] text-xs font-semibold uppercase tracking-wider mb-3">
             <Sparkles className="w-3.5 h-3.5" />
-            <span>İletişim & Konum</span>
+            <span>{lang === 'en' ? 'Contact & Location' : 'İletişim & Konum'}</span>
           </div>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-stone-900 tracking-tight">
-            Çiftliğimizi Ziyaret Edin veya Hemen Ulaşın
+            {lang === 'en' ? 'Visit Our Farm or Contact Us Directly' : 'Çiftliğimizi Ziyaret Edin veya Hemen Ulaşın'}
           </h2>
           <p className="mt-4 text-stone-600 text-base sm:text-lg leading-relaxed">
-            Edirne Meriç Adasarhanlı Köyü’ndeki tesisimize dilediğiniz gün konuk olabilir;
-            canlı hayvan seçimi ve taze süt tedariği için bize her an ulaşabilirsiniz.
+            {lang === 'en'
+              ? 'You are welcome to visit our facility in Adasarhanli Village, Meric, Edirne any day; contact us anytime for live animal selection and fresh milk supply.'
+              : 'Edirne Meriç Adasarhanlı Köyü’ndeki tesisimize dilediğiniz gün konuk olabilir; canlı hayvan seçimi ve taze süt tedariği için bize her an ulaşabilirsiniz.'}
           </p>
         </div>
 
@@ -53,7 +56,7 @@ export const ContactSection = ({ lang = 'tr' }: { lang?: 'tr' | 'en' }) => {
           <div className="lg:col-span-6 space-y-6">
             <div className="bg-white rounded-3xl p-8 border border-stone-200/90 shadow-[0_4px_24px_-4px_rgba(0,0,0,0.03)] space-y-6">
               <h3 className="text-xl font-bold text-stone-900 pb-4 border-b border-stone-100">
-                Ada Çiftliği İletişim Bilgileri
+                {lang === 'en' ? 'Ada Farm Contact Details' : 'Ada Çiftliği İletişim Bilgileri'}
               </h3>
 
               {/* Address */}
@@ -62,12 +65,14 @@ export const ContactSection = ({ lang = 'tr' }: { lang?: 'tr' | 'en' }) => {
                   <MapPin className="w-5 h-5" />
                 </div>
                 <div>
-                  <div className="text-xs font-bold uppercase tracking-wider text-stone-400">Çiftlik Adresi</div>
+                  <div className="text-xs font-bold uppercase tracking-wider text-stone-400">
+                    {lang === 'en' ? 'Farm Address' : 'Çiftlik Adresi'}
+                  </div>
                   <div className="text-base font-semibold text-stone-900 mt-0.5">
-                    {FARM_CONTACT.village}, {FARM_CONTACT.district} / {FARM_CONTACT.province}
+                    {contactData.village}, {contactData.district} / {contactData.province}
                   </div>
                   <div className="text-sm text-stone-600">
-                    {FARM_CONTACT.fullAddress}
+                    {contactData.fullAddress}
                   </div>
                 </div>
               </div>
@@ -78,14 +83,18 @@ export const ContactSection = ({ lang = 'tr' }: { lang?: 'tr' | 'en' }) => {
                   <Phone className="w-5 h-5" />
                 </div>
                 <div>
-                  <div className="text-xs font-bold uppercase tracking-wider text-stone-400">Telefon Hattı</div>
+                  <div className="text-xs font-bold uppercase tracking-wider text-stone-400">
+                    {lang === 'en' ? 'Phone Line' : 'Telefon Hattı'}
+                  </div>
                   <a
                     href={`tel:${contactData.phoneRaw}`}
                     className="text-base font-bold text-[#123c28] hover:underline mt-0.5 block"
                   >
                     {contactData.phone}
                   </a>
-                  <div className="text-xs text-stone-500">Doğrudan çiftlik yetkilisi ile görüşün</div>
+                  <div className="text-xs text-stone-500">
+                    {lang === 'en' ? 'Speak directly with farm management' : 'Doğrudan çiftlik yetkilisi ile görüşün'}
+                  </div>
                 </div>
               </div>
 
@@ -95,17 +104,21 @@ export const ContactSection = ({ lang = 'tr' }: { lang?: 'tr' | 'en' }) => {
                   <MessageCircle className="w-5 h-5" />
                 </div>
                 <div>
-                  <div className="text-xs font-bold uppercase tracking-wider text-stone-400">WhatsApp Danışma</div>
+                  <div className="text-xs font-bold uppercase tracking-wider text-stone-400">
+                    {lang === 'en' ? 'WhatsApp Consultation' : 'WhatsApp Danışma'}
+                  </div>
                   <a
-                    href={FARM_CONTACT.whatsappUrl}
+                    href={contactData.whatsappUrl}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-base font-bold text-emerald-600 hover:underline mt-0.5 flex items-center gap-1"
                   >
-                    <span>{FARM_CONTACT.whatsapp}</span>
+                    <span>{contactData.whatsapp}</span>
                     <ExternalLink className="w-3.5 h-3.5" />
                   </a>
-                  <div className="text-xs text-stone-500">Hızlı mesaj ve canlı fotoğraf/video talebi</div>
+                  <div className="text-xs text-stone-500">
+                    {lang === 'en' ? 'Fast messaging and live photo/video requests' : 'Hızlı mesaj ve canlı fotoğraf/video talebi'}
+                  </div>
                 </div>
               </div>
 
@@ -115,11 +128,15 @@ export const ContactSection = ({ lang = 'tr' }: { lang?: 'tr' | 'en' }) => {
                   <Clock className="w-5 h-5" />
                 </div>
                 <div>
-                  <div className="text-xs font-bold uppercase tracking-wider text-stone-400">Çalışma ve Sağım Saatleri</div>
+                  <div className="text-xs font-bold uppercase tracking-wider text-stone-400">
+                    {lang === 'en' ? 'Working & Milking Hours' : 'Çalışma ve Sağım Saatleri'}
+                  </div>
                   <div className="text-base font-semibold text-stone-900 mt-0.5">
                     {contactData.workingHours}
                   </div>
-                  <div className="text-xs text-stone-500">Hafta sonu dahil ziyarete ve alıma açık</div>
+                  <div className="text-xs text-stone-500">
+                    {lang === 'en' ? 'Open for visits and purchasing including weekends' : 'Hafta sonu dahil ziyarete ve alıma açık'}
+                  </div>
                 </div>
               </div>
             </div>
@@ -137,7 +154,7 @@ export const ContactSection = ({ lang = 'tr' }: { lang?: 'tr' | 'en' }) => {
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#123c28] hover:underline bg-stone-100 px-3 py-1.5 rounded-full"
                 >
-                  <span>Google Haritalarda Aç</span>
+                  <span>{lang === 'en' ? 'Open in Google Maps' : 'Google Haritalarda Aç'}</span>
                   <ExternalLink className="w-3.5 h-3.5" />
                 </a>
               </div>
@@ -145,7 +162,7 @@ export const ContactSection = ({ lang = 'tr' }: { lang?: 'tr' | 'en' }) => {
               {/* Embedded interactive map iframe (No API key needed) */}
               <div className="w-full h-64 rounded-2xl overflow-hidden border border-stone-200 relative bg-stone-100">
                 <iframe
-                  title="Ada Çiftliği Adasarhanlı Köyü Meriç Edirne {lang === 'en' ? 'Map Location' : 'Harita Konumu'}"
+                  title={lang === 'en' ? 'Ada Farm Adasarhanli Village Meric Edirne Map Location' : 'Ada Çiftliği Adasarhanlı Köyü Meriç Edirne Harita Konumu'}
                   src="https://maps.google.com/maps?q=Adasarhanl%C4%B1+K%C3%B6y%C3%BC,+Meri%C3%A7,+Edirne&t=&z=13&ie=UTF8&iwloc=&output=embed"
                   className="w-full h-full border-0"
                   loading="lazy"
@@ -161,7 +178,7 @@ export const ContactSection = ({ lang = 'tr' }: { lang?: 'tr' | 'en' }) => {
                   >
                     <OptimizedImage
                       src={facilityImg}
-                      alt="Ada Çiftliği Adasarhanlı Köyü Tesisleri"
+                      alt={lang === 'en' ? 'Ada Farm Adasarhanli Village Facilities' : 'Ada Çiftliği Adasarhanlı Köyü Tesisleri'}
                       fallbackSrc="/images/hero_cows.webp"
                       className="w-full h-full"
                       imgClassName="w-full h-full object-cover"

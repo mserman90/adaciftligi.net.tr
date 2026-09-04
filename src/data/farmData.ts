@@ -249,6 +249,51 @@ export const FARM_GALLERY: FarmGalleryItem[] = [
   }
 ];
 
+export const FARM_GALLERY_EN: FarmGalleryItem[] = [
+  {
+    id: 'g1',
+    title: 'Meric Delta Natural Pasture Grazing',
+    category: 'Pasture & Grazing',
+    image: '/images/hero_cows.webp',
+    description: 'Free grazing with fresh thyme and wild flora in the Adasarhanli Village Meric River basin.'
+  },
+  {
+    id: 'g2',
+    title: 'Thracian Curly Sheep & Ram Breeding',
+    category: 'Sheep & Lamb',
+    image: '/images/koyun.webp',
+    description: 'Breeding flocks adapted to the Thracian climate, resistant to diseases, with high meat yield.'
+  },
+  {
+    id: 'g3',
+    title: 'Spring Season Milk Lamb Paddocks',
+    category: 'Lamb',
+    image: '/images/kuzu.webp',
+    description: 'Healthy lambs with tender meat raised on mother milk and fresh alfalfa.'
+  },
+  {
+    id: 'g4',
+    title: 'Simmental Dairy Cows & Airy Barn',
+    category: 'Cattle',
+    image: '/images/inek.webp',
+    description: 'Breeding cattle with daily milk yield of 28-36 liters, with regular hoof and udder care.'
+  },
+  {
+    id: 'g5',
+    title: 'AISI 304 Stainless Milk Cooling Tank (+3.8°C)',
+    category: 'Milk & Hygiene',
+    image: '/images/tank.webp',
+    description: 'Insulated stainless steel storage unit where untouched vacuum milk is chilled instantly.'
+  },
+  {
+    id: 'g6',
+    title: 'Fattening Calves & Open Grazing Paddocks',
+    category: 'Fattening & Cattle',
+    image: '/images/dana.webp',
+    description: 'Male calves with high carcass yield, fed a balanced diet of farm-grown barley and oats.'
+  }
+];
+
 export const TESTIMONIALS: Testimonial[] = [
   {
     id: 't1',
@@ -334,58 +379,99 @@ export const FAQ_ITEMS: FaqItem[] = [
 
 export const FARM_PRODUCTS_EN: FarmProduct[] = [
   {
-    id: 'koyun-kuzu',
+    id: 'koyun',
+    title: 'Breeding & Slaughter Sheep',
     category: 'kucukbas',
-    categoryLabel: 'Sheep & Lamb',
-    title: 'Curly Sheep & Lamb Breeding',
-    description: 'Our curly sheep, raised grazing freely on natural pastures, are resistant to diseases and offer high meat yield.',
+    categoryLabel: 'Small Cattle',
     image: '/images/koyun.webp',
-    tag: 'Daily Grazing',
+    tag: 'Thracian Curly & Merino',
+    breed: 'Pure Curly & Anatolian Merino',
+    feeding: 'Meric natural pasture grazing + alfalfa',
+    deliveryType: 'Live scale weight or abattoir delivery',
+    description: 'Breeding and sacrifice sheep freely grazing on fertile thyme and wild pastures in the Meric river basin, with balanced bone and muscle structure, highly resistant to diseases.',
     highlights: [
-      'Resistant to the Thracian climate',
-      'High meat yield and quality',
-      'Ideal for breeding'
+      'Strong breed adapted to Thrace climate',
+      'Complete vaccination and parasite schedule',
+      'High meat quality and ideal fat marbling',
+      'Breeding female and ram options'
     ],
-    breed: 'Thracian Curly',
-    feeding: 'Pasture + Natural Forage',
-    deliveryType: 'On-farm Pick up & Delivery',
-    pricingNote: 'Prices vary by live weight.'
+    pricingNote: 'Based on live weight scale or bulk flock purchase'
   },
   {
-    id: 'inek-dana',
+    id: 'kuzu',
+    title: 'Milk Lamb & Feeder Lamb',
+    category: 'kucukbas',
+    categoryLabel: 'Small Cattle',
+    image: '/images/kuzu.webp',
+    tag: 'Natural Mother Milk & Spring Flora',
+    breed: 'Curly Crossbreed Milk Lambs',
+    feeding: 'Mother milk + fresh alfalfa & crushed barley',
+    deliveryType: 'Wholesale butchery / Live delivery',
+    description: 'Renowned Thracian curly milk and feeder lambs raised free of hormones and antibiotics, celebrated for tender, mild-flavored meat. Ideal carcass yield for butchers and restaurants.',
+    highlights: [
+      'Tender, soft and light-colored meat texture',
+      'Guaranteed live scale weighing',
+      'Homogeneous fattening groups between 35 - 55 kg',
+      'Dispatched with official veterinary health report'
+    ],
+    pricingNote: 'Weekly live scale stock exchange current price'
+  },
+  {
+    id: 'inek',
+    title: 'High-Yield Dairy Cows',
     category: 'buyukbas',
     categoryLabel: 'Cattle',
-    title: 'Simental Cattle & Fattening Calves',
-    description: 'We raise Simental breed cattle for both dairy and meat, offering high carcass yield calves.',
     image: '/images/inek.webp',
-    tag: 'Veterinarian Inspected',
+    tag: 'Simmental & Holstein Friesian',
+    breed: 'Simmental Dual-Purpose & Holstein Dairy Breed',
+    feeding: 'Corn silage, vetch, alfalfa & natural roughage',
+    deliveryType: 'On-farm inspection & transport',
+    description: 'High genetic merit dairy cows and pregnant heifers with high daily milk yield and protein/fat content, with regular hoof and udder health monitoring.',
     highlights: [
-      'High meat and milk yield',
-      'Regular health checks',
-      'Suitable for sacrifice'
+      'Daily 28-36 liters milk yield potential',
+      'Artificial insemination records & pedigree certified',
+      'Blue certificate & TÜRKVET registered animals',
+      'Flocks regularly tested for mastitis'
     ],
-    breed: 'Simental',
-    feeding: 'Barley, Oat & Alfalfa',
-    deliveryType: 'With Vet Report',
-    pricingNote: 'Wholesale & Retail'
+    pricingNote: 'According to lactation stage and pregnancy status'
   },
   {
-    id: 'cig-sut',
-    category: 'sut',
-    categoryLabel: 'Daily Fresh Milk',
-    title: 'Untouched Raw Farm Milk',
-    description: 'High dry matter milk, cooled immediately after milking in our modern facility.',
-    image: '/images/tank.webp',
-    tag: '+4°C Cold Chain',
+    id: 'dana',
+    title: 'Fattening Calves & Live Sacrifice Cattle',
+    category: 'buyukbas',
+    categoryLabel: 'Cattle',
+    image: '/images/dana.webp',
+    tag: 'Beef Breeds (Charolais / Angus / Simmental)',
+    breed: 'Simmental & Charolais Crossbreed Male Calves',
+    feeding: 'Farm-blend crushed barley, wheat bran & roughage',
+    deliveryType: 'Live scale weighing & sacrifice share reservation',
+    description: 'Healthy male fattening calves raised without stress in spacious open paddocks with free movement, boasting a high carcass meat yield (58-62%).',
     highlights: [
-      'High fat and protein ratio',
-      'Milked with closed-circuit systems',
-      'Daily fresh delivery'
+      'Rapid live weight gain and lean muscle tissue',
+      'Diverse weight categories between 400 kg and 750 kg',
+      'Veterinary age and tooth verification for sacrifice',
+      'On-farm precision digital scale weighing'
     ],
-    breed: 'Simental & Holstein',
-    feeding: 'Natural Pasture & Alfalfa',
-    deliveryType: 'Cold Tank Delivery',
-    pricingNote: 'Min. 100 Liters for Wholesale'
+    pricingNote: 'Transparent weighing based on live weight per kg price'
+  },
+  {
+    id: 'sut',
+    title: 'Daily Fresh Raw Farm Milk',
+    category: 'sut',
+    categoryLabel: 'Milk Production',
+    image: '/images/sut.webp',
+    tag: 'Fat Content 3.9%+ | Additive-Free Cold Chain',
+    breed: 'Fresh Milking from Farm Dairy Cows',
+    feeding: 'Natural roughage and pasture grazing aroma',
+    deliveryType: 'Refrigerated tanker (wholesale) or sterile churns',
+    description: 'Authentic raw farm milk with untouched vacuum milking transferred directly into +4°C stainless cooling tanks, never skimmed and with zero added water.',
+    highlights: [
+      'Somatic cell and bacterial count within EU standards',
+      'Perfect consistency for yogurt, cheese, and clotted cream',
+      'Daily laboratory and antibiotic residue testing',
+      'Regular daily shipment for dairies and bulk buyers'
+    ],
+    pricingNote: 'Suitable for wholesale tanker purchases and retail orders'
   }
 ];
 
@@ -516,12 +602,20 @@ export const FAQ_ITEMS_EN: FaqItem[] = [
   }
 ];
 
-export const FARM_CONTACT_EN = {
+export const FARM_CONTACT_EN: ContactInfo = {
+  farmName: 'Ada Farm',
+  village: 'Adasarhanlı Village',
+  district: 'Meric',
+  province: 'Edirne',
+  fullAddress: 'Adasarhanlı Village Road, 22600 Meric / Edirne',
   phone: '+90 (532) 342 82 00',
   phoneRaw: '+905323428200',
-  email: 'info@adaciftligi.com',
-  address: 'Adasarhanlı Village, Meric District\nEdirne, Turkey 22700',
-  googleMapsUrl: 'https://maps.app.goo.gl/xxx',
+  whatsapp: '+90 (532) 342 82 00',
   whatsappUrl: 'https://wa.me/905323428200?text=Hello%20Ada%20Farm,%20I%20would%20like%20to%20get%20information%20about%20your%20products%20and%20prices.',
-  workingHours: '7 Days a Week: 07:00 – 19:30'
+  email: 'iletisim@adaciftligi.net.tr',
+  workingHours: '7 Days a Week: 07:00 – 19:30',
+  coordinates: {
+    lat: 41.1834,
+    lng: 26.4215
+  }
 };

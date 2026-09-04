@@ -158,10 +158,10 @@ export default function App() {
           <ProcessSection lang={mainLang} />
 
           {/* 6. Customer & Partner Reviews */}
-          <Testimonials />
+          <Testimonials lang={mainLang} />
 
           {/* 7. FAQ Accordion */}
-          <FaqAccordion />
+          <FaqAccordion lang={mainLang} />
 
           {/* 8. Contact & Map Location Section */}
           <ContactSection lang={mainLang} />
@@ -187,7 +187,7 @@ export default function App() {
         />
 
         {/* Quick Floating WhatsApp & Call Buttons */}
-        <QuickCallFloat />
+        <QuickCallFloat lang={mainLang} />
       </div>
     </ImageProvider>
   );

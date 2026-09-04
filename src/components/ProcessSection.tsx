@@ -1,4 +1,3 @@
-import { t } from '../translations';
 import React from 'react';
 import { Sprout, ShieldCheck, Truck, Sparkles, Check } from 'lucide-react';
 import { PRODUCTION_STEPS, PRODUCTION_STEPS_EN } from '../data/farmData';
@@ -28,14 +27,15 @@ export const ProcessSection = ({ lang = 'tr' }: { lang?: 'tr' | 'en' }) => {
         <div className="text-center max-w-3xl mx-auto mb-16">
           <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-emerald-50 border border-emerald-200/60 text-[#123c28] text-xs font-semibold uppercase tracking-wider mb-3">
             <Sparkles className="w-3.5 h-3.5" />
-            <span>Nasıl Çalışıyoruz?</span>
+            <span>{lang === 'en' ? 'How We Work' : 'Nasıl Çalışıyoruz?'}</span>
           </div>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-stone-900 tracking-tight">
-            Tarladan Sofraya 3 Aşamalı Üretim Disiplini
+            {lang === 'en' ? 'From Field to Table: 3-Stage Production Discipline' : 'Tarladan Sofraya 3 Aşamalı Üretim Disiplini'}
           </h2>
           <p className="mt-4 text-stone-600 text-base sm:text-lg leading-relaxed">
-            Doğallıktan ve hijyen kurallarından taviz vermeden; her aşaması kayıtlı,
-            izlenebilir ve şeffaf bir hayvancılık modeli uyguluyoruz.
+            {lang === 'en'
+              ? 'Without compromising on natural standards or hygiene rules; we implement a fully recorded, traceable, and transparent livestock model at every stage.'
+              : 'Doğallıktan ve hijyen kurallarından taviz vermeden; her aşaması kayıtlı, izlenebilir ve şeffaf bir hayvancılık modeli uyguluyoruz.'}
           </p>
         </div>
 

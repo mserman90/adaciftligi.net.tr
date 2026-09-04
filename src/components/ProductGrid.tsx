@@ -82,7 +82,7 @@ export const ProductGrid: React.FC<ProductGridProps> = ({ onSelectProduct, lang 
                 <div className="relative aspect-[16/10] overflow-hidden bg-stone-100">
                   <OptimizedImage
                     src={currentImg}
-                    alt={`${product.title} - Ada Çiftliği Meriç`}
+                    alt={`${product.title} - ${lang === 'en' ? 'Ada Farm Meric' : 'Ada Çiftliği Meriç'}`}
                     fallbackSrc={product.image}
                     className="w-full h-full"
                     imgClassName="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"

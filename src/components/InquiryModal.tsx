@@ -32,7 +32,9 @@ export const InquiryModal: React.FC<InquiryModalProps> = ({
 
   const handleWhatsAppSend = (e: React.FormEvent) => {
     e.preventDefault();
-    const text = `Merhaba Ada Çiftliği,\n*Fiyat & Bilgi Talebi*\n- İsim: ${name || 'Belirtilmedi'}\n- Telefon: ${phone || 'Belirtilmedi'}\n- Ürün: ${selectedProduct}\n- ${lang === 'en' ? 'Order Type' : 'Alım Türü'}: ${orderType}\n- Miktar/Adet: ${quantity || 'Görüşülecek'}\n- Not: ${note || 'Yok'}\n\nDetaylı bilgi ve güncel fiyat teklifi alabilir miyim?`;
+    const text = lang === 'en'
+      ? `Hello Ada Farm,\n*Price & Info Inquiry*\n- Name: ${name || 'Not specified'}\n- Phone: ${phone || 'Not specified'}\n- Product: ${selectedProduct}\n- Order Type: ${orderType}\n- Quantity: ${quantity || 'To be discussed'}\n- Note: ${note || 'None'}\n\nCould I receive detailed information and an up-to-date price quote?`
+      : `Merhaba Ada Çiftliği,\n*Fiyat & Bilgi Talebi*\n- İsim: ${name || 'Belirtilmedi'}\n- Telefon: ${phone || 'Belirtilmedi'}\n- Ürün: ${selectedProduct}\n- Alım Türü: ${orderType}\n- Miktar/Adet: ${quantity || 'Görüşülecek'}\n- Not: ${note || 'Yok'}\n\nDetaylı bilgi ve güncel fiyat teklifi alabilir miyim?`;
     window.open(`https://wa.me/905323428200?text=${encodeURIComponent(text)}`, '_blank');
     onClose();
   };
@@ -51,8 +53,8 @@ export const InquiryModal: React.FC<InquiryModalProps> = ({
         <button
           type="button"
           onClick={onClose}
-          className="absolute top-5 right-5 w-9 h-9 rounded-full bg-stone-100 hover:bg-stone-200 text-stone-600 flex items-center justify-center transition-colors"
-          aria-label="Kapat"
+          className="absolute top-5 right-5 w-9 h-9 rounded-full bg-stone-100 hover:bg-stone-200 text-stone-600 flex items-center justify-center transition-colors cursor-pointer"
+          aria-label={lang === 'en' ? 'Close' : 'Kapat'}
         >
           <X className="w-5 h-5" />
         </button>
@@ -76,7 +78,7 @@ export const InquiryModal: React.FC<InquiryModalProps> = ({
           {/* Order Type Toggle */}
           <div>
             <label className="block text-xs font-bold uppercase tracking-wider text-stone-600 mb-1.5">
-              Alım Türü
+              {lang === 'en' ? 'Order Type' : 'Alım Türü'}
             </label>
             <div className="grid grid-cols-3 gap-2">
               {['Toptan', 'Perakende', 'Kurbanlık'].map((type) => (

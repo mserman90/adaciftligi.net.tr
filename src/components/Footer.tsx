@@ -1,12 +1,14 @@
 import React from 'react';
-import { Phone, MessageCircle, Mail, MapPin, ShieldCheck, ArrowUp } from 'lucide-react';
-import { FARM_CONTACT } from '../data/farmData';
+import { Phone, MessageCircle, Mail, MapPin, ShieldCheck, ArrowUp, AlertTriangle } from 'lucide-react';
+import { FARM_CONTACT, FARM_CONTACT_EN } from '../data/farmData';
 
 interface FooterProps {
   onOpenAdmin?: () => void;
 }
 
 export const Footer: React.FC<FooterProps & { lang?: 'tr' | 'en' }> = ({ onOpenAdmin, lang = 'tr' }) => {
+  const contactData = lang === 'en' ? FARM_CONTACT_EN : FARM_CONTACT;
+
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -23,55 +25,66 @@ export const Footer: React.FC<FooterProps & { lang?: 'tr' | 'en' }> = ({ onOpenA
                 A
               </div>
               <div className="flex flex-col">
-                <span className="font-extrabold text-xl text-white tracking-tight">
-                  Ada Çiftliği
-                </span>
+                <div className="flex items-center gap-2">
+                  <span className="font-extrabold text-xl text-white tracking-tight">
+                    {lang === 'en' ? 'Ada Farm' : 'Ada Çiftliği'}
+                  </span>
+                  <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-amber-500/20 border border-amber-500/40 text-amber-300 font-bold text-[10px] uppercase">
+                    <AlertTriangle className="w-3 h-3 text-amber-400" />
+                    {lang === 'en' ? 'Test Mode' : 'Test Yayını'}
+                  </span>
+                </div>
                 <span className="text-[11px] font-medium text-stone-400 uppercase tracking-widest">
-                  Meriç · Edirne
+                  {lang === 'en' ? 'Meric · Edirne' : 'Meriç · Edirne'}
                 </span>
               </div>
             </div>
 
             <p className="text-sm text-stone-400 leading-relaxed max-w-sm">
-              {lang === 'en' ? 'In Adasarhanli Village, the fertile alluvial basin of the Meric river; in natural pastures' : 'Meriç nehrinin verimli alüvyon havzası Adasarhanlı Köyü’nde; doğal meralarda'}
-              sağlıklı koyun, kuzu, inek, dana yetiştiriciliği ve günlük soğuk zincir taze çiftlik sütü üretimi.
+              {lang === 'en'
+                ? 'In Adasarhanli Village, the fertile alluvial basin of the Meric river; raising healthy sheep, lambs, cows, and beef cattle in natural pastures, with daily cold-chain fresh farm milk production.'
+                : 'Meriç nehrinin verimli alüvyon havzası Adasarhanlı Köyü’nde; doğal meralarda sağlıklı koyun, kuzu, inek, dana yetiştiriciliği ve günlük soğuk zincir taze çiftlik sütü üretimi.'}
             </p>
 
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-stone-800/80 border border-stone-700 text-xs text-stone-300">
               <ShieldCheck className="w-4 h-4 text-emerald-400" />
-              <span>T.C. Tarım ve Orman Bakanlığı Kayıtlı İşletme</span>
+              <span>
+                {lang === 'en'
+                  ? 'Ministry of Agriculture & Forestry Registered Enterprise'
+                  : 'T.C. Tarım ve Orman Bakanlığı Kayıtlı İşletme'}
+              </span>
             </div>
           </div>
 
           {/* Col 2: Products */}
           <div className="lg:col-span-3 space-y-3">
             <h4 className="text-sm font-bold text-white uppercase tracking-wider">
-              Ürün & Hizmetlerimiz
+              {lang === 'en' ? 'Products & Services' : 'Ürün & Hizmetlerimiz'}
             </h4>
             <ul className="space-y-2 text-sm text-stone-400">
               <li>
                 <a href="#urunler" className="hover:text-white transition-colors">
-                  Damızlık & Kesimlik Koyun
+                  {lang === 'en' ? 'Breeding & Slaughter Sheep' : 'Damızlık & Kesimlik Koyun'}
                 </a>
               </li>
               <li>
                 <a href="#urunler" className="hover:text-white transition-colors">
-                  Trakya Süt & Besi Kuzusu
+                  {lang === 'en' ? 'Thrace Milk & Feeder Lamb' : 'Trakya Süt & Besi Kuzusu'}
                 </a>
               </li>
               <li>
                 <a href="#urunler" className="hover:text-white transition-colors">
-                  Yüksek Verimli Süt İnekleri
+                  {lang === 'en' ? 'High-Yield Dairy Cows' : 'Yüksek Verimli Süt İnekleri'}
                 </a>
               </li>
               <li>
                 <a href="#urunler" className="hover:text-white transition-colors">
-                  Besi Danası & Kurbanlık Tartım
+                  {lang === 'en' ? 'Beef Cattle & Sacrifice Weighing' : 'Besi Danası & Kurbanlık Tartım'}
                 </a>
               </li>
               <li>
                 <a href="#urunler" className="hover:text-white transition-colors">
-                  Günlük Soğuk Zincir Çiğ Süt
+                  {lang === 'en' ? 'Daily Cold-Chain Raw Milk' : 'Günlük Soğuk Zincir Çiğ Süt'}
                 </a>
               </li>
             </ul>
@@ -80,32 +93,32 @@ export const Footer: React.FC<FooterProps & { lang?: 'tr' | 'en' }> = ({ onOpenA
           {/* Col 3: Fast links */}
           <div className="lg:col-span-2 space-y-3">
             <h4 className="text-sm font-bold text-white uppercase tracking-wider">
-              Hızlı Erişim
+              {lang === 'en' ? 'Quick Navigation' : 'Hızlı Erişim'}
             </h4>
             <ul className="space-y-2 text-sm text-stone-400">
               <li>
                 <a href="#ciftlik-hakkinda" className="hover:text-white transition-colors">
-                  Çiftlik Hakkında
+                  {lang === 'en' ? 'About Farm' : 'Çiftlik Hakkında'}
                 </a>
               </li>
               <li>
                 <a href="#uretim-sureci" className="hover:text-white transition-colors">
-                  3 Aşamalı Süreç
+                  {lang === 'en' ? '3-Stage Process' : '3 Aşamalı Süreç'}
                 </a>
               </li>
               <li>
                 <a href="#yorumlar" className="hover:text-white transition-colors">
-                  Müşteri {lang === 'en' ? 'Reviews' : 'Yorumlar'}ı
+                  {lang === 'en' ? 'Customer Reviews' : 'Müşteri Yorumları'}
                 </a>
               </li>
               <li>
                 <a href="#sss" className="hover:text-white transition-colors">
-                  Sıkça Sorulanlar
+                  {lang === 'en' ? 'Frequently Asked' : 'Sıkça Sorulanlar'}
                 </a>
               </li>
               <li>
                 <a href="#iletisim" className="hover:text-white transition-colors">
-                  Konum ve İletişim
+                  {lang === 'en' ? 'Location & Contact' : 'Konum ve İletişim'}
                 </a>
               </li>
             </ul>
@@ -114,29 +127,29 @@ export const Footer: React.FC<FooterProps & { lang?: 'tr' | 'en' }> = ({ onOpenA
           {/* Col 4: Contact summary */}
           <div className="lg:col-span-3 space-y-3">
             <h4 className="text-sm font-bold text-white uppercase tracking-wider">
-              Çiftlik İletişim
+              {lang === 'en' ? 'Farm Contact' : 'Çiftlik İletişim'}
             </h4>
             <div className="space-y-2.5 text-xs sm:text-sm text-stone-400">
               <div className="flex items-start gap-2.5">
                 <MapPin className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
-                <span>{lang === 'en' ? 'Adasarhanli Village, Meric / Edirne' : 'Adasarhanlı Köyü, Meriç / Edirne'}</span>
+                <span>{contactData.fullAddress}</span>
               </div>
               <div className="flex items-center gap-2.5">
                 <Phone className="w-4 h-4 text-emerald-400 shrink-0" />
-                <a href={`tel:${FARM_CONTACT.phoneRaw}`} className="hover:text-white">
-                  {FARM_CONTACT.phone}
+                <a href={`tel:${contactData.phoneRaw}`} className="hover:text-white">
+                  {contactData.phone}
                 </a>
               </div>
               <div className="flex items-center gap-2.5">
                 <MessageCircle className="w-4 h-4 text-emerald-400 shrink-0" />
-                <a href={FARM_CONTACT.whatsappUrl} target="_blank" rel="noopener noreferrer" className="hover:text-white">
-                  WhatsApp: {FARM_CONTACT.whatsapp}
+                <a href={contactData.whatsappUrl} target="_blank" rel="noopener noreferrer" className="hover:text-white">
+                  WhatsApp: {contactData.whatsapp}
                 </a>
               </div>
               <div className="flex items-center gap-2.5">
                 <Mail className="w-4 h-4 text-emerald-400 shrink-0" />
-                <a href={`mailto:${FARM_CONTACT.email}`} className="hover:text-white">
-                  {FARM_CONTACT.email}
+                <a href={`mailto:${contactData.email}`} className="hover:text-white">
+                  {contactData.email}
                 </a>
               </div>
             </div>
@@ -146,18 +159,20 @@ export const Footer: React.FC<FooterProps & { lang?: 'tr' | 'en' }> = ({ onOpenA
         {/* Bottom Legal Row */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-stone-400">
           <div>
-            © {new Date().getFullYear()} Ada Farm — {lang === 'en' ? 'All Rights Reserved. Meric / Edirne.' : 'Tüm Hakları Saklıdır. Meriç / Edirne.'}
+            © {new Date().getFullYear()} {lang === 'en' ? 'Ada Farm — All Rights Reserved. Meric / Edirne.' : 'Ada Çiftliği — Tüm Hakları Saklıdır. Meriç / Edirne.'}
           </div>
 
           <div className="flex items-center gap-6">
             <span className="text-stone-400">
-              5996 Sayılı Veteriner Hizmetleri, Bitki Sağlığı, Gıda ve Yem Kanununa Uygun Üretim
+              {lang === 'en'
+                ? 'Compliant with Veterinary Services, Plant Health, Food and Feed Law No. 5996'
+                : '5996 Sayılı Veteriner Hizmetleri, Bitki Sağlığı, Gıda ve Yem Kanununa Uygun Üretim'}
             </span>
             <button
               type="button"
               onClick={scrollToTop}
-              className="w-9 h-9 rounded-full bg-stone-800 hover:bg-stone-700 text-stone-300 hover:text-white flex items-center justify-center transition-colors"
-              aria-label="Yukarı çık"
+              className="w-9 h-9 rounded-full bg-stone-800 hover:bg-stone-700 text-stone-300 hover:text-white flex items-center justify-center transition-colors cursor-pointer"
+              aria-label={lang === 'en' ? 'Scroll to top' : 'Yukarı çık'}
             >
               <ArrowUp className="w-4 h-4" />
             </button>
@@ -175,11 +190,13 @@ export const Footer: React.FC<FooterProps & { lang?: 'tr' | 'en' }> = ({ onOpenA
                 className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-stone-900 hover:bg-stone-800 text-stone-400 hover:text-emerald-400 border border-stone-700 hover:border-emerald-700/60 transition-all cursor-pointer font-medium shadow-sm"
               >
                 <ShieldCheck className="w-4 h-4 text-emerald-400" />
-                <span>Yönetici Girişi</span>
+                <span>{lang === 'en' ? 'Admin Portal' : 'Yönetici Girişi'}</span>
               </button>
               <div className="flex items-center gap-2">
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-500/70"></span>
-                <span className="text-center md:text-left">Ada Çiftliği Zooteknik Karar Destek Platformu</span>
+                <span className="text-center md:text-left">
+                  {lang === 'en' ? 'Ada Farm Zootechnical Decision Support Platform' : 'Ada Çiftliği Zooteknik Karar Destek Platformu'}
+                </span>
               </div>
             </div>
           </div>

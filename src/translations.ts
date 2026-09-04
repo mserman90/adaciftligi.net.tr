@@ -82,10 +82,10 @@ export const t = {
       check3: 'Wholesale & Retail Supply',
       badge: 'Fresh Daily Milking',
       stats: [
-        { val: '240+', label: 'Sheep', sub: 'Flock count' },
-        { val: '120+', label: 'Cattle', sub: 'Herd count' },
-        { val: '2', label: 'Tons Milk', sub: 'Daily fresh production' },
-        { val: '100%', label: 'Natural', sub: 'Closed-circuit milking' }
+        { val: '850+', label: 'Healthy Animals', sub: 'Sheep, lambs, cows, and calves' },
+        { val: '2,400+ L', label: 'Fresh Daily Milk', sub: '+4°C cold tank storage' },
+        { val: '140+ Acres', label: 'Natural Pasture', sub: 'Meric basin wetland pastures' },
+        { val: '2012', label: 'Established', sub: 'Over 14 years of family livestock farming' }
       ]
     },
     products: {
