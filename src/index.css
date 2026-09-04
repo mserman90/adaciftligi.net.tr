@@ -35,6 +35,158 @@
   background: #a8a29e;
 }
 
+/* =========================================================
+   Ada Ciftligi Main Website - Dark Mode (Koyu Mod)
+   Sophisticated dark palette for the public farm portal
+   with deep forest tones, high text legibility, and warm accents.
+   ========================================================= */
+
+html.dark {
+  color-scheme: dark;
+}
+
+html.dark body {
+  background-color: #0c140e !important;
+  color: #e2ece5 !important;
+}
+
+.dark ::-webkit-scrollbar-track {
+  background: #0e1711 !important;
+}
+.dark ::-webkit-scrollbar-thumb {
+  background: #25382b !important;
+}
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: #37533f !important;
+}
+
+/* Base text overrides in Dark Mode */
+.dark .text-stone-900 {
+  color: #f3f7f4 !important;
+}
+.dark .text-stone-800 {
+  color: #e2ece5 !important;
+}
+.dark .text-stone-700 {
+  color: #cbd8cf !important;
+}
+.dark .text-stone-600 {
+  color: #a3b8aa !important;
+}
+.dark .text-stone-500 {
+  color: #879c8e !important;
+}
+
+/* Background overrides in Dark Mode */
+.dark .bg-white {
+  background-color: #141f17 !important;
+}
+.dark .bg-stone-50,
+.dark .bg-stone-50\/60,
+.dark .bg-stone-50\/70,
+.dark .bg-stone-50\/80 {
+  background-color: #0c140e !important;
+}
+.dark .bg-stone-100 {
+  background-color: #17241a !important;
+}
+.dark .bg-stone-200\/60 {
+  background-color: #1a2a1e !important;
+}
+
+/* Border overrides in Dark Mode */
+.dark .border-stone-100,
+.dark .border-stone-200,
+.dark .border-stone-200\/60,
+.dark .border-stone-200\/70,
+.dark .border-stone-200\/80,
+.dark .border-stone-200\/90,
+.dark .border-stone-300,
+.dark .border-stone-300\/60 {
+  border-color: #233527 !important;
+}
+
+/* Section backgrounds in Dark Mode */
+.dark #hero-section {
+  background-color: #0c140e !important;
+}
+.dark #urunler {
+  background-color: #0e1711 !important;
+}
+.dark #ciftlik-hakkinda {
+  background-color: #0c140e !important;
+}
+.dark #uretim-sureci {
+  background-color: #0e1711 !important;
+}
+.dark #yorumlar {
+  background-color: #0c140e !important;
+}
+.dark #sss {
+  background-color: #0e1711 !important;
+}
+.dark #iletisim {
+  background-color: #0c140e !important;
+}
+
+/* Navbar in Dark Mode */
+.dark #main-navbar > div:nth-child(3) {
+  background-color: rgba(16, 26, 19, 0.95) !important;
+  border-bottom-color: #233527 !important;
+}
+.dark #main-navbar nav a {
+  color: #cbd8cf !important;
+}
+.dark #main-navbar nav a:hover {
+  color: #4ade80 !important;
+}
+.dark #main-navbar a.group:hover .text-stone-900 {
+  color: #4ade80 !important;
+}
+.dark #main-navbar #navbar-call-btn {
+  color: #e2ece5 !important;
+}
+.dark #main-navbar #navbar-call-btn:hover {
+  background-color: #19271d !important;
+}
+
+/* Interactive Card Elevations in Dark Mode */
+.dark .card-hover-lift {
+  box-shadow: 0 4px 20px -4px rgba(0, 0, 0, 0.35) !important;
+}
+.dark .card-hover-lift:hover {
+  box-shadow: 0 16px 36px -8px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(74, 222, 128, 0.18) !important;
+}
+
+/* Inputs, Textareas, Selects in Dark Mode */
+.dark input,
+.dark textarea,
+.dark select {
+  background-color: #101a13 !important;
+  border-color: #293d2e !important;
+  color: #f3f7f4 !important;
+}
+.dark input:focus,
+.dark textarea:focus,
+.dark select:focus {
+  border-color: #3b8652 !important;
+  box-shadow: 0 0 0 2px rgba(59, 134, 82, 0.25) !important;
+}
+
+/* Modals in Dark Mode */
+.dark div[role="dialog"] {
+  background-color: #141f17 !important;
+  border-color: #26382b !important;
+  color: #e2ece5 !important;
+}
+
+/* Mobile Nav Drawer in Dark Mode */
+.dark #mobile-nav-overlay > div {
+  background-color: #141f17 !important;
+  border-top-color: #26382b !important;
+  color: #e2ece5 !important;
+}
+
 /* Smooth card lift effects */
 .card-hover-lift {
   transition: transform 0.28s cubic-bezier(0.2, 0, 0, 1), box-shadow 0.28s cubic-bezier(0.2, 0, 0, 1), border-color 0.28s ease;

@@ -33,6 +33,52 @@ export default function App() {
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<string | undefined>();
 
+  // Dark mode state: default is explicitly LIGHT ("açık") mode
+  const [isDarkMode, setIsDarkMode] = useState<boolean>(() => {
+    try {
+      const saved = localStorage.getItem('ada_theme');
+      if (saved !== null) {
+        return saved === 'dark';
+      }
+      // Varsayılan tema açık moddur
+      return false;
+    } catch {
+      return false;
+    }
+  });
+
+  const handleToggleDarkMode = () => {
+    setIsDarkMode((prev) => !prev);
+  };
+
+  useEffect(() => {
+    try {
+      if (isDarkMode) {
+        document.documentElement.classList.add('dark');
+        localStorage.setItem('ada_theme', 'dark');
+        localStorage.setItem('ada_rasyon_theme', 'dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+        localStorage.setItem('ada_theme', 'light');
+        localStorage.setItem('ada_rasyon_theme', 'light');
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  }, [isDarkMode]);
+
+  // Global Alt+D shortcut listener for theme toggle
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.altKey && (e.key === 'd' || e.key === 'D')) {
+        e.preventDefault();
+        handleToggleDarkMode();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
+
   const handleOpenInquiry = (productName?: string) => {
     setSelectedProduct(productName || 'Günlük Taze Çiğ Süt');
     setModalOpen(true);
@@ -120,7 +166,7 @@ export default function App() {
   if (currentView === 'rasyon') {
     return (
       <ImageProvider>
-        <div className="min-h-screen bg-[#F6F4EC]">
+        <div className={`min-h-screen ${isDarkMode ? 'bg-[#0E130F]' : 'bg-[#F6F4EC]'}`}>
           <RasyonApp
             onBackToWebsite={() => {
               setCurrentView('website');
@@ -128,6 +174,8 @@ export default function App() {
             }}
             onLogout={handleLogout}
             adminUsername={adminAuth.username || 'admin'}
+            isDarkMode={isDarkMode}
+            onToggleDarkMode={handleToggleDarkMode}
           />
         </div>
       </ImageProvider>
@@ -137,9 +185,15 @@ export default function App() {
   // Public Farm Website view
   return (
     <ImageProvider>
-      <div className="min-h-screen bg-white text-stone-900 flex flex-col font-sans selection:bg-[#123c28] selection:text-white">
+      <div className={`min-h-screen ${isDarkMode ? 'dark bg-[#0c140e] text-[#e2ece5]' : 'bg-white text-stone-900'} flex flex-col font-sans selection:bg-[#123c28] selection:text-white transition-colors duration-200`}>
         {/* Sticky Navigation */}
-        <Navbar onOpenInquiry={handleOpenInquiry} lang={mainLang} setLang={setMainLang} />
+        <Navbar
+          onOpenInquiry={handleOpenInquiry}
+          lang={mainLang}
+          setLang={setMainLang}
+          isDarkMode={isDarkMode}
+          onToggleDarkMode={handleToggleDarkMode}
+        />
 
         <main className="flex-1">
           {/* 1. Hero Section */}
@@ -168,7 +222,12 @@ export default function App() {
         </main>
 
         {/* 9. Multi-column Footer with Legal Row */}
-        <Footer onOpenAdmin={handleOpenAdmin} lang={mainLang} />
+        <Footer
+          onOpenAdmin={handleOpenAdmin}
+          lang={mainLang}
+          isDarkMode={isDarkMode}
+          onToggleDarkMode={handleToggleDarkMode}
+        />
 
         {/* Direct WhatsApp / Phone Inquiry Modal */}
         <InquiryModal

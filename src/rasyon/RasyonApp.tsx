@@ -63,12 +63,16 @@ export interface RasyonAppProps {
   onBackToWebsite?: () => void;
   onLogout?: () => void;
   adminUsername?: string;
+  isDarkMode?: boolean;
+  onToggleDarkMode?: () => void;
 }
 
 export const RasyonApp: React.FC<RasyonAppProps> = ({
   onBackToWebsite,
   onLogout,
   adminUsername = 'admin',
+  isDarkMode: propIsDarkMode,
+  onToggleDarkMode: propOnToggleDarkMode,
 }) => {
   // Load ration history from localStorage on initial render
   const [rationHistory, setRationHistory] = useState<SavedLastRationState[]>(() => loadRationHistory());
@@ -88,21 +92,33 @@ export const RasyonApp: React.FC<RasyonAppProps> = ({
   const [toastMessage, setToastMessage] = useState<string | null>(null);
   const [lang, setLang] = useState<'tr' | 'en'>('tr');
 
-  // Dark mode state with localStorage persistence and OS preference detection
+  // Dark mode state with localStorage persistence (defaults to light mode)
   const [isDarkMode, setIsDarkMode] = useState<boolean>(() => {
+    if (propIsDarkMode !== undefined) return propIsDarkMode;
     try {
-      const saved = localStorage.getItem('ada_rasyon_theme');
-      if (saved) return saved === 'dark';
-      return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const saved = localStorage.getItem('ada_theme') || localStorage.getItem('ada_rasyon_theme');
+      if (saved !== null) return saved === 'dark';
+      return false;
     } catch {
       return false;
     }
   });
 
+  useEffect(() => {
+    if (propIsDarkMode !== undefined) {
+      setIsDarkMode(propIsDarkMode);
+    }
+  }, [propIsDarkMode]);
+
   const toggleDarkMode = () => {
+    if (propOnToggleDarkMode) {
+      propOnToggleDarkMode();
+      return;
+    }
     setIsDarkMode((prev) => {
       const next = !prev;
       try {
+        localStorage.setItem('ada_theme', next ? 'dark' : 'light');
         localStorage.setItem('ada_rasyon_theme', next ? 'dark' : 'light');
       } catch (err) {
         console.error(err);

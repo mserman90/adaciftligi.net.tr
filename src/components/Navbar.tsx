@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Phone, MessageCircle, Menu, X, ArrowRight, AlertTriangle } from 'lucide-react';
+import { Phone, MessageCircle, Menu, X, ArrowRight, AlertTriangle, Sun, Moon } from 'lucide-react';
 import { FARM_CONTACT } from '../data/farmData';
 import { FarmWeatherBanner } from './FarmWeatherBanner';
 
@@ -7,9 +7,17 @@ interface NavbarProps {
   lang?: 'tr' | 'en';
   setLang?: (l: 'tr' | 'en') => void;
   onOpenInquiry: (productName?: string) => void;
+  isDarkMode?: boolean;
+  onToggleDarkMode?: () => void;
 }
 
-export const Navbar: React.FC<NavbarProps> = ({ onOpenInquiry, lang = 'tr', setLang }) => {
+export const Navbar: React.FC<NavbarProps> = ({
+  onOpenInquiry,
+  lang = 'tr',
+  setLang,
+  isDarkMode = false,
+  onToggleDarkMode,
+}) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -259,17 +267,38 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenInquiry, lang = 'tr', setL
           </nav>
 
           
-          {/* Language Toggle */}
-          <div className="hidden sm:flex items-center">
-          {setLang && (
-            <button
-              onClick={() => setLang(lang === 'tr' ? 'en' : 'tr')}
-              className="flex items-center justify-center w-9 h-9 rounded-full border border-stone-200 hover:bg-stone-100 text-xs font-bold text-stone-600 transition-all cursor-pointer mr-2"
-              title={lang === 'en' ? 'Türkçe versiyona geç' : 'Switch to English version'}
-            >
-              {lang === 'tr' ? 'TR' : 'EN'}
-            </button>
-          )}
+          {/* Theme & Language Toggles */}
+          <div className="hidden sm:flex items-center gap-1.5 mr-2">
+            {onToggleDarkMode && (
+              <button
+                type="button"
+                id="navbar-theme-toggle"
+                onClick={onToggleDarkMode}
+                className="flex items-center justify-center w-9 h-9 rounded-full border border-stone-200 dark:border-stone-700 hover:bg-stone-100 dark:hover:bg-stone-800 text-stone-700 dark:text-stone-200 transition-all cursor-pointer shadow-2xs"
+                title={
+                  isDarkMode
+                    ? (lang === 'en' ? 'Switch to Light Mode [Alt+D]' : 'Aydınlık Moda Geç [Alt+D]')
+                    : (lang === 'en' ? 'Switch to Dark Mode (Eye Comfort) [Alt+D]' : 'Koyu Moda Geç (Göz Dinlendirme) [Alt+D]')
+                }
+                aria-label={isDarkMode ? 'Light Mode' : 'Dark Mode'}
+              >
+                {isDarkMode ? (
+                  <Sun className="w-4 h-4 text-amber-400" />
+                ) : (
+                  <Moon className="w-4 h-4 text-stone-700" />
+                )}
+              </button>
+            )}
+
+            {setLang && (
+              <button
+                onClick={() => setLang(lang === 'tr' ? 'en' : 'tr')}
+                className="flex items-center justify-center w-9 h-9 rounded-full border border-stone-200 dark:border-stone-700 hover:bg-stone-100 dark:hover:bg-stone-800 text-xs font-bold text-stone-600 dark:text-stone-200 transition-all cursor-pointer"
+                title={lang === 'en' ? 'Türkçe versiyona geç' : 'Switch to English version'}
+              >
+                {lang === 'tr' ? 'TR' : 'EN'}
+              </button>
+            )}
           </div>
 
           {/* Desktop CTA buttons */}
@@ -298,10 +327,27 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenInquiry, lang = 'tr', setL
 
           {/* Mobile hamburger toggle */}
           <div className="flex sm:hidden items-center gap-2">
+            {onToggleDarkMode && (
+              <button
+                type="button"
+                id="mobile-navbar-theme-toggle"
+                onClick={onToggleDarkMode}
+                className="flex items-center justify-center w-8 h-8 rounded-full border border-stone-200 dark:border-stone-700 hover:bg-stone-100 dark:hover:bg-stone-800 text-stone-700 dark:text-stone-200 transition-all cursor-pointer"
+                title={isDarkMode ? (lang === 'en' ? 'Light Mode' : 'Aydınlık Mod') : (lang === 'en' ? 'Dark Mode' : 'Koyu Mod')}
+                aria-label={isDarkMode ? 'Light Mode' : 'Dark Mode'}
+              >
+                {isDarkMode ? (
+                  <Sun className="w-3.5 h-3.5 text-amber-400" />
+                ) : (
+                  <Moon className="w-3.5 h-3.5 text-stone-700" />
+                )}
+              </button>
+            )}
+
             {setLang && (
               <button
                 onClick={() => setLang(lang === 'tr' ? 'en' : 'tr')}
-                className="flex items-center justify-center w-8 h-8 rounded-full border border-stone-200 hover:bg-stone-100 text-xs font-bold text-stone-700 transition-all cursor-pointer"
+                className="flex items-center justify-center w-8 h-8 rounded-full border border-stone-200 dark:border-stone-700 hover:bg-stone-100 dark:hover:bg-stone-800 text-xs font-bold text-stone-700 dark:text-stone-200 transition-all cursor-pointer"
                 title={lang === 'en' ? 'Türkçe' : 'English'}
               >
                 {lang === 'tr' ? 'TR' : 'EN'}
@@ -381,6 +427,34 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenInquiry, lang = 'tr', setL
                 </a>
               ))}
             </div>
+
+            {/* Mobile Drawer Theme Mode Switch */}
+            {onToggleDarkMode && (
+              <div className="mb-4 py-2.5 px-4 rounded-2xl bg-stone-100 dark:bg-stone-800/80 border border-stone-200 dark:border-stone-700 flex items-center justify-between">
+                <div className="flex items-center gap-2 text-xs font-semibold text-stone-700 dark:text-stone-200">
+                  {isDarkMode ? <Moon className="w-4 h-4 text-emerald-400" /> : <Sun className="w-4 h-4 text-amber-500" />}
+                  <span>{lang === 'en' ? 'Appearance' : 'Görünüm Modu'}</span>
+                </div>
+                <button
+                  type="button"
+                  id="drawer-theme-toggle"
+                  onClick={onToggleDarkMode}
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-700 text-xs font-bold text-stone-800 dark:text-stone-200 shadow-2xs transition-all cursor-pointer"
+                >
+                  {isDarkMode ? (
+                    <>
+                      <Sun className="w-3.5 h-3.5 text-amber-400" />
+                      <span>{lang === 'en' ? 'Dark Mode' : 'Koyu Mod'}</span>
+                    </>
+                  ) : (
+                    <>
+                      <Moon className="w-3.5 h-3.5 text-stone-600" />
+                      <span>{lang === 'en' ? 'Light Mode' : 'Aydınlık Mod'}</span>
+                    </>
+                  )}
+                </button>
+              </div>
+            )}
 
             <div className="pt-3 border-t border-stone-100 flex flex-col gap-2.5">
               <button

@@ -1,12 +1,19 @@
 import React from 'react';
-import { Phone, MessageCircle, Mail, MapPin, ShieldCheck, ArrowUp, AlertTriangle } from 'lucide-react';
+import { Phone, MessageCircle, Mail, MapPin, ShieldCheck, ArrowUp, AlertTriangle, Sun, Moon } from 'lucide-react';
 import { FARM_CONTACT, FARM_CONTACT_EN } from '../data/farmData';
 
 interface FooterProps {
   onOpenAdmin?: () => void;
+  isDarkMode?: boolean;
+  onToggleDarkMode?: () => void;
 }
 
-export const Footer: React.FC<FooterProps & { lang?: 'tr' | 'en' }> = ({ onOpenAdmin, lang = 'tr' }) => {
+export const Footer: React.FC<FooterProps & { lang?: 'tr' | 'en' }> = ({
+  onOpenAdmin,
+  lang = 'tr',
+  isDarkMode = false,
+  onToggleDarkMode,
+}) => {
   const contactData = lang === 'en' ? FARM_CONTACT_EN : FARM_CONTACT;
 
   const scrollToTop = () => {
@@ -162,12 +169,31 @@ export const Footer: React.FC<FooterProps & { lang?: 'tr' | 'en' }> = ({ onOpenA
             © {new Date().getFullYear()} {lang === 'en' ? 'Ada Farm — All Rights Reserved. Meric / Edirne.' : 'Ada Çiftliği — Tüm Hakları Saklıdır. Meriç / Edirne.'}
           </div>
 
-          <div className="flex items-center gap-6">
-            <span className="text-stone-400">
+          <div className="flex items-center gap-4 sm:gap-6">
+            <span className="text-stone-400 hidden lg:inline">
               {lang === 'en'
                 ? 'Compliant with Veterinary Services, Plant Health, Food and Feed Law No. 5996'
                 : '5996 Sayılı Veteriner Hizmetleri, Bitki Sağlığı, Gıda ve Yem Kanununa Uygun Üretim'}
             </span>
+
+            {/* Quick theme toggle in footer */}
+            {onToggleDarkMode && (
+              <button
+                type="button"
+                id="footer-theme-toggle"
+                onClick={onToggleDarkMode}
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-stone-800 hover:bg-stone-700 text-stone-300 hover:text-white transition-colors cursor-pointer text-xs font-medium border border-stone-700"
+                title={
+                  isDarkMode
+                    ? (lang === 'en' ? 'Switch to Light Mode [Alt+D]' : 'Aydınlık Moda Geç [Alt+D]')
+                    : (lang === 'en' ? 'Switch to Dark Mode (Eye Comfort) [Alt+D]' : 'Koyu Moda Geç (Göz Dinlendirme) [Alt+D]')
+                }
+              >
+                {isDarkMode ? <Sun className="w-3.5 h-3.5 text-amber-400" /> : <Moon className="w-3.5 h-3.5 text-stone-300" />}
+                <span>{isDarkMode ? (lang === 'en' ? 'Light Mode' : 'Aydınlık Mod') : (lang === 'en' ? 'Dark Mode' : 'Koyu Mod')}</span>
+              </button>
+            )}
+
             <button
               type="button"
               onClick={scrollToTop}
