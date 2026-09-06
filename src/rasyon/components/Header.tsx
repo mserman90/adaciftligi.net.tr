@@ -16,6 +16,7 @@ import {
   Sun,
 } from 'lucide-react';
 import { Language, ModuleKey } from '../types';
+import { AdaLogoMark } from '../../components/AdaLogo';
 
 interface HeaderProps {
   lang: Language;
@@ -61,25 +62,10 @@ export const Header: React.FC<HeaderProps> = ({
             </button>
           )}
 
-          <div className="flex items-center gap-2 text-inherit">
-            <svg
-              viewBox="0 0 34 34"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2.1"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="w-7 h-7 text-[#E9D9A8] shrink-0"
-            >
-              <path d="M3 7c1.2 4.8 4.8 7.8 9.2 8.4" />
-              <path d="M31 7c-1.2 4.8-4.8 7.8-9.2 8.4" />
-              <path d="M12.2 15.4C13.6 13.7 15.2 12.9 17 12.9s3.4.8 4.8 2.5" />
-              <path d="M12.2 15.4C10.7 17.5 9.8 20 9.8 22.3c0 5.4 3.2 8.7 7.2 8.7s7.2-3.3 7.2-8.7c0-2.3-.9-4.8-2.4-6.9" />
-              <circle cx="14.4" cy="23.6" r="1.1" fill="currentColor" stroke="none" />
-              <circle cx="19.6" cy="23.6" r="1.1" fill="currentColor" stroke="none" />
-            </svg>
-            <span className="font-heading font-bold text-lg sm:text-xl tracking-tight whitespace-nowrap">
-              Ada <b className="font-normal opacity-90">Rasyon</b>
+          <div className="flex items-center gap-2.5 text-inherit">
+            <AdaLogoMark size={32} theme="gold" className="shrink-0" />
+            <span className="font-heading font-extrabold text-lg sm:text-xl tracking-tight whitespace-nowrap">
+              Ada <span className="font-medium text-[#E9D9A8]">Rasyon</span>
             </span>
           </div>
         </div>

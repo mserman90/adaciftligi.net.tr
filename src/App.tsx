@@ -18,6 +18,7 @@ import { Footer } from './components/Footer';
 import { InquiryModal } from './components/InquiryModal';
 import { QuickCallFloat } from './components/QuickCallFloat';
 import { AdminLoginModal } from './components/AdminLoginModal';
+import { BrandSystemModal } from './components/BrandSystemModal';
 import { RasyonApp } from './rasyon/RasyonApp';
 import { getAdminSession, clearAdminSession } from './utils/adminAuth';
 import { gsap } from 'gsap';
@@ -31,6 +32,7 @@ export default function App() {
   const [adminAuth, setAdminAuth] = useState(() => getAdminSession());
   const [adminLoginModalOpen, setAdminLoginModalOpen] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
+  const [brandModalOpen, setBrandModalOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<string | undefined>();
 
   // Dark mode state: default is strictly DARK ("koyu") mode
@@ -125,6 +127,8 @@ export default function App() {
         } else {
           setAdminLoginModalOpen(true);
         }
+      } else if (hash === '#logo' || hash === '#brand' || hash === '#kimlik' || hash === '#kurumsal-kimlik') {
+        setBrandModalOpen(true);
       }
     };
     handleHash();
@@ -198,6 +202,7 @@ export default function App() {
           setLang={setMainLang}
           isDarkMode={isDarkMode}
           onToggleDarkMode={handleToggleDarkMode}
+          onOpenBrandModal={() => setBrandModalOpen(true)}
         />
 
         <main className="flex-1">
@@ -232,6 +237,7 @@ export default function App() {
           lang={mainLang}
           isDarkMode={isDarkMode}
           onToggleDarkMode={handleToggleDarkMode}
+          onOpenBrandModal={() => setBrandModalOpen(true)}
         />
 
         {/* Direct WhatsApp / Phone Inquiry Modal */}
@@ -247,6 +253,13 @@ export default function App() {
           isOpen={adminLoginModalOpen}
           onClose={() => setAdminLoginModalOpen(false)}
           onLoginSuccess={handleLoginSuccess}
+          lang={mainLang}
+        />
+
+        {/* Brand System & Vector Logo Architecture Modal */}
+        <BrandSystemModal
+          isOpen={brandModalOpen}
+          onClose={() => setBrandModalOpen(false)}
           lang={mainLang}
         />
 

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Lock, User, KeyRound, Eye, EyeOff, ShieldCheck, X, ArrowRight, AlertCircle, Sparkles } from 'lucide-react';
 import { checkAdminCredentials, saveAdminSession } from '../utils/adminAuth';
+import { AdaLogoMark } from './AdaLogo';
 
 interface AdminLoginModalProps {
   lang?: 'tr' | 'en';
@@ -66,8 +67,8 @@ export const AdminLoginModal: React.FC<AdminLoginModalProps> = ({
           </button>
 
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-[#F3F1E4]/10 border border-[#F3F1E4]/20 flex items-center justify-center text-[#E9D9A8] shrink-0">
-              <Lock className="w-5 h-5" />
+            <div className="shrink-0">
+              <AdaLogoMark size={42} theme="gold" />
             </div>
             <div>
               <span className="text-[11px] font-mono tracking-wider uppercase text-[#E9D9A8] font-semibold flex items-center gap-1">

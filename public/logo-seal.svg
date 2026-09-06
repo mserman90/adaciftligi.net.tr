@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" width="160" height="160">
+  <defs>
+    <!-- Metallic gold radial lighting -->
+    <radialGradient id="gold-metal-radial" cx="35%" cy="30%" r="70%">
+      <stop offset="0%" stop-color="#FFF3D4" />
+      <stop offset="25%" stop-color="#DFC07F" />
+      <stop offset="55%" stop-color="#C5A059" />
+      <stop offset="85%" stop-color="#9A7736" />
+      <stop offset="100%" stop-color="#694F20" />
+    </radialGradient>
+    <filter id="metal-bevel" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="4" stdDeviation="4" flood-color="#000000" flood-opacity="0.4" />
+    </filter>
+  </defs>
+
+  <!-- Outer Bottle Cap Rim with Fluted Teeth / Beveled Edge -->
+  <circle cx="80" cy="80" r="76" fill="url(#gold-metal-radial)" filter="url(#metal-bevel)" stroke="#F3E5C2" stroke-width="2.5" />
+  <!-- Embossed Inner Ring -->
+  <circle cx="80" cy="80" r="66" fill="none" stroke="#694F20" stroke-width="1.8" opacity="0.6" />
+  <circle cx="80" cy="80" r="64" fill="none" stroke="#FFF3D4" stroke-width="1.5" opacity="0.8" />
+
+  <!-- Center Arched Logo Scaled and Embossed on Gold -->
+  <g transform="translate(32, 28) scale(0.48)">
+    <path d="M 18 155 L 18 95 A 82 82 0 0 1 182 95 L 182 155" stroke="#162E40" stroke-width="5" stroke-linecap="round" fill="none" />
+    <path d="M 24 152 L 24 95 A 76 76 0 0 1 176 95 L 176 152" stroke="#162E40" stroke-width="3" stroke-linecap="round" fill="none" />
+    <line x1="16" y1="156" x2="184" y2="156" stroke="#162E40" stroke-width="5" stroke-linecap="round" />
+
+    <!-- Scene elements -->
+    <path d="M 20 85 L 180 85 L 180 73 L 20 73 Z" fill="#162E40" />
+    <path d="M 92 73 L 92 63 L 100 52 L 108 63 L 108 73 Z" fill="#162E40" />
+    <path d="M 116 85 C 126 95, 142 102, 138 114 C 132 125, 140 136, 178 152 L 112 152 C 114 142, 118 132, 124 124 C 130 114, 118 102, 106 85 Z" fill="#162E40" />
+    <!-- Cow -->
+    <path d="M 34 152 L 38 152 L 39 136 L 44 136 L 45 152 L 49 152 L 50 128 L 80 128 L 81 152 L 85 152 L 86 134 L 89 134 L 90 152 L 94 152 L 95 120 C 95 116, 92 110, 86 108 L 86 102 C 86 98, 82 96, 78 98 L 73 100 L 68 98 C 64 96, 60 98, 60 102 L 60 106 C 50 106, 40 108, 36 114 C 32 120, 32 132, 34 152 Z" fill="#FFF3D4" stroke="#162E40" stroke-width="3" />
+    <path d="M 64 104 C 68 102, 73 105, 74 110 C 72 116, 66 118, 60 115 C 58 110, 60 106, 64 104 Z" fill="#162E40" />
+    <!-- Sheep -->
+    <path d="M 52 152 L 55 152 L 56 142 L 59 142 L 60 152 L 63 152 L 64 138 L 72 138 L 73 152 L 76 152 L 77 140 L 80 140 L 81 152 L 84 152 L 85 132 C 85 130, 83 128, 85 125 C 87 122, 85 118, 82 118 C 80 116, 78 116, 76 118 C 74 115, 70 115, 68 117 C 66 115, 62 116, 60 118 C 56 118, 54 122, 53 126 C 51 130, 52 136, 52 152 Z" fill="#FFF3D4" stroke="#162E40" stroke-width="2.5" />
+    <!-- Duck -->
+    <path d="M 94 152 L 96 152 L 97 146 L 100 146 L 101 152 L 103 152 L 104 144 C 107 143, 110 140, 112 136 C 112 133, 108 132, 104 133 C 102 131, 101 128, 100 124 C 99 122, 97 121, 95 122 L 90 123 C 92 125, 94 128, 95 132 C 94 136, 92 140, 94 152 Z" fill="#FFF3D4" stroke="#162E40" stroke-width="2.5" />
+  </g>
+</svg>

@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Phone, MessageCircle, Menu, X, ArrowRight, AlertTriangle, Sun, Moon } from 'lucide-react';
+import { Phone, MessageCircle, Menu, X, ArrowRight, AlertTriangle, Sun, Moon, Sparkles } from 'lucide-react';
 import { FARM_CONTACT } from '../data/farmData';
 import { FarmWeatherBanner } from './FarmWeatherBanner';
+import { AdaOfficialHeaderLogo } from './AdaLogo';
 
 interface NavbarProps {
   lang?: 'tr' | 'en';
@@ -9,6 +10,7 @@ interface NavbarProps {
   onOpenInquiry: (productName?: string) => void;
   isDarkMode?: boolean;
   onToggleDarkMode?: () => void;
+  onOpenBrandModal?: () => void;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
@@ -17,9 +19,11 @@ export const Navbar: React.FC<NavbarProps> = ({
   setLang,
   isDarkMode = false,
   onToggleDarkMode,
+  onOpenBrandModal,
 }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [logoError, setLogoError] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -215,43 +219,53 @@ export const Navbar: React.FC<NavbarProps> = ({
           }`}
         >
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
-          {/* Brand Logo & Wordmark */}
-          <a
-            href="#"
-            className="flex items-center gap-3 group focus:outline-none"
-            aria-label={lang === 'en' ? 'Ada Farm Home' : 'Ada Çiftliği Ana Sayfa'}
-          >
-            <div className="w-10 h-10 rounded-full bg-[#123c28] flex items-center justify-center text-white font-bold text-lg shadow-sm group-hover:scale-105 transition-transform duration-200 shrink-0">
-              <span className="tracking-tight">A</span>
-            </div>
-            <div className="flex flex-col">
-              <div className="flex flex-wrap items-center gap-2">
-                <span className="font-extrabold text-xl sm:text-2xl tracking-tight text-stone-900 group-hover:text-[#123c28] transition-colors leading-none">
-                  {lang === 'en' ? 'Ada Farm' : 'Ada Çiftliği'}
+            {/* Prominent Official Brand Logo & Lockup (Matching Official Medallion) */}
+            <div className="flex items-center gap-3 sm:gap-4 shrink-0">
+              <a
+                href="#"
+                className="focus:outline-none focus-visible:ring-2 focus-visible:ring-[#C5A059] rounded-xl inline-flex items-center shrink-0 dark:bg-white/95 dark:px-2.5 dark:py-1 dark:shadow-2xs transition-all"
+                aria-label={lang === 'en' ? 'Ada Farm Home' : 'Ada Çiftliği Ana Sayfa'}
+              >
+                {!logoError ? (
+                  <img
+                    src="/logo.png"
+                    alt={lang === 'en' ? 'Ada Farm - Meric, Edirne' : 'Ada Çiftliği - Meriç, Edirne'}
+                    width={680}
+                    height={200}
+                    className={`transition-all duration-300 select-none object-contain shrink-0 block ${
+                      isScrolled
+                        ? 'h-[42px] sm:h-[48px] lg:h-[54px]'
+                        : 'h-[50px] sm:h-[58px] lg:h-[66px]'
+                    } w-auto max-w-[240px] sm:max-w-[290px] lg:max-w-[340px]`}
+                    referrerPolicy="no-referrer"
+                    onError={() => setLogoError(true)}
+                  />
+                ) : (
+                  <AdaOfficialHeaderLogo
+                    markSize={isScrolled ? 48 : 58}
+                    isCompact={isScrolled}
+                    lang={lang}
+                    animated={true}
+                  />
+                )}
+              </a>
+
+              {/* Dikkati çeken Test Yayını Rozeti */}
+              <div
+                id="navbar-test-mode-notice"
+                className="hidden xl:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-amber-50 dark:bg-amber-950/50 border border-amber-300 dark:border-amber-700/60 text-amber-950 dark:text-amber-200 shadow-2xs"
+                title={
+                  lang === 'en'
+                    ? 'This website is in test broadcast; contents and data may not reflect actual conditions.'
+                    : 'Bu web sitesi test yayınındadır; içerikler, veriler ve bilgiler gerçek durumu yansıtmayabilir.'
+                }
+              >
+                <AlertTriangle className="w-3.5 h-3.5 text-amber-700 dark:text-amber-400 shrink-0" />
+                <span className="text-[10px] sm:text-[11px] font-bold text-amber-900 dark:text-amber-200 tracking-tight">
+                  {lang === 'en' ? 'TEST BROADCAST' : 'TEST YAYINI'}
                 </span>
-
-                {/* Dikkati çeken Test Yayını Rozeti */}
-                <div
-                  id="navbar-test-mode-notice"
-                  className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md bg-amber-100 border border-amber-300 text-amber-950 shadow-xs"
-                  title={
-                    lang === 'en'
-                      ? 'This website is in test broadcast; contents and data may not reflect actual conditions.'
-                      : 'Bu web sitesi test yayınındadır; içerikler, veriler ve bilgiler gerçek durumu yansıtmayabilir.'
-                  }
-                >
-                  <AlertTriangle className="w-3 h-3 text-amber-700 shrink-0" />
-                  <span className="text-[10px] sm:text-[11px] font-bold text-amber-900 tracking-tight">
-                    {lang === 'en' ? 'TEST BROADCAST' : 'TEST YAYINI'}
-                  </span>
-                </div>
               </div>
-
-              <span className="text-[11px] font-medium text-stone-500 uppercase tracking-widest mt-1">
-                {lang === 'en' ? 'Meric · Edirne' : 'Meriç · Edirne'}
-              </span>
             </div>
-          </a>
 
           {/* Desktop Navigation Links */}
           <nav className="hidden lg:flex items-center gap-8">
@@ -287,6 +301,19 @@ export const Navbar: React.FC<NavbarProps> = ({
                 ) : (
                   <Moon className="w-4 h-4 text-stone-700" />
                 )}
+              </button>
+            )}
+
+            {onOpenBrandModal && (
+              <button
+                type="button"
+                id="navbar-brand-btn"
+                onClick={onOpenBrandModal}
+                className="flex items-center justify-center w-9 h-9 rounded-full border border-emerald-200 dark:border-emerald-800/80 bg-emerald-50/70 dark:bg-emerald-950/40 hover:bg-emerald-100 dark:hover:bg-emerald-900/60 text-emerald-800 dark:text-emerald-300 transition-all cursor-pointer shadow-2xs"
+                title={lang === 'en' ? 'Ada Farm Logo & Visual Brand Architecture' : 'Ada Çiftliği Logo & Kurumsal Kimlik Mimarisi'}
+                aria-label="Logo & Kurumsal Kimlik"
+              >
+                <Sparkles className="w-4 h-4" />
               </button>
             )}
 
@@ -388,21 +415,30 @@ export const Navbar: React.FC<NavbarProps> = ({
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex items-center justify-between pb-4 border-b border-stone-100">
-              <div className="flex flex-col gap-1">
-                <div className="flex items-center gap-2">
-                  <div className="w-8 h-8 rounded-full bg-[#123c28] flex items-center justify-center text-white font-bold text-sm shrink-0">
-                    A
-                  </div>
-                  <span className="font-bold text-stone-900 text-lg">
-                    {lang === 'en' ? 'Ada Farm' : 'Ada Çiftliği'}
-                  </span>
-                  <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-amber-100 border border-amber-300 text-amber-900 font-bold text-[10px] uppercase">
-                    <AlertTriangle className="w-3 h-3 text-amber-700" />
-                    {lang === 'en' ? 'Test Mode' : 'Test Yayını'}
-                  </span>
+              <div className="flex flex-col gap-1.5">
+                <div className="flex items-center dark:bg-white/95 dark:px-2.5 dark:py-1 dark:rounded-xl dark:shadow-2xs shrink-0 transition-all">
+                  {!logoError ? (
+                    <img
+                      src="/logo.png"
+                      alt="Ada Çiftliği"
+                      width={680}
+                      height={200}
+                      className="h-12 w-auto max-w-[240px] object-contain select-none shrink-0 block"
+                      referrerPolicy="no-referrer"
+                      onError={() => setLogoError(true)}
+                    />
+                  ) : (
+                    <AdaOfficialHeaderLogo
+                      markSize={46}
+                      isCompact={true}
+                      lang={lang}
+                      animated={false}
+                    />
+                  )}
                 </div>
-                <div className="text-[11px] text-amber-900 bg-amber-50/80 px-2 py-1 rounded border border-amber-200 mt-1">
-                  ⚠️ {lang === 'en' ? 'Contents and data may not reflect actual conditions.' : 'İçerikler ve veriler gerçek durumu yansıtmayabilir.'}
+                <div className="inline-flex items-center gap-1.5 px-2 py-1 rounded bg-amber-50 border border-amber-200 text-amber-900 font-bold text-[10.5px]">
+                  <AlertTriangle className="w-3 h-3 text-amber-700 shrink-0" />
+                  <span>{lang === 'en' ? 'Test Mode Notice' : 'Test Yayını Bildirimi'}</span>
                 </div>
               </div>
               <button
@@ -427,6 +463,25 @@ export const Navbar: React.FC<NavbarProps> = ({
                 </a>
               ))}
             </div>
+
+            {/* Mobile Drawer Brand Architecture Action */}
+            {onOpenBrandModal && (
+              <button
+                type="button"
+                id="drawer-brand-btn"
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  onOpenBrandModal();
+                }}
+                className="w-full mb-3 py-2.5 px-4 rounded-2xl bg-emerald-50 border border-emerald-200/80 flex items-center justify-between text-xs font-bold text-emerald-900 transition-colors cursor-pointer"
+              >
+                <div className="flex items-center gap-2">
+                  <Sparkles className="w-4 h-4 text-emerald-700" />
+                  <span>{lang === 'en' ? 'Logo & Brand Identity System' : 'Logo & Kurumsal Kimlik Sistemi'}</span>
+                </div>
+                <ArrowRight className="w-4 h-4 text-emerald-700" />
+              </button>
+            )}
 
             {/* Mobile Drawer Theme Mode Switch */}
             {onToggleDarkMode && (

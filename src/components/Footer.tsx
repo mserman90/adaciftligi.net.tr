@@ -1,11 +1,13 @@
 import React from 'react';
-import { Phone, MessageCircle, Mail, MapPin, ShieldCheck, ArrowUp, AlertTriangle, Sun, Moon } from 'lucide-react';
+import { Phone, MessageCircle, Mail, MapPin, ShieldCheck, ArrowUp, AlertTriangle, Sun, Moon, Sparkles } from 'lucide-react';
 import { FARM_CONTACT, FARM_CONTACT_EN } from '../data/farmData';
+import { AdaLogo, AdaLogoSeal } from './AdaLogo';
 
 interface FooterProps {
   onOpenAdmin?: () => void;
   isDarkMode?: boolean;
   onToggleDarkMode?: () => void;
+  onOpenBrandModal?: () => void;
 }
 
 export const Footer: React.FC<FooterProps & { lang?: 'tr' | 'en' }> = ({
@@ -13,6 +15,7 @@ export const Footer: React.FC<FooterProps & { lang?: 'tr' | 'en' }> = ({
   lang = 'tr',
   isDarkMode = false,
   onToggleDarkMode,
+  onOpenBrandModal,
 }) => {
   const contactData = lang === 'en' ? FARM_CONTACT_EN : FARM_CONTACT;
 
@@ -27,22 +30,12 @@ export const Footer: React.FC<FooterProps & { lang?: 'tr' | 'en' }> = ({
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8 pb-14 border-b border-stone-800">
           {/* Col 1: Brand Wordmark & Identity */}
           <div className="lg:col-span-4 space-y-4">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-full bg-[#123c28] border border-emerald-600/60 flex items-center justify-center text-white font-bold text-lg">
-                A
-              </div>
-              <div className="flex flex-col">
-                <div className="flex items-center gap-2">
-                  <span className="font-extrabold text-xl text-white tracking-tight">
-                    {lang === 'en' ? 'Ada Farm' : 'Ada Çiftliği'}
-                  </span>
-                  <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-amber-500/20 border border-amber-500/40 text-amber-300 font-bold text-[10px] uppercase">
-                    <AlertTriangle className="w-3 h-3 text-amber-400" />
-                    {lang === 'en' ? 'Test Mode' : 'Test Yayını'}
-                  </span>
-                </div>
-                <span className="text-[11px] font-medium text-stone-400 uppercase tracking-widest">
-                  {lang === 'en' ? 'Meric · Edirne' : 'Meriç · Edirne'}
+            <div className="flex flex-col gap-3">
+              <div className="flex flex-wrap items-center gap-2">
+                <AdaLogo variant="horizontal" size="md" theme="light" lang={lang} />
+                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-amber-500/20 border border-amber-500/40 text-amber-300 font-bold text-[10px] uppercase">
+                  <AlertTriangle className="w-3 h-3 text-amber-400" />
+                  {lang === 'en' ? 'Test Mode' : 'Test Yayını'}
                 </span>
               </div>
             </div>
@@ -53,13 +46,28 @@ export const Footer: React.FC<FooterProps & { lang?: 'tr' | 'en' }> = ({
                 : 'Meriç nehrinin verimli alüvyon havzası Adasarhanlı Köyü’nde; doğal meralarda sağlıklı koyun, kuzu, inek, dana yetiştiriciliği ve günlük soğuk zincir taze çiftlik sütü üretimi.'}
             </p>
 
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-stone-800/80 border border-stone-700 text-xs text-stone-300">
-              <ShieldCheck className="w-4 h-4 text-emerald-400" />
-              <span>
-                {lang === 'en'
-                  ? 'Ministry of Agriculture & Forestry Registered Enterprise'
-                  : 'T.C. Tarım ve Orman Bakanlığı Kayıtlı İşletme'}
-              </span>
+            <div className="flex flex-wrap gap-2 pt-1">
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-stone-800/80 border border-stone-700 text-xs text-stone-300">
+                <ShieldCheck className="w-4 h-4 text-emerald-400" />
+                <span>
+                  {lang === 'en'
+                    ? 'Ministry of Agriculture & Forestry Registered'
+                    : 'T.C. Tarım ve Orman Bakanlığı Kayıtlı'}
+                </span>
+              </div>
+
+              {onOpenBrandModal && (
+                <button
+                  type="button"
+                  id="footer-brand-btn"
+                  onClick={onOpenBrandModal}
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-emerald-950/70 hover:bg-emerald-900/90 border border-emerald-500/40 text-xs text-emerald-300 transition-colors cursor-pointer"
+                  title="Ada Çiftliği Logo & Kurumsal Kimlik Rehberi"
+                >
+                  <Sparkles className="w-3.5 h-3.5 text-emerald-400" />
+                  <span>{lang === 'en' ? 'Brand Identity System' : 'Logo & Kurumsal Kimlik'}</span>
+                </button>
+              )}
             </div>
           </div>
 
@@ -158,6 +166,15 @@ export const Footer: React.FC<FooterProps & { lang?: 'tr' | 'en' }> = ({
                 <a href={`mailto:${contactData.email}`} className="hover:text-white">
                   {contactData.email}
                 </a>
+              </div>
+            </div>
+
+            {/* Official Heritage Seal Badge */}
+            <div className="pt-3 border-t border-stone-800/80 flex items-center gap-3">
+              <AdaLogoSeal size={50} theme="gold" lang={lang} />
+              <div className="text-[11px] text-stone-400 leading-tight">
+                <div className="font-bold text-stone-200">Resmi İşletme Mührü</div>
+                <div className="text-stone-400 text-[10px]">Tescilli Meriç Mera &amp; Süt Damgası</div>
               </div>
             </div>
           </div>

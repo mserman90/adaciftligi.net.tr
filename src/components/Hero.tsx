@@ -74,26 +74,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenInquiry, lang = 'tr' }) => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
           {/* Text Content Column */}
-          <div className="lg:col-span-7 flex flex-col">
-            {/* Pill Location & Live Mera Indicator */}
-            <div className="flex flex-wrap items-center gap-2.5 mb-6">
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-stone-100 border border-stone-200/80 text-stone-800 text-xs sm:text-sm font-medium shadow-xs">
-                <span className="w-2 h-2 rounded-full bg-[#123c28] animate-pulse" />
-                <span>{l.location}</span>
-                <span className="text-stone-300">|</span>
-                <span className="text-stone-600">
-                  {lang === 'en' ? 'Natural Livestock & Dairy' : 'Doğal Hayvancılık & Süt'}
-                </span>
-              </div>
-              <a
-                href="#farm-weather-banner"
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-emerald-50 border border-emerald-200/80 text-emerald-800 text-xs font-semibold hover:bg-emerald-100/80 transition-colors shadow-2xs group"
-              >
-                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                <span>{l.liveStatus}</span>
-              </a>
-            </div>
-
+          <div className="lg:col-span-7 flex flex-col pt-2 sm:pt-4">
             {/* Main Headline */}
             <h1
               ref={headlineRef}
