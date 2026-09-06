@@ -76,12 +76,12 @@ export const AdaLogoMark: React.FC<{
   const riverColor = isMono ? 'currentColor' : isLight ? '#72A7C4' : isKraft ? '#24455E' : '#7FBDE3';
   const animalWhite = isLight ? '#FFFFFF' : isKraft ? '#EFE2CE' : '#FFFFFF';
   const skyFill = isFullColor
-    ? `url(#ada-sky-grad-${idSuffix})`
+    ? '#FFFFFF'
     : isLight
     ? 'rgba(255,255,255,0.06)'
     : isKraft
     ? 'transparent'
-    : '#89C4F4';
+    : '#FFFFFF';
   const bridgeFill = isFullColor ? '#A68C6A' : isMono ? 'currentColor' : isLight ? '#FFFFFF' : isKraft ? '#162E40' : '#A68C6A';
 
   return (
@@ -101,9 +101,8 @@ export const AdaLogoMark: React.FC<{
         </clipPath>
 
         <linearGradient id={`ada-sky-grad-${idSuffix}`} x1="0%" y1="0%" x2="0%" y2="100%">
-          <stop offset="0%" stopColor="#72ABDE" />
-          <stop offset="55%" stopColor="#89C4F4" />
-          <stop offset="100%" stopColor="#A8D5F8" />
+          <stop offset="0%" stopColor="#FFFFFF" />
+          <stop offset="100%" stopColor="#FFFFFF" />
         </linearGradient>
 
         <linearGradient id={`ada-river-grad-${idSuffix}`} x1="0%" y1="0%" x2="100%" y2="100%">
@@ -146,7 +145,7 @@ export const AdaLogoMark: React.FC<{
         r="79.5"
         stroke={primaryNavy}
         strokeWidth="3.6"
-        fill={isFullColor ? '#89C4F4' : 'none'}
+        fill={isFullColor ? '#FFFFFF' : 'none'}
       />
 
       {/* INNER SCENE (CLIPPED TO FULL CIRCLE) */}
@@ -188,16 +187,16 @@ export const AdaLogoMark: React.FC<{
           />
           <path
             d="M 112 59 L 112 54 A 3 3 0 0 1 118 54 L 118 59 Z"
-            fill={isFullColor ? '#89C4F4' : skyFill}
+            fill={isFullColor ? '#FFFFFF' : skyFill}
             stroke={primaryNavy}
             strokeWidth="1.4"
           />
           <circle cx="115" cy="40.5" r="1.8" fill={secondaryGold} stroke={primaryNavy} strokeWidth="1" />
 
           {/* 5 Classic Stone Arches */}
-          <path d="M 35 88 A 7 7 0 0 1 49 88 Z" fill={isFullColor ? '#89C4F4' : skyFill} stroke={primaryNavy} strokeWidth="2" />
-          <path d="M 58 88 A 9 9 0 0 1 76 88 Z" fill={isFullColor ? '#89C4F4' : skyFill} stroke={primaryNavy} strokeWidth="2" />
-          <path d="M 86 88 A 11 11 0 0 1 108 88 Z" fill={isFullColor ? '#89C4F4' : skyFill} stroke={primaryNavy} strokeWidth="2" />
+          <path d="M 35 88 A 7 7 0 0 1 49 88 Z" fill={isFullColor ? '#FFFFFF' : skyFill} stroke={primaryNavy} strokeWidth="2" />
+          <path d="M 58 88 A 9 9 0 0 1 76 88 Z" fill={isFullColor ? '#FFFFFF' : skyFill} stroke={primaryNavy} strokeWidth="2" />
+          <path d="M 86 88 A 11 11 0 0 1 108 88 Z" fill={isFullColor ? '#FFFFFF' : skyFill} stroke={primaryNavy} strokeWidth="2" />
           <path d="M 118 88 A 9 9 0 0 1 136 88 Z" fill={isFullColor ? '#7FBDE3' : riverColor} stroke={primaryNavy} strokeWidth="2" />
           <path d="M 146 88 A 7 7 0 0 1 160 88 Z" fill={isFullColor ? '#7FBDE3' : riverColor} stroke={primaryNavy} strokeWidth="2" />
 

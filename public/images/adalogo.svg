@@ -14,9 +14,8 @@
 
     <!-- Sky Gradient -->
     <linearGradient id="skyGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stopColor="#72ABDE" />
-      <stop offset="55%" stopColor="#89C4F4" />
-      <stop offset="100%" stopColor="#A8D5F8" />
+      <stop offset="0%" stopColor="#FFFFFF" />
+      <stop offset="100%" stopColor="#FFFFFF" />
     </linearGradient>
 
     <!-- River Gradient -->
@@ -50,12 +49,12 @@
   <circle cx="115" cy="100" r="73.5" stroke="#FFFFFF" stroke-width="3" fill="none" />
 
   <!-- 3. Inner Dark Navy Ring (Enclosure) -->
-  <circle cx="115" cy="100" r="70.5" stroke="#0C2340" stroke-width="3.2" fill="#89C4F4" />
+  <circle cx="115" cy="100" r="70.5" stroke="#0C2340" stroke-width="3.2" fill="#FFFFFF" />
 
   <!-- Inner Scene Clipped Inside Navy Circle -->
   <g clip-path="url(#circleClip)">
     <!-- Sky Background -->
-    <rect x="35" y="20" width="160" height="160" fill="url(#skyGrad)" />
+    <rect x="35" y="20" width="160" height="160" fill="#FFFFFF" />
 
     
     <!-- HISTORIC MERİÇ STONE BRIDGE                         -->
@@ -95,20 +94,20 @@
       <!-- Pavilion Window Arch (Sky behind) -->
       <path
         d="M 112 59 L 112 54 A 3 3 0 0 1 118 54 L 118 59 Z"
-        fill="#89C4F4"
+        fill="#FFFFFF"
         stroke="#0C2340"
         stroke-width="1.4"
       />
       <!-- Pavilion Gold Finial -->
       <circle cx="115" cy="40.5" r="1.8" fill="#B39268" stroke="#0C2340" stroke-width="1" />
 
-      <!-- 5 Classical Stone Arches (revealing blue sky/river) -->
+      <!-- 5 Classical Stone Arches (revealing sky/river) -->
       <!-- Arch 1 -->
-      <path d="M 45 88 A 7 7 0 0 1 59 88 Z" fill="#89C4F4" stroke="#0C2340" stroke-width="2" />
+      <path d="M 45 88 A 7 7 0 0 1 59 88 Z" fill="#FFFFFF" stroke="#0C2340" stroke-width="2" />
       <!-- Arch 2 -->
-      <path d="M 68 88 A 9 9 0 0 1 86 88 Z" fill="#89C4F4" stroke="#0C2340" stroke-width="2" />
+      <path d="M 68 88 A 9 9 0 0 1 86 88 Z" fill="#FFFFFF" stroke="#0C2340" stroke-width="2" />
       <!-- Arch 3 (Center arch directly under pavilion) -->
-      <path d="M 96 88 A 11 11 0 0 1 118 88 Z" fill="#89C4F4" stroke="#0C2340" stroke-width="2" />
+      <path d="M 96 88 A 11 11 0 0 1 118 88 Z" fill="#FFFFFF" stroke="#0C2340" stroke-width="2" />
       <!-- Arch 4 -->
       <path d="M 128 88 A 9 9 0 0 1 146 88 Z" fill="#7FBDE3" stroke="#0C2340" stroke-width="2" />
       <!-- Arch 5 -->
