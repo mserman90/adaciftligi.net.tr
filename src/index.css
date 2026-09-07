@@ -10,14 +10,36 @@
     --surface-card: #ffffff;
     --surface-subtle: #f9f9f8;
     --border-hairline: rgba(28, 25, 23, 0.08);
+    --bg-paper-white: #FDFDFD;
   }
 
   body {
     font-family: var(--font-sans);
     color: #292524;
-    background-color: #ffffff;
+    background-color: #FDFDFD;
     overflow-x: hidden;
   }
+}
+
+/* =========================================================
+   Ada Ciftligi Main Website - Light Mode (Açık Mod)
+   Kağıt Beyazı Zemin (#FDFDFD): Yumuşak, göz yormayan yayın tabanı
+   ========================================================= */
+
+html:not(.dark) {
+  color-scheme: light;
+  background-color: #FDFDFD;
+}
+
+html:not(.dark) body {
+  background-color: #FDFDFD !important;
+}
+
+html:not(.dark) #hero-section,
+html:not(.dark) #ciftlik-hakkinda,
+html:not(.dark) #uretim-sureci,
+html:not(.dark) #sss {
+  background-color: #FDFDFD !important;
 }
 
 /* Custom subtle scrollbar */

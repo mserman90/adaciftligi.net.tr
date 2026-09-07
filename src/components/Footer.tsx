@@ -2,6 +2,7 @@ import React from 'react';
 import { Phone, MessageCircle, Mail, MapPin, ShieldCheck, ArrowUp, AlertTriangle, Sun, Moon, Sparkles } from 'lucide-react';
 import { FARM_CONTACT, FARM_CONTACT_EN } from '../data/farmData';
 import { AdaLogo, AdaLogoSeal } from './AdaLogo';
+import officialLogoImg from '../assets/images/regenerated_image_1788805189163.jpg';
 
 interface FooterProps {
   onOpenAdmin?: () => void;
@@ -31,8 +32,21 @@ export const Footer: React.FC<FooterProps & { lang?: 'tr' | 'en' }> = ({
           {/* Col 1: Brand Wordmark & Identity */}
           <div className="lg:col-span-4 space-y-4">
             <div className="flex flex-col gap-3">
-              <div className="flex flex-wrap items-center gap-2">
-                <AdaLogo variant="horizontal" size="md" theme="light" lang={lang} />
+              <div className="flex flex-wrap items-center gap-3">
+                <a
+                  href="#"
+                  className="bg-white/95 hover:bg-white px-3.5 py-1.5 rounded-xl border border-stone-700/60 shadow-md inline-flex items-center transition-all"
+                  aria-label="Ada Çiftliği"
+                >
+                  <img
+                    src={officialLogoImg}
+                    alt={lang === 'en' ? 'Ada Farm' : 'Ada Çiftliği'}
+                    width={1408}
+                    height={768}
+                    className="h-10 sm:h-12 w-auto max-w-[200px] sm:max-w-[240px] object-contain select-none"
+                    referrerPolicy="no-referrer"
+                  />
+                </a>
                 <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-amber-500/20 border border-amber-500/40 text-amber-300 font-bold text-[10px] uppercase">
                   <AlertTriangle className="w-3 h-3 text-amber-400" />
                   {lang === 'en' ? 'Test Mode' : 'Test Yayını'}

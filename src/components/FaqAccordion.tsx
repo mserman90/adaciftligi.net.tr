@@ -22,7 +22,7 @@ export const FaqAccordion = ({ lang = 'tr' }: { lang?: 'tr' | 'en' }) => {
   };
 
   return (
-    <section id="sss" className="py-20 sm:py-28 bg-white border-t border-stone-200/80">
+    <section id="sss" className="py-20 sm:py-28 bg-[#FDFDFD] border-t border-stone-200/80">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="text-center mb-16">

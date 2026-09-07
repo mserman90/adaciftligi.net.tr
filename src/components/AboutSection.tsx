@@ -67,7 +67,7 @@ export const AboutSection: React.FC<{ lang?: 'tr' | 'en' }> = ({ lang = 'tr' }) 
   ];
 
   return (
-    <section id="ciftlik-hakkinda" className="py-20 sm:py-28 bg-white overflow-hidden relative">
+    <section id="ciftlik-hakkinda" className="py-20 sm:py-28 bg-[#FDFDFD] overflow-hidden relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Intro Tag & Title */}
         <div className="max-w-3xl mb-16">

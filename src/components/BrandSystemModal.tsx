@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import officialLogoImg from '../assets/images/regenerated_image_1788805189163.jpg';
 import {
   X,
   Download,
@@ -116,6 +117,15 @@ export const BrandSystemModal: React.FC<BrandSystemModalProps> = ({
       desc: lang === 'en' ? 'Flowing river current in the emblem and water accents' : 'Amblemdeki kıvrımlı nehir akıntısı ve su dalgaları',
     },
     {
+      code: 'PAPER WHITE',
+      name: lang === 'en' ? 'Paper White Canvas' : 'Kağıt Beyazı Zemin',
+      hex: '#FDFDFD',
+      cmyk: 'C:0 M:0 Y:0 K:1',
+      rgb: 'RGB(253, 253, 253)',
+      textColor: 'text-stone-900',
+      desc: lang === 'en' ? 'Soft, eye-friendly editorial and digital publication base in light mode' : 'Light tema modunda yumuşak, göz yormayan yayın tabanı',
+    },
+    {
       code: 'PURE CREAM',
       name: lang === 'en' ? 'Farm Dairy Milk' : 'Saf Çiftlik Sütü',
       hex: '#FFFFFF',
@@ -222,8 +232,8 @@ export const BrandSystemModal: React.FC<BrandSystemModalProps> = ({
 
                   <p className="text-xs sm:text-sm text-stone-600 max-w-xl leading-relaxed">
                     {lang === 'en'
-                      ? 'The unified vector identity pairs the historic 5-arch Meriç Stone Bridge and flowing river meander with pastoral Holstein dairy cattle, Kıvırcık sheep, and riverside waterfowl. Engineered for ultra-high legibility from 16px micro-favicons to large-format architectural signage.'
-                      : 'Meriç tarihi taş köprüsü, kıvrımlı nehir yatağı, safkan Holstein süt ineği, Trakya Kıvırcık koyunu ve su kuşu figürlerinin bir araya geldiği tescilli logo sistemi. 16px mikro faviconlardan dev tabela baskılarına kadar optik netlik sunar.'}
+                      ? 'The official corporate identity featuring the pastoral Holstein dairy cow and curly sheep in emerald contour lines, cradled above the flowing Meriç river meander and swimming waterfowl with modern balanced typography.'
+                      : 'Doğal yeşil pastoral hatlarla tasvir edilen süt ineği ve Trakya kıvırcık koyunu, alt beşiğindeki Meriç nehir dalgaları ve suda yüzen su kuşu figürleri ile ADA ÇİFTLİĞİ tescilli kurumsal logosu. 16px mikro faviconlardan dev tabela baskılarına kadar optik netlik sunar.'}
                   </p>
 
                   <div className="pt-2 flex flex-wrap items-center gap-3 justify-center md:justify-start">
@@ -257,7 +267,7 @@ export const BrandSystemModal: React.FC<BrandSystemModalProps> = ({
                 {/* Master Badge Display */}
                 <div className="shrink-0 p-5 bg-white rounded-2xl border border-stone-200 shadow-lg flex flex-col items-center justify-center gap-2">
                   <img
-                    src="/adalogo.svg"
+                    src={officialLogoImg}
                     alt="Ada Çiftliği Resmi Logosu"
                     className="h-28 sm:h-32 w-auto max-w-[320px] object-contain select-none"
                     referrerPolicy="no-referrer"

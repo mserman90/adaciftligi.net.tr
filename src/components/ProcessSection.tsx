@@ -21,7 +21,7 @@ export const ProcessSection = ({ lang = 'tr' }: { lang?: 'tr' | 'en' }) => {
   };
 
   return (
-    <section id="uretim-sureci" className="py-20 sm:py-28 bg-white border-t border-stone-200/80">
+    <section id="uretim-sureci" className="py-20 sm:py-28 bg-[#FDFDFD] border-t border-stone-200/80">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">

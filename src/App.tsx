@@ -35,22 +35,22 @@ export default function App() {
   const [brandModalOpen, setBrandModalOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<string | undefined>();
 
-  // Dark mode state: default is strictly DARK ("koyu") mode
+  // Dark mode state: default is LIGHT ("gündüz / aydınlık") mode
   const [isDarkMode, setIsDarkMode] = useState<boolean>(() => {
     try {
-      if (localStorage.getItem('ada_theme_pref_v2') !== 'set') {
-        localStorage.setItem('ada_theme_pref_v2', 'set');
-        localStorage.setItem('ada_theme', 'dark');
-        localStorage.setItem('ada_rasyon_theme', 'dark');
-        return true;
+      if (localStorage.getItem('ada_theme_pref_v3') !== 'set') {
+        localStorage.setItem('ada_theme_pref_v3', 'set');
+        localStorage.setItem('ada_theme', 'light');
+        localStorage.setItem('ada_rasyon_theme', 'light');
+        return false;
       }
       const saved = localStorage.getItem('ada_theme');
       if (saved !== null) {
         return saved === 'dark';
       }
-      return true;
+      return false;
     } catch {
-      return true;
+      return false;
     }
   });
 
@@ -194,7 +194,7 @@ export default function App() {
   // Public Farm Website view
   return (
     <ImageProvider>
-      <div className={`min-h-screen ${isDarkMode ? 'dark bg-[#0c140e] text-[#e2ece5]' : 'bg-white text-stone-900'} flex flex-col font-sans selection:bg-[#123c28] selection:text-white transition-colors duration-200`}>
+      <div className={`min-h-screen ${isDarkMode ? 'dark bg-[#0c140e] text-[#e2ece5]' : 'bg-[#FDFDFD] text-stone-900'} flex flex-col font-sans selection:bg-[#123c28] selection:text-white transition-colors duration-200`}>
         {/* Sticky Navigation */}
         <Navbar
           onOpenInquiry={handleOpenInquiry}

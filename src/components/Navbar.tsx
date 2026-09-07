@@ -3,6 +3,7 @@ import { Phone, MessageCircle, Menu, X, ArrowRight, AlertTriangle, Sun, Moon, Sp
 import { FARM_CONTACT } from '../data/farmData';
 import { FarmWeatherBanner } from './FarmWeatherBanner';
 import { AdaOfficialHeaderLogo } from './AdaLogo';
+import officialLogoImg from '../assets/images/regenerated_image_1788805189163.jpg';
 
 interface NavbarProps {
   lang?: 'tr' | 'en';
@@ -214,8 +215,8 @@ export const Navbar: React.FC<NavbarProps> = ({
         <div
           className={`transition-all duration-300 ${
             isScrolled
-              ? 'bg-white/95 backdrop-blur-md shadow-[0_4px_20px_-4px_rgba(0,0,0,0.06)] border-b border-stone-200/80 py-2.5 sm:py-3'
-              : 'bg-white/95 backdrop-blur-sm border-b border-stone-100 py-3 sm:py-4'
+              ? 'bg-[#FDFDFD]/95 backdrop-blur-md shadow-[0_4px_20px_-4px_rgba(0,0,0,0.06)] border-b border-stone-200/80 py-2.5 sm:py-3'
+              : 'bg-[#FDFDFD]/95 backdrop-blur-sm border-b border-stone-100 py-3 sm:py-4'
           }`}
         >
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
@@ -228,21 +229,22 @@ export const Navbar: React.FC<NavbarProps> = ({
               >
                 {!logoError ? (
                   <img
-                    src="/logo.png"
+                    src={officialLogoImg}
                     alt={lang === 'en' ? 'Ada Farm - Meric, Edirne' : 'Ada Çiftliği - Meriç, Edirne'}
-                    width={680}
-                    height={200}
+                    width={1408}
+                    height={768}
+                    loading="eager"
                     className={`transition-all duration-300 select-none object-contain shrink-0 block ${
                       isScrolled
-                        ? 'h-[42px] sm:h-[48px] lg:h-[54px]'
-                        : 'h-[50px] sm:h-[58px] lg:h-[66px]'
-                    } w-auto max-w-[240px] sm:max-w-[290px] lg:max-w-[340px]`}
+                        ? 'h-[84px] sm:h-[96px] lg:h-[108px]'
+                        : 'h-[100px] sm:h-[116px] lg:h-[132px]'
+                    } w-auto max-w-[480px] sm:max-w-[580px] lg:max-w-[680px]`}
                     referrerPolicy="no-referrer"
                     onError={() => setLogoError(true)}
                   />
                 ) : (
                   <AdaOfficialHeaderLogo
-                    markSize={isScrolled ? 48 : 58}
+                    markSize={isScrolled ? 96 : 116}
                     isCompact={isScrolled}
                     lang={lang}
                     animated={true}
@@ -411,7 +413,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           onClick={() => setMobileMenuOpen(false)}
         >
           <div
-            className="bg-white rounded-t-3xl p-6 shadow-2xl border-t border-stone-200 animate-in slide-in-from-bottom duration-300"
+            className="bg-[#FDFDFD] rounded-t-3xl p-6 shadow-2xl border-t border-stone-200 animate-in slide-in-from-bottom duration-300"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex items-center justify-between pb-4 border-b border-stone-100">
@@ -419,17 +421,17 @@ export const Navbar: React.FC<NavbarProps> = ({
                 <div className="flex items-center dark:bg-white/95 dark:px-2.5 dark:py-1 dark:rounded-xl dark:shadow-2xs shrink-0 transition-all">
                   {!logoError ? (
                     <img
-                      src="/logo.png"
+                      src={officialLogoImg}
                       alt="Ada Çiftliği"
-                      width={680}
-                      height={200}
-                      className="h-12 w-auto max-w-[240px] object-contain select-none shrink-0 block"
+                      width={1408}
+                      height={768}
+                      className="h-20 sm:h-24 w-auto max-w-[360px] object-contain select-none shrink-0 block"
                       referrerPolicy="no-referrer"
                       onError={() => setLogoError(true)}
                     />
                   ) : (
                     <AdaOfficialHeaderLogo
-                      markSize={46}
+                      markSize={84}
                       isCompact={true}
                       lang={lang}
                       animated={false}

@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="tr" class="dark scroll-smooth">
+<html lang="tr" class="scroll-smooth">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,24 +8,24 @@
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="apple-touch-icon" href="/favicon.svg" />
     <link rel="mask-icon" href="/favicon.svg" color="#162E40" />
-    <meta name="theme-color" content="#162E40" />
+    <meta name="theme-color" content="#FDFDFD" />
     <script>
       (function() {
         try {
-          // Ensure new default 'dark' takes precedence over stale session storage
-          if (localStorage.getItem('ada_theme_pref_v2') !== 'set') {
-            localStorage.setItem('ada_theme_pref_v2', 'set');
-            localStorage.setItem('ada_theme', 'dark');
-            localStorage.setItem('ada_rasyon_theme', 'dark');
+          // Ensure default 'light' (gündüz) takes precedence
+          if (localStorage.getItem('ada_theme_pref_v3') !== 'set') {
+            localStorage.setItem('ada_theme_pref_v3', 'set');
+            localStorage.setItem('ada_theme', 'light');
+            localStorage.setItem('ada_rasyon_theme', 'light');
           }
           var saved = localStorage.getItem('ada_theme');
-          if (saved === 'light') {
-            document.documentElement.classList.remove('dark');
-          } else {
+          if (saved === 'dark') {
             document.documentElement.classList.add('dark');
+          } else {
+            document.documentElement.classList.remove('dark');
           }
         } catch (e) {
-          document.documentElement.classList.add('dark');
+          document.documentElement.classList.remove('dark');
         }
       })();
     </script>
