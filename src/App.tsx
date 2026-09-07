@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense, lazy } from 'react';
 import { ImageProvider } from './context/ImageContext';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
@@ -15,14 +15,15 @@ import { Testimonials } from './components/Testimonials';
 import { FaqAccordion } from './components/FaqAccordion';
 import { ContactSection } from './components/ContactSection';
 import { Footer } from './components/Footer';
-import { InquiryModal } from './components/InquiryModal';
 import { QuickCallFloat } from './components/QuickCallFloat';
-import { AdminLoginModal } from './components/AdminLoginModal';
-import { BrandSystemModal } from './components/BrandSystemModal';
-import { RasyonApp } from './rasyon/RasyonApp';
 import { getAdminSession, clearAdminSession } from './utils/adminAuth';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+// Code-split heavy modals and sub-applications for instant initial page loading
+const RasyonApp = lazy(() => import('./rasyon/RasyonApp').then((m) => ({ default: m.RasyonApp })));
+const InquiryModal = lazy(() => import('./components/InquiryModal').then((m) => ({ default: m.InquiryModal })));
+const AdminLoginModal = lazy(() => import('./components/AdminLoginModal').then((m) => ({ default: m.AdminLoginModal })));
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -32,7 +33,6 @@ export default function App() {
   const [adminAuth, setAdminAuth] = useState(() => getAdminSession());
   const [adminLoginModalOpen, setAdminLoginModalOpen] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
-  const [brandModalOpen, setBrandModalOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<string | undefined>();
 
   // Dark mode state: default is LIGHT ("gündüz / aydınlık") mode
@@ -127,8 +127,6 @@ export default function App() {
         } else {
           setAdminLoginModalOpen(true);
         }
-      } else if (hash === '#logo' || hash === '#brand' || hash === '#kimlik' || hash === '#kurumsal-kimlik') {
-        setBrandModalOpen(true);
       }
     };
     handleHash();
@@ -176,16 +174,24 @@ export default function App() {
     return (
       <ImageProvider>
         <div className={`min-h-screen ${isDarkMode ? 'bg-[#0E130F]' : 'bg-[#F6F4EC]'}`}>
-          <RasyonApp
-            onBackToWebsite={() => {
-              setCurrentView('website');
-              window.scrollTo({ top: 0, behavior: 'smooth' });
-            }}
-            onLogout={handleLogout}
-            adminUsername={adminAuth.username || 'admin'}
-            isDarkMode={isDarkMode}
-            onToggleDarkMode={handleToggleDarkMode}
-          />
+          <Suspense
+            fallback={
+              <div className="min-h-screen flex items-center justify-center p-8 text-stone-500 font-medium animate-pulse">
+                Yükleniyor...
+              </div>
+            }
+          >
+            <RasyonApp
+              onBackToWebsite={() => {
+                setCurrentView('website');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }}
+              onLogout={handleLogout}
+              adminUsername={adminAuth.username || 'admin'}
+              isDarkMode={isDarkMode}
+              onToggleDarkMode={handleToggleDarkMode}
+            />
+          </Suspense>
         </div>
       </ImageProvider>
     );
@@ -202,7 +208,6 @@ export default function App() {
           setLang={setMainLang}
           isDarkMode={isDarkMode}
           onToggleDarkMode={handleToggleDarkMode}
-          onOpenBrandModal={() => setBrandModalOpen(true)}
         />
 
         <main className="flex-1">
@@ -237,31 +242,31 @@ export default function App() {
           lang={mainLang}
           isDarkMode={isDarkMode}
           onToggleDarkMode={handleToggleDarkMode}
-          onOpenBrandModal={() => setBrandModalOpen(true)}
         />
 
-        {/* Direct WhatsApp / Phone Inquiry Modal */}
-        <InquiryModal
-          isOpen={modalOpen}
-          onClose={() => setModalOpen(false)}
-          initialProduct={selectedProduct}
-          lang={mainLang}
-        />
+        {/* Direct WhatsApp / Phone Inquiry Modal (Lazy Loaded only when opened) */}
+        {modalOpen && (
+          <Suspense fallback={null}>
+            <InquiryModal
+              isOpen={modalOpen}
+              onClose={() => setModalOpen(false)}
+              initialProduct={selectedProduct}
+              lang={mainLang}
+            />
+          </Suspense>
+        )}
 
-        {/* Admin Login Modal */}
-        <AdminLoginModal
-          isOpen={adminLoginModalOpen}
-          onClose={() => setAdminLoginModalOpen(false)}
-          onLoginSuccess={handleLoginSuccess}
-          lang={mainLang}
-        />
-
-        {/* Brand System & Vector Logo Architecture Modal */}
-        <BrandSystemModal
-          isOpen={brandModalOpen}
-          onClose={() => setBrandModalOpen(false)}
-          lang={mainLang}
-        />
+        {/* Admin Login Modal (Lazy Loaded only when opened) */}
+        {adminLoginModalOpen && (
+          <Suspense fallback={null}>
+            <AdminLoginModal
+              isOpen={adminLoginModalOpen}
+              onClose={() => setAdminLoginModalOpen(false)}
+              onLoginSuccess={handleLoginSuccess}
+              lang={mainLang}
+            />
+          </Suspense>
+        )}
 
         {/* Quick Floating WhatsApp & Call Buttons */}
         <QuickCallFloat lang={mainLang} />

@@ -1,0 +1,14 @@
+# Robots.txt for Ada Çiftliği (adaciftligi.net.tr)
+# Meriç, Edirne - Doğal Hayvancılık & Günlük Taze Süt
+
+User-agent: *
+Allow: /
+Allow: /images/
+Allow: /assets/
+Allow: /favicon*
+Allow: /logo*
+Disallow: /admin
+Disallow: /api/
+
+# Sitemap Location
+Sitemap: https://adaciftligi.net.tr/sitemap.xml

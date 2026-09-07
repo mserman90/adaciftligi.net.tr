@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <!-- Ana Sayfa (Homepage) -->
+  <url>
+    <loc>https://adaciftligi.net.tr/</loc>
+    <lastmod>2026-09-07</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://adaciftligi.net.tr/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://adaciftligi.net.tr/?lang=en" />
+    <image:image>
+      <image:loc>https://adaciftligi.net.tr/images/hero_cows.webp</image:loc>
+      <image:title>Ada Çiftliği Meriç Doğal Otlaklar ve Süt İnekleri</image:title>
+      <image:caption>Edirne Meriç Adasarhanlı Köyü doğal mera hayvancılığı</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://adaciftligi.net.tr/images/sut.webp</image:loc>
+      <image:title>Ada Çiftliği Günlük Taze Çiğ Süt</image:title>
+      <image:caption>Hijyenik kapalı devre sağım +4°C soğuk tank çiğ çiftlik sütü</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://adaciftligi.net.tr/images/koyun.webp</image:loc>
+      <image:title>Ada Çiftliği Merinos ve Kıvırcık Koyun Sürüsü</image:title>
+      <image:caption>Meriç Nehri taşkın ovasında serbest otlayan koyun ve kuzular</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://adaciftligi.net.tr/images/dana.webp</image:loc>
+      <image:title>Ada Çiftliği Besi Danası</image:title>
+      <image:caption>Veteriner denetimli sağlıklı Simental ve Holstein ırkı besi danaları</image:caption>
+    </image:image>
+  </url>
+
+  <!-- Ürünler Bölümü -->
+  <url>
+    <loc>https://adaciftligi.net.tr/#urunler</loc>
+    <lastmod>2026-09-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Çiftliğimiz Hakkında -->
+  <url>
+    <loc>https://adaciftligi.net.tr/#hakkimizda</loc>
+    <lastmod>2026-09-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Üretim Süreci & Soğuk Zincir -->
+  <url>
+    <loc>https://adaciftligi.net.tr/#uretim-sureci</loc>
+    <lastmod>2026-09-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Çiftlik Galerisi -->
+  <url>
+    <loc>https://adaciftligi.net.tr/#galeri</loc>
+    <lastmod>2026-09-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Sıkça Sorulan Sorular -->
+  <url>
+    <loc>https://adaciftligi.net.tr/#sss</loc>
+    <lastmod>2026-09-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- İletişim & Konum -->
+  <url>
+    <loc>https://adaciftligi.net.tr/#iletisim</loc>
+    <lastmod>2026-09-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+</urlset>

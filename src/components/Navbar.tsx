@@ -11,7 +11,6 @@ interface NavbarProps {
   onOpenInquiry: (productName?: string) => void;
   isDarkMode?: boolean;
   onToggleDarkMode?: () => void;
-  onOpenBrandModal?: () => void;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
@@ -20,7 +19,6 @@ export const Navbar: React.FC<NavbarProps> = ({
   setLang,
   isDarkMode = false,
   onToggleDarkMode,
-  onOpenBrandModal,
 }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -306,19 +304,6 @@ export const Navbar: React.FC<NavbarProps> = ({
               </button>
             )}
 
-            {onOpenBrandModal && (
-              <button
-                type="button"
-                id="navbar-brand-btn"
-                onClick={onOpenBrandModal}
-                className="flex items-center justify-center w-9 h-9 rounded-full border border-emerald-200 dark:border-emerald-800/80 bg-emerald-50/70 dark:bg-emerald-950/40 hover:bg-emerald-100 dark:hover:bg-emerald-900/60 text-emerald-800 dark:text-emerald-300 transition-all cursor-pointer shadow-2xs"
-                title={lang === 'en' ? 'Ada Farm Logo & Visual Brand Architecture' : 'Ada Çiftliği Logo & Kurumsal Kimlik Mimarisi'}
-                aria-label="Logo & Kurumsal Kimlik"
-              >
-                <Sparkles className="w-4 h-4" />
-              </button>
-            )}
-
             {setLang && (
               <button
                 onClick={() => setLang(lang === 'tr' ? 'en' : 'tr')}
@@ -465,25 +450,6 @@ export const Navbar: React.FC<NavbarProps> = ({
                 </a>
               ))}
             </div>
-
-            {/* Mobile Drawer Brand Architecture Action */}
-            {onOpenBrandModal && (
-              <button
-                type="button"
-                id="drawer-brand-btn"
-                onClick={() => {
-                  setMobileMenuOpen(false);
-                  onOpenBrandModal();
-                }}
-                className="w-full mb-3 py-2.5 px-4 rounded-2xl bg-emerald-50 border border-emerald-200/80 flex items-center justify-between text-xs font-bold text-emerald-900 transition-colors cursor-pointer"
-              >
-                <div className="flex items-center gap-2">
-                  <Sparkles className="w-4 h-4 text-emerald-700" />
-                  <span>{lang === 'en' ? 'Logo & Brand Identity System' : 'Logo & Kurumsal Kimlik Sistemi'}</span>
-                </div>
-                <ArrowRight className="w-4 h-4 text-emerald-700" />
-              </button>
-            )}
 
             {/* Mobile Drawer Theme Mode Switch */}
             {onToggleDarkMode && (

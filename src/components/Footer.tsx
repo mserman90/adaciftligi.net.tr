@@ -8,7 +8,6 @@ interface FooterProps {
   onOpenAdmin?: () => void;
   isDarkMode?: boolean;
   onToggleDarkMode?: () => void;
-  onOpenBrandModal?: () => void;
 }
 
 export const Footer: React.FC<FooterProps & { lang?: 'tr' | 'en' }> = ({
@@ -16,7 +15,6 @@ export const Footer: React.FC<FooterProps & { lang?: 'tr' | 'en' }> = ({
   lang = 'tr',
   isDarkMode = false,
   onToggleDarkMode,
-  onOpenBrandModal,
 }) => {
   const contactData = lang === 'en' ? FARM_CONTACT_EN : FARM_CONTACT;
 
@@ -69,19 +67,6 @@ export const Footer: React.FC<FooterProps & { lang?: 'tr' | 'en' }> = ({
                     : 'T.C. Tarım ve Orman Bakanlığı Kayıtlı'}
                 </span>
               </div>
-
-              {onOpenBrandModal && (
-                <button
-                  type="button"
-                  id="footer-brand-btn"
-                  onClick={onOpenBrandModal}
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-emerald-950/70 hover:bg-emerald-900/90 border border-emerald-500/40 text-xs text-emerald-300 transition-colors cursor-pointer"
-                  title="Ada Çiftliği Logo & Kurumsal Kimlik Rehberi"
-                >
-                  <Sparkles className="w-3.5 h-3.5 text-emerald-400" />
-                  <span>{lang === 'en' ? 'Brand Identity System' : 'Logo & Kurumsal Kimlik'}</span>
-                </button>
-              )}
             </div>
           </div>
 
