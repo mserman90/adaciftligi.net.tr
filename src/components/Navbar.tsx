@@ -213,8 +213,8 @@ export const Navbar: React.FC<NavbarProps> = ({
         <div
           className={`transition-all duration-300 ${
             isScrolled
-              ? 'bg-[#FDFDFD]/95 backdrop-blur-md shadow-[0_4px_20px_-4px_rgba(0,0,0,0.06)] border-b border-stone-200/80 py-2.5 sm:py-3'
-              : 'bg-[#FDFDFD]/95 backdrop-blur-sm border-b border-stone-100 py-3 sm:py-4'
+              ? 'bg-[#FDFDFD]/95 dark:bg-[#0c140e]/95 backdrop-blur-md shadow-[0_4px_20px_-4px_rgba(0,0,0,0.06)] dark:shadow-[0_4px_20px_-4px_rgba(0,0,0,0.5)] border-b border-stone-200/80 dark:border-stone-800/80 py-2.5 sm:py-3'
+              : 'bg-[#FDFDFD]/95 dark:bg-[#0c140e]/95 backdrop-blur-sm border-b border-stone-100 dark:border-stone-800/60 py-3 sm:py-4'
           }`}
         >
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
@@ -253,7 +253,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               {/* Dikkati çeken Test Yayını Rozeti */}
               <div
                 id="navbar-test-mode-notice"
-                className="hidden xl:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-amber-50 dark:bg-amber-950/50 border border-amber-300 dark:border-amber-700/60 text-amber-950 dark:text-amber-200 shadow-2xs"
+                className="hidden xl:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-amber-50 dark:bg-amber-950/60 border border-amber-300 dark:border-amber-700/80 text-amber-950 dark:text-amber-200 shadow-2xs"
                 title={
                   lang === 'en'
                     ? 'This website is in test broadcast; contents and data may not reflect actual conditions.'
@@ -267,127 +267,131 @@ export const Navbar: React.FC<NavbarProps> = ({
               </div>
             </div>
 
-          {/* Desktop Navigation Links */}
-          <nav className="hidden lg:flex items-center gap-8">
-            {navLinks.map((link) => (
+            {/* Desktop Navigation Links */}
+            <nav className="hidden lg:flex items-center gap-7 xl:gap-8">
+              {navLinks.map((link) => (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  className="text-[15px] font-medium text-stone-700 dark:text-stone-200 hover:text-[#123c28] dark:hover:text-emerald-400 transition-colors py-1 relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-[#123c28] dark:after:bg-emerald-400 hover:after:w-full after:transition-all after:duration-200"
+                >
+                  {link.label}
+                </a>
+              ))}
+            </nav>
+
+            {/* Desktop Action Buttons: Equal Spacing Between All Buttons */}
+            <div className="hidden sm:flex items-center gap-2.5">
+              {/* Theme Toggle Button */}
+              {onToggleDarkMode && (
+                <button
+                  type="button"
+                  id="navbar-theme-toggle"
+                  onClick={onToggleDarkMode}
+                  className="flex items-center justify-center h-10 w-10 rounded-full border border-stone-200 dark:border-stone-700 bg-stone-100/90 dark:bg-stone-800/90 hover:bg-stone-200/80 dark:hover:bg-stone-700 text-stone-800 dark:text-stone-100 transition-all cursor-pointer shadow-2xs shrink-0"
+                  title={
+                    isDarkMode
+                      ? (lang === 'en' ? 'Switch to Light Mode [Alt+D]' : 'Aydınlık Moda Geç [Alt+D]')
+                      : (lang === 'en' ? 'Switch to Dark Mode (Eye Comfort) [Alt+D]' : 'Koyu Moda Geç (Göz Dinlendirme) [Alt+D]')
+                  }
+                  aria-label={isDarkMode ? 'Light Mode' : 'Dark Mode'}
+                >
+                  {isDarkMode ? (
+                    <Sun className="w-4.5 h-4.5 text-amber-400" />
+                  ) : (
+                    <Moon className="w-4.5 h-4.5 text-stone-700" />
+                  )}
+                </button>
+              )}
+
+              {/* Language Toggle Button */}
+              {setLang && (
+                <button
+                  type="button"
+                  id="navbar-lang-toggle"
+                  onClick={() => setLang(lang === 'tr' ? 'en' : 'tr')}
+                  className="flex items-center justify-center h-10 w-10 rounded-full border border-stone-200 dark:border-stone-700 bg-stone-100/90 dark:bg-stone-800/90 hover:bg-stone-200/80 dark:hover:bg-stone-700 text-xs font-bold text-stone-800 dark:text-stone-100 transition-all cursor-pointer shadow-2xs shrink-0"
+                  title={lang === 'en' ? 'Türkçe versiyona geç' : 'Switch to English version'}
+                >
+                  {lang === 'tr' ? 'TR' : 'EN'}
+                </button>
+              )}
+
+              {/* Call Button */}
               <a
-                key={link.href}
-                href={link.href}
-                className="text-[15px] font-medium text-stone-600 hover:text-[#123c28] transition-colors py-1 relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-[#123c28] hover:after:w-full after:transition-all after:duration-200"
+                href={`tel:${FARM_CONTACT.phoneRaw}`}
+                id="navbar-call-btn"
+                className="inline-flex items-center gap-2 h-10 px-4 rounded-full border border-stone-200 dark:border-stone-700 bg-stone-100/90 dark:bg-stone-800/90 hover:bg-stone-200/80 dark:hover:bg-stone-700 text-stone-800 dark:text-stone-100 hover:text-[#123c28] dark:hover:text-emerald-300 text-sm font-semibold transition-all shadow-2xs shrink-0"
+                title={lang === 'en' ? 'Call Farm Directly' : 'Doğrudan Çiftliği Arayın'}
               >
-                {link.label}
+                <Phone className="w-4 h-4 text-[#123c28] dark:text-emerald-400 shrink-0" />
+                <span className="hidden xl:inline">{FARM_CONTACT.phone}</span>
+                <span className="xl:hidden">{lang === 'en' ? 'Call' : 'Ara'}</span>
               </a>
-            ))}
-          </nav>
 
-          
-          {/* Theme & Language Toggles */}
-          <div className="hidden sm:flex items-center gap-1.5 mr-2">
-            {onToggleDarkMode && (
+              {/* Inquiry & Order CTA Button */}
               <button
                 type="button"
-                id="navbar-theme-toggle"
-                onClick={onToggleDarkMode}
-                className="flex items-center justify-center w-9 h-9 rounded-full border border-stone-200 dark:border-stone-700 hover:bg-stone-100 dark:hover:bg-stone-800 text-stone-700 dark:text-stone-200 transition-all cursor-pointer shadow-2xs"
-                title={
-                  isDarkMode
-                    ? (lang === 'en' ? 'Switch to Light Mode [Alt+D]' : 'Aydınlık Moda Geç [Alt+D]')
-                    : (lang === 'en' ? 'Switch to Dark Mode (Eye Comfort) [Alt+D]' : 'Koyu Moda Geç (Göz Dinlendirme) [Alt+D]')
-                }
-                aria-label={isDarkMode ? 'Light Mode' : 'Dark Mode'}
+                id="navbar-inquiry-btn"
+                onClick={() => onOpenInquiry()}
+                className="inline-flex items-center gap-2 h-10 px-5 rounded-full bg-[#123c28] hover:bg-[#0c291c] dark:bg-emerald-600 dark:hover:bg-emerald-500 text-white font-semibold text-sm shadow-sm hover:shadow transition-all duration-200 active:scale-98 cursor-pointer shrink-0"
               >
-                {isDarkMode ? (
-                  <Sun className="w-4 h-4 text-amber-400" />
-                ) : (
-                  <Moon className="w-4 h-4 text-stone-700" />
-                )}
+                <span>{lang === 'en' ? 'Order & Info' : 'Sipariş & Bilgi'}</span>
+                <ArrowRight className="w-4 h-4 text-emerald-200 dark:text-white" />
               </button>
-            )}
+            </div>
 
-            {setLang && (
-              <button
-                onClick={() => setLang(lang === 'tr' ? 'en' : 'tr')}
-                className="flex items-center justify-center w-9 h-9 rounded-full border border-stone-200 dark:border-stone-700 hover:bg-stone-100 dark:hover:bg-stone-800 text-xs font-bold text-stone-600 dark:text-stone-200 transition-all cursor-pointer"
-                title={lang === 'en' ? 'Türkçe versiyona geç' : 'Switch to English version'}
+            {/* Mobile Action Buttons: Equal Spacing Between All Buttons */}
+            <div className="flex sm:hidden items-center gap-2.5">
+              {onToggleDarkMode && (
+                <button
+                  type="button"
+                  id="mobile-navbar-theme-toggle"
+                  onClick={onToggleDarkMode}
+                  className="flex items-center justify-center w-9 h-9 rounded-full border border-stone-200 dark:border-stone-700 bg-stone-100/90 dark:bg-stone-800/90 hover:bg-stone-200 dark:hover:bg-stone-700 text-stone-800 dark:text-stone-100 transition-all cursor-pointer shrink-0 shadow-2xs"
+                  title={isDarkMode ? (lang === 'en' ? 'Light Mode' : 'Aydınlık Mod') : (lang === 'en' ? 'Dark Mode' : 'Koyu Mod')}
+                  aria-label={isDarkMode ? 'Light Mode' : 'Dark Mode'}
+                >
+                  {isDarkMode ? (
+                    <Sun className="w-4 h-4 text-amber-400" />
+                  ) : (
+                    <Moon className="w-4 h-4 text-stone-700" />
+                  )}
+                </button>
+              )}
+
+              {setLang && (
+                <button
+                  type="button"
+                  id="mobile-navbar-lang-toggle"
+                  onClick={() => setLang(lang === 'tr' ? 'en' : 'tr')}
+                  className="flex items-center justify-center w-9 h-9 rounded-full border border-stone-200 dark:border-stone-700 bg-stone-100/90 dark:bg-stone-800/90 hover:bg-stone-200 dark:hover:bg-stone-700 text-xs font-bold text-stone-800 dark:text-stone-100 transition-all cursor-pointer shrink-0 shadow-2xs"
+                  title={lang === 'en' ? 'Türkçe' : 'English'}
+                >
+                  {lang === 'tr' ? 'TR' : 'EN'}
+                </button>
+              )}
+              <a
+                href={FARM_CONTACT.whatsappUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={lang === 'en' ? 'Chat on WhatsApp' : "WhatsApp'tan Yazın"}
+                className="w-9 h-9 rounded-full bg-emerald-50 dark:bg-emerald-950/80 text-[#123c28] dark:text-emerald-300 flex items-center justify-center border border-emerald-200 dark:border-emerald-700/80 hover:bg-emerald-100 dark:hover:bg-emerald-900 transition-all shrink-0 shadow-2xs"
               >
-                {lang === 'tr' ? 'TR' : 'EN'}
-              </button>
-            )}
-          </div>
-
-          {/* Desktop CTA buttons */}
-          <div className="hidden sm:flex items-center gap-3">
-            <a
-              href={`tel:${FARM_CONTACT.phoneRaw}`}
-              id="navbar-call-btn"
-              className="inline-flex items-center gap-2 text-stone-700 hover:text-[#123c28] text-sm font-medium px-3.5 py-2 rounded-full hover:bg-stone-100 transition-colors"
-              title={lang === 'en' ? 'Call Farm Directly' : 'Doğrudan Çiftliği Arayın'}
-            >
-              <Phone className="w-4 h-4 text-[#123c28]" />
-              <span className="hidden xl:inline">{FARM_CONTACT.phone}</span>
-              <span className="xl:hidden">{lang === 'en' ? 'Call' : 'Ara'}</span>
-            </a>
-
-            <button
-              type="button"
-              id="navbar-inquiry-btn"
-              onClick={() => onOpenInquiry()}
-              className="inline-flex items-center gap-2 bg-[#123c28] hover:bg-[#0c291c] text-white text-sm font-semibold px-5 py-2.5 rounded-full shadow-sm hover:shadow transition-all duration-200 active:scale-98 cursor-pointer"
-            >
-              <span>{lang === 'en' ? 'Order & Info' : 'Sipariş & Bilgi'}</span>
-              <ArrowRight className="w-4 h-4" />
-            </button>
-          </div>
-
-          {/* Mobile hamburger toggle */}
-          <div className="flex sm:hidden items-center gap-2">
-            {onToggleDarkMode && (
+                <MessageCircle className="w-4.5 h-4.5" />
+              </a>
               <button
                 type="button"
-                id="mobile-navbar-theme-toggle"
-                onClick={onToggleDarkMode}
-                className="flex items-center justify-center w-8 h-8 rounded-full border border-stone-200 dark:border-stone-700 hover:bg-stone-100 dark:hover:bg-stone-800 text-stone-700 dark:text-stone-200 transition-all cursor-pointer"
-                title={isDarkMode ? (lang === 'en' ? 'Light Mode' : 'Aydınlık Mod') : (lang === 'en' ? 'Dark Mode' : 'Koyu Mod')}
-                aria-label={isDarkMode ? 'Light Mode' : 'Dark Mode'}
+                id="mobile-nav-toggle"
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                className="w-9 h-9 rounded-full flex items-center justify-center border border-stone-200 dark:border-stone-700 bg-stone-100/90 dark:bg-stone-800/90 hover:bg-stone-200 dark:hover:bg-stone-700 text-stone-800 dark:text-stone-100 focus:outline-none cursor-pointer shrink-0 shadow-2xs"
+                aria-label={mobileMenuOpen ? (lang === 'en' ? 'Close menu' : 'Menüyü kapat') : (lang === 'en' ? 'Open menu' : 'Menüyü aç')}
               >
-                {isDarkMode ? (
-                  <Sun className="w-3.5 h-3.5 text-amber-400" />
-                ) : (
-                  <Moon className="w-3.5 h-3.5 text-stone-700" />
-                )}
+                {mobileMenuOpen ? <X className="w-4.5 h-4.5" /> : <Menu className="w-4.5 h-4.5" />}
               </button>
-            )}
-
-            {setLang && (
-              <button
-                onClick={() => setLang(lang === 'tr' ? 'en' : 'tr')}
-                className="flex items-center justify-center w-8 h-8 rounded-full border border-stone-200 dark:border-stone-700 hover:bg-stone-100 dark:hover:bg-stone-800 text-xs font-bold text-stone-700 dark:text-stone-200 transition-all cursor-pointer"
-                title={lang === 'en' ? 'Türkçe' : 'English'}
-              >
-                {lang === 'tr' ? 'TR' : 'EN'}
-              </button>
-            )}
-            <a
-              href={FARM_CONTACT.whatsappUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={lang === 'en' ? 'Chat on WhatsApp' : "WhatsApp'tan Yazın"}
-              className="w-9 h-9 rounded-full bg-emerald-50 text-[#123c28] flex items-center justify-center border border-emerald-200"
-            >
-              <MessageCircle className="w-4.5 h-4.5" />
-            </a>
-            <button
-              type="button"
-              id="mobile-nav-toggle"
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="w-9 h-9 rounded-full flex items-center justify-center text-stone-700 hover:bg-stone-100 focus:outline-none cursor-pointer"
-              aria-label={mobileMenuOpen ? (lang === 'en' ? 'Close menu' : 'Menüyü kapat') : (lang === 'en' ? 'Open menu' : 'Menüyü aç')}
-            >
-              {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-            </button>
+            </div>
           </div>
         </div>
-      </div>
       </header>
 
       {/* Mobile Drawer */}
@@ -398,10 +402,10 @@ export const Navbar: React.FC<NavbarProps> = ({
           onClick={() => setMobileMenuOpen(false)}
         >
           <div
-            className="bg-[#FDFDFD] rounded-t-3xl p-6 shadow-2xl border-t border-stone-200 animate-in slide-in-from-bottom duration-300"
+            className="bg-[#FDFDFD] dark:bg-[#0c140e] rounded-t-3xl p-6 shadow-2xl border-t border-stone-200 dark:border-stone-800 animate-in slide-in-from-bottom duration-300"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="flex items-center justify-between pb-4 border-b border-stone-100">
+            <div className="flex items-center justify-between pb-4 border-b border-stone-100 dark:border-stone-800">
               <div className="flex flex-col gap-1.5">
                 <div className="flex items-center dark:bg-white/95 dark:px-2.5 dark:py-1 dark:rounded-xl dark:shadow-2xs shrink-0 transition-all">
                   {!logoError ? (
@@ -423,15 +427,15 @@ export const Navbar: React.FC<NavbarProps> = ({
                     />
                   )}
                 </div>
-                <div className="inline-flex items-center gap-1.5 px-2 py-1 rounded bg-amber-50 border border-amber-200 text-amber-900 font-bold text-[10.5px]">
-                  <AlertTriangle className="w-3 h-3 text-amber-700 shrink-0" />
+                <div className="inline-flex items-center gap-1.5 px-2 py-1 rounded bg-amber-50 dark:bg-amber-950/60 border border-amber-200 dark:border-amber-700/60 text-amber-900 dark:text-amber-200 font-bold text-[10.5px]">
+                  <AlertTriangle className="w-3 h-3 text-amber-700 dark:text-amber-400 shrink-0" />
                   <span>{lang === 'en' ? 'Test Mode Notice' : 'Test Yayını Bildirimi'}</span>
                 </div>
               </div>
               <button
                 type="button"
                 onClick={() => setMobileMenuOpen(false)}
-                className="w-9 h-9 rounded-full bg-stone-100 flex items-center justify-center text-stone-500 cursor-pointer shrink-0 ml-2"
+                className="w-9 h-9 rounded-full bg-stone-100 dark:bg-stone-800 border border-stone-200 dark:border-stone-700 flex items-center justify-center text-stone-700 dark:text-stone-200 hover:bg-stone-200 dark:hover:bg-stone-700 cursor-pointer shrink-0 ml-2"
                 aria-label={lang === 'en' ? 'Close' : 'Kapat'}
               >
                 <X className="w-5 h-5" />
@@ -444,7 +448,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                   key={link.href}
                   href={link.href}
                   onClick={() => setMobileMenuOpen(false)}
-                  className="px-3 py-2.5 rounded-xl text-stone-800 font-medium text-base hover:bg-stone-50 transition-colors"
+                  className="px-3.5 py-2.5 rounded-xl text-stone-800 dark:text-stone-100 font-semibold text-base hover:bg-stone-100 dark:hover:bg-stone-800/80 transition-colors"
                 >
                   {link.label}
                 </a>
@@ -462,7 +466,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                   type="button"
                   id="drawer-theme-toggle"
                   onClick={onToggleDarkMode}
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-700 text-xs font-bold text-stone-800 dark:text-stone-200 shadow-2xs transition-all cursor-pointer"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-700 text-xs font-bold text-stone-800 dark:text-stone-100 shadow-2xs transition-all cursor-pointer"
                 >
                   {isDarkMode ? (
                     <>
@@ -479,32 +483,32 @@ export const Navbar: React.FC<NavbarProps> = ({
               </div>
             )}
 
-            <div className="pt-3 border-t border-stone-100 flex flex-col gap-2.5">
+            <div className="pt-3 border-t border-stone-100 dark:border-stone-800 flex flex-col gap-2.5">
               <button
                 type="button"
                 onClick={() => {
                   setMobileMenuOpen(false);
                   onOpenInquiry();
                 }}
-                className="w-full bg-[#123c28] text-white py-3 rounded-full font-semibold text-center flex items-center justify-center gap-2 shadow-sm cursor-pointer"
+                className="w-full bg-[#123c28] hover:bg-[#0c291c] dark:bg-emerald-600 dark:hover:bg-emerald-500 text-white py-3 rounded-full font-semibold text-center flex items-center justify-center gap-2 shadow-sm cursor-pointer transition-colors"
               >
                 <span>{lang === 'en' ? 'Price & Order Inquiry' : 'Fiyat & Sipariş Talebi'}</span>
-                <ArrowRight className="w-4 h-4" />
+                <ArrowRight className="w-4 h-4 text-emerald-200 dark:text-white" />
               </button>
 
-              <div className="grid grid-cols-2 gap-2 pt-1">
+              <div className="grid grid-cols-2 gap-2.5 pt-1">
                 <a
                   href={`tel:${FARM_CONTACT.phoneRaw}`}
-                  className="flex items-center justify-center gap-2 py-2.5 px-3 rounded-full border border-stone-200 text-stone-800 font-medium text-sm"
+                  className="flex items-center justify-center gap-2 py-2.5 px-3 rounded-full border border-stone-200 dark:border-stone-700 bg-stone-50 dark:bg-stone-800/80 text-stone-800 dark:text-stone-100 font-semibold text-sm hover:bg-stone-100 dark:hover:bg-stone-700 transition-colors"
                 >
-                  <Phone className="w-4 h-4 text-[#123c28]" />
+                  <Phone className="w-4 h-4 text-[#123c28] dark:text-emerald-400" />
                   <span>{lang === 'en' ? 'Phone' : 'Telefon'}</span>
                 </a>
                 <a
                   href={FARM_CONTACT.whatsappUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center justify-center gap-2 py-2.5 px-3 rounded-full bg-emerald-50 border border-emerald-200 text-[#123c28] font-medium text-sm"
+                  className="flex items-center justify-center gap-2 py-2.5 px-3 rounded-full bg-emerald-50 dark:bg-emerald-950/80 border border-emerald-200 dark:border-emerald-700/80 text-[#123c28] dark:text-emerald-200 font-semibold text-sm hover:bg-emerald-100 dark:hover:bg-emerald-900 transition-colors"
                 >
                   <MessageCircle className="w-4 h-4" />
                   <span>WhatsApp</span>

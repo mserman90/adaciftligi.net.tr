@@ -183,13 +183,13 @@ export const FarmWeatherBanner: React.FC<FarmWeatherBannerProps> = ({
               <span>{lang === 'en' ? 'Milking Completed (+3.8°C Tank)' : 'Süt Sağımı Tamamlandı (+3.8°C Tank)'}</span>
             </span>
 
-            {/* Action buttons */}
-            <div className="flex items-center gap-1">
+            {/* Action buttons with equal spacing */}
+            <div className="flex items-center gap-2">
               <button
                 onClick={() => loadWeather(true)}
                 disabled={refreshing}
                 title={lang === 'en' ? 'Refresh weather and activities now' : 'Hava durumunu ve faaliyetleri şimdi yenile'}
-                className="p-1 rounded-md text-emerald-300/80 hover:text-white hover:bg-emerald-900/60 transition-colors focus:outline-none"
+                className="p-1.5 rounded-md text-emerald-300 hover:text-white bg-emerald-950/60 hover:bg-emerald-900/80 border border-emerald-700/40 transition-colors focus:outline-none cursor-pointer"
                 aria-label={lang === 'en' ? 'Refresh data' : 'Verileri yenile'}
               >
                 <RefreshCw
@@ -199,9 +199,9 @@ export const FarmWeatherBanner: React.FC<FarmWeatherBannerProps> = ({
 
               <button
                 onClick={() => setIsModalOpen(true)}
-                className="hidden sm:inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[11px] text-emerald-200 hover:text-white bg-emerald-900/50 hover:bg-emerald-800/70 border border-emerald-700/50 transition-colors cursor-pointer"
+                className="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[11px] font-semibold text-emerald-100 hover:text-white bg-emerald-900/60 hover:bg-emerald-800/80 border border-emerald-700/60 transition-colors cursor-pointer shadow-2xs"
               >
-                <Info className="w-3 h-3" />
+                <Info className="w-3.5 h-3.5 text-emerald-300" />
                 <span>{lang === 'en' ? 'Activity Report' : 'Faaliyet Raporu'}</span>
               </button>
             </div>
@@ -216,7 +216,7 @@ export const FarmWeatherBanner: React.FC<FarmWeatherBannerProps> = ({
           onClick={() => setIsModalOpen(false)}
         >
           <div
-            className="bg-white rounded-2xl shadow-2xl border border-stone-200 max-w-2xl w-full max-h-[90vh] overflow-y-auto p-6 sm:p-8 relative text-stone-800"
+            className="bg-white dark:bg-[#0c140e] rounded-2xl shadow-2xl border border-stone-200 dark:border-stone-800 max-w-2xl w-full max-h-[90vh] overflow-y-auto p-6 sm:p-8 relative text-stone-800 dark:text-stone-100"
             onClick={(e) => e.stopPropagation()}
             role="dialog"
             aria-modal="true"
@@ -225,7 +225,7 @@ export const FarmWeatherBanner: React.FC<FarmWeatherBannerProps> = ({
             {/* Close Button */}
             <button
               onClick={() => setIsModalOpen(false)}
-              className="absolute top-4 right-4 sm:top-6 sm:right-6 p-2 rounded-full text-stone-400 hover:text-stone-700 hover:bg-stone-100 transition-colors cursor-pointer"
+              className="absolute top-4 right-4 sm:top-6 sm:right-6 p-2 rounded-full text-stone-400 dark:text-stone-500 hover:text-stone-700 dark:hover:text-stone-200 hover:bg-stone-100 dark:hover:bg-stone-800 transition-colors cursor-pointer"
               aria-label={lang === 'en' ? 'Close' : 'Kapat'}
             >
               <X className="w-5 h-5" />
@@ -233,21 +233,21 @@ export const FarmWeatherBanner: React.FC<FarmWeatherBannerProps> = ({
 
             {/* Header */}
             <div className="flex items-start gap-3 mb-6">
-              <div className="w-10 h-10 rounded-xl bg-[#123c28] text-white flex items-center justify-center shrink-0 shadow-sm">
+              <div className="w-10 h-10 rounded-xl bg-[#123c28] dark:bg-emerald-700 text-white flex items-center justify-center shrink-0 shadow-sm">
                 <Activity className="w-5 h-5" />
               </div>
               <div>
                 <div className="flex items-center gap-2 mb-1">
-                  <span className="text-xs font-bold uppercase tracking-wider text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200">
+                  <span className="text-xs font-bold uppercase tracking-wider text-emerald-700 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950/60 px-2.5 py-0.5 rounded-full border border-emerald-200 dark:border-emerald-800">
                     {lang === 'en' ? 'Meric / Edirne Live Report' : 'Meriç / Edirne Canlı Rapor'}
                   </span>
-                  <span className="text-xs text-stone-400">
+                  <span className="text-xs text-stone-400 dark:text-stone-500">
                     {lang === 'en' ? 'Updated:' : 'Güncellendi:'} {weatherData.lastUpdated}
                   </span>
                 </div>
                 <h3
                   id="farm-status-modal-title"
-                  className="text-xl sm:text-2xl font-extrabold text-stone-900 tracking-tight"
+                  className="text-xl sm:text-2xl font-extrabold text-stone-900 dark:text-white tracking-tight"
                 >
                   {lang === 'en' ? 'Ada Farm Daily Activities & Pasture Status' : 'Ada Çiftliği Günlük Faaliyet ve Mera Durumu'}
                 </h3>
