@@ -10,9 +10,15 @@ export default defineConfig(() => {
       react(),
       tailwindcss(),
       {
-        name: 'serve-seo-files',
+        name: 'serve-seo-and-security-headers',
         configureServer(server) {
           server.middlewares.use((req, res, next) => {
+            // Google Chrome & Modern Browser Security Headers (Strict HTTPS, No-Sniff, Referrer, CSP)
+            res.setHeader('X-Content-Type-Options', 'nosniff');
+            res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
+            res.setHeader('Permissions-Policy', 'camera=(), microphone=(), geolocation=(), payment=(), usb=()');
+            res.setHeader('Strict-Transport-Security', 'max-age=31536000; includeSubDomains; preload');
+
             if (req.url === '/robots.txt') {
               res.setHeader('Content-Type', 'text/plain; charset=utf-8');
               res.end(fs.readFileSync(path.resolve(__dirname, 'public/robots.txt')));

@@ -119,10 +119,13 @@ export const InquiryModal: React.FC<InquiryModalProps> = ({
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
-              <label className="block text-xs font-bold uppercase tracking-wider text-stone-600 mb-1.5">
+              <label htmlFor="inquiry-name" className="block text-xs font-bold uppercase tracking-wider text-stone-600 mb-1.5">
                 {lang === 'en' ? 'Full Name' : 'Adınız Soyadınız'}
               </label>
               <input
+                id="inquiry-name"
+                name="name"
+                autoComplete="name"
                 type="text"
                 required
                 placeholder={lang === 'en' ? 'e.g. John Doe' : 'Örn: Mehmet Bey'}
@@ -132,10 +135,13 @@ export const InquiryModal: React.FC<InquiryModalProps> = ({
               />
             </div>
             <div>
-              <label className="block text-xs font-bold uppercase tracking-wider text-stone-600 mb-1.5">
+              <label htmlFor="inquiry-phone" className="block text-xs font-bold uppercase tracking-wider text-stone-600 mb-1.5">
                 {lang === 'en' ? 'Phone Number' : 'Telefon Numaranız'}
               </label>
               <input
+                id="inquiry-phone"
+                name="tel"
+                autoComplete="tel"
                 type="tel"
                 required
                 placeholder="0532..."
@@ -147,10 +153,12 @@ export const InquiryModal: React.FC<InquiryModalProps> = ({
           </div>
 
           <div>
-            <label className="block text-xs font-bold uppercase tracking-wider text-stone-600 mb-1.5">
+            <label htmlFor="inquiry-quantity" className="block text-xs font-bold uppercase tracking-wider text-stone-600 mb-1.5">
               {lang === 'en' ? 'Desired Quantity / Head Count (Optional)' : 'İstenen Miktar / Baş Sayısı (Opsiyonel)'}
             </label>
             <input
+              id="inquiry-quantity"
+              name="quantity"
               type="text"
               placeholder={lang === 'en' ? 'e.g. 200 Liters of milk or 5 lambs' : 'Örn: 200 Litre süt veya 5 kuzu'}
               value={quantity}

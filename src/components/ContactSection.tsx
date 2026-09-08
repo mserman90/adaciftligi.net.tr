@@ -226,10 +226,13 @@ export const ContactSection = ({ lang = 'tr' }: { lang?: 'tr' | 'en' }) => {
 
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
-                <label className="block text-xs font-bold uppercase tracking-wider text-stone-700 mb-1.5">
+                <label htmlFor="contact-name" className="block text-xs font-bold uppercase tracking-wider text-stone-700 mb-1.5">
                   {lang === 'en' ? 'Your Name and Surname' : 'Adınız ve Soyadınız'}
                 </label>
                 <input
+                  id="contact-name"
+                  name="name"
+                  autoComplete="name"
                   type="text"
                   required
                   placeholder={lang === 'en' ? 'e.g. John Doe' : 'Örn: Ahmet Yılmaz'}
@@ -240,10 +243,13 @@ export const ContactSection = ({ lang = 'tr' }: { lang?: 'tr' | 'en' }) => {
               </div>
 
               <div>
-                <label className="block text-xs font-bold uppercase tracking-wider text-stone-700 mb-1.5">
+                <label htmlFor="contact-phone" className="block text-xs font-bold uppercase tracking-wider text-stone-700 mb-1.5">
                   {lang === 'en' ? 'Your Phone Number' : 'Telefon Numaranız'}
                 </label>
                 <input
+                  id="contact-phone"
+                  name="tel"
+                  autoComplete="tel"
                   type="tel"
                   required
                   placeholder={lang === 'en' ? 'e.g. 0532 000 00 00' : 'Örn: 0532 000 00 00'}
@@ -254,10 +260,12 @@ export const ContactSection = ({ lang = 'tr' }: { lang?: 'tr' | 'en' }) => {
               </div>
 
               <div>
-                <label className="block text-xs font-bold uppercase tracking-wider text-stone-700 mb-1.5">
+                <label htmlFor="contact-product" className="block text-xs font-bold uppercase tracking-wider text-stone-700 mb-1.5">
                   {lang === 'en' ? 'Product / Service of Interest' : 'İlgilendiğiniz Ürün / Hizmet'}
                 </label>
                 <select
+                  id="contact-product"
+                  name="product"
                   value={formData.product}
                   onChange={(e) => setFormData({ ...formData, product: e.target.value })}
                   className="w-full px-4 py-3 rounded-2xl bg-stone-50 border border-stone-200 text-stone-900 text-sm focus:outline-none focus:border-[#123c28] focus:bg-white transition-colors"
@@ -272,10 +280,12 @@ export const ContactSection = ({ lang = 'tr' }: { lang?: 'tr' | 'en' }) => {
               </div>
 
               <div>
-                <label className="block text-xs font-bold uppercase tracking-wider text-stone-700 mb-1.5">
+                <label htmlFor="contact-quantity" className="block text-xs font-bold uppercase tracking-wider text-stone-700 mb-1.5">
                   {lang === 'en' ? 'Estimated Quantity or Amount' : 'Tahmini Miktar veya Adet'}
                 </label>
                 <input
+                  id="contact-quantity"
+                  name="quantity"
                   type="text"
                   placeholder={lang === 'en' ? 'e.g. 150 liters of milk daily or 10 lambs' : 'Örn: Günlük 150 litre süt veya 10 baş kuzu'}
                   value={formData.quantity}
@@ -285,10 +295,12 @@ export const ContactSection = ({ lang = 'tr' }: { lang?: 'tr' | 'en' }) => {
               </div>
 
               <div>
-                <label className="block text-xs font-bold uppercase tracking-wider text-stone-700 mb-1.5">
+                <label htmlFor="contact-note" className="block text-xs font-bold uppercase tracking-wider text-stone-700 mb-1.5">
                   {lang === 'en' ? 'Your Message or Questions' : 'Mesajınız veya Sorularınız'}
                 </label>
                 <textarea
+                  id="contact-note"
+                  name="note"
                   rows={3}
                   placeholder={lang === 'en' ? 'You can write the delivery address or the details you want to ask...' : 'Teslimat adresi veya sormak istediğiniz ayrıntıları yazabilirsiniz...'}
                   value={formData.note}

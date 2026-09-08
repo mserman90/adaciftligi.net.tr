@@ -96,7 +96,7 @@ export const AdminLoginModal: React.FC<AdminLoginModalProps> = ({
           )}
 
           <div>
-            <label className="block text-xs font-bold text-stone-700 uppercase tracking-wider mb-1.5">
+            <label htmlFor="admin-username" className="block text-xs font-bold text-stone-700 uppercase tracking-wider mb-1.5">
               {lang === 'en' ? 'Admin Username' : 'Yönetici Kullanıcı Adı'}
             </label>
             <div className="relative">
@@ -104,6 +104,9 @@ export const AdminLoginModal: React.FC<AdminLoginModalProps> = ({
                 <User className="w-4 h-4" />
               </div>
               <input
+                id="admin-username"
+                name="username"
+                autoComplete="username"
                 type="text"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
@@ -116,7 +119,7 @@ export const AdminLoginModal: React.FC<AdminLoginModalProps> = ({
 
           <div>
             <div className="flex items-center justify-between mb-1.5">
-              <label className="block text-xs font-bold text-stone-700 uppercase tracking-wider">
+              <label htmlFor="admin-password" className="block text-xs font-bold text-stone-700 uppercase tracking-wider">
                 {lang === 'en' ? 'Admin Password' : 'Yönetici Şifresi'}
               </label>
               <button
@@ -133,6 +136,9 @@ export const AdminLoginModal: React.FC<AdminLoginModalProps> = ({
                 <KeyRound className="w-4 h-4" />
               </div>
               <input
+                id="admin-password"
+                name="password"
+                autoComplete="current-password"
                 type={showPassword ? 'text' : 'password'}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
