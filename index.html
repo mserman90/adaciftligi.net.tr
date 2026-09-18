@@ -151,29 +151,107 @@
           </div>
         </a>
 
-        <nav class="hidden lg:flex items-center gap-6 text-[13px] font-semibold text-gray-700">
-          <a href="#anasayfa" class="hover:text-ada-emerald transition-colors py-1">Ana Sayfa</a>
-          <a href="#hakkimizda" class="hover:text-ada-emerald transition-colors py-1">Hakkımızda</a>
-          <a href="#besi" class="text-ada-primary hover:text-ada-emerald transition-colors py-1 flex items-center gap-1">
-            <span>Besi (Simental & Şarole)</span>
-            <span class="text-[9px] bg-amber-100 text-amber-800 px-1.5 py-0.5 rounded font-bold">Ana Odak</span>
-          </a>
-          <a href="#sut" class="hover:text-ada-emerald transition-colors py-1">Süt (Holstein)</a>
-          <a href="#koyunculuk" class="hover:text-ada-emerald transition-colors py-1">Koyunculuk (Kıvırcık & Merinos)</a>
-          <a href="#biyoguvenlik" class="hover:text-ada-emerald transition-colors py-1">Biyo-Güvenlik</a>
-          <a href="#iletisim" class="hover:text-ada-emerald transition-colors py-1">İletişim</a>
+        <nav class="hidden lg:flex items-center gap-4 xl:gap-6 text-[13px] font-semibold text-gray-700">
+          <div class="tooltip-wrap">
+            <a href="#anasayfa" class="hover:text-ada-emerald transition-colors py-1 flex items-center gap-1.5">
+              <i class="fa-solid fa-house text-xs text-ada-emerald"></i>
+              <span>Ana Sayfa</span>
+            </a>
+            <span class="tooltip-box">Ada Çiftliği Ana Sayfa</span>
+          </div>
+
+          <div class="tooltip-wrap">
+            <a href="#hakkimizda" class="hover:text-ada-emerald transition-colors py-1 flex items-center gap-1.5">
+              <i class="fa-solid fa-seedling text-xs text-ada-emerald"></i>
+              <span>Hakkımızda</span>
+            </a>
+            <span class="tooltip-box">Meriç Ovası & Adasarhanlı Ekolojisi</span>
+          </div>
+
+          <div class="tooltip-wrap">
+            <a href="#besi" class="text-ada-primary hover:text-ada-emerald transition-colors py-1 flex items-center gap-1.5">
+              <i class="fa-solid fa-cow text-xs text-ada-primary"></i>
+              <span>Besi (Simental & Şarole)</span>
+              <span class="text-[9px] bg-amber-100 text-amber-800 px-1.5 py-0.5 rounded font-bold">Ana Odak</span>
+            </a>
+            <span class="tooltip-box">Simental & Şarole Besi Hayvancılığı</span>
+          </div>
+
+          <div class="tooltip-wrap">
+            <a href="#sut" class="hover:text-ada-emerald transition-colors py-1 flex items-center gap-1.5">
+              <i class="fa-solid fa-bottle-droplet text-xs text-sky-600"></i>
+              <span>Süt (Holstein)</span>
+            </a>
+            <span class="tooltip-box">Safkan Holstein Çiğ Süt Üretimi</span>
+          </div>
+
+          <div class="tooltip-wrap">
+            <a href="#koyunculuk" class="hover:text-ada-emerald transition-colors py-1 flex items-center gap-1.5">
+              <i class="fa-solid fa-award text-xs text-amber-600"></i>
+              <span>Koyunculuk</span>
+            </a>
+            <span class="tooltip-box">Trakya Kıvırcık & Anadolu Merinosu</span>
+          </div>
+
+          <div class="tooltip-wrap">
+            <a href="#biyoguvenlik" class="hover:text-ada-emerald transition-colors py-1 flex items-center gap-1.5">
+              <i class="fa-solid fa-shield-halved text-xs text-emerald-600"></i>
+              <span>Biyo-Güvenlik</span>
+            </a>
+            <span class="tooltip-box">Hastalıktan Ari Trakya & Sağlık</span>
+          </div>
+
+          <div class="tooltip-wrap">
+            <a href="#iletisim" class="hover:text-ada-emerald transition-colors py-1 flex items-center gap-1.5">
+              <i class="fa-solid fa-location-dot text-xs text-red-600"></i>
+              <span>İletişim</span>
+            </a>
+            <span class="tooltip-box">İletişim Bilgileri & Konum</span>
+          </div>
         </nav>
 
-        <div class="hidden sm:flex items-center gap-3">
-          <a href="#iletisim-rezervasyon" class="bg-ada-primary hover:bg-ada-emerald text-white px-5 py-2.5 rounded-xl font-semibold text-xs tracking-wide uppercase transition-all duration-300 shadow-md hover:shadow-lg flex items-center gap-2">
-            <i class="fa-solid fa-calendar-check text-ada-gold"></i>
-            <span>Rezerve Et</span>
-          </a>
-        </div>
+        <!-- BAŞLIKTAKİ BUTONLAR (TOOLTİPLİ SİMGELER) -->
+        <div class="flex items-center gap-2 sm:gap-2.5">
+          <!-- Telefon Butonu (Tooltipli Simge) -->
+          <div class="tooltip-wrap">
+            <a href="tel:+905323428200" aria-label="Hemen Ara: +90 (532) 342 82 00" class="w-10 h-10 rounded-xl bg-emerald-50 hover:bg-ada-primary text-ada-primary hover:text-white border border-emerald-200/80 hover:border-ada-primary flex items-center justify-center text-sm transition-all duration-200 shadow-sm hover:shadow-md hover:scale-105">
+              <i class="fa-solid fa-phone"></i>
+            </a>
+            <span class="tooltip-box">Hemen Ara: +90 (532) 342 82 00</span>
+          </div>
 
-        <button id="mobile-menu-btn" class="lg:hidden p-2 rounded-lg text-gray-700 hover:text-ada-primary hover:bg-emerald-50 transition-colors focus:outline-none focus:ring-2 focus:ring-ada-emerald/50" aria-label="Menüyü Aç">
-          <i class="fa-solid fa-bars text-2xl"></i>
-        </button>
+          <!-- WhatsApp Butonu (Tooltipli Simge) -->
+          <div class="tooltip-wrap">
+            <a href="https://wa.me/905323428200" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp Canlı Danışma Hattı" class="w-10 h-10 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white flex items-center justify-center text-base transition-all duration-200 shadow-sm hover:shadow-md hover:scale-105">
+              <i class="fa-brands fa-whatsapp"></i>
+            </a>
+            <span class="tooltip-box">WhatsApp Canlı Destek</span>
+          </div>
+
+          <!-- Rezerve Et Butonu (Tooltipli Simge) -->
+          <div class="tooltip-wrap">
+            <a href="#iletisim-rezervasyon" aria-label="Kurbanlık & Besi Rezervasyonu" class="w-10 h-10 rounded-xl bg-ada-primary hover:bg-ada-emerald text-white flex items-center justify-center text-sm transition-all duration-200 shadow-sm hover:shadow-md hover:scale-105 border border-emerald-800/20">
+              <i class="fa-solid fa-calendar-check text-ada-gold"></i>
+            </a>
+            <span class="tooltip-box">Kurbanlık & Besi Rezervasyonu</span>
+          </div>
+
+          <!-- Konum / Yol Tarifi Butonu (Tooltipli Simge) -->
+          <div class="tooltip-wrap hidden sm:inline-flex">
+            <a href="#iletisim" aria-label="Çiftlik Konumu ve Yol Tarifi" class="w-10 h-10 rounded-xl bg-amber-50 hover:bg-amber-600 text-amber-700 hover:text-white border border-amber-200 flex items-center justify-center text-sm transition-all duration-200 shadow-sm hover:shadow-md hover:scale-105">
+              <i class="fa-solid fa-map-location-dot"></i>
+            </a>
+            <span class="tooltip-box">Çiftlik Konumu & Yol Tarifi</span>
+          </div>
+
+          <!-- Mobil Menü Butonu (Tooltipli Simge) -->
+          <div class="tooltip-wrap lg:hidden">
+            <button id="mobile-menu-btn" class="w-10 h-10 rounded-xl bg-gray-100 text-gray-700 hover:text-ada-primary hover:bg-emerald-50 transition-colors flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-ada-emerald/50" aria-label="Menüyü Aç">
+              <i class="fa-solid fa-bars text-lg"></i>
+            </button>
+            <span class="tooltip-box">Menüyü Aç</span>
+          </div>
+        </div>
       </div>
     </div>
 
