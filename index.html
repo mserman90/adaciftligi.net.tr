@@ -1,238 +1,1362 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="tr" class="scroll-smooth">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-    <!-- Google Chrome Security & Connection Directives (https://support.google.com/chrome/answer/95617) -->
-    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests; default-src 'self' https: data: blob: 'unsafe-inline' 'unsafe-eval'; img-src 'self' https: data: blob:; font-src 'self' https: data:; style-src 'self' https: 'unsafe-inline'; script-src 'self' https: 'unsafe-inline' 'unsafe-eval'; connect-src 'self' https: wss:; frame-src 'self' https://maps.google.com https://www.google.com; object-src 'none'; base-uri 'self';" />
-    <meta http-equiv="X-Content-Type-Options" content="nosniff" />
-    <meta name="referrer" content="strict-origin-when-cross-origin" />
-    <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=(), payment=(), usb=()" />
-
-    <title>Ada Çiftliği | Meriç Edirne - Doğal Hayvancılık & Günlük Taze Süt</title>
-    <!-- Official Vector SVG Favicons & App Icons -->
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png" />
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-    <link rel="shortcut icon" href="/favicon.ico" />
-    <meta name="theme-color" content="#FDFDFD" />
-    <script>
-      (function() {
-        try {
-          // Ensure default 'light' (gündüz) takes precedence
-          if (localStorage.getItem('ada_theme_pref_v3') !== 'set') {
-            localStorage.setItem('ada_theme_pref_v3', 'set');
-            localStorage.setItem('ada_theme', 'light');
-            localStorage.setItem('ada_rasyon_theme', 'light');
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ada Çiftliği | Simental & Şarole Besi, Holstein Süt ve Kıvırcık & Merinos Koyunculuk - Meriç / Edirne</title>
+  <meta name="description" content="Edirne Adasarhanlı'da Meriç Nehri'nin temiz sularıyla beslenen doğal ve modern besi hayvancılığı (Simental, Şarole), süt sığırcılığı (Holstein) ve koyunculuk (Kıvırcık, Merinos).">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'ada-dark': '#081c15',
+            'ada-primary': '#1b4332',
+            'ada-emerald': '#2d6a4f',
+            'ada-lightgreen': '#40916c',
+            'ada-amber': '#c48a3f',
+            'ada-gold': '#d4a373',
+            'ada-cream': '#fbfbf8',
+            'ada-surface': '#f4f7f4'
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            serif: ['"Playfair Display"', 'serif']
           }
-          var saved = localStorage.getItem('ada_theme');
-          if (saved === 'dark') {
-            document.documentElement.classList.add('dark');
-          } else {
-            document.documentElement.classList.remove('dark');
-          }
-        } catch (e) {
-          document.documentElement.classList.remove('dark');
         }
-      })();
-    </script>
-    <meta name="description" content="Meriç Adasarhanlı Köyü'nde doğal koyun, kuzu, inek, dana yetiştiriciliği ve günlük soğuk zincir taze çiğ süt üretimi. Toptan ve perakende çiftlikten doğrudan temin." />
-    <meta name="keywords" content="ada çiftliği, meriç ada çiftliği, edirne hayvancılık, adasarhanlı köyü, meriç taze süt, günlük çiğ süt edirne, doğal koyun kuzu, meriç kuzu eti, edirne besi danası, süt ineği satışı, kurbanlık edirne meriç, soğuk tank çiğ süt, edirne çiftlik ürünleri, trakeya doğal süt" />
-    <meta name="author" content="Ada Çiftliği" />
-    <meta name="publisher" content="Ada Çiftliği - Meriç, Edirne" />
-    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
-    <meta name="googlebot" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
-    <meta name="bingbot" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
-    <link rel="canonical" href="https://adaciftligi.net.tr/" />
+      }
+    }
+  </script>
 
-    <!-- Local SEO & Geo Targeting (Edirne / Meriç) -->
-    <meta name="geo.region" content="TR-22" />
-    <meta name="geo.placename" content="Meriç, Edirne, Türkiye" />
-    <meta name="geo.position" content="41.1834;26.4215" />
-    <meta name="ICBM" content="41.1834, 26.4215" />
-
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="Ada Çiftliği" />
-    <meta property="og:locale" content="tr_TR" />
-    <meta property="og:locale:alternate" content="en_US" />
-    <meta property="og:url" content="https://adaciftligi.net.tr/" />
-    <meta property="og:title" content="Ada Çiftliği | Meriç Edirne - Doğal Hayvancılık & Günlük Taze Süt" />
-    <meta property="og:description" content="Edirne Meriç Adasarhanlı Köyü'nde doğal mera besili koyun, kuzu, inek, dana ve katkısız +4°C soğuk tank günlük taze çiftlik sütü." />
-    <meta property="og:image" content="https://adaciftligi.net.tr/images/hero_cows.webp" />
-    <meta property="og:image:secure_url" content="https://adaciftligi.net.tr/images/hero_cows.webp" />
-    <meta property="og:image:type" content="image/webp" />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="Ada Çiftliği Meriç Edirne Doğal Hayvancılık ve Taze Çiğ Süt" />
-
-    <!-- Twitter Cards -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content="@adaciftligi" />
-    <meta name="twitter:creator" content="@adaciftligi" />
-    <meta name="twitter:url" content="https://adaciftligi.net.tr/" />
-    <meta name="twitter:title" content="Ada Çiftliği | Meriç Edirne - Doğal Hayvancılık & Süt" />
-    <meta name="twitter:description" content="Meriç Adasarhanlı Köyü'nde doğal hayvancılık ve günlük taze süt üretimi. Çiftlikten doğrudan toptan ve perakende." />
-    <meta name="twitter:image" content="https://adaciftligi.net.tr/images/hero_cows.webp" />
-    <meta name="twitter:image:alt" content="Ada Çiftliği Meriç Edirne Doğal Hayvancılık ve Taze Çiğ Süt" />
-
-    <!-- DNS Prefetch & Preconnect for External Resources -->
-    <meta http-equiv="x-dns-prefetch-control" content="on" />
-    <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
-    <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-
-    <!-- Google Fonts with display=swap for zero font-blocking latency -->
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-
-    <!-- Performance: Preload Above-the-Fold Hero Image -->
-    <link rel="preload" as="image" href="/images/drive/Gemini_Generated_Image_byt5yibyt5yibyt5.webp" type="image/webp" fetchpriority="high" />
-
-    <!-- JSON-LD LocalBusiness & Farm Structured Data -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@graph": [
+  <!-- Google Fonts & Font Awesome Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <!-- JSON-LD LocalBusiness & Farm Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": ["Farm", "LocalBusiness"],
+    "name": "Ada Çiftliği",
+    "alternateName": "Ada Çiftliği Besi ve Süt Hayvancılığı Meriç Edirne",
+    "url": "https://adaciftligi.net.tr",
+    "telephone": "+90 532 342 82 00",
+    "email": "adaciftligi22@gmail.com",
+    "priceRange": "₺₺",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Adasarhanlı Köyü Yolu",
+      "addressLocality": "Meriç",
+      "addressRegion": "Edirne",
+      "postalCode": "22600",
+      "addressCountry": "TR"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 41.1834,
+      "longitude": 26.4215
+    },
+    "openingHoursSpecification": {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+      "opens": "07:00",
+      "closes": "19:30"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Ada Çiftliği Canlı Hayvan ve Süt Faaliyetleri",
+      "itemListElement": [
         {
-          "@type": ["Farm", "LocalBusiness"],
-          "@id": "https://adaciftligi.net.tr/#farm",
-          "name": "Ada Çiftliği",
-          "alternateName": "Ada Çiftliği Edirne Meriç",
-          "url": "https://adaciftligi.net.tr",
-          "logo": "https://adaciftligi.net.tr/logo.png",
-          "image": "https://adaciftligi.net.tr/images/hero_cows.webp",
-          "description": "Edirne Meriç Adasarhanlı Köyü'nde geniş meralarda serbest otlayan koyun, kuzu, inek, dana yetiştiriciliği ve yüksek yağ oranlı günlük çiğ süt üretimi.",
-          "telephone": "+90 532 342 82 00",
-          "email": "info@adaciftligi.net.tr",
-          "priceRange": "₺₺",
-          "currenciesAccepted": "TRY",
-          "paymentAccepted": "Nakit, Banka Havalesi, EFT",
-          "address": {
-            "@type": "PostalAddress",
-            "streetAddress": "Adasarhanlı Köyü Yolu",
-            "addressLocality": "Meriç",
-            "addressRegion": "Edirne",
-            "postalCode": "22600",
-            "addressCountry": "TR"
-          },
-          "geo": {
-            "@type": "GeoCoordinates",
-            "latitude": 41.1834,
-            "longitude": 26.4215
-          },
-          "areaServed": [
-            { "@type": "AdministrativeArea", "name": "Edirne" },
-            { "@type": "AdministrativeArea", "name": "Meriç" },
-            { "@type": "AdministrativeArea", "name": "Uzunköprü" },
-            { "@type": "AdministrativeArea", "name": "Keşan" },
-            { "@type": "AdministrativeArea", "name": "Trakya" },
-            { "@type": "AdministrativeArea", "name": "İstanbul" }
-          ],
-          "openingHoursSpecification": [
-            {
-              "@type": "OpeningHoursSpecification",
-              "dayOfWeek": [
-                "Monday",
-                "Tuesday",
-                "Wednesday",
-                "Thursday",
-                "Friday",
-                "Saturday",
-                "Sunday"
-              ],
-              "opens": "07:00",
-              "closes": "19:00"
-            }
-          ],
-          "hasOfferCatalog": {
-            "@type": "OfferCatalog",
-            "name": "Ada Çiftliği Ürünleri",
-            "itemListElement": [
-              {
-                "@type": "Offer",
-                "itemOffered": {
-                  "@type": "Product",
-                  "name": "Günlük Taze Çiğ Çiftlik Sütü",
-                  "description": "Günlük sağılan, +4°C soğuk tankta bekletilen yüksek yağ ve proteinli katkısız süt.",
-                  "image": "https://adaciftligi.net.tr/images/sut.webp",
-                  "offers": {
-                    "@type": "Offer",
-                    "priceCurrency": "TRY",
-                    "availability": "https://schema.org/InStock"
-                  }
-                }
-              },
-              {
-                "@type": "Offer",
-                "itemOffered": {
-                  "@type": "Product",
-                  "name": "Doğal Besili Kuzu ve Koyun",
-                  "description": "Meriç nehri havzasında kekik ve doğal otlaklarla beslenen Kıvırcık ve Merinos ırkı hayvanlar.",
-                  "image": "https://adaciftligi.net.tr/images/koyun.webp",
-                  "offers": {
-                    "@type": "Offer",
-                    "priceCurrency": "TRY",
-                    "availability": "https://schema.org/InStock"
-                  }
-                }
-              },
-              {
-                "@type": "Offer",
-                "itemOffered": {
-                  "@type": "Product",
-                  "name": "Besi Danası ve Süt İneği",
-                  "description": "Veteriner kontrolünde aşıları tam, sertifikalı ve sağlıklı Simental ve Holstein büyükbaş hayvanlar.",
-                  "image": "https://adaciftligi.net.tr/images/dana.webp",
-                  "offers": {
-                    "@type": "Offer",
-                    "priceCurrency": "TRY",
-                    "availability": "https://schema.org/InStock"
-                  }
-                }
-              }
-            ]
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Product",
+            "name": "Simental & Şarole Besi Danaları",
+            "description": "Yüksek karkas et randımanlı Simental ve Şarole etçi ırk erkek besi danaları."
           }
         },
         {
-          "@type": "BreadcrumbList",
-          "@id": "https://adaciftligi.net.tr/#breadcrumb",
-          "itemListElement": [
-            {
-              "@type": "ListItem",
-              "position": 1,
-              "name": "Ana Sayfa",
-              "item": "https://adaciftligi.net.tr/"
-            },
-            {
-              "@type": "ListItem",
-              "position": 2,
-              "name": "Ürünlerimiz",
-              "item": "https://adaciftligi.net.tr/#urunler"
-            },
-            {
-              "@type": "ListItem",
-              "position": 3,
-              "name": "Çiftliğimiz",
-              "item": "https://adaciftligi.net.tr/#hakkimizda"
-            },
-            {
-              "@type": "ListItem",
-              "position": 4,
-              "name": "İletişim",
-              "item": "https://adaciftligi.net.tr/#iletisim"
-            }
-          ]
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Product",
+            "name": "Holstein Günlük Taze Çiğ Süt",
+            "description": "Safkan Holstein süt ineklerinden el değmeden sağılan +4°C soğuk tank çiğ süt."
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Product",
+            "name": "Kıvırcık & Merinos Damızlık ve Kuzu",
+            "description": "Coğrafi işaretli Trakya Kıvırcık ve yüksek verimli Anadolu Merinosu damızlık koç ve kuzuları."
+          }
         }
       ]
     }
-    </script>
-  </head>
-  <body class="bg-white dark:bg-[#0c140e] text-stone-800 dark:text-[#e2ece5] antialiased selection:bg-emerald-800 selection:text-white">
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
-</html>
+  }
+  </script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-ada-cream text-gray-800 antialiased selection:bg-ada-primary selection:text-white pb-16 md:pb-0">
 
+  <!-- Üst Bilgilendirme ve Güvence Barı (Mobil Uyumlu) -->
+  <div class="bg-ada-dark text-gray-200 text-xs py-2 px-3 sm:px-4 border-b border-ada-emerald/30">
+    <div class="max-w-7xl mx-auto flex justify-between items-center gap-2">
+      <div class="flex items-center gap-2 sm:gap-4 truncate">
+        <span class="inline-flex items-center gap-1.5 text-emerald-400 font-semibold text-[11px] sm:text-xs">
+          <i class="fa-solid fa-shield-halved"></i> <span>%100 Trakya Arilik Güvencesi</span>
+        </span>
+        <span class="hidden md:inline text-gray-500">•</span>
+        <span class="hidden md:inline-flex items-center gap-1.5 text-sky-300 text-xs">
+          <i class="fa-solid fa-droplet"></i> Meriç Nehri Temiz Sulama
+        </span>
+        <span class="hidden lg:inline text-gray-500">•</span>
+        <span class="hidden lg:inline-flex items-center gap-1.5 text-amber-300 text-xs">
+          <i class="fa-solid fa-location-dot"></i> Adasarhanlı, Meriç / Edirne
+        </span>
+      </div>
+      <div class="flex items-center gap-2 sm:gap-4 shrink-0 text-xs">
+        <a href="tel:+905323428200" class="hover:text-amber-400 transition-colors flex items-center gap-1 font-semibold text-amber-300">
+          <i class="fa-solid fa-phone text-emerald-400"></i> <span class="hidden sm:inline">+90 (532) 342 82 00</span><span class="sm:hidden font-bold">Ara</span>
+        </a>
+        <a href="https://wa.me/905323428200" target="_blank" class="hover:text-emerald-300 transition-colors hidden sm:flex items-center gap-1 font-medium text-emerald-400">
+          <i class="fa-brands fa-whatsapp text-emerald-400"></i> WhatsApp
+        </a>
+        <a href="#iletisim-rezervasyon" class="bg-ada-amber/40 text-amber-200 px-2.5 sm:px-3 py-1 rounded-md border border-ada-amber/50 hover:bg-ada-amber hover:text-white transition-all font-medium text-[11px] sm:text-xs">
+          <span class="hidden sm:inline">Kurbanlık & Besi</span> Siparişi
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sticky Navbar (Mobil Uyumlu) -->
+  <header id="navbar" class="nav-glass sticky top-0 z-50 transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-16 sm:h-20">
+        
+        <a href="#" class="flex items-center gap-2.5 sm:gap-3 group">
+          <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-ada-primary flex items-center justify-center text-white text-xl sm:text-2xl shadow-md group-hover:bg-ada-emerald transition-all duration-300 shrink-0">
+            <i class="fa-solid fa-cow"></i>
+          </div>
+          <div>
+            <div class="text-xl sm:text-2xl font-bold font-serif tracking-tight text-ada-dark flex items-center gap-1">
+              Ada Çiftliği
+              <span class="w-2 h-2 rounded-full bg-ada-amber inline-block"></span>
+            </div>
+            <p class="hidden sm:block text-[10px] uppercase tracking-wider text-ada-emerald font-bold">Besi (Simental & Şarole) • Süt (Holstein) • Koyun (Kıvırcık & Merinos)</p>
+            <p class="sm:hidden text-[10px] uppercase tracking-wider text-ada-emerald font-bold">Meriç / Edirne • Besi & Süt</p>
+          </div>
+        </a>
+
+        <nav class="hidden lg:flex items-center gap-6 text-[13px] font-semibold text-gray-700">
+          <a href="#anasayfa" class="hover:text-ada-emerald transition-colors py-1">Ana Sayfa</a>
+          <a href="#hakkimizda" class="hover:text-ada-emerald transition-colors py-1">Hakkımızda</a>
+          <a href="#besi" class="text-ada-primary hover:text-ada-emerald transition-colors py-1 flex items-center gap-1">
+            <span>Besi (Simental & Şarole)</span>
+            <span class="text-[9px] bg-amber-100 text-amber-800 px-1.5 py-0.5 rounded font-bold">Ana Odak</span>
+          </a>
+          <a href="#sut" class="hover:text-ada-emerald transition-colors py-1">Süt (Holstein)</a>
+          <a href="#koyunculuk" class="hover:text-ada-emerald transition-colors py-1">Koyunculuk (Kıvırcık & Merinos)</a>
+          <a href="#biyoguvenlik" class="hover:text-ada-emerald transition-colors py-1">Biyo-Güvenlik</a>
+          <a href="#iletisim" class="hover:text-ada-emerald transition-colors py-1">İletişim</a>
+        </nav>
+
+        <div class="hidden sm:flex items-center gap-3">
+          <a href="#iletisim-rezervasyon" class="bg-ada-primary hover:bg-ada-emerald text-white px-5 py-2.5 rounded-xl font-semibold text-xs tracking-wide uppercase transition-all duration-300 shadow-md hover:shadow-lg flex items-center gap-2">
+            <i class="fa-solid fa-calendar-check text-ada-gold"></i>
+            <span>Rezerve Et</span>
+          </a>
+        </div>
+
+        <button id="mobile-menu-btn" class="lg:hidden p-2 rounded-lg text-gray-700 hover:text-ada-primary hover:bg-emerald-50 transition-colors focus:outline-none focus:ring-2 focus:ring-ada-emerald/50" aria-label="Menüyü Aç">
+          <i class="fa-solid fa-bars text-2xl"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobil Açılır Menü (Touch-Friendly & Modern) -->
+    <div id="mobile-menu" class="hidden lg:hidden border-t border-gray-200 bg-white/98 backdrop-blur-lg px-4 pt-3 pb-6 space-y-1.5 shadow-2xl">
+      <div class="grid grid-cols-2 gap-2 pb-2 mb-2 border-b border-gray-100">
+        <a href="tel:+905323428200" class="btn-touch flex items-center justify-center gap-2 py-3 px-3 rounded-xl bg-ada-primary text-white font-bold text-xs shadow-sm">
+          <i class="fa-solid fa-phone text-ada-gold"></i> Hemen Ara
+        </a>
+        <a href="https://wa.me/905323428200" target="_blank" class="btn-touch flex items-center justify-center gap-2 py-3 px-3 rounded-xl bg-emerald-600 text-white font-bold text-xs shadow-sm">
+          <i class="fa-brands fa-whatsapp text-white text-base"></i> WhatsApp
+        </a>
+      </div>
+      <a href="#anasayfa" class="mobile-nav-link flex items-center gap-3 px-3.5 py-3 rounded-xl text-sm font-semibold text-gray-800 hover:bg-emerald-50 hover:text-ada-primary transition-colors">
+        <i class="fa-solid fa-house text-ada-emerald w-5 text-center"></i> Ana Sayfa
+      </a>
+      <a href="#hakkimizda" class="mobile-nav-link flex items-center gap-3 px-3.5 py-3 rounded-xl text-sm font-semibold text-gray-800 hover:bg-emerald-50 hover:text-ada-primary transition-colors">
+        <i class="fa-solid fa-seedling text-ada-emerald w-5 text-center"></i> Hakkımızda & Ekoloji
+      </a>
+      <a href="#besi" class="mobile-nav-link flex items-center justify-between px-3.5 py-3 rounded-xl text-sm font-bold text-ada-primary bg-emerald-50/70 border border-emerald-100">
+        <span class="flex items-center gap-3">
+          <i class="fa-solid fa-cow text-ada-emerald w-5 text-center"></i> Besi (Simental & Şarole)
+        </span>
+        <span class="text-[9px] bg-amber-200 text-amber-900 px-2 py-0.5 rounded font-extrabold uppercase">Ana Odak</span>
+      </a>
+      <a href="#sut" class="mobile-nav-link flex items-center gap-3 px-3.5 py-3 rounded-xl text-sm font-semibold text-gray-800 hover:bg-emerald-50 hover:text-ada-primary transition-colors">
+        <i class="fa-solid fa-bottle-droplet text-sky-600 w-5 text-center"></i> Süt (Holstein)
+      </a>
+      <a href="#koyunculuk" class="mobile-nav-link flex items-center gap-3 px-3.5 py-3 rounded-xl text-sm font-semibold text-gray-800 hover:bg-emerald-50 hover:text-ada-primary transition-colors">
+        <i class="fa-solid fa-award text-amber-600 w-5 text-center"></i> Koyunculuk (Kıvırcık & Merinos)
+      </a>
+      <a href="#biyoguvenlik" class="mobile-nav-link flex items-center gap-3 px-3.5 py-3 rounded-xl text-sm font-semibold text-gray-800 hover:bg-emerald-50 hover:text-ada-primary transition-colors">
+        <i class="fa-solid fa-shield-halved text-emerald-600 w-5 text-center"></i> Biyo-Güvenlik & Sağlık
+      </a>
+      <a href="#iletisim" class="mobile-nav-link flex items-center gap-3 px-3.5 py-3 rounded-xl text-sm font-semibold text-gray-800 hover:bg-emerald-50 hover:text-ada-primary transition-colors">
+        <i class="fa-solid fa-location-dot text-red-600 w-5 text-center"></i> İletişim & Konum
+      </a>
+      <div class="pt-2">
+        <a href="#iletisim-rezervasyon" class="mobile-nav-link w-full text-center flex items-center justify-center gap-2 bg-ada-amber hover:bg-ada-amber/90 text-white py-3.5 rounded-xl font-bold text-xs uppercase tracking-wider shadow-md">
+          <i class="fa-solid fa-calendar-check"></i> Kurbanlık & Besi Rezervasyonu
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO BÖLÜMÜ (Mobil ve Masaüstü Uyumlu) -->
+  <section id="anasayfa" class="relative hero-bg text-white pt-16 pb-24 sm:pt-24 sm:pb-32 overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="max-w-3xl">
+        
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-emerald-300 text-[11px] sm:text-xs font-bold tracking-wide uppercase mb-4 sm:mb-6 pulse-badge max-w-full truncate">
+          <i class="fa-solid fa-seedling text-amber-400 shrink-0"></i>
+          <span class="truncate">Adasarhanlı'nın Bereketli Topraklarında Doğal Yetiştiricilik</span>
+        </div>
+
+        <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-serif font-bold leading-tight mb-4 sm:mb-6">
+          Meriç Ovası'nın Doğal Gücü: <br>
+          <span class="text-ada-gold">Ada Çiftliği Besi Tesisleri</span>
+        </h1>
+
+        <p class="text-sm sm:text-base md:text-lg text-gray-200 leading-relaxed font-light mb-6 sm:mb-8 max-w-2xl">
+          Edirne Meriç'te, sanayi kirliliğinden tamamen uzak Adasarhanlı Köyü'nde; <strong>Simental ve Şarole</strong> besi danaları, <strong>Holstein</strong> süt sığırcılığı ve <strong>Kıvırcık & Merinos</strong> koyunculuğu ile Türkiye'nin en nitelikli karkas et ve doğal çiğ süt üretimi.
+        </p>
+
+        <!-- Hero Çağrı Butonları -->
+        <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 mb-8 sm:mb-12">
+          <a href="#besi" class="btn-touch bg-ada-primary hover:bg-ada-emerald text-white px-6 sm:px-8 py-3.5 sm:py-4 rounded-xl font-bold text-xs sm:text-sm tracking-wide uppercase transition-all duration-300 shadow-xl flex items-center justify-center gap-3">
+            <span>Besi Faaliyetlerini Keşfet</span>
+            <i class="fa-solid fa-arrow-down"></i>
+          </a>
+          <a href="#iletisim-rezervasyon" class="btn-touch bg-white/10 hover:bg-white hover:text-ada-dark text-white border border-white/30 backdrop-blur-sm px-6 sm:px-8 py-3.5 sm:py-4 rounded-xl font-bold text-xs sm:text-sm tracking-wide transition-all duration-300 flex items-center justify-center gap-3">
+            <i class="fa-solid fa-clipboard-check text-amber-300"></i>
+            <span>Kurbanlık & Besi Rezerve Et</span>
+          </a>
+        </div>
+
+        <!-- Öne Çıkan İstatistikler ve Rozetler -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-6 border-t border-white/20">
+          
+          <div class="flex items-start gap-3.5 bg-white/5 backdrop-blur-sm p-4 rounded-2xl border border-white/10">
+            <div class="text-2xl mt-0.5">🏆</div>
+            <div>
+              <h3 class="font-bold text-sm text-white">%100 Trakya Arilik Güvencesi</h3>
+              <p class="text-xs text-gray-300 mt-0.5 leading-relaxed">Hastalıktan ari Trakya bölgesinde veteriner kontrolünde yetiştiricilik.</p>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-3.5 bg-white/5 backdrop-blur-sm p-4 rounded-2xl border border-white/10">
+            <div class="text-2xl mt-0.5">🌿</div>
+            <div>
+              <h3 class="font-bold text-sm text-white">Doğal Mera & Çeltik Anızı Beslemesi</h3>
+              <p class="text-xs text-gray-300 mt-0.5 leading-relaxed">Meriç sulak alan meraları ve besleyici yonca/silaj kombinasyonu.</p>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-3.5 bg-white/5 backdrop-blur-sm p-4 rounded-2xl border border-white/10">
+            <div class="text-2xl mt-0.5">💧</div>
+            <div>
+              <h3 class="font-bold text-sm text-white">Sıfır Ağır Metal Riski</h3>
+              <p class="text-xs text-gray-300 mt-0.5 leading-relaxed">Doğrudan Meriç Nehri'nden alınan temiz su kaynaklarıyla sulanan kaliteli kaba yem kullanımı.</p>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-3.5 bg-white/5 backdrop-blur-sm p-4 rounded-2xl border border-white/10">
+            <div class="text-2xl mt-0.5">⚖️</div>
+            <div>
+              <h3 class="font-bold text-sm text-white">Yüksek Karkas Randımanı</h3>
+              <p class="text-xs text-gray-300 mt-0.5 leading-relaxed">Simental ve Şarole etçi ırklarında üstün et kalitesi, hızlı canlı ağırlık artışı ve mermerimsi yağ dağılımı.</p>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Dalga SVG -->
+    <div class="absolute bottom-0 left-0 right-0 overflow-hidden leading-none">
+      <svg class="relative block w-full h-12 text-ada-cream" viewBox="0 0 1200 120" preserveAspectRatio="none">
+        <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V120H0V0C60.77,33.56,155.61,71.21,247.78,74.79Z" fill="currentColor"></path>
+      </svg>
+    </div>
+  </section>
+
+  <!-- HIZLI HİZMET ÖZETLERİ -->
+  <section class="py-12 -mt-6 relative z-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        
+        <div class="bg-white p-7 rounded-3xl shadow-sm border border-gray-200 card-hover flex flex-col justify-between">
+          <div>
+            <div class="w-14 h-14 rounded-2xl bg-emerald-50 text-ada-primary flex items-center justify-center text-2xl mb-4">
+              <i class="fa-solid fa-bullhorn text-ada-emerald"></i>
+            </div>
+            <span class="inline-block text-[11px] font-bold uppercase tracking-wider px-2.5 py-1 rounded bg-amber-100 text-amber-800 mb-2">Ana Odak: Etçi Irklar</span>
+            <h3 class="text-2xl font-serif font-bold text-ada-dark mb-2">Simental & Şarole Besi Danası</h3>
+            <p class="text-gray-600 text-sm leading-relaxed mb-4">
+              Geniş açık padoklarda Meriç havzası doğal yemleriyle beslenen, yüksek karkas et randımanına (%58-%64) sahip Simental ve Şarole erkek besi sığırları.
+            </p>
+          </div>
+          <a href="#besi" class="text-ada-emerald font-bold text-xs uppercase tracking-wider flex items-center gap-2 hover:gap-3 transition-all">
+            Besi Irklarını Keşfet <i class="fa-solid fa-arrow-right-long"></i>
+          </a>
+        </div>
+
+        <div class="bg-white p-7 rounded-3xl shadow-sm border border-gray-200 card-hover flex flex-col justify-between">
+          <div>
+            <div class="w-14 h-14 rounded-2xl bg-sky-50 text-sky-700 flex items-center justify-center text-2xl mb-4">
+              <i class="fa-solid fa-bottle-droplet text-sky-600"></i>
+            </div>
+            <span class="inline-block text-[11px] font-bold uppercase tracking-wider px-2.5 py-1 rounded bg-sky-100 text-sky-800 mb-2">Sütçü Irk: Holstein</span>
+            <h3 class="text-2xl font-serif font-bold text-ada-dark mb-2">Holstein Süt & Damızlık</h3>
+            <p class="text-gray-600 text-sm leading-relaxed mb-4">
+              Safkan Holstein ırkımızdan el değmeden vakumlu sistemle sağılan, +4°C soğuk tankta muhafaza edilen yüksek verimli, katkısız çiğ çiftlik sütü.
+            </p>
+          </div>
+          <a href="#sut" class="text-ada-emerald font-bold text-xs uppercase tracking-wider flex items-center gap-2 hover:gap-3 transition-all">
+            Süt Üretim Detayları <i class="fa-solid fa-arrow-right-long"></i>
+          </a>
+        </div>
+
+        <div class="bg-white p-7 rounded-3xl shadow-sm border border-gray-200 card-hover flex flex-col justify-between">
+          <div>
+            <div class="w-14 h-14 rounded-2xl bg-amber-50 text-amber-700 flex items-center justify-center text-2xl mb-4">
+              <i class="fa-solid fa-award text-amber-600"></i>
+            </div>
+            <span class="inline-block text-[11px] font-bold uppercase tracking-wider px-2.5 py-1 rounded bg-emerald-100 text-emerald-800 mb-2">Kıvırcık & Merinos</span>
+            <h3 class="text-2xl font-serif font-bold text-ada-dark mb-2">Kıvırcık & Merinos Koyunculuk</h3>
+            <p class="text-gray-600 text-sm leading-relaxed mb-4">
+              Coğrafi işaretli eşsiz lezzetiyle Trakya Kıvırcık ve yüksek canlı ağırlık kazancıyla bilinen Anadolu Merinosu damızlık koç ve besi kuzuları.
+            </p>
+          </div>
+          <a href="#koyunculuk" class="text-ada-emerald font-bold text-xs uppercase tracking-wider flex items-center gap-2 hover:gap-3 transition-all">
+            Koyun Irklarını İncele <i class="fa-solid fa-arrow-right-long"></i>
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- HAKKIMIZDA (ABOUT US) -->
+  <section id="hakkimizda" class="py-20 bg-white border-t border-b border-gray-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <span class="text-ada-emerald text-xs font-bold uppercase tracking-widest block mb-2">Adasarhanlı'da Sınırda Doğal Yetiştiricilik</span>
+        <h2 class="text-3xl sm:text-4xl font-serif font-bold text-ada-dark mb-4">
+          Meriç Nehri Alüvyal Havzası'nda <br>Doğal ve Modern Hayvancılık
+        </h2>
+        <p class="text-gray-600 leading-relaxed text-sm sm:text-base">
+          Ada Çiftliği, Edirne'nin Meriç ilçesine bağlı, Türkiye-Yunanistan sınırının sıfır noktasındaki <strong>Adasarhanlı Köyü'nde</strong> kurulmuştur. Meriç Nehri'nin oluşturduğu alüvyal taban arazisi, mikroklimal iklim şartları ve zengin çayır florası, çiftliğimizin hayvancılık altyapısının temelini oluşturur.
+        </p>
+      </div>
+
+      <!-- Akış Şeması (Mobil Uyumlu) -->
+      <div class="mb-12 sm:mb-16 bg-ada-cream p-5 sm:p-8 md:p-10 rounded-3xl border border-gray-200 shadow-sm">
+        <h4 class="text-xs font-bold uppercase tracking-widest text-gray-500 text-center mb-8">Ekolojik Üretim Döngümüz</h4>
+        
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+          
+          <div class="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm text-center flow-step-arrow">
+            <div class="w-12 h-12 mx-auto rounded-full bg-emerald-50 text-ada-primary flex items-center justify-center text-xl mb-3">
+              <i class="fa-solid fa-mountain-sun"></i>
+            </div>
+            <h4 class="font-bold text-gray-900 text-base mb-1">Doğu Trakya Yontukdüzü</h4>
+            <p class="text-xs text-gray-500 leading-relaxed">Özel mikroklimal iklim ve zengin doğal bitki örtüsü</p>
+          </div>
+
+          <div class="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm text-center flow-step-arrow">
+            <div class="w-12 h-12 mx-auto rounded-full bg-sky-50 text-sky-700 flex items-center justify-center text-xl mb-3">
+              <i class="fa-solid fa-water"></i>
+            </div>
+            <h4 class="font-bold text-gray-900 text-base mb-1">Meriç Nehri Alüvyal Ovası</h4>
+            <p class="text-xs text-gray-500 leading-relaxed">Mineralce zengin taban suyu ve verimli taşkın ovası toprakları</p>
+          </div>
+
+          <div class="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm text-center flow-step-arrow">
+            <div class="w-12 h-12 mx-auto rounded-full bg-amber-50 text-amber-700 flex items-center justify-center text-xl mb-3">
+              <i class="fa-solid fa-wheat-awn"></i>
+            </div>
+            <h4 class="font-bold text-gray-900 text-base mb-1">Temiz Sulama & Doğal Yem</h4>
+            <p class="text-xs text-gray-500 leading-relaxed">Sanayi atıklarından uzak, temiz suyla sulanan yonca ve mısır silajı</p>
+          </div>
+
+          <div class="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm text-center flow-step-arrow">
+            <div class="w-12 h-12 mx-auto rounded-full bg-emerald-100 text-ada-emerald flex items-center justify-center text-xl mb-3">
+              <i class="fa-solid fa-shield-heart"></i>
+            </div>
+            <h4 class="font-bold text-ada-primary text-base mb-1">Sağlıklı Besi</h4>
+            <p class="text-xs text-gray-500 leading-relaxed">Yüksek randımanlı, lezzetli ve mermerimsi karkas et kalitesi</p>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Ekolojik ve Coğrafi Avantajımız: Temiz Su ve Güvenilir Yem -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+        
+        <div class="lg:col-span-7">
+          <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-sky-100 text-sky-800 text-xs font-bold mb-4">
+            <i class="fa-solid fa-droplet"></i> Ekolojik ve Coğrafi Avantajımız
+          </div>
+          <h3 class="text-2xl sm:text-3xl font-serif font-bold text-ada-dark mb-4">
+            Temiz Su ve Güvenilir Yem: <br>Ergene Kirliliğinden Uzak, Doğrudan Meriç
+          </h3>
+          <p class="text-gray-600 leading-relaxed text-sm mb-6">
+            Bölgedeki sanayi kirliliği taşıyan Ergene Nehri hattının aksine, <strong>Adasarhanlı'daki tarım ve hayvancılık tesislerimiz doğrudan Meriç Nehri'nden çekilen temiz sulama suyundan faydalanmaktadır.</strong>
+          </p>
+
+          <div class="space-y-4">
+            <div class="flex items-start gap-4 p-4 rounded-2xl bg-emerald-50/70 border border-emerald-100">
+              <div class="w-9 h-9 rounded-xl bg-ada-emerald text-white flex items-center justify-center shrink-0 mt-0.5">
+                <i class="fa-solid fa-leaf text-sm"></i>
+              </div>
+              <div>
+                <h4 class="font-bold text-ada-dark text-sm">Kimyasal ve Ağır Metalden Korunmuş Yem Bitkileri</h4>
+                <p class="text-gray-600 text-xs mt-1 leading-relaxed">Yem bitkilerimiz (yonca, fiğ, mısır silajı) ağır metal ve kimyasal atıklardan tamamen korunur.</p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4 p-4 rounded-2xl bg-sky-50/70 border border-sky-100">
+              <div class="w-9 h-9 rounded-xl bg-sky-700 text-white flex items-center justify-center shrink-0 mt-0.5">
+                <i class="fa-solid fa-water-ladder text-sm"></i>
+              </div>
+              <div>
+                <h4 class="font-bold text-ada-dark text-sm">Yüksek Hijyende Hayvan İçme ve Serinleme Suyu</h4>
+                <p class="text-gray-600 text-xs mt-1 leading-relaxed">Hayvanlarımızın içme ve serinleme suyu yüksek mikrobiyolojik hijyen standartlarındadır.</p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4 p-4 rounded-2xl bg-amber-50/70 border border-amber-100">
+              <div class="w-9 h-9 rounded-xl bg-amber-600 text-white flex items-center justify-center shrink-0 mt-0.5">
+                <i class="fa-solid fa-circle-check text-sm"></i>
+              </div>
+              <div>
+                <h4 class="font-bold text-ada-dark text-sm">Sıfır Kalıntı Riski ile Maksimum Gıda Güvenliği</h4>
+                <p class="text-gray-600 text-xs mt-1 leading-relaxed">Et ve süt ürünlerimizde kalıntı riski sıfıra indirilerek tüketiciye gerçek gıda güvenliği sağlanır.</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="lg:col-span-5">
+          <div class="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-white">
+            <img src="images/pasture.webp" alt="Meriç Ovası ve Sulama Kanalları" class="w-full h-[400px] object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-ada-dark/85 via-transparent to-transparent flex flex-col justify-end p-6 text-white">
+              <div class="text-[11px] uppercase tracking-widest text-amber-300 font-bold mb-1">Adasarhanlı Köyü • Meriç / Edirne</div>
+              <h4 class="text-lg font-serif font-bold text-white">Sınırın Sıfır Noktasında Saf Doğa</h4>
+              <p class="text-xs text-gray-200 mt-1 leading-relaxed">Sanayi tesislerinden kilometrelerce uzakta, tertemiz hava ve bereketli su havzası.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- BESİ HAYVANCILIĞI (ANA HİZMETİMİZ / CORE FOCUS) -->
+  <section id="besi" class="py-20 bg-ada-cream">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <div class="inline-block px-3.5 py-1 rounded-full bg-ada-primary text-white text-xs font-bold uppercase tracking-wider mb-3">
+          Ana Hizmetimiz & Uzmanlık Alanımız
+        </div>
+        <h2 class="text-3xl sm:text-4xl font-serif font-bold text-ada-dark mb-4">
+          Etçi Sığır Irkları: Simental & Şarole
+        </h2>
+        <p class="text-gray-600 leading-relaxed text-sm sm:text-base">
+          Besi tesisimizde et verimi, günlük canlı ağırlık artışı (GCAA) ve karkas kalitesi en yüksek düzeyde olan etçi ırklarımız <strong>Simental</strong> ve <strong>Şarole</strong> ile profesyonel yetiştiricilik yürütülmektedir.
+        </p>
+      </div>
+
+      <!-- Irk Seçimi ve Özellikleri -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
+        
+        <!-- Simental -->
+        <div class="bg-white rounded-3xl overflow-hidden shadow-sm border border-gray-200 card-hover flex flex-col justify-between">
+          <div>
+            <div class="h-64 relative overflow-hidden">
+              <img src="images/simental_bull.jpg" alt="Safkan Simental (Fleckvieh) Besi Boğası" class="w-full h-full object-cover">
+              <div class="absolute top-4 left-4 bg-ada-primary/95 text-white text-xs font-bold px-3.5 py-1.5 rounded-xl shadow">
+                Kombine Etçi Irk
+              </div>
+            </div>
+            <div class="p-8">
+              <h3 class="text-2xl font-serif font-bold text-ada-dark mb-3">Simental (Fleckvieh)</h3>
+              <p class="text-gray-600 text-sm leading-relaxed mb-6">
+                Yüksek kas gelişimi, güçlü kemik yapısı ve mükemmel mermerleşme kabiliyeti. Meriç taşkın ovasının kaba yemlerini yüksek oranda ete dönüştüren, Trakya iklimine tam uyumlu güçlü bünye.
+              </p>
+              <div class="space-y-2.5 text-xs text-gray-700">
+                <div class="flex items-center gap-2.5">
+                  <i class="fa-solid fa-circle-check text-ada-emerald text-sm"></i>
+                  <span>Yüksek günlük canlı ağırlık artışı (1.400 - 1.700 gr/gün)</span>
+                </div>
+                <div class="flex items-center gap-2.5">
+                  <i class="fa-solid fa-circle-check text-ada-emerald text-sm"></i>
+                  <span>Geniş sırt ve but kas yapısı, dengeli yağ dağılımı</span>
+                </div>
+                <div class="flex items-center gap-2.5">
+                  <i class="fa-solid fa-circle-check text-ada-emerald text-sm"></i>
+                  <span>Trakya bölgesinin iklim ve mera koşullarına %100 adaptasyon</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="px-8 py-4 bg-gray-50 border-t border-gray-100 flex items-center justify-between">
+            <span class="text-xs text-gray-500 font-semibold uppercase tracking-wider">Karkas Randımanı:</span>
+            <span class="text-sm font-bold text-ada-primary bg-emerald-100/70 text-emerald-900 px-3 py-1 rounded-lg">%58 - %61 Randıman</span>
+          </div>
+        </div>
+
+        <!-- Şarole (Charolais) -->
+        <div class="bg-white rounded-3xl overflow-hidden shadow-sm border border-gray-200 card-hover flex flex-col justify-between">
+          <div>
+            <div class="h-64 relative overflow-hidden">
+              <img src="images/charolais_bull.jpg" alt="Safkan Şarole (Charolais) Besi Danası" class="w-full h-full object-cover">
+              <div class="absolute top-4 left-4 bg-amber-700/95 text-white text-xs font-bold px-3.5 py-1.5 rounded-xl shadow">
+                Safkan Etçi Genetik
+              </div>
+            </div>
+            <div class="p-8">
+              <h3 class="text-2xl font-serif font-bold text-ada-dark mb-3">Şarole (Charolais)</h3>
+              <p class="text-gray-600 text-sm leading-relaxed mb-6">
+                Dünyanın en yüksek et verimine sahip etçi sığır ırklarından biri. İnce kemik yapısı, derin göğüs ve olağanüstü but dolgunluğu ile karkas randımanında zirve performans.
+              </p>
+              <div class="space-y-2.5 text-xs text-gray-700">
+                <div class="flex items-center gap-2.5">
+                  <i class="fa-solid fa-circle-check text-ada-emerald text-sm"></i>
+                  <span>Mükemmel yemden yararlanma ve hızlı yağsız kas gelişimi</span>
+                </div>
+                <div class="flex items-center gap-2.5">
+                  <i class="fa-solid fa-circle-check text-ada-emerald text-sm"></i>
+                  <span>İnce kemik çatısı sayesinde rekor değerli parça et randımanı</span>
+                </div>
+                <div class="flex items-center gap-2.5">
+                  <i class="fa-solid fa-circle-check text-ada-emerald text-sm"></i>
+                  <span>Gastronomi ve butik kasaplar için birinci sınıf lezzet ve yumuşaklık</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="px-8 py-4 bg-gray-50 border-t border-gray-100 flex items-center justify-between">
+            <span class="text-xs text-gray-500 font-semibold uppercase tracking-wider">Karkas Randımanı:</span>
+            <span class="text-sm font-bold text-amber-900 bg-amber-100/70 px-3 py-1 rounded-lg">%60 - %64 Randıman</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ÖZEL BESLEME RASYONU VE MERA ENTEGRASYONU TABLOSU (Responsive: Mobilde Kartlar, Masaüstünde Tablo) -->
+      <div class="bg-white rounded-3xl p-5 sm:p-8 md:p-10 shadow-sm border border-gray-200 mb-12 sm:mb-16">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 sm:mb-8">
+          <div>
+            <span class="text-ada-emerald text-xs font-bold uppercase tracking-widest block mb-1">Veteriner Zooteknist Gözetiminde</span>
+            <h3 class="text-xl sm:text-2xl md:text-3xl font-serif font-bold text-ada-dark">Özel Besleme Rasyonu ve Mera Entegrasyonu</h3>
+            <p class="text-gray-500 text-xs sm:text-sm mt-1">Besi danalarımızın beslenme programı 3 aşamalı olarak planlanıp uygulanmaktadır.</p>
+          </div>
+          <div class="self-start md:self-auto shrink-0 flex items-center gap-2 bg-emerald-50 text-ada-emerald px-3.5 py-2 rounded-xl text-xs font-semibold border border-emerald-200">
+            <i class="fa-solid fa-wheat-awn"></i> Tamamen Doğal Kaba Yem ve Tahıl
+          </div>
+        </div>
+
+        <!-- Masaüstü & Tablet Tablo Görünümü -->
+        <div class="hidden md:block overflow-x-auto">
+          <table class="w-full text-left border-collapse table-ration">
+            <thead>
+              <tr class="border-b-2 border-ada-primary/20 text-ada-dark text-xs uppercase tracking-wider bg-ada-cream">
+                <th class="py-4 px-6 rounded-l-2xl">Besi Aşaması</th>
+                <th class="py-4 px-6">Rasyon İçeriği</th>
+                <th class="py-4 px-6 rounded-r-2xl">Temel Avantajı</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-100 text-sm">
+              
+              <tr>
+                <td class="py-6 px-6 font-bold text-ada-dark align-top">
+                  <div class="flex items-center gap-3">
+                    <span class="w-8 h-8 rounded-full bg-emerald-100 text-ada-primary flex items-center justify-center font-bold text-xs shrink-0">1</span>
+                    <div>
+                      Adaptasyon Dönemi
+                      <span class="block text-xs font-normal text-gray-500 mt-0.5">İlk 30 Gün</span>
+                    </div>
+                  </div>
+                </td>
+                <td class="py-6 px-6 text-gray-700 leading-relaxed align-top">
+                  Meriç çayır otu, kaliteli kuru yonca, sindirim düzenleyici maya ve mineral dengesi.
+                </td>
+                <td class="py-6 px-6 text-emerald-900 font-medium leading-relaxed align-top bg-emerald-50/40 rounded-r-xl">
+                  İşkembe (rumen) adaptasyonu ve nakil/yer değişikliği stresinin önlenmesi.
+                </td>
+              </tr>
+
+              <tr>
+                <td class="py-6 px-6 font-bold text-ada-dark align-top">
+                  <div class="flex items-center gap-3">
+                    <span class="w-8 h-8 rounded-full bg-sky-100 text-sky-800 flex items-center justify-center font-bold text-xs shrink-0">2</span>
+                    <div>
+                      Gelişme Dönemi
+                      <span class="block text-xs font-normal text-gray-500 mt-0.5">Büyüme & Kas Gelişimi</span>
+                    </div>
+                  </div>
+                </td>
+                <td class="py-6 px-6 text-gray-700 leading-relaxed align-top">
+                  Yonca, mısır silajı, fiğ ve çeltik hasadı sonrası anız otlatması entegrasyonu.
+                </td>
+                <td class="py-6 px-6 text-sky-900 font-medium leading-relaxed align-top bg-sky-50/40 rounded-r-xl">
+                  İskelet ve kas dokusu gelişimi, sindirim kapasitesinin en üst düzeye çıkarılması.
+                </td>
+              </tr>
+
+              <tr>
+                <td class="py-6 px-6 font-bold text-ada-dark align-top">
+                  <div class="flex items-center gap-3">
+                    <span class="w-8 h-8 rounded-full bg-amber-100 text-amber-800 flex items-center justify-center font-bold text-xs shrink-0">3</span>
+                    <div>
+                      Bitirme (Cila) Dönemi
+                      <span class="block text-xs font-normal text-gray-500 mt-0.5">Son 60-90 Gün</span>
+                    </div>
+                  </div>
+                </td>
+                <td class="py-6 px-6 text-gray-700 leading-relaxed align-top">
+                  Özel kesif yem rasyonu, yerli arpa/mısır kırması ve kaliteli lifli kaba yem.
+                </td>
+                <td class="py-6 px-6 text-amber-900 font-medium leading-relaxed align-top bg-amber-50/40 rounded-r-xl">
+                  Mermerimsi yağ tutumu, yumuşak doku ve üst düzey lezzetli et yapısı.
+                </td>
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Mobil Kartlar Görünümü (Akıllı Telefonlar İçin Kolay Okunur) -->
+        <div class="block md:hidden space-y-4">
+          
+          <div class="p-4 rounded-2xl bg-emerald-50/60 border border-emerald-200/80">
+            <div class="flex items-center gap-2.5 mb-2.5">
+              <span class="w-7 h-7 rounded-full bg-ada-primary text-white flex items-center justify-center font-bold text-xs">1</span>
+              <div>
+                <h4 class="font-bold text-sm text-ada-dark">Adaptasyon Dönemi</h4>
+                <span class="text-[11px] text-gray-500 font-medium">İlk 30 Gün</span>
+              </div>
+            </div>
+            <p class="text-xs text-gray-700 leading-relaxed mb-2.5">
+              <strong>Rasyon:</strong> Meriç çayır otu, kaliteli kuru yonca, sindirim düzenleyici maya ve mineral dengesi.
+            </p>
+            <div class="p-2.5 rounded-xl bg-white border border-emerald-200 text-xs text-emerald-900 font-medium leading-snug">
+              ✨ <strong>Avantaj:</strong> İşkembe (rumen) adaptasyonu ve nakil stresinin önlenmesi.
+            </div>
+          </div>
+
+          <div class="p-4 rounded-2xl bg-sky-50/60 border border-sky-200/80">
+            <div class="flex items-center gap-2.5 mb-2.5">
+              <span class="w-7 h-7 rounded-full bg-sky-700 text-white flex items-center justify-center font-bold text-xs">2</span>
+              <div>
+                <h4 class="font-bold text-sm text-ada-dark">Gelişme Dönemi</h4>
+                <span class="text-[11px] text-gray-500 font-medium">Büyüme & Kas Gelişimi</span>
+              </div>
+            </div>
+            <p class="text-xs text-gray-700 leading-relaxed mb-2.5">
+              <strong>Rasyon:</strong> Yonca, mısır silajı, fiğ ve çeltik hasadı sonrası anız otlatması entegrasyonu.
+            </p>
+            <div class="p-2.5 rounded-xl bg-white border border-sky-200 text-xs text-sky-900 font-medium leading-snug">
+              ✨ <strong>Avantaj:</strong> İskelet ve kas dokusu gelişimi, sindirim kapasitesi artışı.
+            </div>
+          </div>
+
+          <div class="p-4 rounded-2xl bg-amber-50/60 border border-amber-200/80">
+            <div class="flex items-center gap-2.5 mb-2.5">
+              <span class="w-7 h-7 rounded-full bg-amber-700 text-white flex items-center justify-center font-bold text-xs">3</span>
+              <div>
+                <h4 class="font-bold text-sm text-ada-dark">Bitirme (Cila) Dönemi</h4>
+                <span class="text-[11px] text-gray-500 font-medium">Son 60-90 Gün</span>
+              </div>
+            </div>
+            <p class="text-xs text-gray-700 leading-relaxed mb-2.5">
+              <strong>Rasyon:</strong> Özel kesif yem rasyonu, yerli arpa/mısır kırması ve kaliteli lifli kaba yem.
+            </p>
+            <div class="p-2.5 rounded-xl bg-white border border-amber-200 text-xs text-amber-900 font-medium leading-snug">
+              ✨ <strong>Avantaj:</strong> Mermerimsi yağ tutumu, yumuşak doku ve eşsiz lezzet.
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- NEDEN ADA ÇİFTLİĞİ BESİ DANASI? (4 Avantaj Kartı) -->
+      <div class="text-center max-w-2xl mx-auto mb-10">
+        <h3 class="text-2xl sm:text-3xl font-serif font-bold text-ada-dark mb-2">Neden Ada Çiftliği Besi Danası?</h3>
+        <p class="text-gray-500 text-sm">Bizi Trakya'nın en güvenilir besi tesislerinden biri yapan temel prensiplerimiz.</p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        
+        <div class="bg-white p-7 rounded-3xl border border-gray-200 shadow-sm card-hover">
+          <div class="w-12 h-12 rounded-2xl bg-red-50 text-red-600 flex items-center justify-center text-xl mb-4">
+            <i class="fa-solid fa-stethoscope"></i>
+          </div>
+          <h4 class="font-bold text-gray-900 mb-2">Düzenli Sağlık Taraması</h4>
+          <p class="text-xs text-gray-600 leading-relaxed">
+            Şap (SAT-1 dahil) ve biyolojik risklere karşı eksiksiz aşı takvimi ve periyodik veteriner kontrolleri.
+          </p>
+        </div>
+
+        <div class="bg-white p-7 rounded-3xl border border-gray-200 shadow-sm card-hover">
+          <div class="w-12 h-12 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center text-xl mb-4">
+            <i class="fa-solid fa-scale-balanced"></i>
+          </div>
+          <h4 class="font-bold text-gray-900 mb-2">Rasyonel Ağırlık Takibi</h4>
+          <p class="text-xs text-gray-600 leading-relaxed">
+            Dijital kantarlarla aylık canlı ağırlık artışı izleme ve rasyon verimlilik raporlaması.
+          </p>
+        </div>
+
+        <div class="bg-white p-7 rounded-3xl border border-gray-200 shadow-sm card-hover">
+          <div class="w-12 h-12 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center text-xl mb-4">
+            <i class="fa-solid fa-drumstick-bite"></i>
+          </div>
+          <h4 class="font-bold text-gray-900 mb-2">Mermerimsi Yağ Dağılımı</h4>
+          <p class="text-xs text-gray-600 leading-relaxed">
+            Yüksek lezzet, yumuşak lif dokusu ve pişirmede suyunu koruyan üstün kalite karkas.
+          </p>
+        </div>
+
+        <div class="bg-white p-7 rounded-3xl border border-gray-200 shadow-sm card-hover">
+          <div class="w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-xl mb-4">
+            <i class="fa-solid fa-truck-moving"></i>
+          </div>
+          <h4 class="font-bold text-gray-900 mb-2">Toptan ve Perakende Satış</h4>
+          <p class="text-xs text-gray-600 leading-relaxed">
+            Kasaplar, et entegre tesisleri ve kurbanlık alıcıları için adrese teslim veya çiftlikten teslim imkanı.
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SÜT SIĞIRCILIĞI (DAIRY CATTLE) -->
+  <section id="sut" class="py-20 bg-white border-t border-b border-gray-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        
+        <div class="lg:col-span-5 order-2 lg:order-1">
+          <div class="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-white">
+            <img src="images/inek.webp" alt="Safkan Holstein Süt Sığırcılığı ve Çiğ Süt Üretimi" class="w-full h-[450px] object-cover">
+            <div class="absolute bottom-6 left-6 right-6 bg-white/95 backdrop-blur-md p-5 rounded-2xl border border-gray-100 shadow-xl">
+              <div class="flex items-center justify-between text-xs font-semibold text-ada-dark mb-2">
+                <span class="flex items-center gap-2">
+                  <i class="fa-solid fa-snowflake text-sky-500"></i> Soğutma Standardı:
+                </span>
+                <span class="text-sky-700 font-bold bg-sky-50 px-2.5 py-1 rounded">+4°C Anında Şoklama</span>
+              </div>
+              <div class="flex items-center justify-between text-xs font-semibold text-ada-dark">
+                <span class="flex items-center gap-2">
+                  <i class="fa-solid fa-hands-bubbles text-emerald-500"></i> Hijyen Güvencesi:
+                </span>
+                <span class="text-emerald-700 font-bold bg-emerald-50 px-2.5 py-1 rounded">El Değmeden Sağım</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="lg:col-span-7 order-1 lg:order-2">
+          <div class="inline-block px-3.5 py-1 rounded-full bg-sky-100 text-sky-800 text-xs font-bold uppercase tracking-wider mb-3">
+            Sütçü Irkımız: Safkan Holstein
+          </div>
+          <h2 class="text-3xl sm:text-4xl font-serif font-bold text-ada-dark mb-4">
+            Holstein Süt Sığırcılığı & Günlük Çiğ Süt
+          </h2>
+          <p class="text-gray-600 leading-relaxed text-sm sm:text-base mb-8">
+            Çiftliğimizde sütçü ırk olarak, yüksek genetik kapasiteye ve üstün laktasyon verimine sahip <strong>safkan Holstein (Siyah Alaca)</strong> ineklerimizle hijyenik ve katkısız günlük çiğ süt üretimi gerçekleştirilmektedir.
+          </p>
+
+          <div class="space-y-5 mb-8">
+            <div class="flex items-start gap-4 p-4 rounded-2xl bg-gray-50 border border-gray-100">
+              <div class="w-10 h-10 rounded-xl bg-sky-100 text-sky-700 flex items-center justify-center shrink-0 mt-0.5">
+                <i class="fa-solid fa-temperature-arrow-down text-base"></i>
+              </div>
+              <div>
+                <h4 class="font-bold text-gray-900 text-sm">Otomatik Sağım & Soğutma</h4>
+                <p class="text-gray-600 text-xs mt-1 leading-relaxed">Sağımhaneden el değmeden alınan sütler, anında +4°C soğutma tanklarına aktarılır.</p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4 p-4 rounded-2xl bg-gray-50 border border-gray-100">
+              <div class="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0 mt-0.5">
+                <i class="fa-solid fa-vial-circle-check text-base"></i>
+              </div>
+              <div>
+                <h4 class="font-bold text-gray-900 text-sm">Yüksek Yağ ve Protein Oranı</h4>
+                <p class="text-gray-600 text-xs mt-1 leading-relaxed">Doğal kaba yem ve kaliteli silaj kullanımı sayesinde yüksek kuru madde ve somatik hücre kontrolü sağlanır.</p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4 p-4 rounded-2xl bg-gray-50 border border-gray-100">
+              <div class="w-10 h-10 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center shrink-0 mt-0.5">
+                <i class="fa-solid fa-truck text-base"></i>
+              </div>
+              <div>
+                <h4 class="font-bold text-gray-900 text-sm">Bölgesel Süt Ağlarına Tedarik</h4>
+                <p class="text-gray-600 text-xs mt-1 leading-relaxed">Günlük taze ve soğutulmuş çiğ süt sevkiyatı yerel mandıralara ve anlaşmalı süt işletmelerine ulaştırılır.</p>
+              </div>
+            </div>
+          </div>
+
+          <a href="#iletisim-rezervasyon" class="inline-flex items-center gap-2 text-sm font-bold text-ada-emerald hover:text-ada-primary transition-colors">
+            <span>Çiğ Süt Tedarik Talebi Gönderin</span>
+            <i class="fa-solid fa-arrow-right-long"></i>
+          </a>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- KIVIRCIK & MERİNOS KOYUNCULUĞU (SHEEP BREEDING) -->
+  <section id="koyunculuk" class="py-20 bg-ada-cream">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <div class="inline-block px-3.5 py-1 rounded-full bg-amber-100 text-amber-900 text-xs font-bold uppercase tracking-wider mb-3">
+          Tescilli Bölgesel Irklarımız
+        </div>
+        <h2 class="text-3xl sm:text-4xl font-serif font-bold text-ada-dark mb-4">
+          Kıvırcık ve Merinos Koyunculuğu
+        </h2>
+        <p class="text-gray-600 leading-relaxed text-sm sm:text-base">
+          Trakya coğrafyasının simgesi olan coğrafi işaretli <strong>Trakya Kıvırcık Koyunu</strong> ile et ve döl veriminde lider <strong>Anadolu Merinosu</strong> ırklarımızla zengin mera yetiştiriciliği yürütmekteyiz.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+        
+        <!-- Özellik 1: Trakya Kıvırcık Irkı -->
+        <div class="bg-white rounded-3xl overflow-hidden border border-gray-200 shadow-sm card-hover flex flex-col justify-between">
+          <div>
+            <div class="h-56 relative overflow-hidden">
+              <img src="images/kivircik.webp" alt="Trakya Kıvırcık Koyun ve Koç Sürüsü" class="w-full h-full object-cover">
+              <div class="absolute top-4 left-4 bg-amber-600/95 text-white text-xs font-bold px-3 py-1.5 rounded-xl shadow">
+                Coğrafi İşaretli Irk
+              </div>
+            </div>
+            <div class="p-6 sm:p-7">
+              <h3 class="text-xl font-serif font-bold text-ada-dark mb-3">Trakya Kıvırcık Irkı</h3>
+              <p class="text-gray-600 text-sm leading-relaxed mb-4">
+                Coğrafi işaret tescilli, kuyruksuz ve ince kuyruklu yapısıyla yağın kas lifleri arasına homojen dağıldığı, <strong>kokusuz, yumuşak ve lokum kıvamında</strong> eşsiz et kalitesine sahip safkan ırkımız.
+              </p>
+            </div>
+          </div>
+          <div class="px-6 sm:px-7 py-4 bg-gray-50 border-t border-gray-100 text-xs font-bold text-ada-emerald flex items-center gap-1.5">
+            <i class="fa-solid fa-check"></i> İnce Kuyruk & Kokusuz Lezzet
+          </div>
+        </div>
+
+        <!-- Özellik 2: Anadolu Merinosu Irkı -->
+        <div class="bg-white rounded-3xl overflow-hidden border border-gray-200 shadow-sm card-hover flex flex-col justify-between">
+          <div>
+            <div class="h-56 relative overflow-hidden">
+              <img src="images/merino_sheep.jpg" alt="Anadolu Merinosu Damızlık Koç ve Koyun" class="w-full h-full object-cover">
+              <div class="absolute top-4 left-4 bg-ada-primary/95 text-white text-xs font-bold px-3 py-1.5 rounded-xl shadow">
+                Yüksek Et & Döl Verimi
+              </div>
+            </div>
+            <div class="p-6 sm:p-7">
+              <h3 class="text-xl font-serif font-bold text-ada-dark mb-3">Anadolu Merinosu Irkı</h3>
+              <p class="text-gray-600 text-sm leading-relaxed mb-4">
+                İri gövde yapısı, hızlı günlük canlı ağırlık artışı, yüksek ikizlik oranı ve yüksek karkas et randımanı ile öne çıkan, etçi küçükbaş yetiştiriciliğimizin güçlü damızlık dayanağı.
+              </p>
+            </div>
+          </div>
+          <div class="px-6 sm:px-7 py-4 bg-gray-50 border-t border-gray-100 text-xs font-bold text-ada-emerald flex items-center gap-1.5">
+            <i class="fa-solid fa-check"></i> Yüksek Canlı Ağırlık & Randıman
+          </div>
+        </div>
+
+        <!-- Özellik 3: Mera ve Çeltik Anızı Otlatması -->
+        <div class="bg-white rounded-3xl overflow-hidden border border-gray-200 shadow-sm card-hover flex flex-col justify-between">
+          <div>
+            <div class="h-56 relative overflow-hidden">
+              <img src="images/kuzu.webp" alt="Mera ve Çeltik Anızında Otlayan Kuzular" class="w-full h-full object-cover">
+              <div class="absolute top-4 left-4 bg-sky-700/95 text-white text-xs font-bold px-3 py-1.5 rounded-xl shadow">
+                Mera & Çeltik Yayılımı
+              </div>
+            </div>
+            <div class="p-6 sm:p-7">
+              <h3 class="text-xl font-serif font-bold text-ada-dark mb-3">Mera & Çeltik Anızı Yayılımı</h3>
+              <p class="text-gray-600 text-sm leading-relaxed mb-4">
+                İlkbaharda Meriç Nehri havzasındaki kekikli taze mera otlaklarında, sonbaharda ise hasat sonrası çeltik tavalarında (anızlarda) serbest dolaşımla tamamen doğal ve aromatik besleme.
+              </p>
+            </div>
+          </div>
+          <div class="px-6 sm:px-7 py-4 bg-gray-50 border-t border-gray-100 text-xs font-bold text-ada-emerald flex items-center gap-1.5">
+            <i class="fa-solid fa-check"></i> Meriç Meraları & Çeltik Tavaları
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Bilgi Paneli (Mobil Uyumlu) -->
+      <div class="bg-gradient-to-r from-ada-primary to-ada-emerald text-white p-6 sm:p-8 md:p-10 rounded-3xl shadow-xl flex flex-col lg:flex-row items-center justify-between gap-6">
+        <div class="flex flex-col sm:flex-row items-center sm:items-start gap-4 sm:gap-6 text-center sm:text-left">
+          <div class="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-white/10 flex items-center justify-center text-3xl shrink-0">
+            🐑
+          </div>
+          <div>
+            <h4 class="text-xl sm:text-2xl font-serif font-bold">Kıvırcık & Merinos Kuzu ve Damızlık Talebi</h4>
+            <p class="text-gray-200 text-xs sm:text-sm mt-1 leading-relaxed">Damızlık koç seçimi, kurbanlık kuzu veya toptan kasaplık karkas siparişleriniz için doğrudan rezerve edebilirsiniz.</p>
+          </div>
+        </div>
+        <a href="#iletisim-rezervasyon" class="btn-touch w-full sm:w-auto text-center bg-ada-gold hover:bg-white hover:text-ada-dark text-ada-dark font-bold px-8 py-3.5 rounded-xl text-xs uppercase tracking-wider transition-all duration-300 shrink-0 shadow-lg">
+          Kuzu / Koç Rezerve Et
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- BİYO-GÜVENLİK, AŞI TAKTİĞİ VE EKOLOJİ -->
+  <section id="biyoguvenlik" class="py-20 bg-white border-t border-b border-gray-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <div class="inline-block px-3.5 py-1 rounded-full bg-red-100 text-red-800 text-xs font-bold uppercase tracking-wider mb-3">
+          Avrupa Birliği Standartlarında Güvence
+        </div>
+        <h2 class="text-3xl sm:text-4xl font-serif font-bold text-ada-dark mb-4">
+          Biyo-Güvenlik ve Ekoloji
+        </h2>
+        <p class="text-gray-600 leading-relaxed text-sm sm:text-base">
+          Trakya bölgesi, Avrupa Birliği standartlarında <strong>Şap Hastalığından Aşılı Arilik</strong> statüsüne sahiptir. Ada Çiftliği olarak bu statünün korunması için tavizsiz biyo-güvenlik kuralları uyguluyoruz.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+        
+        <!-- Biyo-Güvenlik 1 -->
+        <div class="bg-ada-cream p-8 rounded-3xl border border-gray-200 shadow-sm flex flex-col justify-between">
+          <div>
+            <div class="w-14 h-14 rounded-2xl bg-emerald-100 text-ada-primary flex items-center justify-center text-2xl mb-6">
+              <i class="fa-solid fa-shower"></i>
+            </div>
+            <h3 class="text-xl font-serif font-bold text-ada-dark mb-3">Giriş-Çıkış Dezenfeksiyonu</h3>
+            <p class="text-gray-600 text-sm leading-relaxed mb-4">
+              Çiftlik araç girişlerinde araç yıkama ve havuz dezenfeksiyonu uygulanır. Ziyaretçi ve personel hijyen tünelinden geçirilmeden çiftlik avlusuna ve barınaklara alınmaz.
+            </p>
+          </div>
+          <div class="pt-4 border-t border-gray-200 text-xs font-semibold text-gray-500">
+            ✓ Otomatik Tekerlek ve Ayak Dezenfeksiyonu
+          </div>
+        </div>
+
+        <!-- Biyo-Güvenlik 2 -->
+        <div class="bg-ada-cream p-8 rounded-3xl border border-gray-200 shadow-sm flex flex-col justify-between">
+          <div>
+            <div class="w-14 h-14 rounded-2xl bg-sky-100 text-sky-800 flex items-center justify-center text-2xl mb-6">
+              <i class="fa-solid fa-mosquito"></i>
+            </div>
+            <h3 class="text-xl font-serif font-bold text-ada-dark mb-3">Vektör Sinekle Mücadele</h3>
+            <p class="text-gray-600 text-sm leading-relaxed mb-4">
+              Sulak alan ve çeltik tarlaları yakınlığı sebebiyle <strong>Culicoides sineklerine (Mavi Dil taşıyıcıları)</strong> karşı periyodik larvasit, sisleme ve biyolojik mücadele aralıksız sürdürülür.
+            </p>
+          </div>
+          <div class="pt-4 border-t border-gray-200 text-xs font-semibold text-gray-500">
+            ✓ Culicoides & Mavi Dil Önleme Protokolü
+          </div>
+        </div>
+
+        <!-- Biyo-Güvenlik 3 -->
+        <div class="bg-ada-cream p-8 rounded-3xl border border-gray-200 shadow-sm flex flex-col justify-between">
+          <div>
+            <div class="w-14 h-14 rounded-2xl bg-amber-100 text-amber-800 flex items-center justify-center text-2xl mb-6">
+              <i class="fa-solid fa-syringe"></i>
+            </div>
+            <h3 class="text-xl font-serif font-bold text-ada-dark mb-3">Aşılama ve Karantina</h3>
+            <p class="text-gray-600 text-sm leading-relaxed mb-4">
+              Tüm büyükbaş ve küçükbaş sürümüz Şap, Mavi Dil ve Brucella aşıları ile koruma altındadır. Sürüye dışarıdan dahil edilen tüm canlılar 21 günlük karantina sürecine tabi tutulur.
+            </p>
+          </div>
+          <div class="pt-4 border-t border-gray-200 text-xs font-semibold text-gray-500">
+            ✓ Eksiksiz Aşı Takvimi & Karantina Ünitesi
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Önemli Not Banner -->
+      <div class="p-6 rounded-2xl bg-emerald-50 border border-emerald-200 flex flex-col sm:flex-row items-start sm:items-center gap-4 text-xs sm:text-sm text-emerald-950">
+        <div class="w-10 h-10 rounded-xl bg-ada-emerald text-white flex items-center justify-center text-xl shrink-0">
+          <i class="fa-solid fa-shield-halved"></i>
+        </div>
+        <div class="leading-relaxed">
+          <strong>Trakya'nın Hastalıktan Ari Statüsü Güvencesi:</strong> Trakya bölgesi, Şap hastalığından aşılı arilik statüsüyle korunmakta olup Anadolu'dan kontrolsüz canlı hayvan girişine kapalıdır. Çiftliğimiz bu yüksek güvencenin taşıyıcısıdır.
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- İLETİŞİM VE BESİ SİPARİŞİ (CONTACT) -->
+  <section id="iletisim-rezervasyon" class="py-20 bg-ada-cream">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <div class="inline-block px-3.5 py-1 rounded-full bg-ada-primary text-white text-xs font-bold uppercase tracking-wider mb-3">
+          Besi & Kurbanlık Bilgi Formu
+        </div>
+        <h2 class="text-3xl sm:text-4xl font-serif font-bold text-ada-dark mb-4">
+          İletişim ve Besi Siparişi
+        </h2>
+        <p class="text-gray-600 leading-relaxed text-sm sm:text-base">
+          Canlı besi danası satışı, kurbanlık rezervasyonu, taze çiğ süt veya damızlık Kıvırcık kuzu talepleriniz için aşağıdaki formu doldurabilirsiniz.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
+        
+        <!-- ONLİNE İLETİŞİM & BESİ SİPARİŞ FORMU (Mobil Uyumlu) -->
+        <div class="lg:col-span-7 bg-white p-5 sm:p-8 md:p-10 rounded-3xl border border-gray-200 shadow-md">
+          <div class="border-b border-gray-100 pb-4 sm:pb-5 mb-5 sm:mb-6">
+            <h3 class="text-xl sm:text-2xl font-serif font-bold text-ada-dark">Ada Çiftliği Besi & Kurbanlık Bilgi Formu</h3>
+            <p class="text-xs text-gray-500 mt-1">Bilgilerinizi iletin, çiftlik yetkilimiz gün içinde sizi bilgilendirsin.</p>
+          </div>
+
+          <form id="order-form" class="space-y-4 sm:space-y-6">
+            
+            <!-- Adınız Soyadınız -->
+            <div>
+              <label for="fullName" class="block text-xs font-bold uppercase tracking-wider text-gray-700 mb-2">Adınız Soyadınız <span class="text-red-500">*</span></label>
+              <div class="relative">
+                <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-gray-400">
+                  <i class="fa-solid fa-user"></i>
+                </span>
+                <input type="text" id="fullName" name="fullName" required placeholder="Ad Soyad giriniz" class="w-full pl-10 pr-4 py-3 sm:py-3.5 border border-gray-300 rounded-xl focus:ring-2 focus:ring-ada-emerald focus:border-ada-emerald text-base sm:text-sm transition-all outline-none">
+              </div>
+            </div>
+
+            <!-- Telefon Numarası -->
+            <div>
+              <label for="phone" class="block text-xs font-bold uppercase tracking-wider text-gray-700 mb-2">Telefon Numarası <span class="text-red-500">*</span></label>
+              <div class="relative">
+                <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-gray-400">
+                  <i class="fa-solid fa-phone"></i>
+                </span>
+                <input type="tel" id="phone" name="phone" required placeholder="0 (5XX) XXX XX XX" class="w-full pl-10 pr-4 py-3 sm:py-3.5 border border-gray-300 rounded-xl focus:ring-2 focus:ring-ada-emerald focus:border-ada-emerald text-base sm:text-sm transition-all outline-none">
+              </div>
+            </div>
+
+            <!-- İlgilendiğiniz Alan -->
+            <div>
+              <label class="block text-xs font-bold uppercase tracking-wider text-gray-700 mb-2.5">İlgilendiğiniz Alan <span class="text-red-500">*</span></label>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 sm:gap-3 text-xs sm:text-sm">
+                
+                <label class="flex items-center gap-3 p-3 sm:p-3.5 border border-gray-200 rounded-xl cursor-pointer hover:bg-emerald-50/60 transition-colors select-none min-h-[48px]">
+                  <input type="radio" name="interest" value="Besi Danası (Simental & Şarole)" checked class="w-4 h-4 text-ada-emerald focus:ring-ada-emerald">
+                  <span class="font-medium text-gray-800">🐂 Besi Danası (Simental & Şarole)</span>
+                </label>
+
+                <label class="flex items-center gap-3 p-3 sm:p-3.5 border border-gray-200 rounded-xl cursor-pointer hover:bg-emerald-50/60 transition-colors select-none min-h-[48px]">
+                  <input type="radio" name="interest" value="Kurbanlık Rezerve (Büyükbaş & Küçükbaş)" class="w-4 h-4 text-ada-emerald focus:ring-ada-emerald">
+                  <span class="font-medium text-gray-800">🥩 Kurbanlık Rezerve</span>
+                </label>
+
+                <label class="flex items-center gap-3 p-3 sm:p-3.5 border border-gray-200 rounded-xl cursor-pointer hover:bg-emerald-50/60 transition-colors select-none min-h-[48px]">
+                  <input type="radio" name="interest" value="Çiğ Süt (Safkan Holstein)" class="w-4 h-4 text-ada-emerald focus:ring-ada-emerald">
+                  <span class="font-medium text-gray-800">🥛 Günlük Çiğ Süt (Holstein)</span>
+                </label>
+
+                <label class="flex items-center gap-3 p-3 sm:p-3.5 border border-gray-200 rounded-xl cursor-pointer hover:bg-emerald-50/60 transition-colors select-none min-h-[48px]">
+                  <input type="radio" name="interest" value="Koyun / Kuzu / Damızlık (Kıvırcık & Merinos)" class="w-4 h-4 text-ada-emerald focus:ring-ada-emerald">
+                  <span class="font-medium text-gray-800">🐑 Kuzu & Damızlık (Kıvırcık & Merinos)</span>
+                </label>
+
+              </div>
+            </div>
+
+            <!-- Talebiniz / Mesajınız -->
+            <div>
+              <label for="message" class="block text-xs font-bold uppercase tracking-wider text-gray-700 mb-2">Talebiniz / Mesajınız</label>
+              <textarea id="message" name="message" rows="3" placeholder="İstediğiniz tahmini hayvan adedi, karkas/canlı kilo tercihi veya sormak istedikleriniz..." class="w-full px-4 py-3 sm:py-3.5 border border-gray-300 rounded-xl focus:ring-2 focus:ring-ada-emerald focus:border-ada-emerald text-base sm:text-sm transition-all outline-none"></textarea>
+            </div>
+
+            <!-- Form Gönder & WhatsApp Butonları -->
+            <div class="flex flex-col sm:flex-row items-center gap-3 pt-2">
+              <button type="submit" class="btn-touch w-full sm:flex-1 bg-ada-primary hover:bg-ada-emerald text-white py-3.5 sm:py-4 px-6 rounded-xl font-bold text-xs uppercase tracking-wider transition-all duration-300 shadow-md flex items-center justify-center gap-2">
+                <i class="fa-solid fa-paper-plane"></i>
+                <span>FORMU GÖNDER</span>
+              </button>
+              <button type="button" id="whatsapp-send-btn" class="btn-touch w-full sm:flex-1 bg-emerald-600 hover:bg-emerald-700 text-white py-3.5 sm:py-4 px-6 rounded-xl font-bold text-xs uppercase tracking-wider transition-all duration-300 shadow-md flex items-center justify-center gap-2">
+                <i class="fa-brands fa-whatsapp text-base"></i>
+                <span>WhatsApp İle İlet</span>
+              </button>
+            </div>
+
+          </form>
+
+          <!-- Form Başarı Bildirimi -->
+          <div id="form-success-alert" class="hidden mt-6 p-5 rounded-2xl bg-emerald-50 text-emerald-900 border border-emerald-300">
+            <div class="flex items-center gap-2.5 font-bold text-sm mb-1">
+              <i class="fa-solid fa-circle-check text-emerald-600 text-lg"></i>
+              <span>Talebiniz Başarıyla Alındı!</span>
+            </div>
+            <p class="text-xs text-gray-600 leading-relaxed">Ada Çiftliği yetkilisi en kısa sürede paylaştığınız telefon numarasından sizinle iletişime geçecektir.</p>
+          </div>
+
+        </div>
+
+        <!-- ÇİFTLİK BİLGİLERİ & HARİTA VE ULAŞIM REHBERİ -->
+        <div class="lg:col-span-5 space-y-6" id="iletisim">
+          
+          <!-- Bilgi Kartı -->
+          <div class="bg-white p-8 rounded-3xl border border-gray-200 shadow-sm">
+            <h3 class="text-2xl font-serif font-bold text-ada-dark mb-6">Çiftlik Bilgileri</h3>
+            
+            <div class="space-y-4 text-xs sm:text-sm">
+              
+              <div class="flex items-start gap-3.5">
+                <div class="w-10 h-10 rounded-xl bg-emerald-50 text-ada-emerald flex items-center justify-center shrink-0 mt-0.5">
+                  <i class="fa-solid fa-building"></i>
+                </div>
+                <div>
+                  <h4 class="font-bold text-gray-900">Çiftlik Adı</h4>
+                  <p class="text-gray-600 mt-0.5 font-medium">Ada Çiftliği Besi ve Süt Hayvancılığı</p>
+                </div>
+              </div>
+
+              <div class="flex items-start gap-3.5">
+                <div class="w-10 h-10 rounded-xl bg-sky-50 text-sky-700 flex items-center justify-center shrink-0 mt-0.5">
+                  <i class="fa-solid fa-location-dot"></i>
+                </div>
+                <div>
+                  <h4 class="font-bold text-gray-900">Konum & Açık Adres</h4>
+                  <p class="text-gray-600 mt-0.5 leading-relaxed">Adasarhanlı Köyü Yolu, 22600 Meriç / EDİRNE<br><span class="text-xs text-emerald-700 font-semibold">(22.36 Meriç-İpsala İl Yolu üzeri)</span></p>
+                </div>
+              </div>
+
+              <div class="flex items-start gap-3.5">
+                <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-700 flex items-center justify-center shrink-0 mt-0.5">
+                  <i class="fa-solid fa-phone"></i>
+                </div>
+                <div>
+                  <h4 class="font-bold text-gray-900">Telefon & WhatsApp</h4>
+                  <p class="text-gray-900 font-semibold mt-0.5"><a href="tel:+905323428200" class="hover:text-emerald-600 transition-colors">+90 (532) 342 82 00</a></p>
+                  <p class="text-xs text-gray-500 mt-0.5"><a href="https://wa.me/905323428200" target="_blank" class="text-emerald-700 hover:underline flex items-center gap-1"><i class="fa-brands fa-whatsapp text-emerald-600"></i> WhatsApp Üzerinden Hızlı Mesaj</a></p>
+                </div>
+              </div>
+
+              <div class="flex items-start gap-3.5">
+                <div class="w-10 h-10 rounded-xl bg-purple-50 text-purple-700 flex items-center justify-center shrink-0 mt-0.5">
+                  <i class="fa-solid fa-envelope"></i>
+                </div>
+                <div>
+                  <h4 class="font-bold text-gray-900">E-Posta</h4>
+                  <p class="text-gray-600 mt-0.5"><a href="mailto:adaciftligi22@gmail.com" class="hover:text-purple-600 transition-colors">adaciftligi22@gmail.com</a></p>
+                  <p class="text-xs text-gray-500"><a href="mailto:info@adaciftligi.net.tr" class="hover:text-purple-600 transition-colors">info@adaciftligi.net.tr</a></p>
+                </div>
+              </div>
+
+              <div class="flex items-start gap-3.5">
+                <div class="w-10 h-10 rounded-xl bg-amber-50 text-amber-700 flex items-center justify-center shrink-0 mt-0.5">
+                  <i class="fa-solid fa-clock"></i>
+                </div>
+                <div>
+                  <h4 class="font-bold text-gray-900">Ziyaret & Çalışma Saatleri</h4>
+                  <p class="text-gray-700 font-medium mt-0.5">Haftanın 7 Günü: 07:00 – 19:30</p>
+                  <p class="text-xs text-gray-500">Ziyaret ve kurban seçimi için önceden bilgi vermeniz önerilir.</p>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Harita ve Ulaşım Rehberi -->
+          <div class="bg-ada-dark text-white p-8 rounded-3xl shadow-md border border-emerald-950">
+            <h4 class="font-serif font-bold text-lg mb-4 text-ada-gold flex items-center gap-2">
+              <i class="fa-solid fa-route"></i> Harita ve Ulaşım Rehberi
+            </h4>
+            
+            <div class="grid grid-cols-2 gap-4 mb-6">
+              <div class="bg-white/10 p-4 rounded-2xl text-center border border-white/10">
+                <div class="text-2xl font-bold text-white">13 km</div>
+                <div class="text-[11px] text-gray-300 mt-1 uppercase tracking-wider">Meriç İlçe Merkezi</div>
+              </div>
+              <div class="bg-white/10 p-4 rounded-2xl text-center border border-white/10">
+                <div class="text-2xl font-bold text-white">98 km</div>
+                <div class="text-[11px] text-gray-300 mt-1 uppercase tracking-wider">Edirne İl Merkezi</div>
+              </div>
+            </div>
+
+            <div class="text-xs text-gray-300 leading-relaxed bg-white/5 p-4 rounded-2xl border border-white/10">
+              <strong class="text-white block mb-1">Ulaşım Tarifi:</strong>
+              Edirne - Meriç - İpsala karayolu (22.36) üzerinde, Küplü beldesini geçtikten sonra Adasarhanlı Köyü girişinde çiftlik tabelalarımızı takip edebilirsiniz.
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- GOOGLE HARİTA İFRAME ENTEGRASYONU -->
+      <div class="mt-12 rounded-3xl overflow-hidden shadow-lg border border-gray-200">
+        <div class="bg-ada-surface px-6 py-4 border-b border-gray-200 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+          <span class="text-xs font-bold text-gray-800 uppercase tracking-wider flex items-center gap-2">
+            <i class="fa-solid fa-map-pin text-ada-emerald text-sm"></i> Ada Çiftliği - Adasarhanlı Köyü, Meriç / Edirne
+          </span>
+          <span class="text-xs text-gray-500">22.36 Meriç-İpsala Karayolu Hattı</span>
+        </div>
+        <iframe 
+          title="Ada Çiftliği Konumu Haritası"
+          src="https://maps.google.com/maps?q=Adasarhanl%C4%B1%2C%20Meri%C3%A7%2C%20Edirne&t=&z=13&ie=UTF8&iwloc=&output=embed" 
+          width="100%" 
+          height="380" 
+          style="border:0;" 
+          allowfullscreen="" 
+          loading="lazy">
+        </iframe>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="bg-ada-dark text-gray-300 pt-16 pb-12 border-t border-emerald-950">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
+        
+        <div>
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-10 h-10 rounded-xl bg-ada-emerald flex items-center justify-center text-white text-xl">
+              <i class="fa-solid fa-cow"></i>
+            </div>
+            <div class="text-2xl font-bold font-serif text-white">Ada Çiftliği</div>
+          </div>
+          <p class="text-xs text-gray-400 leading-relaxed mb-6">
+            Adasarhanlı'nın Bereketli Topraklarında, Meriç Nehri'nin Temiz Sularıyla Beslenen Doğal ve Modern Besi Hayvancılığı.
+          </p>
+          <div class="flex items-center gap-3">
+            <a href="https://wa.me/905323428200" target="_blank" class="w-9 h-9 rounded-xl bg-emerald-700/80 hover:bg-emerald-600 flex items-center justify-center transition-colors text-white text-sm" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+            <a href="tel:+905323428200" class="w-9 h-9 rounded-xl bg-white/10 hover:bg-ada-emerald flex items-center justify-center transition-colors text-white text-sm" aria-label="Telefon"><i class="fa-solid fa-phone"></i></a>
+            <a href="mailto:adaciftligi22@gmail.com" class="w-9 h-9 rounded-xl bg-white/10 hover:bg-ada-emerald flex items-center justify-center transition-colors text-white text-sm" aria-label="E-Posta"><i class="fa-solid fa-envelope"></i></a>
+          </div>
+        </div>
+
+        <div>
+          <h4 class="text-white font-serif font-bold text-base mb-4 border-b border-gray-800 pb-2">Hızlı Erişim</h4>
+          <ul class="space-y-2 text-xs">
+            <li><a href="#anasayfa" class="hover:text-emerald-400 transition-colors">Ana Sayfa (Home)</a></li>
+            <li><a href="#hakkimizda" class="hover:text-emerald-400 transition-colors">Hakkımızda & Adasarhanlı</a></li>
+            <li><a href="#besi" class="hover:text-emerald-400 transition-colors">Besi Hayvancılığı (Simental & Şarole)</a></li>
+            <li><a href="#sut" class="hover:text-emerald-400 transition-colors">Süt Sığırcılığı (Holstein)</a></li>
+            <li><a href="#koyunculuk" class="hover:text-emerald-400 transition-colors">Koyunculuk (Kıvırcık & Merinos)</a></li>
+            <li><a href="#biyoguvenlik" class="hover:text-emerald-400 transition-colors">Biyo-Güvenlik ve Ekoloji</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="text-white font-serif font-bold text-base mb-4 border-b border-gray-800 pb-2">Faaliyet Alanları</h4>
+          <ul class="space-y-2.5 text-xs text-gray-400">
+            <li>• Canlı Besi Danası (Simental & Şarole)</li>
+            <li>• Kurbanlık Büyükbaş & Küçükbaş Rezervasyonu</li>
+            <li>• Safkan Holstein Çiğ Süt Üretimi (+4°C)</li>
+            <li>• Damızlık Kıvırcık & Merinos Koç / Kuzu</li>
+            <li>• Doğal Yonca & Mısır Silajı Yetiştiriciliği</li>
+            <li>• Toptan Karkas Et Tedariki</li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="text-white font-serif font-bold text-base mb-4 border-b border-gray-800 pb-2">Lokasyon & İletişim</h4>
+          <p class="text-xs text-gray-400 leading-relaxed mb-3">
+            Adasarhanlı Köyü Yolu, 22600 Meriç / EDİRNE<br>
+            (22.36 Meriç-İpsala Karayolu)
+          </p>
+          <p class="text-xs text-emerald-400 font-semibold mb-1">
+            <a href="tel:+905323428200" class="hover:underline flex items-center gap-1.5"><i class="fa-solid fa-phone mr-1"></i> +90 (532) 342 82 00</a>
+          </p>
+          <p class="text-xs text-emerald-300 font-medium mb-1">
+            <a href="https://wa.me/905323428200" target="_blank" class="hover:underline flex items-center gap-1.5"><i class="fa-brands fa-whatsapp mr-1"></i> WhatsApp Doğrudan Hat</a>
+          </p>
+          <p class="text-xs text-gray-400 mb-4">
+            <a href="mailto:adaciftligi22@gmail.com" class="hover:underline flex items-center gap-1.5"><i class="fa-solid fa-envelope mr-1"></i> adaciftligi22@gmail.com</a>
+          </p>
+          <div class="inline-block px-3 py-1.5 rounded-lg bg-emerald-950/60 border border-emerald-800 text-[11px] text-emerald-300 font-medium">
+            🛡️ %100 Trakya Arilik Güvencesi
+          </div>
+        </div>
+
+      </div>
+
+      <div class="pt-8 border-t border-gray-800 flex flex-col sm:flex-row justify-between items-center text-xs text-gray-500 gap-4">
+        <div>
+          © Ada Çiftliği - Adasarhanlı, Meriç, Edirne. Tüm Hakları Saklıdır.
+        </div>
+        <div class="flex items-center gap-4">
+          <span>Doğal Besi & Süt Hayvancılığı</span>
+          <span>•</span>
+          <span>Meriç Havzası</span>
+        </div>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- Toast Notification Container -->
+  <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-24 opacity-0 transition-all duration-300 bg-ada-dark text-white px-6 py-4 rounded-2xl shadow-2xl border border-emerald-500/30 flex items-center gap-4 max-w-md">
+    <div class="text-2xl text-emerald-400">
+      <i class="fa-solid fa-circle-check"></i>
+    </div>
+    <div>
+      <h5 id="toast-title" class="font-bold text-sm text-white">Başarılı!</h5>
+      <p id="toast-message" class="text-xs text-gray-300">İşleminiz tamamlandı.</p>
+    </div>
+  </div>
+
+  <!-- Mobil Sabit Hızlı İletişim Barı (Sadece Mobilde Görünür) -->
+  <div class="fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-gray-200 px-3 py-2.5 flex items-center justify-between gap-2.5 md:hidden shadow-2xl mobile-action-bar">
+    <a href="tel:+905323428200" class="btn-touch flex-1 bg-ada-primary text-white py-3 px-2 rounded-xl font-bold text-xs flex items-center justify-center gap-1.5 shadow-sm active:scale-95 transition-transform">
+      <i class="fa-solid fa-phone text-ada-gold text-sm"></i>
+      <span>Hemen Ara</span>
+    </a>
+    <a href="https://wa.me/905323428200" target="_blank" class="btn-touch flex-1 bg-emerald-600 text-white py-3 px-2 rounded-xl font-bold text-xs flex items-center justify-center gap-1.5 shadow-sm active:scale-95 transition-transform">
+      <i class="fa-brands fa-whatsapp text-white text-base"></i>
+      <span>WhatsApp</span>
+    </a>
+    <a href="#iletisim-rezervasyon" class="btn-touch w-11 h-11 bg-ada-amber text-white rounded-xl flex items-center justify-center text-sm shrink-0 shadow-sm active:scale-95 transition-transform" title="Rezervasyon Formu" aria-label="Rezervasyon">
+      <i class="fa-solid fa-calendar-check"></i>
+    </a>
+  </div>
+
+  <!-- Başa Dön (Back to Top) Floating Button -->
+  <button id="back-to-top" class="fixed bottom-20 md:bottom-8 right-4 md:right-8 z-40 w-11 h-11 rounded-full bg-ada-dark/85 text-white hover:bg-ada-emerald backdrop-blur-md shadow-xl border border-white/20 flex items-center justify-center text-sm opacity-0 pointer-events-none transition-all duration-300 active:scale-90" aria-label="Başa Dön">
+    <i class="fa-solid fa-arrow-up"></i>
+  </button>
+
+  <script src="app.js"></script>
+</body>
+</html>

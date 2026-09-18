@@ -1,0 +1,142 @@
+/* Ada Çiftliği Özel Stilleri */
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&display=swap');
+
+:root {
+  --primary: #1b4332;
+  --primary-light: #2d6a4f;
+  --primary-dark: #081c15;
+  --accent: #c48a3f;
+  --accent-light: #d89f54;
+  --accent-dark: #9a6523;
+  --bg-cream: #fbfbf8;
+  --bg-surface: #ffffff;
+  --border-light: #e5e9e2;
+  --text-main: #1e2920;
+  --text-muted: #526356;
+}
+
+body {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  color: var(--text-main);
+  background-color: var(--bg-cream);
+  overflow-x: hidden;
+}
+
+h1, h2, h3, .font-serif-title {
+  font-family: 'Playfair Display', serif;
+}
+
+/* Glassmorphism Navigation */
+.nav-glass {
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(45, 106, 79, 0.12);
+  transition: all 0.3s ease;
+}
+
+.nav-glass.scrolled {
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.08);
+}
+
+/* Hero Gradient & Pattern */
+.hero-bg {
+  background: linear-gradient(135deg, rgba(8, 28, 21, 0.88) 0%, rgba(27, 67, 50, 0.82) 60%, rgba(45, 106, 79, 0.75) 100%),
+              url('images/hero_cows.webp') center/cover no-repeat;
+}
+
+/* Card Hover Elevation */
+.card-hover {
+  transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.card-hover:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 16px 32px -8px rgba(27, 67, 50, 0.15);
+}
+
+/* Flow Chart Arrows */
+.flow-step-arrow {
+  position: relative;
+}
+
+@media (min-width: 1024px) {
+  .flow-step-arrow::after {
+    content: '➔';
+    position: absolute;
+    right: -20px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.25rem;
+    color: #2d6a4f;
+    font-weight: bold;
+  }
+  .flow-step-arrow:last-child::after {
+    display: none;
+  }
+}
+
+/* Ration Table Highlighting */
+.table-ration tr:hover td {
+  background-color: #f1f6f2;
+}
+
+/* Mobile-Friendly Optimizations */
+html, body {
+  overflow-x: hidden;
+  max-width: 100vw;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* iOS Safe Area Padding for Floating Action Bar */
+.mobile-action-bar {
+  padding-bottom: calc(0.75rem + env(safe-area-inset-bottom, 0px));
+}
+
+/* Touch active scale effect for buttons */
+@media (hover: none) and (pointer: coarse) {
+  button:active, a.btn-touch:active {
+    transform: scale(0.97);
+  }
+}
+
+/* Mobile Menu Slide Animation */
+#mobile-menu {
+  transition: max-height 0.35s ease-in-out, opacity 0.25s ease-in-out;
+}
+
+/* Floating Back to Top Button */
+#back-to-top {
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* Pulse animation for Arilik badge */
+@keyframes softPulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.04);
+    opacity: 0.92;
+  }
+}
+
+.pulse-badge {
+  animation: softPulse 2.5s infinite ease-in-out;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+::-webkit-scrollbar-thumb {
+  background: #2d6a4f;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #1b4332;
+}
