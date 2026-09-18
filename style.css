@@ -8,11 +8,12 @@
   --accent: #c48a3f;
   --accent-light: #d89f54;
   --accent-dark: #9a6523;
-  --bg-cream: #fbfbf8;
-  --bg-surface: #ffffff;
-  --border-light: #e5e9e2;
-  --text-main: #1e2920;
-  --text-muted: #526356;
+  --bg-cream: #f1f6f1;
+  --bg-surface: #e9f0e9;
+  --bg-linen: #f8faf8;
+  --border-light: rgba(27, 67, 50, 0.10);
+  --text-main: #18281d;
+  --text-muted: #495e50;
 }
 
 body {
@@ -28,7 +29,7 @@ h1, h2, h3, .font-serif-title {
 
 /* Glassmorphism Navigation */
 .nav-glass {
-  background: rgba(255, 255, 255, 0.94);
+  background: rgba(248, 250, 248, 0.94);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid rgba(45, 106, 79, 0.12);
@@ -37,6 +38,29 @@ h1, h2, h3, .font-serif-title {
 
 .nav-glass.scrolled {
   box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.08);
+}
+
+/* Hero Transition Zone - Eye-comforting gradual gradient */
+.hero-transition-zone {
+  background: linear-gradient(180deg, #e9f0e9 0%, #f1f6f1 45%, #f8faf8 100%);
+}
+
+/* Footer Transition Gradient */
+.section-footer-transition {
+  background: linear-gradient(180deg, #f1f6f1 0%, #e9f0e9 50%, #dbe6dc 100%);
+}
+
+/* Eye-comfort border & background softening */
+.border-gray-200 {
+  border-color: rgba(27, 67, 50, 0.10) !important;
+}
+
+.border-gray-100 {
+  border-color: rgba(27, 67, 50, 0.06) !important;
+}
+
+.bg-gray-50 {
+  background-color: #f3f7f3 !important;
 }
 
 /* Hero Gradient & Pattern */
@@ -78,7 +102,7 @@ h1, h2, h3, .font-serif-title {
 
 /* Ration Table Highlighting */
 .table-ration tr:hover td {
-  background-color: #f1f6f2;
+  background-color: #eaf1ea;
 }
 
 /* Mobile-Friendly Optimizations */
