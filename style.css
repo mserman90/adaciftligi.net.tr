@@ -216,3 +216,15 @@ html, body {
   transform: translateX(-50%) translateY(0);
 }
 
+/* FAQ Accordion Details Styles */
+details summary::-webkit-details-marker {
+  display: none;
+}
+details summary {
+  list-style: none;
+}
+details[open] summary .faq-chevron {
+  transform: rotate(180deg);
+}
+
+

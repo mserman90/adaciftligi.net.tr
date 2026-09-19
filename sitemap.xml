@@ -3,7 +3,7 @@
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://www.adaciftligi.net.tr/</loc>
-    <lastmod>2026-09-18</lastmod>
+    <lastmod>2026-09-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <image:image>
@@ -17,6 +17,10 @@
     <image:image>
       <image:loc>https://www.adaciftligi.net.tr/images/charolais_bull.jpg</image:loc>
       <image:title>Şarole Charolais Besi Danası</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.adaciftligi.net.tr/images/limousin_bull.jpg</image:loc>
+      <image:title>Limuzin Limousin Besi Danası</image:title>
     </image:image>
     <image:image>
       <image:loc>https://www.adaciftligi.net.tr/images/inek.webp</image:loc>
@@ -41,38 +45,44 @@
   </url>
   <url>
     <loc>https://www.adaciftligi.net.tr/#besi</loc>
-    <lastmod>2026-09-18</lastmod>
-    <changefreq>monthly</changefreq>
+    <lastmod>2026-09-19</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://www.adaciftligi.net.tr/#sut</loc>
-    <lastmod>2026-09-18</lastmod>
+    <lastmod>2026-09-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://www.adaciftligi.net.tr/#koyunculuk</loc>
-    <lastmod>2026-09-18</lastmod>
+    <lastmod>2026-09-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://www.adaciftligi.net.tr/#hakkimizda</loc>
-    <lastmod>2026-09-18</lastmod>
+    <lastmod>2026-09-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.adaciftligi.net.tr/#biyoguvenlik</loc>
-    <lastmod>2026-09-18</lastmod>
+    <lastmod>2026-09-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://www.adaciftligi.net.tr/#faq</loc>
+    <lastmod>2026-09-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
     <loc>https://www.adaciftligi.net.tr/#iletisim-rezervasyon</loc>
-    <lastmod>2026-09-18</lastmod>
-    <changefreq>monthly</changefreq>
+    <lastmod>2026-09-19</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
 </urlset>
