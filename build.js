@@ -6,7 +6,7 @@ if (!fs.existsSync(dist)) {
   fs.mkdirSync(dist, { recursive: true });
 }
 
-const filesToCopy = ['index.html', 'style.css', 'app.js', 'favicon.ico', 'favicon.png', 'robots.txt', 'sitemap.xml'];
+const filesToCopy = ['index.html', 'style.css', 'app.js', 'favicon.ico', 'favicon.png', 'robots.txt', 'sitemap.xml', 'google72c537b0a520c95a.html'];
 for (const file of filesToCopy) {
   if (fs.existsSync(file)) {
     fs.copyFileSync(file, path.join(dist, file));
